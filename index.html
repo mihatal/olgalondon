@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Репетитор-Миллионер — конструктор слайдов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+/* ============================================================
+   ФИРСТИЛЬ ОЛИ — источник правды: (C) olgalondon-site-v5.html
+   Onest · #08080F ink · слива/фиолет · лайм #C8FF00 · текст #E8E8F2
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+  --ink:#08080F; --ink2:#0E0E1A; --ink3:#141428;
+  --plum:#1A0A3B; --plum2:#250D52;
+  --violet:#5B21B6; --violet2:#7C3AED;
+  --lime:#C8FF00; --lime2:#B2E600;
+  --white:#FFFFFF; --off:#E8E8F2;
+  --muted:rgba(232,232,242,0.55); --faint:rgba(232,232,242,0.28);
+  --bdk:rgba(255,255,255,0.08);
+  --red:#FF6B6B;
+  --scale:0.71875;            /* 920 / 1280 — масштаб превью слайда */
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:#050509;
+  color:var(--off);
+  font-family:'Onest',-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:120px;
+}
+
+/* ---------- ВЕРХНЯЯ ПАНЕЛЬ ---------- */
+.topbar{
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; gap:16px;
+  padding:16px 26px;
+  background:rgba(5,5,9,.86); backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--bdk);
+}
+.topbar h1{
+  font-size:15px; font-weight:900; letter-spacing:.4px; margin:0;
+  text-transform:uppercase; color:var(--off);
+}
+.topbar h1 span{color:var(--lime)}
+.tb-count{font-size:12px; font-weight:700; color:var(--faint); margin-right:auto}
+.tb-btn{
+  display:inline-flex; align-items:center; gap:7px;
+  background:rgba(255,255,255,.05); color:var(--off);
+  border:1px solid var(--bdk); border-radius:4px;
+  padding:9px 15px; font:700 12px/1 'Onest',sans-serif; cursor:pointer;
+  transition:all .15s; white-space:nowrap;
+}
+.tb-btn:hover{border-color:rgba(200,255,0,.5); color:var(--lime)}
+.tb-btn.primary{background:var(--lime); color:var(--ink); border-color:var(--lime)}
+.tb-btn.primary:hover{opacity:.88; color:var(--ink)}
+.tb-btn.danger:hover{border-color:rgba(255,107,107,.6); color:var(--red)}
+
+.hint{
+  max-width:980px; margin:18px auto 4px; padding:0 30px;
+  font-size:12px; color:var(--faint); line-height:1.6;
+}
+.hint b{color:var(--muted); font-weight:700}
+
+/* ---------- СПИСОК СЛАЙДОВ (конструктор) ---------- */
+.deck{max-width:980px; margin:0 auto; padding:10px 30px}
+.row{margin:34px 0 0}
+.row-head{
+  display:flex; align-items:center; gap:10px; margin-bottom:10px;
+}
+.row-num{
+  font-size:13px; font-weight:900; color:var(--ink);
+  background:var(--lime); border-radius:4px; padding:4px 9px; min-width:34px; text-align:center;
+}
+.row-block{font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--faint); margin-right:auto; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.row-tools{display:flex; gap:5px; flex-shrink:0}
+.ico{
+  width:32px; height:32px; display:flex; align-items:center; justify-content:center;
+  background:rgba(255,255,255,.05); border:1px solid var(--bdk); border-radius:5px;
+  color:var(--muted); cursor:pointer; transition:all .15s; font-size:14px; line-height:1;
+}
+.ico:hover{border-color:rgba(200,255,0,.5); color:var(--lime); background:rgba(200,255,0,.07)}
+.ico.del:hover{border-color:rgba(255,107,107,.6); color:var(--red); background:rgba(255,107,107,.08)}
+.ico:disabled{opacity:.25; cursor:not-allowed}
+.ico:disabled:hover{border-color:var(--bdk); color:var(--muted); background:rgba(255,255,255,.05)}
+
+/* ---------- РАМКА СЛАЙДА (масштаб) ---------- */
+.stage{
+  width:920px; height:calc(720px * var(--scale));
+  overflow:hidden; border-radius:8px;
+  box-shadow:0 18px 60px rgba(0,0,0,.55); position:relative;
+}
+.stage .slide{transform:scale(var(--scale)); transform-origin:top left}
+
+/* визуал-подсказка под слайдом */
+.visual{
+  margin-top:10px; font-size:12px; font-style:italic; color:var(--faint);
+  line-height:1.5; padding-left:4px; border-left:2px solid var(--violet2); padding:2px 0 2px 12px;
+}
+
+/* ---------- БЛОК ЗАМЕТОК ДОКЛАДЧИКА ---------- */
+.notes{
+  margin-top:12px; background:var(--ink2); border:1px solid var(--bdk);
+  border-radius:8px; overflow:hidden;
+}
+.notes-head{
+  display:flex; align-items:center; gap:10px;
+  padding:10px 14px; border-bottom:1px solid var(--bdk); background:rgba(255,255,255,.02);
+}
+.notes-label{font-size:10px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--faint); margin-right:auto}
+.copy-btn{
+  display:inline-flex; align-items:center; gap:6px;
+  background:rgba(200,255,0,.1); color:var(--lime);
+  border:1px solid rgba(200,255,0,.25); border-radius:4px;
+  padding:6px 12px; font:800 11px/1 'Onest',sans-serif; cursor:pointer; transition:all .15s;
+}
+.copy-btn:hover{background:rgba(200,255,0,.18)}
+.copy-btn.ok{background:var(--lime); color:var(--ink); border-color:var(--lime)}
+.notes-body{padding:14px 16px; font-size:14px; line-height:1.65; color:var(--off); white-space:pre-wrap}
+.notes-body.empty{color:var(--faint); font-style:italic}
+
+/* ============================================================
+   СЛАЙД 16:9 (1280×720) — дизайн-система Оли
+   ============================================================ */
+.slide{
+  width:1280px; height:720px; position:relative; overflow:hidden;
+  background:var(--ink); color:var(--off);
+  font-family:'Onest',sans-serif;
+  padding:88px 104px;
+  display:flex; flex-direction:column; justify-content:center;
+}
+.slide .glow{
+  position:absolute; top:-180px; right:-160px; width:560px; height:560px;
+  background:radial-gradient(circle, rgba(124,58,237,.32) 0%, transparent 68%);
+  pointer-events:none;
+}
+.slide .eyebrow{
+  position:absolute; top:58px; left:104px;
+  font:800 14px/1 'Onest'; letter-spacing:3px; text-transform:uppercase; color:var(--faint);
+}
+.slide .pageno{
+  position:absolute; top:58px; right:104px;
+  font:800 14px/1 'Onest'; letter-spacing:1px; color:var(--faint);
+}
+.slide h2{
+  margin:0; font-weight:900; font-size:76px; line-height:.96; letter-spacing:-2.5px;
+  text-transform:uppercase; color:var(--off); max-width:1010px;
+}
+.slide h2 em{color:var(--lime); font-style:normal}
+.slide h2 s{color:var(--faint)}
+
+.slide .lines{margin-top:34px; display:flex; flex-direction:column; gap:16px; max-width:1010px}
+.slide .ln{font-weight:600; font-size:31px; line-height:1.32; color:var(--muted)}
+.slide .ln em{color:var(--lime); font-style:normal; font-weight:700}
+.slide .ln s{color:var(--faint)}
+.slide .ln.before{color:var(--red); font-weight:700}
+.slide .ln.after{color:var(--lime); font-weight:800}
+
+/* stat / price — крупные фокус-строки */
+.slide .kicker{
+  font:800 22px/1 'Onest'; letter-spacing:3px; text-transform:uppercase; color:var(--faint); margin-bottom:30px;
+}
+.slide .stat-lines{display:flex; flex-direction:column; gap:18px; max-width:1070px}
+.slide .stat{font-weight:900; font-size:64px; line-height:1.02; letter-spacing:-2px; color:var(--off)}
+.slide .stat em{color:var(--lime); font-style:normal}
+.slide .stat s{color:var(--faint); font-weight:800}
+.slide .stat.before{color:var(--red)}
+.slide .stat.after{color:var(--lime)}
+
+/* обложка */
+.slide.is-cover{padding:0}
+.slide.is-cover .cover{display:grid; grid-template-columns:1.15fr .85fr; width:100%; height:100%}
+.slide.is-cover .cover-txt{padding:104px; display:flex; flex-direction:column; justify-content:center}
+.slide.is-cover h1{
+  margin:0; font-weight:900; font-size:104px; line-height:.88; letter-spacing:-4px;
+  text-transform:uppercase; color:var(--white);
+}
+.slide.is-cover h1 em{color:var(--lime); font-style:normal; display:block}
+.slide.is-cover .cover-sub{
+  margin:26px 0 0; font-size:27px; font-weight:600; line-height:1.4; color:var(--muted); max-width:560px;
+}
+.slide.is-cover .cover-sub em{color:var(--lime); font-style:normal; font-weight:700}
+.slide.is-cover .cover-photo{position:relative; background:var(--ink3); overflow:hidden}
+.slide.is-cover .cover-photo img{width:100%; height:100%; object-fit:cover; object-position:center top}
+.slide.is-cover .cover-photo::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(105deg, var(--ink) 0%, transparent 38%);
+}
+
+/* чистый текст — КРУПНО (не стесняемся занимать слайд) */
+.slide.is-statement{justify-content:center}
+.slide .statement{
+  font-weight:900; font-size:118px; line-height:.9; letter-spacing:-4px;
+  text-transform:uppercase; color:var(--off); max-width:1090px;
+}
+.slide .statement em{color:var(--lime); font-style:normal}
+.slide .statement-sub{
+  margin-top:32px; font-size:36px; font-weight:600; line-height:1.32; color:var(--muted); max-width:960px;
+}
+.slide .statement-sub em{color:var(--lime); font-style:normal; font-weight:700}
+
+/* ОДНО ФОТО — сплит текст | фото */
+.slide.is-split{padding:0}
+.slide.is-split .split{display:grid; grid-template-columns:1.08fr .92fr; width:100%; height:100%}
+.slide.is-split .split-txt{padding:90px 84px; display:flex; flex-direction:column; justify-content:center}
+.slide.is-split .split-txt h2{font-size:62px}
+.slide.is-split .media-photo{position:relative; background:var(--ink3); overflow:hidden}
+.slide.is-split .media-photo img{width:100%; height:100%; object-fit:cover; object-position:center top}
+.slide.is-split .media-photo::after{content:''; position:absolute; inset:0; background:linear-gradient(105deg,var(--ink) 0%, transparent 34%)}
+
+/* НЕСКОЛЬКО ФОТО — галерея */
+.slide.is-gallery{justify-content:flex-start; padding:80px 88px}
+.slide .gal-head h2{font-size:58px; line-height:.98}
+.slide .gal-head .lines{margin-top:18px}
+.slide .gal-head .ln{font-size:26px}
+.slide .gal-grid{display:grid; gap:18px; margin-top:34px; width:100%; flex:1 1 auto; min-height:0}
+.slide .gal-2{grid-template-columns:repeat(2,1fr)}
+.slide .gal-3{grid-template-columns:repeat(3,1fr)}
+.slide .gal-4{grid-template-columns:repeat(4,1fr)}
+.slide .gal-grid img{width:100%; height:100%; object-fit:cover; border-radius:8px; border:1px solid var(--bdk); background:var(--ink3)}
+
+/* плейсхолдеры фото в шаблоне (где явно будут фото) */
+.ph-rect{width:100%; height:100%; box-sizing:border-box; border:2px dashed rgba(232,232,242,.4);
+  background:repeating-linear-gradient(45deg, rgba(255,255,255,.04) 0 14px, transparent 14px 28px);
+  display:flex; align-items:center; justify-content:center; text-align:center}
+.ph-rect span{font:800 22px/1.25 'Onest',sans-serif; letter-spacing:2px; text-transform:uppercase; color:rgba(232,232,242,.55); padding:0 18px}
+.slide .gal-grid .ph-rect{border-radius:8px}
+.slide.lime .ph-rect{border-color:rgba(8,8,15,.3)}
+.slide.lime .ph-rect span{color:rgba(8,8,15,.55)}
+
+/* ТОНА ФОНА (ритм) */
+.slide.plum{background:var(--plum)}
+.slide.violet{background:linear-gradient(135deg,var(--plum2) 0%,var(--plum) 60%,var(--ink) 100%)}
+.slide.lime{background:var(--lime); color:var(--ink)}
+.slide.lime .eyebrow,.slide.lime .pageno{color:rgba(8,8,15,.5)}
+.slide.lime .glow{display:none}
+.slide.lime h2{color:var(--ink)}
+.slide.lime h2 em{color:var(--violet)}
+.slide.lime .ln{color:rgba(8,8,15,.72)}
+.slide.lime .ln em{color:var(--violet)}
+.slide.lime .kicker{color:rgba(8,8,15,.5)}
+.slide.lime .stat{color:var(--ink)}
+.slide.lime .stat em{color:var(--violet)}
+.slide.lime .stat s,.slide.lime .ln s,.slide.lime h2 s{color:rgba(8,8,15,.42)}
+.slide.lime .statement{color:var(--ink)}
+.slide.lime .statement em{color:var(--violet)}
+.slide.lime .statement-sub{color:rgba(8,8,15,.7)}
+
+/* ---------- РЕДАКТИРОВАНИЕ ТЕКСТА ---------- */
+[contenteditable]{outline:none; border-radius:4px; transition:box-shadow .12s, background .12s}
+.stage [contenteditable]:hover{box-shadow:inset 0 0 0 1px rgba(200,255,0,.35)}
+.stage [contenteditable]:focus{box-shadow:inset 0 0 0 2px var(--lime); background:rgba(200,255,0,.08)}
+.notes-body[contenteditable]:hover{box-shadow:inset 0 0 0 1px rgba(200,255,0,.22)}
+.notes-body[contenteditable]:focus{box-shadow:inset 0 0 0 2px rgba(200,255,0,.5)}
+/* плейсхолдеры пустых полей (скрыты при экспорте/захвате) */
+body:not(.exporting):not(.capturing) .notes-body:empty::before{content:'— добавить заметку докладчика —'; color:var(--faint); font-style:italic}
+body:not(.exporting):not(.capturing) .slide .statement-sub:empty::before{content:'+ добивка (по желанию)'; color:var(--faint); font-style:italic; font-size:24px}
+body:not(.exporting):not(.capturing) .slide .kicker:empty::before{content:'+ заголовок'; color:var(--faint)}
+
+/* ---------- РЕЖИМ ЭКСПОРТА (для скрипта render-deck) ---------- */
+body.exporting{background:#000; padding:0}
+body.exporting .topbar,body.exporting .hint,body.exporting .row-head,body.exporting .notes,body.exporting .visual{display:none !important}
+body.exporting .deck{max-width:none; margin:0; padding:0}
+body.exporting .row{margin:0}
+body.exporting .stage{width:1280px; height:720px; overflow:visible; border-radius:0; box-shadow:none}
+body.exporting .stage .slide{transform:none}
+body.capturing .stage [contenteditable]:hover,body.capturing .stage [contenteditable]:focus{box-shadow:none; background:none}
+
+/* ---------- ПЛАВАЮЩИЙ РЕДАКТОР РАЗМЕРА ШРИФТА ---------- */
+.txtbar{position:fixed; z-index:200; display:none; align-items:center; gap:6px; background:#16161f;
+  border:1px solid var(--bdk); border-radius:8px; padding:5px 7px; box-shadow:0 10px 28px rgba(0,0,0,.55)}
+.txtbar.show{display:flex}
+.txtbar button{width:32px; height:30px; background:rgba(255,255,255,.06); border:1px solid var(--bdk);
+  border-radius:5px; color:var(--off); font:800 14px/1 'Onest',sans-serif; cursor:pointer}
+.txtbar button:hover{border-color:rgba(200,255,0,.55); color:var(--lime)}
+.txtbar .tb-sz{min-width:54px; text-align:center; font:800 13px/1 'Onest',sans-serif; color:var(--off)}
+
+/* ---------- КНОПКИ ПОД СЛАЙДОМ ---------- */
+.acts{display:flex; gap:7px; margin-top:10px; flex-wrap:wrap}
+.act{display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.05); color:var(--off);
+  border:1px solid var(--bdk); border-radius:5px; padding:8px 13px; font:700 12px/1 'Onest',sans-serif; cursor:pointer; transition:all .15s}
+.act:hover{border-color:rgba(200,255,0,.5); color:var(--lime)}
+.act.warn:hover{border-color:rgba(255,107,107,.6); color:var(--red)}
+
+/* ---------- ФАЗА 2: СВОБОДНЫЙ РЕЖИМ ---------- */
+.slide.free{padding:0; position:relative}
+.fbox{position:absolute; box-sizing:border-box}
+.fbox:hover{outline:1px dashed rgba(200,255,0,.55)}
+.tbox .fb-txt{width:100%; height:100%; overflow:hidden; outline:none; line-height:1.02;
+  letter-spacing:-1px; text-transform:uppercase; font-family:'Onest',sans-serif; word-break:break-word}
+.tbox .fb-txt em{color:var(--lime); font-style:normal}
+.tbox .fb-txt s{color:var(--faint)}
+.ibox{overflow:visible}
+.ibox img{width:100%; height:100%; object-fit:cover; display:block}
+.fb-ph{width:100%; height:100%; box-sizing:border-box; border:2px dashed rgba(232,232,242,.4);
+  background:repeating-linear-gradient(45deg, rgba(255,255,255,.035) 0 14px, transparent 14px 28px);
+  display:flex; align-items:center; justify-content:center}
+.fb-ph span{font:800 24px/1 'Onest',sans-serif; letter-spacing:4px; color:rgba(232,232,242,.45)}
+/* ручки */
+.fb-grip,.fb-del,.fb-rz{position:absolute; display:none; align-items:center; justify-content:center; z-index:6; cursor:pointer}
+.fbox:hover .fb-grip,.fbox:hover .fb-del,.fbox:hover .fb-rz{display:flex}
+.fb-grip{left:-15px; top:-15px; width:28px; height:28px; background:var(--lime); color:var(--ink); border-radius:50%; font-size:14px; cursor:grab}
+.fb-del{right:-15px; top:-15px; width:28px; height:28px; background:var(--red); color:#fff; border-radius:50%; font-size:18px}
+.fb-rz{right:-9px; bottom:-9px; width:22px; height:22px; background:var(--lime); border:2px solid var(--ink); border-radius:3px; cursor:nwse-resize}
+.fb-tools{position:absolute; left:0; bottom:-38px; display:none; gap:5px; z-index:7}
+.fbox:hover .fb-tools{display:flex}
+.fb-tool{height:28px; padding:0 10px; background:#16161f; border:1px solid var(--bdk); color:var(--off);
+  border-radius:5px; font:800 13px/1 'Onest',sans-serif; cursor:pointer; display:flex; align-items:center}
+.fb-tool:hover{border-color:rgba(200,255,0,.5); color:var(--lime)}
+/* при захвате/экспорте — прятать всю обвязку */
+body.capturing .fbox:hover{outline:none}
+body.capturing .fb-grip,body.capturing .fb-del,body.capturing .fb-rz,body.capturing .fb-tools,
+body.exporting .fbox:hover{display:none !important; outline:none !important}
+
+/* ---------- ПЕЧАТЬ / PDF ---------- */
+@media print{
+  @page{size:1280px 720px; margin:0}
+  body{background:#fff; padding:0}
+  .topbar,.hint,.row-head,.notes,.visual{display:none !important}
+  .deck{max-width:none; margin:0; padding:0}
+  .row{margin:0; page-break-after:always; break-after:page}
+  .stage{width:1280px; height:720px; overflow:visible; border-radius:0; box-shadow:none}
+  .stage .slide{transform:none}
+}
+</style>
+<script src="html2canvas.min.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>РЕПЕТИТОР-<span>МИЛЛИОНЕР</span></h1>
+  <span class="tb-count" id="count"></span>
+  <button class="tb-btn" onclick="copyAll()">⧉ Все заметки</button>
+  <button class="tb-btn" onclick="downloadAll('png')">⬇ Все PNG</button>
+  <button class="tb-btn" onclick="downloadAll('jpg')">⬇ Все JPG</button>
+  <button class="tb-btn" onclick="saveDeckJSON()" title="скачать бэкап дека">⤓ Дек JSON</button>
+  <label class="tb-btn" style="cursor:pointer" title="загрузить дек из JSON">⤒ Загрузить<input type="file" accept="application/json" onchange="loadDeckJSON(event)" style="display:none"></label>
+  <button class="tb-btn danger" onclick="resetDeck()">↺ Сбросить</button>
+</div>
+
+<div id="txtbar" class="txtbar">
+  <button onmousedown="event.preventDefault()" onclick="bumpFont(-4)" title="меньше">A−</button>
+  <span class="tb-sz" id="tbsize">— px</span>
+  <button onmousedown="event.preventDefault()" onclick="bumpFont(4)" title="больше">A+</button>
+</div>
+
+<div class="hint">
+  <b>Конструктор.</b> <b>Текст на слайде и заметки правятся прямо тут</b> — кликни и пиши (сохраняется автоматом).
+  Разметка: <b>*лайм*</b> → удали/добавь звёздочки прямо в тексте · <b>🔴</b>/<b>🟢</b> в начале строки = красная/лаймовая.
+  <b>Размер шрифта:</b> кликни текст — сверху всплывёт <b>A− 54px A+</b> (работает и в шаблоне, и в свободном режиме).
+  Кнопки справа: <b>↑ ↓</b> порядок · <b>⎘</b> дублировать · <b>🗑</b> удалить. Под слайдом: <b>⬇ PNG / JPG</b> и <b>✥ Свободный режим</b>.
+  В свободном режиме: тащи бокс за <b>✥</b>, тяни угол <b>◢</b> для размера, <b>×</b> удалить, <b>A− A+</b> кегль, <b>+ Фото-плейсхолдер</b> = прямоугольник (меняешь форму углом и кнопкой ⬭).
+  Заметки — копировать в Keynote. Скачивание в браузере берёт текст и плейсхолдеры-прямоугольники; слайды с настоящим фото — скриптом render-deck.
+  <b>Бэкап:</b> <b>⤓ Дек JSON</b> сохраняет всю работу в файл · <b>⤒ Загрузить</b> — вернуть. Делай бэкап перед чисткой браузера.
+</div>
+
+<div class="deck" id="deck"></div>
+
+<script>
+/* ============================================================
+   ИСТОЧНИК СЛАЙДОВ
+   Формат строки:  *лайм*  ~зачёркнуто~  🔴 было / 🟢 стало
+   type: cover | standard | stat | section ; tone: ink|plum|violet|lime
+   ТЕСТОВЫЕ 4 СЛАЙДА. Полный дек (125) добавляется сюда же.
+   ============================================================ */
+const SOURCE = [
+  // ===== БЛОК 0 · Открытие =====
+  {block:"Блок 0 · Открытие", type:"cover", tone:"ink", photo:"ph:Оля крупно, на сцене",
+   title:"РЕПЕТИТОР-*МИЛЛИОНЕР*",
+   lines:["Как выйти на *300.000₽* и очередь из учеников на 2 месяца вперёд","Оля Лондон"],
+   notes:"", visual:"Оля крупно, на сцене, лайм-акцент. Вайб закрытого события."},
+  {block:"Блок 0 · Открытие", type:"statement", tone:"ink",
+   title:"ТЫ ЗДЕСЬ НЕ СЛУЧАЙНО 🤝🏻",
+   lines:["эту встречу я открыла только для своих — кто был на разборах"],
+   notes:"Привееет. Я прям очень рада, что ты дошла. И сразу по-честному: я не кидала эту встречу на весь блог. Тут только свои, кто тусил со мной на разборах. Так что давай без церемоний, как мы умеем."},
+  {block:"Блок 0 · Открытие", type:"statement", tone:"violet",
+   title:"ПЕРВЫЙ НАБОР ГРУППЫ 🥁",
+   lines:["и последний, который я веду ЛИЧНО"],
+   notes:"Два года я вела девочек через консультации и малюсенькие группки. А сегодня я первый раз собираю группу. И сразу говорю как есть: это последний поток, где есть я сама, живьём, на каждом созвоне. Почему так — расскажу ближе к концу. Это не пугалка, так реально будет."},
+  {block:"Блок 0 · Открытие", type:"standard", tone:"ink",
+   title:"СТАВЬ + В ЧАТ",
+   lines:["в конце каждого куска — если ты со мной 🗿"],
+   notes:"Одна просьба на эти два часа. Я не умею вещать в пустоту, мне надо тебя чувствовать. Поэтому в конце каждого блока я спрашиваю, а ты кидаешь плюс в чат, если поняла и согласна. Ну чё, поставь плюс, если ты тут."},
+  {block:"Блок 0 · Открытие", type:"standard", tone:"ink",
+   title:"ЧТО ТЫ ЗАБЕРЁШЬ ОТСЮДА",
+   lines:["🔹 поймёшь, ПОЧЕМУ ты до сих пор не на 300к","🔹 увидишь мою систему и живые кейсы девочек","🔹 в конце — условие, которого завтра уже не будет"],
+   notes:""},
+  {block:"Блок 0 · Открытие", type:"standard", tone:"plum",
+   title:"ДОСИДИ ДО КОНЦА — ЗАБЕРЁШЬ 2 ПОДАРКА 🎁",
+   lines:["1. цену, которой не будет нигде, кроме этого эфира","2. [бонус — допишем] — гарантированно, всем, кто до финала"],
+   notes:"И сразу подмажу, чтоб ты не сбежала на середине. Кто досидит до конца — забирает два подарка. Первый: специальную цену, такой не будет даже завтра в блоге. Второй: [бонус], его получит каждая, кто будет со мной до самого финала. Так что никуда не уходи))",
+   visual:"🔲 НУЖНО ОТ ОЛИ: бонус за досмотр (шаблон пробного / чек-лист упаковки на 5.000₽/час / гайд «50 способов»)."},
+
+  // ===== БЛОК 1 · Кто Оля =====
+  {block:"Блок 1 · Кто Оля", type:"split", tone:"ink", photo:"ph:Оля — портрет",
+   title:"ОЛЯ ЛОНДОН 🎤",
+   lines:["вокал · ставка *5.000₽/час* · очередь из учеников","7 лет преподаю · ВШЭ за плечами"],
+   notes:"Коротко, кто вообще с тобой говорит. Я преподаватель вокала, ставка пять тысяч в час, и у меня очередь из учеников. И я с самого начала смотрю на репетиторство как на бизнес. Не как на «ну подработаю, пока что-то не найду»."},
+  {block:"Блок 1 · Кто Оля", type:"stat", tone:"ink",
+   title:"ИТАК, 2019 ГОД 🗿",
+   lines:["я преподаю за *800₽/час*","из них 400₽ отдаю за студию"],
+   notes:"А теперь перемотаем назад, чтоб ты понимала, откуда я знаю про твою ситуацию. 2019 год. Я преподаю за восемьсот рублей в час. Из них четыреста сразу отдаю за аренду студии. Каждый вечер прихожу домой, падаю на кровать и думаю: ну ПА-ЧЕ-МУ у других очередь и нормальные деньги, а я тут как лохушка какая-то? Знаешь это состояние, да?🥵"},
+  {block:"Блок 1 · Кто Оля", type:"statement", tone:"violet",
+   title:"И ТОГДА Я РЕШИЛА 💥",
+   lines:["либо учусь маркетингу — либо так и буду нищенствовать"],
+   notes:"И в какой-то момент меня просто переклинило. Я квалифицированный педагог, я даю людям пипец как много пользы. А получаю восемьсот рублей. Так не пойдёт. Я села и начала разбираться в продажах, упаковке, площадках. Сама, по крупицам, три года. Так и родилась система, ради которой мы все тут."},
+  {block:"Блок 1 · Кто Оля", type:"stat", tone:"ink",
+   title:"ПОЧЕМУ Я ВООБЩЕ ВОТ ТАК ПЕРЕД ТОБОЙ СТОЮ",
+   lines:["💯 *100% ОКУПАЕМОСТЬ* программы","100 из 100 девочек окупили сопровождение"],
+   notes:"Вот цифра, которая даёт мне наглость вот так перед тобой стоять. Сто из ста. Не «почти все», не «у многих получилось». ВСЕ окупили. Ни одна не ушла в минус. Дальше покажу, как это вообще возможно."},
+  {block:"Блок 1 · Кто Оля", type:"standard", tone:"ink",
+   title:"ЧУТЬ ЦИФР, ЧТОБ ТЫ МНЕ ПОВЕРИЛА",
+   lines:["🔥 3 года собирала систему с нуля","🔥 100% конверсия в кейс — все вышли на х2–3 в доходе","🔥 рекорд ученицы — *750.000₽/мес*"],
+   notes:""},
+  {block:"Блок 1 · Кто Оля", type:"standard", tone:"ink",
+   title:"КО МНЕ ИДУТ ОЧЕНЬ РАЗНЫЕ 💁🏻‍♀️",
+   lines:["и нулёвки без единого ученика","и те, кто уже на 150–180к и хочет больше"],
+   notes:"И сразу сниму страх «а вдруг я не дотягиваю». Ко мне заходят и девочки с полным нулём, без единого ученика. И те, кто уже на ста восьмидесяти и душит потолок. Систему это вообще не парит, она тянет и тех, и тех. Ну чё, поставь плюс, если следишь за мной ещё с разборов🔥"},
+
+  // ===== БЛОК 2 · Репетитор-Миллионер =====
+  {block:"Блок 2 · Репетитор-Миллионер", type:"statement", tone:"violet",
+   title:"ЗАЧЕМ МЫ ВСЕ ТУТ СЕГОДНЯ",
+   lines:["презентация моей программы сопровождения","«*РЕПЕТИТОР-МИЛЛИОНЕР*»"],
+   notes:""},
+  {block:"Блок 2 · Репетитор-Миллионер", type:"statement", tone:"ink",
+   title:"ПОЧЕМУ «МИЛЛИОНЕР» 🤑",
+   lines:["потому что миллион на репетиторстве считается на пальцах"],
+   notes:"Название не для понтов. Миллион тут реально считается на пальцах: ставка умножить на учеников, вот и вся высшая математика. Сегодня разложу по полочкам, и ты сама всё посчитаешь и офигеешь."},
+  {block:"Блок 2 · Репетитор-Миллионер", type:"standard", tone:"ink",
+   title:"2 ГОДА Я КАЖДЫЙ ДЕНЬ КОНСУЛЬТИРОВАЛА БЕСПЛАТНО",
+   lines:["и реально помогала, а не «впаривала полчаса»"],
+   notes:"Если ты была у меня на консультации — ты знаешь, как это выглядит. Я не сижу тридцать минут с одной целью продать. Я реально разбираю твою ситуацию, реально подсказываю, и человек уходит с пользой, даже если ничего не купил. И так два года, каждый божий день."},
+  {block:"Блок 2 · Репетитор-Миллионер", type:"standard", tone:"ink",
+   title:"1000+ КОНСУЛЬТАЦИЙ ЗА 2 ГОДА 🗿",
+   lines:["я вижу, что тебя держит, с первых минут разговора"],
+   notes:"И вот что мне это дало. Больше тысячи разборов. Я уже с первых минут вижу, где у тебя затык, потому что слышала это тыщу раз, слово в слово. Сейчас прям назову, а ты лови, где твоё."},
+
+  // ===== БЛОК 3 · Боли =====
+  {block:"Блок 3 · Боли", type:"statement", tone:"ink",
+   title:"ВОТ С ЧЕМ КО МНЕ ПРИХОДЯТ ЧАЩЕ ВСЕГО 👇🏻", lines:[], notes:""},
+  {block:"Блок 3 · Боли", type:"standard", tone:"ink",
+   title:"«Я КРУТОЙ ПЕДАГОГ — А УЧЕНИКОВ НЕТ» 🥵",
+   lines:["«Столько вложила в образование, а учеников нет. Зачем это всё было»","«Выкладываю рилсы каждый день — выхлопа НОЛЬ»","«Висит объявление на Авито, мне даже не пишут»"],
+   notes:"Первая. Узнаёшь? Ты вся такая прокачанная, кучу курсов прошла, а учеников нет. И обиднее всего смотреть на инстаграмных девочек, которые музыкалку еле закончили, а у них очередь. У тебя внутри: ну я ЖЕ умная, я ЖЕ даю пользу, ПОЧЕМУ?"},
+  {block:"Блок 3 · Боли", type:"standard", tone:"ink",
+   title:"«УПАХИВАЮСЬ — А ДЕНЕГ КОПЕЙКИ» 🫠",
+   lines:["«Держусь даже за тех, с кем противно заниматься: деньги же»","«Ученик не пришёл — а я уже на эти деньги рассчитывала»","«Выгораю, и сил начать что-то новое уже нет»"],
+   notes:"Вторая. У тебя двенадцать учеников, ты пашешь с утра до ночи, а на карте всё равно сорок-восемьдесят. Держишься даже за тех, после кого хочется в стену лечь, потому что они платят. А ученик слился с занятия — и у тебя прям внутри ёкнуло, ты ж на эти деньги уже рассчитала. Знакомо, да?"},
+  {block:"Блок 3 · Боли", type:"standard", tone:"ink",
+   title:"«БОЮСЬ ПОДНЯТЬ ЦЕНУ — ВСЕ РАЗБЕГУТСЯ» 😩",
+   lines:["без образования берут 3.000₽/час","а ты, педагог от бога, — 800₽","объясни мне это"],
+   notes:"Третья, и она бесит меня больше всех. Какая-то девочка без единого диплома спокойно берёт три тысячи. А ты, с консерваторией, сидишь на восьмиста и боишься поднять, потому что вдруг все разбегутся. Вот это «вдруг разбегутся» держит тебя на дне годами."},
+  {block:"Блок 3 · Боли", type:"standard", tone:"ink",
+   title:"«НЕ ЗНАЮ, С ЧЕГО НАЧАТЬ» 🫥",
+   lines:["«Где все эти люди вообще ищут учеников»","«Сначала ещё подучусь, а потом уже буду»","«Веду с пользой — а они всё равно уходят»"],
+   notes:"И четвёртая, для тех, кто только начинает. Ты вроде готова пахать, но не понимаешь, за что хвататься. Где люди берут учеников? Куда писать? И ещё этот вечный «сначала ещё один курс пройду, а потом уже». Спойлер: так ты не начнёшь никогда."},
+  {block:"Блок 3 · Боли", type:"statement", tone:"violet",
+   title:"А ПО ПРАВДЕ — ТЕБЕ ПРОСТО СТРАШНО 🫣",
+   lines:["поднять ставку · набрать группу · отказать неудобному ученику","синдром самозванца + ноль опоры под ногами"],
+   notes:"А теперь честно, что под всем этим лежит. Не «я не умею». А «мне страшно». Страшно поднять цену, страшно взять группу, страшно сказать «нет» неудобному человеку. Плюс это вечное «да кто я такая, чтоб брать дорого». И никакой опоры, чтоб рискнуть. Одной её взять реально неоткуда."},
+  {block:"Блок 3 · Боли", type:"standard", tone:"ink",
+   title:"ТЫ ЖИВЁШЬ НА НЕРВАХ 🥵",
+   lines:["и поэтому соглашаешься на всякую дичь","низкий чек, занятия в 10 вечера, токсичные ученики"],
+   notes:"И когда ты живёшь от оплаты до оплаты, ты соглашаешься вообще на всё. На копеечный чек, на занятие в десять вечера, на ученика, после которого трясёт. Это не твоя слабость, котик. Это просто нет подушки и нет системы за спиной."},
+  {block:"Блок 3 · Боли", type:"statement", tone:"violet",
+   title:"И САМОЕ ОБИДНОЕ 🗿",
+   lines:["ты ЗНАЕШЬ, что надо делать","но начинаешь и бросаешь. Или даже не начинаешь"],
+   notes:"И вот что бесит меня сильнее всего. Ты ж умная, ты примерно знаешь, что надо делать. Но начинаешь и сливаешься на третий день. Или вообще не начинаешь, потому что одной страшно и непонятно. И это. Длится. ГОДАМИ."},
+  {block:"Блок 3 · Боли", type:"statement", tone:"violet",
+   title:"ТЫ ЗДЕСЬ ПО ОДНОЙ ПРИЧИНЕ 🤝🏻",
+   lines:["хочешь, чтобы я взяла тебя за руку и довела","ну так я и доведу"],
+   notes:"Ты сюда пришла за делом. Потому что хочешь, чтоб тебя наконец взяли за руку и дотащили до денег. Я для этого и собрала эту встречу. Кидай плюс в чат, если хоть в одном пункте узнала себя🗿"},
+
+  // ===== БЛОК 3.5 · Большой тезис =====
+  {block:"Блок 3.5 · Большой тезис", type:"statement", tone:"violet",
+   title:"РЕПЕТИТОРСТВО — *ЭТО БИЗНЕС*",
+   lines:["💡 запомни это на всю жизнь"],
+   notes:"А теперь мысль, на которой держится вообще всё дальше. Запиши себе. Репетиторство — это бизнес. И пока ты думаешь про себя как педагог, а не как предприниматель, ты будешь пахать за копейки. Хоть ты трижды гений вокала."},
+  {block:"Блок 3.5 · Большой тезис", type:"stat", tone:"violet",
+   title:"И ПЛАТЯТ ТЕБЕ ЗА ТРИ ВЕЩИ 🎯",
+   lines:["*УПАКОВКА* · *СТАВКА* · *КАНАЛ*"],
+   notes:"Смотри, как реально покупает ученик. Твои дипломы он вообще не видит. Он видит упаковку, слышит цену и находит тебя через какой-то канал. Вот за эти три вещи и платят. А качество твоё он оценит уже потом, когда придёт на урок. Решение занести деньги он принимает ДО. Поставь плюс, если поняла мысль🔥"},
+
+  // ===== БЛОК 4 · Система + команда =====
+  {block:"Блок 4 · Система + команда", type:"statement", tone:"ink",
+   title:"ТВОЯ ОПОРА — ЭТО СИСТЕМА 💪🏻",
+   lines:["её уже прошли *100 репетиторов*"],
+   notes:"Мотивация заканчивается во вторник, ты сама знаешь. А работает система, по которой уже протопали сто человек до тебя. Тебе не надо изобретать велосипед и сидеть гадать. Иди по проложенной дороге, и всё."},
+  {block:"Блок 4 · Система + команда", type:"standard", tone:"ink",
+   title:"И ВОТ ЧТО ВАЖНО 🤯",
+   lines:["у ВСЕХ ста есть результат","даже у тех, кто к маркетингу вообще не способен"],
+   notes:"И скажу как есть. Среди этой сотни были звёздочки, которым всё легко даётся. А были такие, кому продажи и маркетинг — как высшая математика на китайском. И что в итоге? Результат у всех. Сейчас покажу, почему так выходит."},
+  {block:"Блок 4 · Система + команда", type:"standard", tone:"violet",
+   title:"ВОТ ПОЧЕМУ: ТЫ + Я + КОМАНДА 🤝🏻",
+   lines:["маркетолог · дизайнер · копирайтер · авитолог","ты ведёшь уроки, рутину тащим мы"],
+   notes:"Весь секрет вот в этой связке. Ты не сидишь одна в час ночи и не воюешь с настройками Авито. Ты говоришь, что надо, и команда это делает. Покажу на трёх обычных задачах, чтоб было понятно."},
+  {block:"Блок 4 · Система + команда", type:"standard", tone:"ink",
+   title:"ЗАДАЧА: ЗАПУСТИТЬ АВИТО 📍",
+   lines:["ты — рассказываешь про себя и нишу","я — даю стратегию и проверяю","авитолог — собирает объявление и раскидывает по городам"],
+   notes:""},
+  {block:"Блок 4 · Система + команда", type:"standard", tone:"ink",
+   title:"ЗАДАЧА: ПОСТ В TELEGRAM 📍",
+   lines:["ты — отдаёшь свою историю и факты","я — задаю, что зацепит твою аудиторию","копирайтер и дизайнер — пишут и оформляют"],
+   notes:""},
+  {block:"Блок 4 · Система + команда", type:"standard", tone:"ink",
+   title:"ЗАДАЧА: ОТКЛИК НА PROFI.RU 📍",
+   lines:["ты — выбираешь, кому писать","я — даю шаблон, на который отвечают 9 из 10","команда — упаковывает профиль, чтоб продавал сам"],
+   notes:"Видишь логику? Ты — лицо и руки. Я — голова. Команда — вся скучная рутина. Поэтому результат и у звёздочек, и у тех, кто «ой, я не дружу с интернетом». Кидай плюс, если поняла, как это работает🤝🏻"},
+
+  // ===== БЛОК 5 · Кейсы: быстрые деньги =====
+  {block:"Блок 5 · Кейсы быстрые", type:"statement", tone:"ink",
+   title:"СНАЧАЛА — БЫСТРЫЕ ДЕНЬГИ 💸",
+   lines:["что мои девочки делают в первые недели"], notes:""},
+  {block:"Блок 5 · Кейсы быстрые", type:"stat", tone:"ink",
+   title:"ПЕРВЫЕ НЕДЕЛИ — РЕАЛЬНЫЕ ЦИФРЫ 🔥",
+   lines:["+*63.000₽* за 7 дней · +12 учеников за 4 дня","чек +40% за 1 созвон · 8 из 10 покупают абонемент","40 учеников за месяц"],
+   notes:""},
+  {block:"Блок 5 · Кейсы быстрые", type:"split", tone:"violet", photo:"ph:скрин переписки / выплаты Лили",
+   title:"ЛИЛЯ · вокал · @musaxmusic 💎",
+   lines:["🔴 60.000₽, 6 учеников","🟢 200.000₽, 10 новых за 4 дня","«*63.000₽ за неделю*»"],
+   notes:"Уиии, смотри какая звезда. Лиля. Пришла ко мне: шесть учеников, шестьдесят тысяч, студия по часам. Я такая: не, мы не лохи, шестьдесят нам мало))0) Через пару дней работы — десять новых учеников за четыре дня. И её сообщение мне: «За эту неделю я заработала шестьдесят три тысячи». За НЕДЕЛЮ. Вдумайся.",
+   visual:"🔲 НУЖНО ОТ ОЛИ: скрин переписки/выплаты Лили."},
+  {block:"Блок 5 · Кейсы быстрые", type:"split", tone:"violet", photo:"ph:скрин аккаунта / выплаты Леры",
+   title:"ЛЕРА · вокал · @cherednikovalera 🎤",
+   lines:["🔴 0 учеников, ноль базы","🟢 11 учеников за неделю, ставка 3.000₽/час"],
+   notes:"А вот Лера зашла вообще с нуля. Ни базы, ни агрегаторов, ничего. Одиннадцать учеников за неделю и ставка три тысячи. С полного нуля, котик."},
+  {block:"Блок 5 · Кейсы быстрые", type:"stat", tone:"plum",
+   title:"И ЭТО НЕ ТОЛЬКО ВОКАЛ 🔥",
+   lines:["Влад · шахматы: 🔴 13.000₽ → 🟢 *142.800₽*","Анна · вокал: 🔴 60.000₽ → 🟢 *120.000₽*, 13 новых"],
+   notes:"И сразу отвечу на «у меня же другая ниша». Влад — шахматы. С тринадцати тысяч до ста сорока, полностью онлайн. Система работает везде, где ты учишь людей. Хоть вокал, хоть шахматы, хоть лепка."},
+
+  // ===== БЛОК 6 · Долгосрочная независимость =====
+  {block:"Блок 6 · Долгосрочные кейсы", type:"statement", tone:"plum",
+   title:"А ТЕПЕРЬ — ПРО ДРУГУЮ ЖИЗНЬ 🥹",
+   lines:["свобода выбирать учеников и спокойствие за деньги"],
+   notes:"Быстрые деньги — это кайф, не спорю. Но я тут не про «дёрнуть разок». Я про то, чтобы у тебя реально поменялась жизнь. Смотри, что происходит с девочками на дистанции."},
+  {block:"Блок 6 · Долгосрочные кейсы", type:"split", tone:"plum", photo:"ph:скрин / фото Алёны",
+   title:"АЛЁНА · фортепиано 💎",
+   lines:["🔴 80.000₽ в найме, ставка 1.500₽","🟢 350.000₽ на себя, ставка 4.000₽","ушла из найма"],
+   notes:""},
+  {block:"Блок 6 · Долгосрочные кейсы", type:"split", tone:"plum", photo:"ph:скрин результата Насти",
+   title:"НАСТЯ БАБИНА · русский, ЕГЭ 🤯",
+   lines:["🔴 30.000₽","🟢 750.000₽ — наш рекорд","свой курс по ЕГЭ, 3 группы по 10, ставка 5.000₽/час"],
+   notes:"А это Настя, мой личный фаворит. Тридцать тысяч на старте. Сейчас — семьсот пятьдесят. Свой курс по ЕГЭ, группы, ставка как у меня. Это не магия и не «ей просто повезло». Это система, которую довели до конца."},
+  {block:"Блок 6 · Долгосрочные кейсы", type:"split", tone:"plum", photo:"ph:скрин / фото Алисии",
+   title:"АЛИСИЯ ЛИТВИНОВА · вокал 💎",
+   lines:["🔴 150.000₽","🟢 400.000₽","студия пашет без неё + своё наставничество с чеком 70.000₽"],
+   notes:""},
+  {block:"Блок 6 · Долгосрочные кейсы", type:"split", tone:"plum", photo:"ph:фото / скрин Марии",
+   title:"МАРИЯ ВОЙНОВА · вокал 🏠",
+   lines:["🔴 180.000₽","🟢 300.000₽","своё помещение в центре, *КУПИЛА КВАРТИРУ*"],
+   notes:""},
+  {block:"Блок 6 · Долгосрочные кейсы", type:"statement", tone:"plum",
+   title:"И ВОТ ЧТО МЕНЯ САМУ ТРОГАЕТ 🥹",
+   lines:["для большинства из них это самые большие деньги в жизни"],
+   notes:"И знаешь, что меня до сих пор пробивает? Для большинства этих девочек это самые большие деньги, что они вообще держали в руках. Не «чуть лучше, чем было». А столько, сколько они даже не верили, что бывает у таких, как они."},
+  {block:"Блок 6 · Долгосрочные кейсы", type:"statement", tone:"ink",
+   title:"И РОСТ НЕ ОСТАНАВЛИВАЕТСЯ 📈", lines:[], notes:"",
+   visual:"🔲 НУЖНО ОТ ОЛИ: история «блондинки с короткой стрижкой» — имя, ниша, цифры роста."},
+  {block:"Блок 6 · Долгосрочные кейсы", type:"standard", tone:"ink",
+   title:"И ГЛАВНОЕ 💯",
+   lines:["ВСЕ они окупили сопровождение ещё ВО ВРЕМЯ него","не потом, не «когда-нибудь». ВСЕ"],
+   notes:"И вот эту мысль прям запомни, она важная. Они не ждали год, чтоб отбить вложение. Они окупались прямо в процессе, на новых учениках. Все до одной."},
+  {block:"Блок 6 · Долгосрочные кейсы", type:"gallery", tone:"plum",
+   photos:["ph:скрин чата выпускниц","ph:встреча в Москве","ph:встреча в Питере"],
+   title:"А ПОТОМ МЫ ПРОСТО ДРУЖИМ 🫶🏻",
+   lines:["чат выпускниц, который живёт годами","встречаемся вживую в Москве и Питере"],
+   notes:"И самое тёплое для меня. После программы мы не расходимся. Дружим, подкидываем друг другу учеников, встречаемся вживую. Это становится твоим кругом. Кидай плюс, если хочешь так же🥹",
+   visual:"🔲 НУЖНО ОТ ОЛИ: скрины чата выпускниц + фото оффлайн-встреч."},
+
+  // ===== БЛОК 7 · Почему Оля может так =====
+  {block:"Блок 7 · Почему Оля", type:"statement", tone:"ink",
+   title:"ПОЧЕМУ У МЕНЯ ЭТО ПОЛУЧАЕТСЯ 😏",
+   lines:["а у большинства наставников — нет"], notes:""},
+  {block:"Блок 7 · Почему Оля", type:"standard", tone:"ink",
+   title:"ОДНИ — «НАСТАВНИКИ НАСТАВНИКОВ» 🗿",
+   lines:["сами давно не работают репетиторами","учат тому, что варило 5 лет назад"],
+   notes:"Смотри, кто вообще на рынке. Одни — это наставники наставников. Они сами уже сто лет ни одного ученика не вели. Учат по схемам, которые работали пять лет назад, а рынок давно уехал."},
+  {block:"Блок 7 · Почему Оля", type:"standard", tone:"ink",
+   title:"ДРУГИЕ — ПРОДАЮТ КУРС 🤡",
+   lines:["видео, кураторы без обратной связи","а за твой результат не отвечает никто"],
+   notes:"Другие — вроде живые репетиторы, но продают тебе курс. Накидали видосов, посадили куратора-курицу, и всё. За твой результат там не отвечает вообще никто."},
+  {block:"Блок 7 · Почему Оля", type:"standard", tone:"violet",
+   title:"А Я — И ПРАКТИК, И НАСТАВНИК 😎",
+   lines:["репетитор со ставкой *5.000₽* + веду сопровождение 2 года","знаю, что работает СЕГОДНЯ, и умею это передать"],
+   notes:"А я каждый день в двух ролях сразу. Я живой репетитор, у меня реально есть ученики и я реально на этом зарабатываю. И я два года вожу девочек к результату. Поэтому я знаю, что работает не вообще, а прямо сейчас, в этом месяце. И умею вложить это тебе в руки."},
+  {block:"Блок 7 · Почему Оля", type:"standard", tone:"ink",
+   title:"ПОЭТОМУ КО МНЕ ИДУТ РАЗНЫЕ 💁🏻‍♀️",
+   lines:["и на последние деньги в рассрочку","и уже успешные — чтобы вырасти ещё"],
+   notes:"И заходят ко мне из двух состояний. Одни: «всё горит, ученики сыпятся, чек не поднять». Другие: «у меня уже норм, но я хочу пробить потолок и наконец зажить». Если ты в любом из этих двух — мы сработаемся."},
+
+  // ===== БЛОК 8 · Последняя личная группа =====
+  {block:"Блок 8 · Последняя группа", type:"statement", tone:"violet",
+   title:"А ТЕПЕРЬ — ЛИЧНОЕ 🫢", lines:[],
+   notes:"Сейчас расскажу тебе то, что напрямую тебя касается. И почему всё это происходит именно сегодня, а не «когда-нибудь»."},
+  {block:"Блок 8 · Последняя группа", type:"standard", tone:"ink",
+   title:"ЗА 2 ГОДА Я ВЫЛОЖИЛАСЬ ПО ПОЛНОЙ 🫠",
+   lines:["1000+ консультаций · 100+ доведённых до результата"],
+   notes:"Я два года пахала на пределе. Тыща с лишним консультаций, сотня девочек, которых я лично дотащила до денег. И я просто по-человечески выдохлась тянуть всех на себе в таком режиме. Так больше нельзя, и я честно это признаю."},
+  {block:"Блок 8 · Последняя группа", type:"statement", tone:"violet",
+   title:"ЭТОТ ПОТОК — ПОСЛЕДНИЙ СО МНОЙ ЛИЧНО ❗️",
+   lines:["дальше веду не я, а кураторы","и стоить будет дороже"],
+   notes:"Поэтому решение такое. Этот летний поток — последний, где есть я сама, живьём, на каждом созвоне. Дальше я набираю кураторов, ухожу в тень и поднимаю цену. Это не «купи-купи». Это просто как оно будет."},
+  {block:"Блок 8 · Последняя группа", type:"statement", tone:"ink",
+   title:"ТЫ МЕНЯ ЗНАЕШЬ 🫡",
+   lines:["сказала — значит, так и будет"], notes:""},
+  {block:"Блок 8 · Последняя группа", type:"statement", tone:"violet",
+   title:"НЕ ЗАЙДЁШЬ СЕЙЧАС — ПОТЕРЯЕШЬ ЦЕЛЫЙ ГОД 🗿",
+   lines:["на следующем потоке: меньше меня, дороже, и жаль"],
+   notes:"Давай честно про вариант «подумаю». Не зайдёшь сейчас — следующий шанс будет уже без меня лично и дороже. И ты будешь сидеть и жалеть. Но самое обидное даже не это. Самое обидное — ты потеряешь целый год роста. Целый год."},
+
+  // ===== БЛОК 9 · Лето + упущенная выгода =====
+  {block:"Блок 9 · Лето + выгода", type:"standard", tone:"ink",
+   title:"ПРО ЛЕТО — ОБЯЗАТЕЛЬНО ☀️",
+   lines:["у кого уже отвалились ученики? у кого просел доход?"],
+   notes:"Сейчас середина июня. И давай по-честному: у кого уже посыпались ученики, у кого просел доход? Кидай плюс, если про тебя. Не стесняйся, тут все свои и у всех летом одна песня."},
+  {block:"Блок 9 · Лето + выгода", type:"standard", tone:"ink",
+   title:"ЛЕТО МОЖНО ПРОЖИТЬ ДВУМЯ СПОСОБАМИ 🤔",
+   lines:["мёртвый сезон и «потуже пояс»","или окно, чтобы заработать на ГОД вперёд"],
+   notes:""},
+  {block:"Блок 9 · Лето + выгода", type:"standard", tone:"ink",
+   title:"ЛЕТОМ РОДИТЕЛИ ИЩУТ РЕПЕТИТОРА НА ВЕСЬ ГОД 💡",
+   lines:["это факт по Авито","кто упакована сейчас — забирает учеников на сентябрь"],
+   notes:"Все воют, что лето мёртвое. А по факту именно летом родители ищут репетитора на новый учебный год. Они решают СЕЙЧАС. Кто упакована летом — забирает учеников на весь год. Кто ждёт сентября — приходит на пустой стол, когда всё уже разобрали."},
+  {block:"Блок 9 · Лето + выгода", type:"standard", tone:"ink",
+   title:"СТАРТ *22 ИЮНЯ* — ЧТОБЫ УСПЕТЬ К АВГУСТУ ⏰",
+   lines:["это работа, ей нужно время разогнаться"],
+   notes:"Поэтому старт через неделю, двадцать второго. Не потому что я тороплю, а потому что надо успеть к августу. Это работа: упаковаться, разогнать площадки. Начнёшь сейчас — к горячему сезону ты во всеоружии. Продукт огонь, команда есть, но руками поработать придётся, тут я не вру."},
+  {block:"Блок 9 · Лето + выгода", type:"statement", tone:"ink",
+   title:"СЛЕДУЮЩЕЕ ТАКОЕ ОКНО — ТОЛЬКО ЧЕРЕЗ ГОД 🗿", lines:[], notes:""},
+  {block:"Блок 9 · Лето + выгода", type:"stat", tone:"ink",
+   title:"ДАВАЙ НА ПАЛЬЦАХ 👇🏻",
+   lines:["сейчас: 100.000₽ со ставки 1.200₽","после: *250.000₽* со ставки 2.100₽"],
+   notes:"Давай на пальцах посчитаем, во что тебе обходится «подумаю». Сейчас, допустим, ты на ста тысячах со ставкой тысяча двести. После программы спокойно делаем двести пятьдесят со ставкой две сто. Это даже не потолок, это нормальный такой сценарий. Разница — сто пятьдесят тысяч каждый месяц."},
+  {block:"Блок 9 · Лето + выгода", type:"stat", tone:"violet",
+   title:"ЗА ГОД ТЫ НЕДОЗАРАБОТАЕШЬ",
+   lines:["*1.800.000₽* 🤯","новая машина. или первый взнос на квартиру"],
+   notes:"Теперь умножь на двенадцать. Один миллион восемьсот. Вот столько стоит решение «ну я ещё подумаю годик». Это машина. Это первый взнос на квартиру. Это отпуск, техника, спокойствие. Ну чё, как тебе мои мысли? Кто уже думает заходить — кидай плюс))"},
+
+  // ===== БЛОК 10 · Программа / цель =====
+  {block:"Блок 10 · Программа / цель", type:"statement", tone:"violet",
+   title:"«РЕПЕТИТОР-МИЛЛИОНЕР» 🎯",
+   lines:["очередь учеников на 2 месяца вперёд и выход на *300.000₽+*"], notes:""},
+  {block:"Блок 10 · Программа / цель", type:"statement", tone:"ink",
+   title:"В ЧЁМ МОЯ ЦЕЛЬ",
+   lines:["чтобы ты *ОКУПИЛА* программу"], notes:""},
+  {block:"Блок 10 · Программа / цель", type:"standard", tone:"ink",
+   title:"НЕ ОКУПИЛА — ЗНАЧИТ, Я НЕ ЗАРАБОТАЛА 💸",
+   lines:["у меня гарантия, так что я выложусь за тебя"],
+   notes:"Смотри, как это устроено и почему мне можно верить. У меня гарантия: не окупила — я возвращаю деньги, то есть я сама в минусе. А я вообще-то люблю путешествовать и вкусно кушать))) Поэтому я кровно заинтересована, чтоб ты вышла в плюс. И пока что сто из ста, ни разу не возвращала."},
+  {block:"Блок 10 · Программа / цель", type:"standard", tone:"ink",
+   title:"ДЕНЬГИ ЗА 3 МЕСЯЦА — ЭТО ПОЛДЕЛА 💪🏻",
+   lines:["главное, что ты унесёшь — *НАВЫК* зарабатывать дальше"],
+   notes:"Но деньги за три месяца — это так, приятный бонус. Мне важнее, чтоб ты унесла навык. Чтоб и через год, и через три ты сама поднимала себе доход, а не бежала снова за чьим-то курсом с протянутой рукой."},
+  {block:"Блок 10 · Программа / цель", type:"standard", tone:"ink",
+   title:"ЧТОБЫ ТЫ ЗНАЛА, НА КАКУЮ КНОПКУ НАЖАТЬ 🔘",
+   lines:["нужен новый ученик — нажала, он появился"],
+   notes:"Конечная цель такая. Чтоб у тебя в голове была карта. Понадобился новый ученик — ты не паникуешь и не плачешь в подушку, ты знаешь, на какую кнопку нажать, и он приходит. Вот это я и передаю."},
+
+  // ===== БЛОК 11 · Мультиканальность =====
+  {block:"Блок 11 · Мультиканальность", type:"standard", tone:"ink",
+   title:"УЧЕНИКОВ ИЩУТ НЕ В ОДНОМ МЕСТЕ 🎣",
+   lines:["агрегаторы + соцсети + рассылки + секретные сайты","один канал просел — другие везут"],
+   notes:"И ещё важное. Если надо поймать акулу — ты не идёшь в озеро. Учеников ищут не в одном своём городе и не на одной площадке. Я даю все каналы сразу: агрегаторы, соцсети, рассылки, секретные сайты. Один просел — остальные везут. Ты больше никогда не сидишь без денег из-за того, что «Авито перестал работать»."},
+  {block:"Блок 11 · Мультиканальность", type:"standard", tone:"violet",
+   title:"*50+* БЕСПЛАТНЫХ СПОСОБОВ НАЙТИ УЧЕНИКОВ 🤑",
+   lines:["конкуренты дают 3–5","тебе хватит освоить несколько — и расписание забито"],
+   notes:"И вот это моя гордость. Конкуренты дают тебе три-пять способов и машут ручкой. Я даю больше пятидесяти. Бесплатных. Тебе даже не надо все осваивать — хватит нескольких, чтоб забить расписание под завязку. А остальные просто лежат у тебя в кармане на всякий случай."},
+  {block:"Блок 11 · Мультиканальность", type:"statement", tone:"ink",
+   title:"ПОСЛЕ МЕНЯ ТЕБЕ БОЛЬШЕ НИЧЕГО НЕ НАДО ПОКУПАТЬ ✅",
+   lines:["все способы поиска учеников — уже внутри"],
+   notes:"И смотри, чем я отличаюсь от вечной воронки «купи ещё курс». После меня тебе не надо докупать ничего. Вообще. Все способы найти учеников уже внутри программы. Это последнее, что тебе нужно по теме денег в репетиторстве."},
+
+  // ===== БЛОК 12 · Как устроено сопровождение =====
+  {block:"Блок 12 · Как устроено", type:"statement", tone:"ink",
+   title:"КАК ЭТО УСТРОЕНО ПО ФАКТУ 👀",
+   lines:["живая работа со мной и командой, а не «папка с видео»"], notes:""},
+  {block:"Блок 12 · Как устроено", type:"standard", tone:"ink",
+   title:"ГРУППЫ ДО 5 ЧЕЛОВЕК",
+   lines:["маленькие, чтоб я видела каждую"], notes:""},
+  {block:"Блок 12 · Как устроено", type:"standard", tone:"ink",
+   title:"10 СОЗВОНОВ СО МНОЙ — КАЖДУЮ НЕДЕЛЮ",
+   lines:["разбираем твою ситуацию лично"], notes:""},
+  {block:"Блок 12 · Как устроено", type:"standard", tone:"ink",
+   title:"ГОРИТ? СОБИРАЕМСЯ ОТДЕЛЬНО, ВНЕ РАСПИСАНИЯ", lines:[], notes:""},
+  {block:"Блок 12 · Как устроено", type:"standard", tone:"ink",
+   title:"КОМАНДА ЦЕЛИКОМ ЗА ТОБОЙ 🤝🏻",
+   lines:["маркетолог · дизайнер · копирайтер · авитолог · личный куратор"], notes:""},
+  {block:"Блок 12 · Как устроено", type:"standard", tone:"ink",
+   title:"8 МОДУЛЕЙ · 44 УРОКА 📚",
+   lines:["смотришь когда удобно, пересматриваешь сколько надо"], notes:""},
+  {block:"Блок 12 · Как устроено", type:"standard", tone:"ink",
+   title:"ГОТОВЫЕ ШАБЛОНЫ 📌",
+   lines:["рассылки · объявления · сценарий пробного · договоры"], notes:""},
+  {block:"Блок 12 · Как устроено", type:"standard", tone:"violet",
+   title:"6 МЕСЯЦЕВ СО МНОЙ 🗓",
+   lines:["3 месяца активной работы + 3 месяца поддержки после"],
+   notes:"И чтоб ты понимала про сроки. Это полгода со мной. Первые три месяца — активная работа: созвоны, задания, разгон. И ещё три месяца поддержки сверху, чтоб ты не осталась одна, когда система уже крутится. Я не бросаю на полпути."},
+  {block:"Блок 12 · Как устроено", type:"standard", tone:"ink",
+   title:"БУКВАЛЬНО ТВОЯ НЕДЕЛЯ ВНУТРИ 🗒",
+   lines:["понедельник — созвон, свелись по цифрам","каждое утро ты знаешь, что делать"],
+   notes:"Давай покажу твою неделю по-простому. В понедельник созвон, в удобное тебе время. Свелись по цифрам: что сделала, что не пошло, куда дальше. И всё — каждое утро ты просыпаешься и точно знаешь, что делать сегодня. Сделала, отчиталась. Никакого «сижу, туплю и не понимаю, за что хвататься»."},
+  {block:"Блок 12 · Как устроено", type:"standard", tone:"ink",
+   title:"«НУ Я ЖЕ СОЛЬЮСЬ» 🙃",
+   lines:["слиться не выйдет: группа тащит","застрянешь — я приеду к тебе домой"],
+   notes:"И сразу про любимое: «Оля, я же сольюсь, я всегда сливаюсь». Тут у тебя такой опции нет. Ты в группе, ты видишь, как девочки рядом получают результат, и тебя это само тащит вперёд. А если совсем застрянешь — я готова приехать к тебе домой и сесть рядом. Серьёзно говорю. Кидай плюс и пиши, что из этого тебе нужнее всего🥹"},
+
+  // ===== БЛОК 13 · 8 модулей =====
+  {block:"Блок 13 · 8 модулей", type:"statement", tone:"violet",
+   title:"8 МОДУЛЕЙ · 44 УРОКА · 3 МЕСЯЦА 📚",
+   lines:["от упаковки до секретных каналов поиска"],
+   notes:"Теперь по-быстрому пробегусь по содержанию, чтоб ты видела масштаб. Восемь модулей, сорок четыре урока. Без занудства, по верхам."},
+  {block:"Блок 13 · 8 модулей", type:"standard", tone:"ink",
+   title:"МОДУЛЬ 1 · КАК БЫТЬ КРУЧЕ ДРУГИХ РЕПЕТИТОРОВ",
+   lines:["— за что тебе будут платить 5.000₽/час","— упаковка дорогого педагога","— отзывы, после которых пишут «хочу к вам!»"], notes:""},
+  {block:"Блок 13 · 8 модулей", type:"standard", tone:"ink",
+   title:"МОДУЛЬ 2 · ПРОБНЫЙ, ПОСЛЕ КОТОРОГО НЕ ОТКАЗЫВАЮТ 🔥",
+   lines:["— техника «5 вопросов»","— ответы на «дорого» и «я подумаю»","— 8 из 10 покупают абонемент сразу"],
+   notes:"Вот этот модуль — чистое золото. После него восемь из десяти на пробном покупают абонемент сразу, на месте. Не «спасибо, я подумаю», а сразу «да, беру». Это меняет вообще всё в твоих деньгах."},
+  {block:"Блок 13 · 8 модулей", type:"standard", tone:"ink",
+   title:"МОДУЛЬ 3 · БЫСТРЫЕ ДЕНЬГИ И БЕСПЛАТНЫЕ УЧЕНИКИ",
+   lines:["— 7 инструментов на 10+ учеников в неделю","— как поднять чек текущим","— делегирование: освободить 20+ часов"], notes:""},
+  {block:"Блок 13 · 8 модулей", type:"standard", tone:"ink",
+   title:"МОДУЛЬ 4 · PROFI.RU · УЧЕНИКИ ЗА 5.000₽/ЧАС",
+   lines:["— алгоритмы площадки","— шаблон отклика, на который отвечают 9 из 10","— разбор моего личного аккаунта со ставкой 5.000₽"], notes:""},
+  {block:"Блок 13 · 8 модулей", type:"standard", tone:"ink",
+   title:"МОДУЛЬ 5 · АВИТО · ТОЛПА УЧЕНИКОВ НА ОНЛАЙН",
+   lines:["— продающее объявление","— техника авитолога: массовый набор","— выкладка по 140 городам"], notes:""},
+  {block:"Блок 13 · 8 модулей", type:"standard", tone:"ink",
+   title:"МОДУЛЬ 6 · БЕСПЛАТНЫЕ КЛИЕНТЫ ИЗ СОЦСЕТЕЙ",
+   lines:["— профиль за 1 день","— как попасть в рекомендации","— 100 клиентов через Instagram"], notes:""},
+  {block:"Блок 13 · 8 модулей", type:"standard", tone:"ink",
+   title:"МОДУЛЬ 7 · ФИНАНСЫ И ЮРИДИЧЕСКАЯ СТОРОНА",
+   lines:["— как не сливать 30% дохода","— абонементы на 50.000₽","— договор-щит + личная консультация юриста"], notes:""},
+  {block:"Блок 13 · 8 модулей", type:"standard", tone:"ink",
+   title:"МОДУЛЬ 8 · ТРИ СЕКРЕТНЫХ СПОСОБА 🤫",
+   lines:["— иностранцы платят в 3–5 раз больше","— как мы нашли 40 учеников за месяц","— массовый набор через Telegram"],
+   notes:"А вот тут то, чего нет почти ни у кого. Иностранные ученики платят в три-пять раз больше наших, и я показываю, как на них выйти без всяких связей. Один этот модуль может перевернуть тебе чек."},
+
+  // ===== БЛОК 14 · Бонусы + итог =====
+  {block:"Блок 14 · Бонусы + итог", type:"statement", tone:"plum",
+   title:"И СВЕРХУ — 3 БОНУСА 🎁", lines:[], notes:""},
+  {block:"Блок 14 · Бонусы + итог", type:"standard", tone:"ink",
+   title:"БАНК МЕТОДИЧЕК С ДРУГИХ КУРСОВ",
+   lines:["самое полезное из платных программ — в одном месте"], notes:""},
+  {block:"Блок 14 · Бонусы + итог", type:"standard", tone:"ink",
+   title:"ЧАТ УЧЕНИЦ — НА ГОДЫ 🫶🏻",
+   lines:["передаёте друг другу учеников, советуетесь, дружите"], notes:""},
+  {block:"Блок 14 · Бонусы + итог", type:"standard", tone:"ink",
+   title:"БОНУС-МОДУЛИ 🤖",
+   lines:["нейросети для педагога · пассивный доход"], notes:""},
+  {block:"Блок 14 · Бонусы + итог", type:"standard", tone:"violet",
+   title:"ТЫ ВЫХОДИШЬ С ДВУМЯ ВЕЩАМИ 💥",
+   lines:["+ *ДЕНЬГИ*, которые сделала уже за программу","+ *НАВЫК*, который остаётся навсегда"],
+   notes:"Итог простой. Ты уносишь две вещи. Деньги, которые ты сделала прямо во время программы. И навык, который остаётся с тобой на всю жизнь. Вот это и есть разница между «папкой с видео» и тем, что делаю я."},
+
+  // ===== БЛОК 15 · Это не курс =====
+  {block:"Блок 15 · Это не курс", type:"statement", tone:"violet",
+   title:"ЭТО НЕ КУРС", lines:[],
+   notes:"А теперь — самое важное про формат. Послушай прям внимательно, это меняет всё."},
+  {block:"Блок 15 · Это не курс", type:"standard", tone:"ink",
+   title:"ЭТО ЛИЧНАЯ РАБОТА СО МНОЙ 🤝🏻",
+   lines:["глубоко · на результат · с гарантией","как ты сама работаешь со своим учеником"],
+   notes:"Это не «купила курс, смотри видосы и пока». Это услуга. Я работаю с тобой ровно так, как ты работаешь со своим учеником: лично, глубоко, за руку. И до результата."},
+  {block:"Блок 15 · Это не курс", type:"standard", tone:"ink",
+   title:"ОБЪЯСНЮ НА ТВОЁМ ЯЗЫКЕ 🎓",
+   lines:["это как продать ученику абонемент","и ВЕРНУТЬ деньги, если он сдал ЕГЭ меньше чем на 95"],
+   notes:"Объясню на твоём языке. Это как если бы ты продала ученику абонемент и пообещала вернуть деньги, если он сдаст ЕГЭ ниже девяноста пяти. Много репетиторов так делают? Да почти никто, страшно же. А я с тобой работаю именно так."},
+  {block:"Блок 15 · Это не курс", type:"stat", tone:"violet",
+   title:"ПОЭТОМУ МЕСТ МАЛО ❗️",
+   lines:["3 группы по 5 = *15 мест*","*8 уже занято*"],
+   notes:"И вот почему мест реально мало, это не игра в дефицит. Личная работа значит, что я физически не могу взять сто человек. Три группы по пять, пятнадцать мест всего. Восемь уже заняли до этой презентации."},
+  {block:"Блок 15 · Это не курс", type:"statement", tone:"ink",
+   title:"БОЛЬШЕ 15 Я НЕ ВОЗЬМУ 🗿",
+   lines:["иначе не выложусь за каждую"],
+   notes:"И это честно. Больше пятнадцати я не вытяну, если хочу гореть за каждую из вас. Кидай плюс, если уловила разницу: курс — это видео в записи, а тут я живьём рядом."},
+
+  // ===== БЛОК 16 · Вау перед ценой =====
+  {block:"Блок 16 · Вау перед ценой", type:"standard", tone:"violet",
+   title:"ЧТО У ТЕБЯ НА РУКАХ ПОСЛЕ ПРОГРАММЫ 🤯",
+   lines:["дорогая упаковка · поток учеников с *50+* каналов","ставка 4–5к · своя система · *НАВЫК* на всю жизнь"],
+   notes:"Прежде чем покажу цену, давай на секунду соберём всё вместе. После программы у тебя: дорогая упаковка, поток учеников сразу с кучи каналов, ставка четыре-пять тысяч, выстроенная система и навык, который у тебя уже никто не отнимет. А теперь смотри, сколько это стоит."},
+
+  // ===== БЛОК 17 · Цена =====
+  {block:"Блок 17 · Цена", type:"standard", tone:"ink",
+   title:"ВОТ ЧТО ВХОДИТ В РАБОТУ 📦",
+   lines:["6 мес со мной · группа до 5 · 10 созвонов · переписка любой день","команда + куратор · 8 модулей / 44 урока · 50+ способов · гарантия возврата"],
+   notes:"Давай соберу всё в один кадр, чтоб ты видела целиком. Вот это всё — за одну стоимость."},
+  {block:"Блок 17 · Цена", type:"standard", tone:"ink",
+   title:"СКОЛЬКО ЭТО СТОИЛО БЫ ПО ОТДЕЛЬНОСТИ 🧾",
+   lines:["— 10 личных созвонов со мной — от 100.000₽","— команда (маркетолог · дизайнер · копирайтер · авитолог), 3 мес — от 150.000₽","— 8 модулей / 44 урока — от 40.000₽","— юрист + договоры — от 15.000₽","ИТОГО: *300.000₽+*"],
+   notes:"А теперь давай честно прикинем, сколько это стоило бы, если собирать по кусочкам. Десять личных созвонов со мной по моей ставке. Команда из четырёх спецов на три месяца. Все модули. Юрист. Складываем — переваливает за триста тысяч. А теперь смотри, сколько это у меня.",
+   visual:"🔲 НУЖНО ОТ ОЛИ/МИШИ: подтвердить цифры-якоря value-stack (сейчас драфт)."},
+  {block:"Блок 17 · Цена", type:"stat", tone:"ink",
+   title:"ПОЛНАЯ СТОИМОСТЬ",
+   lines:["179.000₽"],
+   notes:"Полная стоимость программы — сто семьдесят девять тысяч. И это, по-честному, недорого за полгода личной работы со мной и командой. Но это не всё."},
+  {block:"Блок 17 · Цена", type:"stat", tone:"lime",
+   title:"СЕГОДНЯ, ДЛЯ СВОИХ 🔥",
+   lines:["~179.000₽~ → *99.000₽*"],
+   notes:"Для тех, кто прямо сейчас тут, со мной, живьём — девяносто девять. Это цена только для этого эфира, для своих. Завтра в блоге такой уже не будет, я не шучу."},
+  {block:"Блок 17 · Цена", type:"stat", tone:"ink",
+   title:"ИЛИ В РАССРОЧКУ 💳",
+   lines:["от *7.041₽/мес*","первый платёж — только со 2-го месяца"],
+   notes:"Если фиксой неудобно — рассрочка, от семи тысяч в месяц. И первый платёж только со второго месяца. То есть ты заходишь, за первый месяц уже находишь учеников и платишь уже из новых денег, а не из своих."},
+  {block:"Блок 17 · Цена", type:"standard", tone:"ink",
+   title:"ТАКИХ ЦЕН РЕАЛЬНО НЕТ 😤",
+   lines:["конкуренты берут дороже — за курс с кураторами-курицами","а тут полгода Я, лично"],
+   notes:"И сравни по-честному. Мои конкуренты за бóльшие деньги впаривают курс, где тебя ведёт куратор-курица, которая сама ни одного ученика не нашла. А тут полгода я. Лично. Это даже близко не одно и то же."},
+  {block:"Блок 17 · Цена", type:"standard", tone:"ink",
+   title:"ЭТУ ЦЕНУ Я ДЕРЖУ 2 ГОДА ⏳",
+   lines:["осенью подниму — гарантированно"],
+   notes:"И вот что важно. Эту цену я держу два года, ни разу не поднимала. Осенью подниму железно, потому что меняется формат и я ухожу в кураторов. Так что дешевле, чем сейчас, не будет уже никогда. Вот реально никогда."},
+
+  // ===== БЛОК 18 · Калькулятор окупаемости =====
+  {block:"Блок 18 · Калькулятор", type:"statement", tone:"ink",
+   title:"ДАВАЙ ПОСЧИТАЕМ, ОКУПАЕТСЯ ЛИ ЭТО 🧮", lines:[], notes:""},
+  {block:"Блок 18 · Калькулятор", type:"stat", tone:"ink",
+   title:"ЯКОРЬ ОКУПАЕМОСТИ",
+   lines:["*1 УЧЕНИЦА = 40.000₽* = ПЛАТЁЖ ЗАКРЫТ 🤑","а мои девочки находят по 10+ в первые недели"],
+   notes:"Смотри, как мало надо. Одна новая ученица, ставка четыре тысячи, десять занятий — сорок тысяч. Этого уже хватает закрыть платёж. ОДНА. А мои девочки находят по десять и больше в первые же недели."},
+  {block:"Блок 18 · Калькулятор", type:"standard", tone:"ink",
+   title:"ЕСЛИ ОПЛАТИШЬ СРАЗУ (99.000₽)",
+   lines:["окупается с 2–3 новых учеников","всё, что дальше, — чистый плюс"], notes:""},
+  {block:"Блок 18 · Калькулятор", type:"standard", tone:"ink",
+   title:"ЕСЛИ В РАССРОЧКУ",
+   lines:["платёж ≈8.000₽ против дохода с ученика 32–64к","ты в плюсе с первого месяца"], notes:""},
+  {block:"Блок 18 · Калькулятор", type:"statement", tone:"violet",
+   title:"ТЕБЕ ХВАТИТ НАЙТИ ОДНОГО 😏",
+   lines:["а я научу находить десятки"],
+   notes:"Поэтому когда мне говорят «дорого», я не спорю, я считаю. Чтоб выйти в ноль, тебе нужен один ученик. Один. А я научу тебя находить десятки. Вот и весь разговор про «дорого».",
+   visual:"живой калькулятор как на сайте (ставка · новых учеников · занятий в неделю)."},
+
+  // ===== БЛОК 19 · Как зайти / бронь =====
+  {block:"Блок 19 · Как зайти", type:"statement", tone:"ink",
+   title:"ЧТО СДЕЛАТЬ, ЧТОБЫ ЗАЙТИ — 3 ШАГА 👇🏻", lines:[], notes:""},
+  {block:"Блок 19 · Как зайти", type:"standard", tone:"ink",
+   title:"ШАГ 1 · БРОНЬ 3.000₽",
+   lines:["ссылка сейчас будет в чате"],
+   notes:"Сейчас Стася кинет ссылку прямо сюда в чат. По ней вносишь бронь — три тысячи. Это чтоб место осталось за тобой, пока ты решаешь и не дёргаешься."},
+  {block:"Блок 19 · Как зайти", type:"standard", tone:"ink",
+   title:"БРОНЬ ВОЗВРАТНАЯ — ТЫ НИЧЕМ НЕ РИСКУЕШЬ 🤝🏻",
+   lines:["передумала — вернула"],
+   notes:"И сразу: бронь возвратная. Передумала — вернула, без вопросов и без «ну подождите, давайте обсудим». Ты вообще ничем не рискуешь, просто не даёшь увести своё место, пока думаешь."},
+  {block:"Блок 19 · Как зайти", type:"statement", tone:"ink",
+   title:"ШАГ 2 · ЗАКРЫВАЙ МЕСТО — ИХ МАЛО 🗿", lines:[], notes:""},
+  {block:"Блок 19 · Как зайти", type:"standard", tone:"violet",
+   title:"ШАГ 3 · НЕ ТЯНИ ⚡️",
+   lines:["послезавтра я открою продажи всему блогу","эту фору я дала только своим"],
+   notes:"Почему я говорю «сейчас», а не «подумай недельку». Послезавтра я выйду в блог и открою продажи на всех. И места разберут, я это по прошлым наборам знаю. Эту встречу я сделала специально для своих, кто был на разборах, чтоб у вас была фора. Грех ей не воспользоваться. Кто заходит — пиши «бронь» в чат."},
+
+  // ===== БЛОК 20 · Тариф 1-на-1 =====
+  {block:"Блок 20 · Тариф 1-на-1", type:"stat", tone:"plum",
+   title:"ОТДЕЛЬНО · 1-НА-1 СО МНОЙ, БЕЗ ГРУППЫ 💎",
+   lines:["*349.000₽*"],
+   notes:"И отдельно, для тех, кому надо совсем лично. Тариф один на один, без группы, только ты и я. Триста сорок девять."},
+  {block:"Блок 20 · Тариф 1-на-1", type:"standard", tone:"ink",
+   title:"ДЛЯ КОГО ЭТОТ ТАРИФ",
+   lines:["только если у тебя УЖЕ есть деньги","и вопрос: как с 300–500к выйти на ЛЯМ"],
+   notes:"Сразу скажу — он не для всех, и я никого не уговариваю. Только для тех, у кого уже есть база, кто на трёхстах-пятистах и хочет миллион. Если это пока не про тебя — спокойно бери группу, там всё то же самое, просто не один на один."},
+  {block:"Блок 20 · Тариф 1-на-1", type:"standard", tone:"ink",
+   title:"И ТАКИЕ КЕЙСЫ У МЕНЯ ЕСТЬ 😎",
+   lines:["Настя — 750.000₽ · Алисия — 400.000₽ + своё наставничество"], notes:""},
+
+  // ===== БЛОК 21 · Возражения =====
+  {block:"Блок 21 · Возражения", type:"standard", tone:"ink",
+   title:"«Я СОЛЬЮСЬ» 🙃",
+   lines:["не выйдет: группа тащит, а застрянешь — приеду домой"], notes:""},
+  {block:"Блок 21 · Возражения", type:"standard", tone:"ink",
+   title:"«ДОРОГО» 💸",
+   lines:["один ученик закрывает платёж · не окупишь — верну","а вот «подумать» год — это минус *1.800.000₽*"],
+   notes:"«Дорого» — это всегда про страх, а не про деньги. Один ученик закрывает платёж. Не окупишь — верну по договору. А вот «подумаю-ка я ещё годик» — вот это реально дорого, это минус почти два миллиона."},
+  {block:"Блок 21 · Возражения", type:"standard", tone:"ink",
+   title:"«У МЕНЯ НЕ ПОЛУЧИТСЯ» 🥹",
+   lines:["результат у всех ста — работает система, а не талант"],
+   notes:"«Я ж не умею в маркетинг» — отлично, тебе и не надо. Я уже говорила: среди сотни были такие, кому это вообще не дано. Результат у всех. Потому что пашет система и команда, а не твой талант к продажам."},
+  {block:"Блок 21 · Возражения", type:"standard", tone:"ink",
+   title:"«НЕТ ВРЕМЕНИ» ⏰",
+   lines:["1,5–2 часа в неделю · летом времени больше","а цена молчания — *1.800.000₽*"], notes:""},
+  {block:"Блок 21 · Возражения", type:"standard", tone:"ink",
+   title:"«ЛЕТО — МЁРТВЫЙ СЕЗОН» ☀️",
+   lines:["наоборот: родители ищут репетитора именно сейчас"], notes:""},
+  {block:"Блок 21 · Возражения", type:"standard", tone:"ink",
+   title:"«Я УЖЕ ПРОХОДИЛА КУРСЫ» 🤡",
+   lines:["так это и не курс — это я лично, с гарантией","и после меня покупать больше нечего"],
+   notes:"И самое частое: «я уже накупила курсов, не помогло». Слышу тебя, родная. Но ты опять про курсы, а я не курс. Я та, кто сядет рядом и доведёт, под гарантию. И после меня тебе больше ничего покупать не надо, всё уже внутри."},
+
+  // ===== БЛОК 22 · Финал =====
+  {block:"Блок 22 · Финал", type:"statement", tone:"ink",
+   title:"ЕЩЁ СОМНЕВАЕШЬСЯ? 🤝🏻",
+   lines:["напиши ЛЮБОЙ из моих учениц и спроси сама"],
+   notes:"Если после двух часов у тебя всё ещё есть сомнения — это нормально, я понимаю. Сделай так: напиши любой моей девочке напрямую и спроси. Я этого не боюсь, потому что они скажут тебе правду."},
+  {block:"Блок 22 · Финал", type:"gallery", tone:"plum",
+   photos:["ph:скрин отзыва ученицы","ph:скрин выплаты","ph:скрин переписки","ph:скрин результата"],
+   title:"А ИХ У МЕНЯ СОТНИ 💎",
+   lines:["Муса 350к · Штепа 350к · Вахитова 340к · Майя 250к · Тамара 230к","…и ещё 100+ с результатами"],
+   notes:"",
+   visual:"🔲 НУЖНО ОТ ОЛИ: реальные скрины отзывов/переписок учениц (чем больше — тем лучше)."},
+  {block:"Блок 22 · Финал", type:"standard", tone:"ink",
+   title:"КОРОТКО ПРО ГЛАВНОЕ 🗿",
+   lines:["последняя личная группа · 15 мест, 8 занято","старт 22 июня · бронь 3.000₽ возвратная"], notes:""},
+  {block:"Блок 22 · Финал", type:"stat", tone:"lime",
+   title:"ЗАКРОЙ ЗА СОБОЙ МЕСТО 🔥",
+   lines:["ссылка в чате · бронь 3.000₽"],
+   notes:"Всё, родная. Ссылка в чате. Если чувствуешь, что это твоё — не тяни, закрой за собой место прямо сейчас, пока оно есть."},
+  {block:"Блок 22 · Финал", type:"statement", tone:"violet",
+   title:"ЖДУ ТЕБЯ ВНУТРИ 🫶🏻", lines:[],
+   notes:"И от себя. Спасибо, что досидела и была со мной эти два часа. Я правда хочу, чтоб у тебя получилось, и это не красивые слова — я это делаю каждый день. Осталось только твоё решение. Жду тебя внутри."}
+];
+
+/* ---------- состояние + хранилище ---------- */
+const KEY = 'olya-deck';
+const SOURCE_VERSION = '2026-06-13-v3-133';   // бампать при изменении SOURCE → у Миши авто-свежий дек
+let SLIDES = load();
+
+function clone(x){return JSON.parse(JSON.stringify(x))}
+function load(){
+  try{
+    const raw=localStorage.getItem(KEY); if(!raw) return clone(SOURCE);
+    const o=JSON.parse(raw);
+    if(o.v!==SOURCE_VERSION || !Array.isArray(o.slides)) return clone(SOURCE);  // источник обновился
+    return o.slides;
+  }catch(e){return clone(SOURCE)}
+}
+let saveWarned=false;
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify({v:SOURCE_VERSION, slides:SLIDES})); }
+  catch(e){ if(!saveWarned){ saveWarned=true; alert('⚠️ Браузер не может сохранить правки (переполнено хранилище). Скачай дек кнопкой «⤓ Дек JSON», чтобы не потерять работу.'); } }
+}
+
+/* ---------- форматирование текста ---------- */
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function fmt(s){
+  // *лайм* и ~зачёркнуто~ ; <em> в title уже допускаем как разметку
+  return esc(s)
+    .replace(/&lt;em&gt;/g,'<em>').replace(/&lt;\/em&gt;/g,'</em>')
+    .replace(/~([^~]+)~/g,'<s>$1</s>')
+    .replace(/\*([^*]+)\*/g,'<em>$1</em>');
+}
+function lineHTML(l, base){
+  let cls=base, txt=l;
+  if(l.trim().startsWith('🔴')) cls+=' before';
+  else if(l.trim().startsWith('🟢')) cls+=' after';
+  return '<div class="'+cls+'">'+fmt(txt)+'</div>';
+}
+
+/* ---------- рендер одного слайда ---------- */
+function edAttr(i,f,li){
+  return ' contenteditable="true" spellcheck="false" data-s="'+i+'" data-f="'+f+'"'+(li!=null?(' data-li="'+li+'"'):'');
+}
+function fsStyle(s, key){ return (s.fs && s.fs[key]) ? 'font-size:'+s.fs[key]+'px;' : ''; }
+function isPh(v){ return typeof v==='string' && (v==='ph' || v.indexOf('ph:')===0); }
+function photoItem(v){
+  if(isPh(v)){ const cap=(v.indexOf('ph:')===0 ? v.slice(3) : 'ФОТО'); return '<div class="ph-rect"><span>'+esc(cap)+'</span></div>'; }
+  return '<img src="'+v+'" alt="">';
+}
+function lineRow(l, base, s, i, j){
+  let c=base; const t=(l||'').trim();
+  if(t.startsWith('🔴')) c+=' before'; else if(t.startsWith('🟢')) c+=' after';
+  return '<div class="'+c+'"'+edAttr(i,'line',j)+' style="'+fsStyle(s,'line'+j)+'">'+fmt(l)+'</div>';
+}
+function titleRow(s, i, tag){
+  return (s.title!=null && s.title!=='') ? '<'+tag+edAttr(i,'title')+' style="'+fsStyle(s,'title')+'">'+fmt(s.title)+'</'+tag+'>' : '';
+}
+function linesRows(s, i, base){
+  return (s.lines&&s.lines.length) ? '<div class="lines">'+s.lines.map((l,j)=>lineRow(l,base,s,i,j)).join('')+'</div>' : '';
+}
+function colorVar(c){
+  return c==='lime'?'var(--lime)':c==='red'?'var(--red)':c==='ink'?'var(--ink)':c==='muted'?'var(--muted)':'var(--off)';
+}
+function boxStyle(b){ return 'left:'+b.x+'px;top:'+b.y+'px;width:'+b.w+'px;height:'+b.h+'px'; }
+function renderBox(b, si, bi){
+  const handles = '<span class="fb-grip" data-act="move" title="двигать">✥</span>'
+    + '<span class="fb-del" onclick="delBox('+si+','+bi+')" title="удалить">×</span>'
+    + '<span class="fb-rz" data-act="resize" title="размер"></span>';
+  if(b.kind==='image'){
+    const inner = b.src
+      ? '<img src="'+b.src+'" style="border-radius:'+(b.radius||0)+'px">'
+      : '<div class="fb-ph" style="border-radius:'+(b.radius||0)+'px"><span>ФОТО</span></div>';
+    const tools = '<div class="fb-tools"><span class="fb-tool" onclick="boxRadius('+si+','+bi+')" title="форма / скругление">⬭ форма</span></div>';
+    return '<div class="fbox ibox" data-s="'+si+'" data-b="'+bi+'" style="'+boxStyle(b)+'">'+inner+handles+tools+'</div>';
+  }
+  const tools = '<div class="fb-tools">'
+    + '<span class="fb-tool" onclick="boxSize('+si+','+bi+',-6)">A−</span>'
+    + '<span class="fb-tool" onclick="boxSize('+si+','+bi+',6)">A+</span>'
+    + '<span class="fb-tool" onclick="boxColor('+si+','+bi+')" title="цвет">◐ цвет</span>'
+    + '<span class="fb-tool" onclick="boxAlign('+si+','+bi+')" title="выравнивание">≋</span></div>';
+  const ts = 'font-size:'+(b.size||40)+'px;color:'+colorVar(b.color)+';text-align:'+(b.align||'left')+';font-weight:'+(b.weight||800)+';';
+  return '<div class="fbox tbox" data-s="'+si+'" data-b="'+bi+'" style="'+boxStyle(b)+'">'
+    + '<div class="fb-txt" contenteditable="true" spellcheck="false" data-s="'+si+'" data-f="box" data-li="'+bi+'" style="'+ts+'">'+fmt(b.text||'')+'</div>'
+    + handles + tools + '</div>';
+}
+function slideHTML(s, i){
+  if(s.free && s.boxes){                              // СВОБОДНЫЙ РЕЖИМ
+    const noGlow = (s.tone==='lime');
+    return '<div class="slide '+(s.tone||'ink')+' free">'+(noGlow?'':'<div class="glow"></div>')
+      + s.boxes.map((b,bi)=>renderBox(b,i,bi)).join('')+'</div>';
+  }
+  let body='', extra='';
+
+  if(s.type==='cover'){                              // обложка: текст | фото
+    extra=' is-cover';
+    body = '<div class="cover"><div class="cover-txt"><h1'+edAttr(i,'title')+' style="'+fsStyle(s,'title')+'">'+fmt(s.title||'')+'</h1>'
+         + (s.lines||[]).map((l,j)=>'<p class="cover-sub"'+edAttr(i,'line',j)+' style="'+fsStyle(s,'line'+j)+'">'+fmt(l)+'</p>').join('')
+         + '</div>'
+         + (s.photo?'<div class="cover-photo">'+photoItem(s.photo)+'</div>':'')
+         + '</div>';
+  } else if(s.photos && s.photos.length){            // несколько фото: галерея
+    extra=' is-gallery';
+    const n = Math.min(s.photos.length, 4);
+    body = '<div class="gal-head">'+titleRow(s,i,'h2')+linesRows(s,i,'ln')+'</div>'
+         + '<div class="gal-grid gal-'+n+'">'+s.photos.slice(0,4).map(p=>photoItem(p)).join('')+'</div>';
+  } else if(s.photo){                                // одно фото: сплит текст | фото
+    extra=' is-split';
+    body = '<div class="split"><div class="split-txt">'+titleRow(s,i,'h2')+linesRows(s,i,'ln')+'</div>'
+         + '<div class="media-photo">'+photoItem(s.photo)+'</div></div>';
+  } else if(s.type==='statement'){                   // чистый текст — КРУПНО
+    extra=' is-statement';
+    body = '<div class="statement"'+edAttr(i,'title')+' style="'+fsStyle(s,'title')+'">'+fmt(s.title||'')+'</div>'
+         + '<div class="statement-sub"'+edAttr(i,'sub')+' style="'+fsStyle(s,'sub')+'">'+((s.lines&&s.lines.length)?s.lines.map(fmt).join('<br>'):'')+'</div>';
+  } else if(s.type==='stat'){                         // крупные фокус-строки / цена
+    body = '<div class="kicker"'+edAttr(i,'title')+' style="'+fsStyle(s,'title')+'">'+fmt(s.title||'')+'</div>'
+         + '<div class="stat-lines">'+(s.lines||[]).map((l,j)=>lineRow(l,'stat',s,i,j)).join('')+'</div>';
+  } else {                                            // standard: заголовок + строки
+    body = titleRow(s,i,'h2')+linesRows(s,i,'ln');
+  }
+
+  const noGlow = (s.tone==='lime' || extra===' is-cover' || extra===' is-split');
+  return '<div class="slide '+(s.tone||'ink')+extra+'">'+(noGlow?'':'<div class="glow"></div>')+body+'</div>';
+}
+
+/* ---------- рендер всего конструктора ---------- */
+function render(){
+  const deck = document.getElementById('deck');
+  const total = SLIDES.length;
+  document.getElementById('count').textContent = total+' слайд(ов)';
+  deck.innerHTML = SLIDES.map((s,i)=>{
+    const notesEmpty = !s.notes || !s.notes.trim();
+    const notes =
+      '<div class="notes"><div class="notes-head">'
+      + '<span class="notes-label">Заметки докладчика · можно править</span>'
+      + '<button class="copy-btn" onclick="copyNote('+i+',this)">⧉ Скопировать</button>'
+      + '</div>'
+      + '<div class="notes-body'+(notesEmpty?' empty':'')+'" contenteditable="true" spellcheck="false" data-s="'+i+'" data-f="notes">'
+      + (notesEmpty ? '' : esc(s.notes))
+      + '</div></div>';
+    const visual = (s.visual&&s.visual.trim()) ? '<div class="visual">'+esc(s.visual)+'</div>' : '';
+    const acts = '<div class="acts">'
+      + '<button class="act" onclick="downloadSlide('+i+",this,'png')\">⬇ PNG</button>"
+      + '<button class="act" onclick="downloadSlide('+i+",this,'jpg')\">⬇ JPG</button>"
+      + (s.free
+          ? '<button class="act" onclick="addTextBox('+i+')">+ Текст</button>'
+            + '<button class="act" onclick="addImageBox('+i+')">+ Фото-плейсхолдер</button>'
+            + '<button class="act warn" onclick="toggleFree('+i+')">⤺ Вернуть шаблон</button>'
+          : '<button class="act" onclick="toggleFree('+i+')">✥ Свободный режим</button>')
+      + '</div>';
+    return '<div class="row">'
+      + '<div class="row-head">'
+      +   '<span class="row-num">'+String(i+1).padStart(2,'0')+'</span>'
+      +   '<span class="row-block">'+esc(s.block||'')+'</span>'
+      +   '<div class="row-tools">'
+      +     '<button class="ico" title="Вверх" onclick="move('+i+',-1)" '+(i===0?'disabled':'')+'>↑</button>'
+      +     '<button class="ico" title="Вниз" onclick="move('+i+',1)" '+(i===total-1?'disabled':'')+'>↓</button>'
+      +     '<button class="ico" title="Дублировать" onclick="dup('+i+')">⎘</button>'
+      +     '<button class="ico del" title="Удалить" onclick="del('+i+')">🗑</button>'
+      +   '</div>'
+      + '</div>'
+      + '<div class="stage">'+slideHTML(s,i)+'</div>'
+      + acts
+      + visual
+      + notes
+      + '</div>';
+  }).join('');
+}
+
+/* ---------- операции с порядком ---------- */
+function move(i, dir){
+  const j=i+dir; if(j<0||j>=SLIDES.length) return;
+  const t=SLIDES[i]; SLIDES[i]=SLIDES[j]; SLIDES[j]=t;
+  save(); render();
+}
+function dup(i){
+  SLIDES.splice(i+1, 0, clone(SLIDES[i]));
+  save(); render();
+}
+function del(i){
+  if(!confirm('Удалить слайд '+(i+1)+'?')) return;
+  SLIDES.splice(i,1); save(); render();
+}
+function resetDeck(){
+  if(!confirm('Вернуть дек к исходнику из сценария? Все перестановки и правки потеряются.')) return;
+  localStorage.removeItem(KEY); SLIDES=clone(SOURCE); render();
+}
+
+/* ---------- копирование заметок ---------- */
+function copyNote(i, btn){
+  navigator.clipboard.writeText(SLIDES[i].notes||'').then(()=>{
+    btn.classList.add('ok'); const o=btn.textContent; btn.textContent='✓ Готово';
+    setTimeout(()=>{btn.classList.remove('ok'); btn.textContent=o},1300);
+  });
+}
+function copyAll(){
+  const txt = SLIDES.map((s,i)=>{
+    const t = (s.title||'').replace(/<\/?em>/g,'').replace(/[*~]/g,'');
+    const head = 'СЛАЙД '+(i+1)+' — '+t;
+    return head+'\n'+(s.notes&&s.notes.trim()? s.notes : '(молчит)');
+  }).join('\n\n');
+  navigator.clipboard.writeText(txt);
+  alert('Все заметки скопированы ('+SLIDES.length+' слайдов).');
+}
+
+/* ---------- РЕДАКТИРОВАНИЕ ТЕКСТА (inline) ---------- */
+function htmlToMarkup(el){
+  let out='';
+  el.childNodes.forEach(n=>{
+    if(n.nodeType===3) out+=n.textContent;
+    else if(n.nodeName==='EM'||n.nodeName==='B'||n.nodeName==='STRONG') out+='*'+n.textContent+'*';
+    else if(n.nodeName==='S'||n.nodeName==='DEL'||n.nodeName==='STRIKE') out+='~'+n.textContent+'~';
+    else if(n.nodeName==='BR') out+='\n';
+    else if(n.nodeName==='DIV'||n.nodeName==='P'){ if(out && !out.endsWith('\n')) out+='\n'; out+=n.textContent; }
+    else out+=n.textContent;          // span и прочее — плоским текстом
+  });
+  return out.replace(/ /g,' ');
+}
+function applyEdit(el){
+  const i=+el.dataset.s, f=el.dataset.f;
+  if(isNaN(i) || !SLIDES[i]) return;
+  if(f==='notes'){
+    SLIDES[i].notes = el.innerText.replace(/ /g,' ').trim();
+    el.classList.toggle('empty', !SLIDES[i].notes);
+    save(); return;
+  }
+  const val = htmlToMarkup(el).trim();
+  if(f==='title'){ SLIDES[i].title = val; }
+  else if(f==='sub'){ SLIDES[i].lines = val.split('\n').map(x=>x.trim()).filter(Boolean); }
+  else if(f==='box'){ const j=+el.dataset.li; if(SLIDES[i].boxes && SLIDES[i].boxes[j]) SLIDES[i].boxes[j].text = val; }
+  else if(f==='line'){
+    const j=+el.dataset.li; if(isNaN(j)) return;
+    SLIDES[i].lines[j] = val;
+    el.classList.remove('before','after');
+    if(val.startsWith('🔴')) el.classList.add('before');
+    else if(val.startsWith('🟢')) el.classList.add('after');
+  }
+  save();
+}
+document.getElementById('deck').addEventListener('focusout', e=>{
+  const el=e.target;
+  if(el && el.dataset && el.dataset.f!=null && el.dataset.s!=null) applyEdit(el);
+});
+// вставка из буфера — только плоский текст (иначе тащит rich-HTML и ломает разметку)
+document.getElementById('deck').addEventListener('paste', e=>{
+  const el=e.target;
+  if(!el || !el.isContentEditable) return;
+  e.preventDefault();
+  const text=(((e.clipboardData||window.clipboardData).getData('text/plain'))||'').replace(/\r/g,'');
+  document.execCommand('insertText', false, text);
+});
+
+/* ---------- БЭКАП ДЕКА (JSON) — чтобы не терять работу ---------- */
+function saveDeckJSON(){
+  const blob=new Blob([JSON.stringify({v:SOURCE_VERSION, slides:SLIDES}, null, 2)], {type:'application/json'});
+  dl(blob, 'дек-репетитор-миллионер.json');
+}
+function loadDeckJSON(ev){
+  const f=ev.target.files && ev.target.files[0]; if(!f){ return; }
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const o=JSON.parse(r.result);
+      const arr=Array.isArray(o)?o:o.slides;
+      if(!Array.isArray(arr)) throw new Error('bad');
+      SLIDES=arr; save(); render();
+      alert('Дек загружен: '+arr.length+' слайдов.');
+    }catch(err){ alert('Не похоже на JSON дека.'); }
+  };
+  r.readAsText(f); ev.target.value='';
+}
+
+/* ---------- СКАЧИВАНИЕ PNG / JPG ---------- */
+function dl(blob, name){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download=name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+}
+function slideImage(i, fmt){
+  if(typeof html2canvas==='undefined') return Promise.reject(new Error('html2canvas не загрузился'));
+  const orig=document.querySelectorAll('.deck .stage .slide')[i];
+  if(!orig) return Promise.reject(new Error('нет слайда'));
+  // рендерим с КЛОНА оффскрин (паттерн studio): не трогаем живой слайд, нет клипа .stage, нет ручек/фокуса
+  const clone=orig.cloneNode(true);
+  clone.style.transform='none'; clone.style.boxShadow='none';
+  const host=document.createElement('div');
+  host.style.cssText='position:fixed;left:-99999px;top:0;width:1280px;height:720px;z-index:-1';
+  host.appendChild(clone); document.body.appendChild(host);
+  const bg=fmt==='jpg' ? (getComputedStyle(orig).backgroundColor || '#08080F') : null;
+  const cleanup=()=>{ if(host.parentNode) document.body.removeChild(host); };
+  return (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve())
+    .then(()=>html2canvas(clone,{backgroundColor:bg, scale:2, width:1280, height:720, useCORS:true, allowTaint:false, logging:false}))
+    .then(canvas=>{
+      cleanup();
+      const type=fmt==='jpg'?'image/jpeg':'image/png';
+      return new Promise((res,rej)=>{ try{ canvas.toBlob(b=> b?res(b):rej(new Error('blob null')), type, fmt==='jpg'?0.95:undefined); }catch(err){ rej(err); } });
+    }, err=>{ cleanup(); throw err; });
+}
+function downloadSlide(i, btn, fmt){
+  fmt=fmt||'png'; const o=btn?btn.textContent:''; if(btn) btn.textContent='…';
+  slideImage(i,fmt).then(b=>{ dl(b,'слайд-'+String(i+1).padStart(2,'0')+'.'+fmt); if(btn) btn.textContent=o; })
+    .catch(()=>{ if(btn) btn.textContent=o;
+      alert('Слайд '+(i+1)+': в браузере не сохранить — настоящее фото блокирует canvas (file://).\nПлейсхолдеры-прямоугольники скачиваются; слайды с реальным фото бери скриптом render-deck.'); });
+}
+async function downloadAll(fmt){
+  fmt=fmt||'png'; const fail=[];
+  for(let i=0;i<SLIDES.length;i++){
+    try{ const b=await slideImage(i,fmt); dl(b,'слайд-'+String(i+1).padStart(2,'0')+'.'+fmt); await new Promise(r=>setTimeout(r,400)); }
+    catch(e){ fail.push(i+1); }
+  }
+  if(fail.length) alert('Скачано в '+fmt.toUpperCase()+', кроме слайдов с реальным фото ('+fail.join(', ')+') — их собери скриптом render-deck.');
+  else alert('Все слайды скачаны в '+fmt.toUpperCase()+'.');
+}
+
+/* ============================================================
+   ФАЗА 2 — СВОБОДНЫЙ РЕЖИМ (боксы: двигать/ресайз/удалить/кегль/форма)
+   ============================================================ */
+function getScale(){ const v=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale')); return v||0.71875; }
+function clampN(v,a,b){ return Math.max(a, Math.min(b, v)); }
+
+// конвертация шаблона в боксы по реальным позициям
+function toFreeBoxes(si){
+  const stage=document.querySelectorAll('.deck .stage')[si];
+  const slideEl=stage.querySelector('.slide');
+  const sr=slideEl.getBoundingClientRect(), sc=getScale();
+  const boxes=[];
+  slideEl.querySelectorAll('[data-f="title"],[data-f="line"],[data-f="sub"]').forEach(el=>{
+    const r=el.getBoundingClientRect(), cs=getComputedStyle(el);
+    let color='off';
+    if(el.classList.contains('after')) color='lime';
+    else if(el.classList.contains('before')) color='red';
+    boxes.push({kind:'text',
+      x:Math.round((r.left-sr.left)/sc), y:Math.round((r.top-sr.top)/sc),
+      w:Math.round(r.width/sc)+24, h:Math.round(r.height/sc)+12,
+      text:htmlToMarkup(el).trim(),
+      size:Math.round(parseFloat(cs.fontSize)),
+      color:color, align:(cs.textAlign==='center'?'center':'left'),
+      weight:parseInt(cs.fontWeight)||800});
+  });
+  slideEl.querySelectorAll('.cover-photo img,.media-photo img,.gal-grid img').forEach(img=>{
+    const r=img.getBoundingClientRect();
+    boxes.push({kind:'image',
+      x:Math.round((r.left-sr.left)/sc), y:Math.round((r.top-sr.top)/sc),
+      w:Math.round(r.width/sc), h:Math.round(r.height/sc),
+      src:img.getAttribute('src'), radius:8});
+  });
+  return boxes;
+}
+function toggleFree(si){
+  const s=SLIDES[si];
+  if(s.free){ delete s.free; delete s.boxes; }
+  else { s.boxes=toFreeBoxes(si); s.free=true; }
+  save(); render();
+}
+function delBox(si,bi){ SLIDES[si].boxes.splice(bi,1); save(); render(); }
+function addTextBox(si){ SLIDES[si].boxes.push({kind:'text',x:120,y:120,w:760,h:150,text:'Новый текст',size:54,color:'off',align:'left',weight:800}); save(); render(); }
+function addImageBox(si){ SLIDES[si].boxes.push({kind:'image',x:760,y:150,w:420,h:440,radius:8}); save(); render(); }
+function boxSize(si,bi,d){ const b=SLIDES[si].boxes[bi]; b.size=clampN((b.size||40)+d,14,240); save(); render(); }
+function boxColor(si,bi){ const seq=['off','lime','red','muted','ink']; const b=SLIDES[si].boxes[bi]; b.color=seq[(seq.indexOf(b.color||'off')+1)%seq.length]; save(); render(); }
+function boxAlign(si,bi){ const seq=['left','center','right']; const b=SLIDES[si].boxes[bi]; b.align=seq[(seq.indexOf(b.align||'left')+1)%seq.length]; save(); render(); }
+function boxRadius(si,bi){ const seq=[0,8,24,9999]; const b=SLIDES[si].boxes[bi]; b.radius=seq[(seq.indexOf(b.radius||0)+1)%seq.length]; save(); render(); }
+
+// drag / resize
+let drag=null;
+function styleBox(el,b){ el.style.left=b.x+'px'; el.style.top=b.y+'px'; el.style.width=b.w+'px'; el.style.height=b.h+'px'; }
+document.getElementById('deck').addEventListener('pointerdown', e=>{
+  const h=e.target.closest('[data-act]'); if(!h) return;
+  const act=h.dataset.act; if(act!=='move'&&act!=='resize') return;
+  const box=h.closest('.fbox'); if(!box) return;
+  const si=+box.dataset.s, bi=+box.dataset.b, b=SLIDES[si].boxes[bi]; if(!b) return;
+  drag={act,box,b,sx:e.clientX,sy:e.clientY,x0:b.x,y0:b.y,w0:b.w,h0:b.h,sc:getScale()};
+  e.preventDefault();
+});
+window.addEventListener('pointermove', e=>{
+  if(!drag) return;
+  const dx=(e.clientX-drag.sx)/drag.sc, dy=(e.clientY-drag.sy)/drag.sc, b=drag.b;
+  if(drag.act==='move'){ b.x=Math.round(clampN(drag.x0+dx,0,1280-b.w)); b.y=Math.round(clampN(drag.y0+dy,0,720-b.h)); }
+  else { b.w=Math.round(clampN(drag.w0+dx,60,1280-b.x)); b.h=Math.round(clampN(drag.h0+dy,36,720-b.y)); }
+  styleBox(drag.box,b);
+});
+window.addEventListener('pointerup', ()=>{ if(drag){ save(); drag=null; } });
+
+/* ---------- ПЛАВАЮЩИЙ РЕДАКТОР РАЗМЕРА ШРИФТА (текст + боксы) ---------- */
+let curEdit=null;
+const txtbar=document.getElementById('txtbar');
+function curFontSize(){
+  if(!curEdit) return 0;
+  if(curEdit.field==='box'){ const b=SLIDES[curEdit.i].boxes[curEdit.li]; return b?(b.size||40):40; }
+  const fsm=SLIDES[curEdit.i].fs;
+  if(fsm && fsm[curEdit.key]) return fsm[curEdit.key];
+  return Math.round(parseFloat(getComputedStyle(curEdit.el).fontSize))||40;
+}
+function showTxtbar(el){
+  const field=el.dataset.f;
+  if(['title','line','sub','box'].indexOf(field)<0){ hideTxtbar(); return; }
+  const i=+el.dataset.s, li=(el.dataset.li!=null? +el.dataset.li : null);
+  curEdit={el, i, field, li, key: field+(li!=null?li:'')};
+  document.getElementById('tbsize').textContent=curFontSize()+' px';
+  const r=el.getBoundingClientRect();
+  txtbar.style.left=Math.min(window.innerWidth-180, Math.max(8, r.left))+'px';
+  txtbar.style.top=Math.max(8, r.top-44)+'px';
+  txtbar.classList.add('show');
+}
+function hideTxtbar(){ txtbar.classList.remove('show'); curEdit=null; }
+function bumpFont(d){
+  if(!curEdit) return;
+  const n=Math.max(12, Math.min(280, curFontSize()+d));
+  if(curEdit.field==='box'){
+    const b=SLIDES[curEdit.i].boxes[curEdit.li]; if(b){ b.size=n; curEdit.el.style.fontSize=n+'px'; }
+  } else {
+    const s=SLIDES[curEdit.i]; s.fs=s.fs||{}; s.fs[curEdit.key]=n; curEdit.el.style.fontSize=n+'px';
+  }
+  document.getElementById('tbsize').textContent=n+' px';
+  save();
+}
+document.getElementById('deck').addEventListener('focusin', e=>{
+  const el=e.target; if(el && el.dataset && el.dataset.f) showTxtbar(el);
+});
+document.getElementById('deck').addEventListener('focusout', ()=>{
+  setTimeout(()=>{
+    const a=document.activeElement;
+    if(!(a && a.dataset && ['title','line','sub','box'].indexOf(a.dataset.f)>=0)) hideTxtbar();
+  }, 150);
+});
+
+render();
+</script>
+</body>
+</html>
