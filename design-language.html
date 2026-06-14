@@ -3,1346 +3,863 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Дизайн-язык — Оля Лондон</title>
+<title>Оля Лондон — Brand Book · Дизайн-язык v2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --navy: #262594;
-  --indigo: #080c76;
-  --lime: #c6fd2b;
-  --white: #ffffff;
-  --dark: #0a0a24;
-  --mid: rgba(255,255,255,0.06);
-  --border: rgba(255,255,255,0.08);
-  --muted: rgba(255,255,255,0.45);
-  --text: rgba(255,255,255,0.78);
-  --red: #e63946;
-  --green: #2dc653;
-  --font: 'Montserrat', sans-serif;
+:root{
+  --ink:#08080F; --ink2:#0E0E1A; --ink3:#141428;
+  --plum:#1A0A3B; --plum2:#250D52;
+  --violet:#5B21B6; --violet2:#7C3AED;
+  --lime:#C8FF00; --lime2:#B2E600;
+  --white:#FFFFFF; --off:#E8E8F2;
+  --muted:rgba(232,232,242,.48); --faint:rgba(232,232,242,.2);
+  --bdk:rgba(255,255,255,.07); --blime:rgba(200,255,0,.12); --bviolet:rgba(124,58,237,.25);
+  --ez:cubic-bezier(.22,1,.36,1);
+  --gut:28px;
 }
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--ink);color:var(--off);font-family:'Onest',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4,p,ul,ol,li,figure{margin:0;padding:0}
+ul{list-style:none}
+a{color:inherit;text-decoration:none}
+code,.mono{font-family:'JetBrains Mono',monospace}
+::selection{background:var(--lime);color:var(--ink)}
 
-html { scroll-behavior: smooth; }
+/* ── атмосфера ── */
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(200,255,0,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(200,255,0,.02) 1px,transparent 1px);
+  background-size:80px 80px}
+.bg-gl{position:fixed;top:-12%;right:-8%;width:62vw;height:62vw;z-index:0;pointer-events:none;
+  background:radial-gradient(circle,rgba(200,255,0,.05),transparent 60%);animation:glow 10s ease-in-out infinite alternate}
+.bg-gv{position:fixed;bottom:-18%;left:-12%;width:58vw;height:58vw;z-index:0;pointer-events:none;
+  background:radial-gradient(circle,rgba(124,58,237,.08),transparent 60%)}
+@keyframes glow{from{opacity:.55;transform:scale(1)}to{opacity:1;transform:scale(1.12)}}
+.bg-noise{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.025;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-body {
-  font-family: var(--font);
-  background: var(--dark);
-  color: var(--white);
-  line-height: 1.6;
-  font-size: 15px;
-}
+/* ── PROGRESS ── */
+.prog{position:fixed;top:0;left:0;height:2px;background:var(--lime);z-index:60;width:0;box-shadow:0 0 10px var(--lime)}
 
 /* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  background: rgba(8,12,118,0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1.5px solid rgba(198,253,43,0.25);
-  z-index: 100;
-  padding: 0 40px;
-  height: 52px;
-  display: flex; align-items: center; gap: 0;
-}
-nav .logo {
-  font-weight: 900; font-size: 12px; letter-spacing: 3px;
-  color: var(--lime); text-transform: uppercase; white-space: nowrap;
-  margin-right: 40px;
-}
-nav a {
-  font-size: 10px; font-weight: 800; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--muted);
-  text-decoration: none; transition: color 0.2s;
-  padding: 0 14px; height: 52px; display: flex; align-items: center;
-  border-right: 1px solid rgba(255,255,255,0.06);
-}
-nav a:hover { color: var(--lime); }
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(8,8,15,.8);backdrop-filter:blur(16px);border-bottom:1px solid var(--bdk)}
+.nav-in{max-width:1140px;margin:0 auto;padding:0 var(--gut);height:60px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.nav-logo{font-weight:900;font-size:13px;letter-spacing:.5px;color:var(--white);display:flex;align-items:center;gap:9px;text-transform:uppercase}
+.nav-logo b{color:var(--lime);font-weight:900}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--lime);animation:blink 2s infinite;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.nav-links{display:flex;gap:2px;flex-wrap:wrap}
+.nav-links a{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--muted);padding:7px 9px;border-radius:3px;transition:all .18s;letter-spacing:.3px}
+.nav-links a:hover{color:var(--lime);background:rgba(200,255,0,.06)}
+@media(max-width:1040px){.nav-links{display:none}}
 
 /* ── LAYOUT ── */
-main { max-width: 1160px; margin: 0 auto; padding: 88px 40px 100px; }
+.wrap{max-width:1140px;margin:0 auto;padding:0 var(--gut);position:relative;z-index:1}
+section{padding:96px 0;position:relative;z-index:1;border-top:1px solid var(--bdk)}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--lime);letter-spacing:3px;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:14px}
+.kicker .nn{color:var(--violet2)}
+.kicker::after{content:'';flex:1;max-width:160px;height:1px;background:linear-gradient(90deg,var(--bdk),transparent)}
+.h-s{font-size:clamp(32px,5vw,62px);font-weight:900;line-height:.92;letter-spacing:-2px;text-transform:uppercase;color:var(--off)}
+.h-s em{font-style:normal;color:var(--lime)}
+.lead{font-size:clamp(15px,1.6vw,18px);color:var(--muted);line-height:1.7;max-width:660px;margin-top:20px}
+.lead b{color:var(--off);font-weight:600}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--faint);margin:48px 0 18px;display:flex;align-items:center;gap:12px}
+.eyebrow::after{content:'';flex:1;height:1px;background:var(--bdk)}
 
-section { margin-bottom: 96px; }
+/* ── COVER ── */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 0 70px;border-top:none;position:relative}
+.cover-tag{display:inline-flex;align-items:center;gap:10px;background:rgba(200,255,0,.06);border:1px solid rgba(200,255,0,.2);border-radius:100px;padding:8px 18px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--lime);margin-bottom:38px;width:fit-content}
+.cover-wm{font-size:clamp(54px,13vw,180px);font-weight:900;line-height:.82;letter-spacing:-6px;text-transform:uppercase;color:var(--white);margin-bottom:0}
+.cover-wm span{color:var(--lime)}
+.cover-sub{font-size:clamp(18px,2.4vw,30px);font-weight:800;letter-spacing:-.5px;color:var(--off);margin-top:24px;max-width:680px;line-height:1.15}
+.cover-sub em{font-style:normal;color:var(--lime)}
+.cover-desc{font-size:16px;color:var(--muted);line-height:1.7;max-width:560px;margin-top:22px}
+.cover-foot{display:flex;gap:34px;flex-wrap:wrap;margin-top:56px;padding-top:30px;border-top:1px solid var(--bdk)}
+.cover-foot div{font-family:'JetBrains Mono',monospace}
+.cover-foot .l{font-size:9px;color:var(--faint);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.cover-foot .v{font-size:14px;color:var(--off);font-weight:700}
+.cover-foot .v b{color:var(--lime)}
+.scroll-hint{position:absolute;bottom:30px;left:var(--gut);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--faint);letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:10px;animation:fadeUp 2s ease-in-out infinite}
+@keyframes fadeUp{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:.8;transform:translateY(4px)}}
 
-.section-label {
-  font-size: 10px; font-weight: 900; letter-spacing: 4px;
-  text-transform: uppercase; color: var(--lime);
-  margin-bottom: 10px; display: block;
-}
+/* ── CONTENTS ── */
+.toc{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdk);border:1px solid var(--bdk);margin-top:36px}
+@media(max-width:760px){.toc{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.toc{grid-template-columns:1fr}}
+.toc a{background:var(--ink2);padding:22px 22px;display:flex;flex-direction:column;gap:7px;transition:all .2s;position:relative}
+.toc a:hover{background:var(--ink3)}
+.toc a:hover .toc-t{color:var(--lime)}
+.toc-n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--violet2);font-weight:700;letter-spacing:1px}
+.toc-t{font-size:16px;font-weight:800;color:var(--off);letter-spacing:-.3px;transition:color .2s}
+.toc-d{font-size:12px;color:var(--muted);line-height:1.45}
 
-h2 {
-  font-size: 50px; font-weight: 900; line-height: 1.08;
-  margin-bottom: 36px; letter-spacing: -0.5px;
-}
+/* ── GENERIC CARDS ── */
+.grid{display:grid;gap:10px;margin-top:34px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--ink2);border:1px solid var(--bdk);padding:24px;transition:all .25s}
+.card:hover{border-color:rgba(200,255,0,.2);transform:translateY(-3px)}
+.card h4{font-size:14px;font-weight:800;color:var(--off);margin-bottom:9px;letter-spacing:-.3px}
+.card p{font-size:13px;color:var(--muted);line-height:1.6}
+.card .tag{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--lime);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;display:block}
 
-h3 {
-  font-size: 13px; font-weight: 900; text-transform: uppercase;
-  letter-spacing: 2px; color: var(--lime);
-  margin-bottom: 16px; margin-top: 36px;
-}
-h3:first-child { margin-top: 0; }
+/* ── PRINCIPLES ── */
+.princ{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bdk);border:1px solid var(--bdk);margin-top:32px}
+@media(max-width:880px){.princ{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.princ{grid-template-columns:1fr}}
+.princ-item{background:var(--ink2);padding:28px 24px;transition:background .25s}
+.princ-item:hover{background:var(--ink3)}
+.princ-n{font-family:'JetBrains Mono',monospace;font-size:34px;font-weight:800;color:rgba(200,255,0,.18);line-height:1;letter-spacing:-2px}
+.princ-item h4{font-size:18px;font-weight:900;color:var(--off);margin:18px 0 10px;letter-spacing:-.5px}
+.princ-item p{font-size:13px;color:var(--muted);line-height:1.6}
 
-p { color: var(--text); margin-bottom: 10px; }
-p:last-child { margin-bottom: 0; }
+/* ── WORDMARK ── */
+.wm-stage{display:grid;grid-template-columns:1.3fr 1fr;gap:10px;margin-top:34px}
+@media(max-width:780px){.wm-stage{grid-template-columns:1fr}}
+.wm-box{background:var(--ink2);border:1px solid var(--bdk);padding:48px 38px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.wm-box::before{content:'';position:absolute;top:-40%;right:-20%;width:60%;height:120%;background:radial-gradient(circle,rgba(200,255,0,.06),transparent 65%);pointer-events:none}
+.wm-lock{font-size:clamp(34px,5vw,58px);font-weight:900;letter-spacing:-2px;text-transform:uppercase;color:var(--white);line-height:.9;position:relative}
+.wm-lock b{color:var(--lime);font-weight:900}
+.wm-lock .dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--lime);margin-left:6px;vertical-align:middle}
+.wm-cap{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:22px;letter-spacing:.5px}
+.wm-cap b{color:var(--lime)}
+.wm-rules{display:flex;flex-direction:column;gap:8px}
+.wm-rule{background:var(--ink2);border:1px solid var(--bdk);border-left:3px solid var(--lime);padding:16px 18px}
+.wm-rule h5{font-size:13px;font-weight:800;color:var(--off);margin-bottom:5px}
+.wm-rule p{font-size:12px;color:var(--muted);line-height:1.5}
+.wm-misuse{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+@media(max-width:680px){.wm-misuse{grid-template-columns:1fr 1fr}}
+.wm-m{background:var(--ink2);border:1px solid rgba(255,77,77,.2);padding:18px 16px;text-align:center}
+.wm-m .x{color:#FF6B6B;font-size:15px;font-weight:900;margin-bottom:8px;font-family:'JetBrains Mono',monospace}
+.wm-m .ex{font-weight:900;text-transform:uppercase;font-size:15px;letter-spacing:-.5px;margin-bottom:7px}
+.wm-m p{font-size:11px;color:var(--muted);line-height:1.4}
 
-code {
-  font-family: 'Courier New', monospace; font-size: 12px;
-  background: rgba(198,253,43,0.1); color: var(--lime);
-  padding: 2px 6px; border-radius: 4px;
-}
+/* ── SWATCHES ── */
+.sw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:28px}
+@media(max-width:820px){.sw-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.sw-grid{grid-template-columns:1fr}}
+.sw{border:1px solid var(--bdk);overflow:hidden;background:var(--ink2);transition:transform .2s}
+.sw:hover{transform:translateY(-2px)}
+.sw-chip{height:92px;display:flex;align-items:flex-end;padding:12px;position:relative}
+.sw-meta{padding:13px 14px}
+.sw-name{font-size:13px;font-weight:800;color:var(--off)}
+.sw-hex{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--lime);margin-top:2px;cursor:copy}
+.sw-use{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.5}
+.ratio{display:flex;height:56px;border:1px solid var(--bdk);overflow:hidden;margin-top:24px;border-radius:3px}
+.ratio div{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;letter-spacing:.5px;font-family:'JetBrains Mono',monospace}
+.a11y{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+@media(max-width:600px){.a11y{grid-template-columns:1fr}}
+.a11y-row{border:1px solid var(--bdk);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.a11y-sample{font-weight:900;font-size:16px;padding:6px 12px;border-radius:3px}
+.a11y-pass{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--lime);font-weight:700}
 
-/* ── HERO ── */
-.hero {
-  padding: 56px 0 60px;
-  border-bottom: 1px solid rgba(198,253,43,0.15);
-  margin-bottom: 80px;
-}
-.hero-badge {
-  display: inline-block;
-  background: var(--lime); color: var(--indigo);
-  font-size: 9px; font-weight: 900; letter-spacing: 3px;
-  text-transform: uppercase; padding: 5px 12px;
-  margin-bottom: 20px;
-}
-.hero h1 {
-  font-size: 76px; font-weight: 900; line-height: 1.0;
-  letter-spacing: -1px; margin-bottom: 16px;
-}
-.hero h1 em { color: var(--lime); font-style: normal; }
-.hero-sub {
-  font-size: 17px; color: var(--muted); max-width: 560px;
-  line-height: 1.55;
-}
+/* ── TYPE ── */
+.type-row{border:1px solid var(--bdk);background:var(--ink2);padding:22px 24px;margin-top:10px;display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.type-spec{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);white-space:nowrap;flex-shrink:0}
+.type-spec b{color:var(--lime)}
+.ts-display{font-size:clamp(34px,5vw,56px);font-weight:900;letter-spacing:-2px;line-height:1;text-transform:uppercase;color:var(--white)}
+.ts-display em{font-style:normal;color:var(--lime)}
+.ts-h{font-size:26px;font-weight:800;letter-spacing:-.8px;color:var(--off)}
+.ts-body{font-size:16px;font-weight:500;color:var(--off);max-width:420px}
+.ts-label{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--lime)}
+.ts-num{font-size:48px;font-weight:900;letter-spacing:-2px;color:var(--lime);line-height:1}
 
-/* ── DIVIDER ── */
-.divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(198,253,43,0.2), transparent);
-  margin: 48px 0;
-}
+/* ── SPACING SCALE ── */
+.space-scale{display:flex;flex-direction:column;gap:8px;margin-top:24px}
+.space-row{display:flex;align-items:center;gap:16px}
+.space-bar{height:18px;background:linear-gradient(90deg,var(--lime),var(--lime2));border-radius:2px}
+.space-lbl{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);white-space:nowrap}
+.space-lbl b{color:var(--off)}
 
-/* ── GRID UTILS ── */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
-.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+/* ── PTABLE ── */
+.ptable{width:100%;border-collapse:collapse;margin-top:16px;font-size:13px}
+.ptable th,.ptable td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--bdk)}
+.ptable th{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--faint)}
+.ptable td{color:var(--muted)}
+.ptable td:first-child{font-family:'JetBrains Mono',monospace;color:var(--lime);font-weight:700;font-size:12px;white-space:nowrap}
+.ptable td b{color:var(--off)}
+.ptable tr:hover td{background:rgba(255,255,255,.015)}
 
-/* ── CARD ── */
-.card {
-  background: var(--mid);
-  border: 1px solid var(--border);
-  border-radius: 14px; padding: 22px 24px;
-}
-.card-title {
-  font-size: 10px; font-weight: 900; text-transform: uppercase;
-  letter-spacing: 2px; color: var(--lime);
-  margin-bottom: 10px; display: block;
-}
-
-/* ── RULE BOX ── */
-.rule-box {
-  background: rgba(198,253,43,0.06);
-  border: 1px solid rgba(198,253,43,0.18);
-  border-radius: 12px; padding: 18px 22px; margin: 20px 0;
-}
-.rule-box p { font-size: 14px; color: rgba(255,255,255,0.88); margin: 0; }
-.rule-box strong { color: var(--lime); font-weight: 800; }
-
-.warn-box {
-  background: rgba(230,57,70,0.07);
-  border: 1px solid rgba(230,57,70,0.25);
-  border-radius: 12px; padding: 14px 20px; margin: 16px 0;
-}
-.warn-box p { font-size: 13px; color: rgba(255,255,255,0.8); margin: 0; }
-.warn-box strong { color: #ff6b7a; font-weight: 800; }
-
-/* ── COLOR SWATCHES ── */
-.color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 14px; }
-.color-swatch { border-radius: 12px; overflow: hidden; }
-.color-block { height: 88px; width: 100%; }
-.color-info {
-  padding: 11px 13px;
-  background: var(--mid); border: 1px solid var(--border);
-  border-radius: 0 0 12px 12px;
-}
-.color-name { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 3px; }
-.color-hex { font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: 1px; font-family: monospace; }
-.color-use { font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 4px; line-height: 1.4; }
-
-/* ── TYPE SHOWCASE ── */
-.type-row {
-  display: flex; align-items: baseline; gap: 24px;
-  padding: 18px 22px;
-  background: var(--mid); border: 1px solid var(--border);
-  border-radius: 12px; margin-bottom: 10px;
-}
-.type-meta { flex: 0 0 180px; }
-.type-label { font-size: 9px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--lime); display: block; margin-bottom: 3px; }
-.type-spec { font-size: 10px; color: var(--muted); line-height: 1.4; }
-
-/* ── CHECKLISTS ── */
-.checklist { display: flex; flex-direction: column; gap: 8px; }
-.check-item {
-  display: flex; gap: 12px; align-items: flex-start;
-  padding: 12px 16px;
-  background: rgba(198,253,43,0.04);
-  border-left: 3px solid var(--lime);
-  border-radius: 0 8px 8px 0;
-}
-.check-n { font-size: 9px; font-weight: 900; color: var(--lime); flex: 0 0 22px; padding-top: 3px; }
-.check-t { font-size: 13px; color: var(--text); line-height: 1.5; }
-.check-t strong { color: var(--white); font-weight: 800; }
-
-.stoplist { display: flex; flex-direction: column; gap: 7px; }
-.stop-item {
-  display: flex; gap: 12px; padding: 9px 16px;
-  background: rgba(230,57,70,0.07);
-  border-left: 3px solid var(--red);
-  border-radius: 0 8px 8px 0;
-}
-.stop-x { color: var(--red); font-weight: 900; font-size: 11px; flex: 0 0 14px; padding-top: 1px; }
-.stop-t { font-size: 13px; color: var(--text); }
-
-/* ── SPEC TABLE ── */
-.spec-row {
-  display: flex; gap: 16px; padding: 11px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  align-items: baseline;
-}
-.spec-key { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(198,253,43,0.65); flex: 0 0 160px; }
-.spec-val { font-size: 13px; color: var(--text); line-height: 1.5; }
-
-/* ── EMOJI GRID ── */
-.emoji-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
-.emoji-item {
-  background: var(--mid); border: 1px solid var(--border);
-  border-radius: 10px; padding: 12px 14px;
-}
-.emoji-char { font-size: 26px; display: block; margin-bottom: 5px; line-height: 1; }
-.emoji-role { font-size: 10px; color: var(--muted); line-height: 1.4; }
-
-/* ── WORD CHIPS ── */
-.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
-.chip {
-  padding: 5px 12px; border-radius: 100px;
-  font-size: 12px; font-weight: 800;
-}
-.chip-lime { background: var(--lime); color: var(--indigo); }
-.chip-navy { background: rgba(38,37,148,0.6); color: var(--white); border: 1px solid rgba(198,253,43,0.2); }
-.chip-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.15); color: var(--muted); }
+/* ── SPEC ROW ── */
+.spec-row{background:var(--ink2);border:1px solid var(--bdk);border-left:3px solid var(--lime);padding:18px 20px;margin-top:10px}
+.spec-row h4{font-size:14px;font-weight:800;color:var(--off);margin-bottom:7px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.spec-row .px{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--lime);background:rgba(200,255,0,.08);padding:2px 7px;border-radius:3px}
+.spec-row p{font-size:13px;color:var(--muted);line-height:1.65}
+.spec-row p b{color:var(--off)}
 
 /* ── REEL MOCKUP ── */
-.reel-wrap { display: flex; gap: 48px; align-items: flex-start; }
-.mockup-reel {
-  width: 260px; height: 462px;
-  background: var(--navy);
-  border-radius: 18px; overflow: hidden;
-  position: relative; flex-shrink: 0;
-  border: 2px solid rgba(198,253,43,0.28);
-  box-shadow: 0 0 40px rgba(198,253,43,0.08);
-}
-.reel-zone-block {
-  position: absolute; width: 100%;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 0 14px;
-}
-.reel-hook-block {
-  top: 0; height: 35%;
-  background: var(--navy);
-  padding: 18px 14px 10px;
-}
-.reel-hook-txt {
-  font-weight: 900; font-size: 13px;
-  text-transform: uppercase; color: white;
-  text-align: center; line-height: 1.3;
-  letter-spacing: 0.3px;
-}
-.reel-cta-txt {
-  font-weight: 700; font-size: 9px;
-  color: rgba(255,255,255,0.55); text-align: center;
-  margin-top: 8px; text-transform: uppercase; letter-spacing: 0.5px;
-}
-.reel-vid-block {
-  top: 35%; height: 40%;
-  background: #18183a;
-  border-top: 1px solid rgba(198,253,43,0.12);
-  border-bottom: 1px solid rgba(198,253,43,0.12);
-  font-size: 9px; color: rgba(255,255,255,0.2);
-  text-align: center; font-weight: 800;
-  letter-spacing: 1.5px; text-transform: uppercase;
-}
-.reel-sub-block {
-  top: 75%; height: 25%;
-  background: var(--navy);
-}
-.sub-pill {
-  background: var(--lime); color: var(--indigo);
-  font-weight: 900; font-size: 11px;
-  text-transform: uppercase; padding: 6px 12px;
-  border-radius: 5px; text-align: center;
-  line-height: 1.35; letter-spacing: 0.3px;
-}
-.sub-prev {
-  font-size: 9px; font-weight: 800;
-  color: rgba(255,255,255,0.2); text-transform: uppercase;
-  text-align: center; display: flex; gap: 6px; align-items: center;
-}
-.zone-line {
-  position: absolute; left: 0; right: 0; height: 1px;
-  background: rgba(198,253,43,0.3);
-}
-.zone-badge {
-  position: absolute; right: 6px;
-  font-size: 7px; font-weight: 900; letter-spacing: 1.5px;
-  text-transform: uppercase; color: rgba(198,253,43,0.4);
-  background: rgba(0,0,0,0.3); padding: 2px 5px; border-radius: 3px;
-}
-
-/* ── HOOK EXAMPLES ── */
-.hook-examples { display: flex; flex-direction: column; gap: 10px; }
-.hook-ex {
-  display: flex; gap: 14px; align-items: flex-start;
-  padding: 14px 18px;
-  background: rgba(38,37,148,0.5);
-  border: 1px solid rgba(198,253,43,0.15);
-  border-radius: 10px;
-}
-.hook-type-badge {
-  font-size: 8px; font-weight: 900; text-transform: uppercase;
-  letter-spacing: 1.5px; color: var(--lime);
-  background: rgba(198,253,43,0.1); padding: 4px 7px;
-  border-radius: 4px; white-space: nowrap; flex: 0 0 68px; text-align: center;
-  margin-top: 2px;
-}
-.hook-txt {
-  font-size: 13px; font-weight: 900;
-  text-transform: uppercase; line-height: 1.3; color: white;
-}
-
-/* ── CAROUSEL MOCKUPS ── */
-.carousel-pair { display: flex; gap: 20px; flex-wrap: wrap; }
-.mockup-slide {
-  width: 200px; height: 250px;
-  border-radius: 12px; overflow: hidden;
-  padding: 18px 16px;
-  display: flex; flex-direction: column;
-  position: relative;
-  border: 1.5px solid rgba(198,253,43,0.2);
-  flex-shrink: 0;
-}
-.ms-navy { background: var(--navy); }
-.ms-lime { background: var(--lime); }
-.slide-num {
-  position: absolute; top: 8px; right: 10px;
-  font-size: 7px; font-weight: 800; letter-spacing: 1px;
-}
-.ms-navy .slide-num { color: rgba(255,255,255,0.2); }
-.ms-lime .slide-num { color: rgba(8,12,118,0.3); }
-.slide-tag {
-  font-size: 6px; font-weight: 900; letter-spacing: 2.5px;
-  text-transform: uppercase; margin-bottom: 8px;
-}
-.ms-navy .slide-tag { color: rgba(198,253,43,0.6); }
-.ms-lime .slide-tag { color: rgba(8,12,118,0.5); }
-.slide-h1 {
-  font-size: 18px; font-weight: 900;
-  text-transform: uppercase; line-height: 1.15;
-  flex: 1;
-}
-.ms-navy .slide-h1 { color: white; }
-.ms-lime .slide-h1 { color: var(--indigo); font-size: 24px; }
-.hl {
-  background: var(--lime); color: var(--indigo);
-  padding: 0 3px; border-radius: 2px;
-  display: inline;
-}
-.ms-lime .hl { background: var(--indigo); color: var(--lime); }
-.slide-sig {
-  font-size: 6px; font-weight: 700; letter-spacing: 1px;
-  text-transform: uppercase;
-}
-.ms-navy .slide-sig { color: rgba(255,255,255,0.3); }
-.ms-lime .slide-sig { color: rgba(8,12,118,0.4); }
+.reel-stage{display:grid;grid-template-columns:300px 1fr;gap:34px;margin-top:36px;align-items:start}
+@media(max-width:820px){.reel-stage{grid-template-columns:1fr;justify-items:center}}
+.phone{width:300px;aspect-ratio:9/16;border-radius:28px;border:8px solid #000;background:var(--ink);position:relative;overflow:hidden;box-shadow:0 36px 90px rgba(0,0,0,.65),0 0 0 1px rgba(200,255,0,.1);flex-shrink:0}
+.phone-notch{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:84px;height:18px;background:#000;border-radius:0 0 12px 12px;z-index:6}
+.phone-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(200,255,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(200,255,0,.03) 1px,transparent 1px);background-size:30px 30px;pointer-events:none}
+.phone-glow{position:absolute;top:-20%;right:-30%;width:80%;height:50%;background:radial-gradient(circle,rgba(200,255,0,.12),transparent 65%);pointer-events:none;animation:glow 8s ease-in-out infinite alternate}
+.phone-glow2{position:absolute;bottom:-10%;left:-25%;width:70%;height:45%;background:radial-gradient(circle,rgba(124,58,237,.2),transparent 65%);pointer-events:none}
+.zone{position:absolute;left:0;right:0;border-top:1px dashed rgba(232,232,242,.16);border-bottom:1px dashed rgba(232,232,242,.16);pointer-events:none}
+.zone-top{top:0;height:8.5%;background:rgba(124,58,237,.06)}
+.zone-bot{bottom:0;height:24%;background:rgba(124,58,237,.06)}
+.zone-lbl{position:absolute;right:6px;font-family:'JetBrains Mono',monospace;font-size:7px;color:rgba(232,232,242,.4);letter-spacing:.5px}
+.r-pill{position:absolute;top:11%;left:50%;transform:translateX(-50%);background:rgba(200,255,0,.1);border:1px solid rgba(200,255,0,.35);border-radius:100px;padding:4px 11px;font-size:7px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--lime);display:flex;align-items:center;gap:5px;white-space:nowrap;animation:rEnter .6s var(--ez) both;z-index:4}
+.r-pill-dot{width:4px;height:4px;border-radius:50%;background:var(--lime);animation:blink 2s infinite}
+.r-hook{position:absolute;top:16.5%;left:18px;right:18px;text-align:center;font-size:21px;font-weight:900;line-height:.98;letter-spacing:-.8px;text-transform:uppercase;color:var(--white);text-shadow:0 2px 14px rgba(0,0,0,.7);z-index:4}
+.r-hook em{font-style:normal;color:var(--lime)}
+.r-hook .w{display:inline-block;animation:rEnter .55s var(--ez) both}
+.r-hook .w:nth-child(1){animation-delay:.15s}.r-hook .w:nth-child(2){animation-delay:.24s}
+.r-hook .w:nth-child(3){animation-delay:.33s}.r-hook .w:nth-child(4){animation-delay:.42s}.r-hook .w:nth-child(5){animation-delay:.51s}
+@keyframes rEnter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.r-video{position:absolute;top:40%;left:14px;right:14px;height:24%;border-radius:8px;overflow:hidden;border:1px solid rgba(200,255,0,.25);background:linear-gradient(135deg,var(--plum2),var(--plum));box-shadow:0 0 44px rgba(200,255,0,.12);display:flex;align-items:center;justify-content:center;z-index:3}
+.r-video::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,rgba(124,58,237,.45),transparent 70%)}
+.r-face{width:54px;height:54px;border-radius:50%;background:rgba(232,232,242,.08);border:1px solid rgba(200,255,0,.3);display:flex;align-items:center;justify-content:center;font-size:24px;position:relative;z-index:1}
+.r-subs{position:absolute;top:68%;left:16px;right:16px;text-align:center;font-size:18px;font-weight:800;line-height:1.15;letter-spacing:-.4px;text-shadow:0 2px 10px rgba(0,0,0,.8);z-index:4}
+.r-subs .kw{display:inline-block;color:rgba(232,232,242,.55)}
+.r-subs .k1{animation:kar 5s steps(1) infinite}.r-subs .k2{animation:kar 5s steps(1) infinite;animation-delay:.65s}
+.r-subs .k3{animation:kar 5s steps(1) infinite;animation-delay:1.3s}.r-subs .k4{animation:kar 5s steps(1) infinite;animation-delay:1.95s}.r-subs .k5{animation:kar 5s steps(1) infinite;animation-delay:2.6s}
+@keyframes kar{0%,12%{color:var(--lime);transform:scale(1.14)}12%,100%{color:rgba(232,232,242,.55);transform:scale(1)}}
+.r-cta{position:absolute;bottom:25.5%;left:50%;transform:translateX(-50%);background:var(--lime);color:var(--ink);padding:7px 15px;border-radius:4px;font-size:9px;font-weight:900;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;box-shadow:0 6px 22px rgba(200,255,0,.35);animation:ctaPulse 2.4s ease-in-out infinite;z-index:4}
+@keyframes ctaPulse{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.05)}}
+.reel-specs{display:flex;flex-direction:column;gap:10px}
 
 /* ── TIMELINE ── */
-.anim-timeline {
-  background: rgba(38,37,148,0.4);
-  border: 1px solid rgba(198,253,43,0.12);
-  border-radius: 12px; padding: 20px;
-}
-.timeline-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-.timeline-row:last-child { margin-bottom: 0; }
-.tl-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); flex: 0 0 110px; }
-.tl-bar { height: 22px; border-radius: 4px; display: flex; align-items: center; padding: 0 10px; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
-.tl-lime { background: var(--lime); color: var(--indigo); }
-.tl-navy { background: rgba(38,37,148,0.7); color: var(--lime); border: 1px solid rgba(198,253,43,0.2); }
-.tl-ghost { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.08); }
+.tl{margin-top:28px;border:1px solid var(--bdk);background:var(--ink2);padding:30px 24px 24px}
+.tl-track{position:relative;height:3px;background:var(--bdk);margin:46px 0 14px;border-radius:3px}
+.tl-fill{position:absolute;left:0;top:0;bottom:0;width:100%;background:linear-gradient(90deg,var(--violet2),var(--lime));border-radius:3px;animation:tlGrow 5s var(--ez) infinite}
+@keyframes tlGrow{0%{width:0}80%,100%{width:100%}}
+.tl-pt{position:absolute;top:-34px;transform:translateX(-50%);text-align:center}
+.tl-pt .d{width:9px;height:9px;border-radius:50%;background:var(--lime);margin:18px auto 0;box-shadow:0 0 0 4px rgba(200,255,0,.12)}
+.tl-pt .t{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--lime);font-weight:700}
+.tl-pt .l{font-size:10px;color:var(--muted);margin-top:2px;white-space:nowrap}
 
-/* ── CTA DEMO ── */
-.cta-demo {
-  display: inline-block;
-  background: var(--lime); color: var(--indigo);
-  font-family: var(--font); font-weight: 900; font-size: 14px;
-  padding: 14px 32px; border-radius: 8px;
-  text-transform: uppercase; letter-spacing: 1.5px;
-  margin-top: 10px;
-}
-.cta-demo-ghost {
-  display: inline-block;
-  border: 2px solid rgba(198,253,43,0.4); color: var(--lime);
-  font-family: var(--font); font-weight: 800; font-size: 13px;
-  padding: 12px 28px; border-radius: 8px;
-  text-transform: uppercase; letter-spacing: 1.5px;
-  margin-top: 10px; margin-left: 12px;
-}
+/* ── ARCHETYPES ── */
+.arch{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}
+@media(max-width:780px){.arch{grid-template-columns:1fr}}
+.arch-card{border:1px solid var(--bdk);background:var(--ink2);padding:22px;position:relative;overflow:hidden}
+.arch-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.arch-shock::before{background:#FF4D4D}.arch-claim::before{background:var(--lime)}.arch-cur::before{background:var(--violet2)}
+.arch-k{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
+.arch-shock .arch-k{color:#FF4D4D}.arch-claim .arch-k{color:var(--lime)}.arch-cur .arch-k{color:var(--violet2)}
+.arch-card h4{font-size:15px;font-weight:900;color:var(--off);margin-bottom:10px;letter-spacing:-.4px}
+.arch-card p{font-size:12.5px;color:var(--muted);line-height:1.55;margin-bottom:12px}
+.arch-ex{font-size:13px;font-weight:900;color:var(--white);line-height:1.25;border-top:1px solid var(--bdk);padding-top:12px;text-transform:uppercase;letter-spacing:-.3px}
 
-/* ── UL STYLED ── */
-ul.slist { list-style: none; padding: 0; }
-ul.slist li {
-  font-size: 13px; color: var(--text);
-  padding: 5px 0 5px 18px; position: relative;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-ul.slist li::before { content: '→'; position: absolute; left: 0; color: var(--lime); font-weight: 900; }
+/* ── DO/DONT ── */
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+@media(max-width:680px){.dd{grid-template-columns:1fr}}
+.dd-col{border:1px solid var(--bdk);background:var(--ink2);padding:24px}
+.dd-do{border-color:rgba(200,255,0,.2)}.dd-no{border-color:rgba(255,77,77,.22)}
+.dd-h{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.dd-do .dd-h{color:var(--lime)}.dd-no .dd-h{color:#FF6B6B}
+.dd-col li{font-size:13px;color:var(--muted);line-height:1.5;padding:9px 0 9px 24px;position:relative;border-bottom:1px solid rgba(255,255,255,.04)}
+.dd-col li:last-child{border-bottom:none}
+.dd-do li::before{content:'++';position:absolute;left:0;color:var(--lime);font-weight:900;font-family:'JetBrains Mono',monospace;font-size:11px}
+.dd-no li::before{content:'−−';position:absolute;left:0;color:#FF6B6B;font-weight:900;font-family:'JetBrains Mono',monospace;font-size:11px}
 
-/* ── LAUGH GRID ── */
-.laugh-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 12px 0; }
-.laugh-item {
-  background: var(--mid); border: 1px solid var(--border);
-  border-radius: 10px; padding: 12px 14px; text-align: center;
-}
-.laugh-sym { font-size: 17px; font-weight: 900; color: var(--lime); display: block; margin-bottom: 4px; font-family: monospace; }
-.laugh-role { font-size: 9px; color: var(--muted); }
+/* ── APPLICATIONS GALLERY ── */
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:32px}
+@media(max-width:820px){.apps{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.apps{grid-template-columns:1fr}}
+.app{border:1px solid var(--bdk);background:var(--ink2);overflow:hidden;transition:all .25s}
+.app:hover{border-color:rgba(200,255,0,.25);transform:translateY(-3px)}
+.app-vis{aspect-ratio:4/5;position:relative;overflow:hidden;background:var(--ink);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
+.app-vis .ag{position:absolute;inset:0;background-image:linear-gradient(rgba(200,255,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(200,255,0,.03) 1px,transparent 1px);background-size:26px 26px}
+.app-vis .agl{position:absolute;top:-20%;right:-20%;width:70%;height:55%;background:radial-gradient(circle,rgba(200,255,0,.1),transparent 65%)}
+.app-cap{padding:14px 16px;border-top:1px solid var(--bdk)}
+.app-cap b{font-size:13px;font-weight:800;color:var(--off);display:block}
+.app-cap span{font-size:11px;color:var(--muted)}
+.app-eyebrow{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--lime);position:relative;z-index:1;margin-bottom:12px}
+.app-big{font-size:28px;font-weight:900;line-height:.92;text-transform:uppercase;letter-spacing:-1px;color:var(--white);position:relative;z-index:1}
+.app-big em{font-style:normal;color:var(--lime)}
+.app-num{font-size:54px;font-weight:900;color:var(--lime);letter-spacing:-3px;line-height:1;position:relative;z-index:1}
+.app-sm{font-size:12px;color:var(--muted);position:relative;z-index:1;margin-top:10px}
 
-/* ── SUB DEMO ── */
-.sub-demo {
-  background: var(--navy); border-radius: 10px;
-  padding: 16px 20px; text-align: center; margin: 12px 0;
-}
-.sub-demo-words { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; align-items: center; }
-.sub-w { font-size: 16px; font-weight: 900; text-transform: uppercase; }
-.sub-w.past { color: rgba(255,255,255,0.2); }
-.sub-w.active { background: var(--lime); color: var(--indigo); padding: 2px 7px; border-radius: 3px; }
-.sub-w.future { color: rgba(255,255,255,0.1); }
+/* ── COMPONENTS DEMO ── */
+.btn-lime{display:inline-flex;align-items:center;gap:8px;background:var(--lime);color:var(--ink);padding:14px 28px;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.4px;border-radius:3px;border:none;cursor:pointer;transition:opacity .2s}
+.btn-lime:hover{opacity:.88}
+.btn-ghost{display:inline-flex;align-items:center;background:rgba(255,255,255,.04);color:var(--off);padding:14px 28px;font-weight:700;font-size:13px;border:1px solid rgba(255,255,255,.2);border-radius:3px;transition:all .2s;cursor:pointer}
+.btn-ghost:hover{border-color:rgba(200,255,0,.5);background:rgba(200,255,0,.08);color:var(--lime)}
+.btn-violet{display:inline-flex;align-items:center;background:var(--violet);color:#fff;padding:14px 26px;font-weight:800;font-size:13px;border-radius:3px;transition:opacity .2s;cursor:pointer}
+.btn-violet:hover{opacity:.85}
+.demo-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(200,255,0,.07);border:1px solid rgba(200,255,0,.2);border-radius:100px;padding:6px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--lime)}
+.demo-stat{background:var(--ink3);border:1px solid var(--bdk);padding:18px 22px;display:inline-block}
+.demo-stat .n{font-size:30px;font-weight:900;color:var(--lime);letter-spacing:-1.5px;line-height:1}
+.demo-stat .l{font-size:10px;color:var(--faint);font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-top:3px}
+.comp-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:10px;padding:24px;border:1px solid var(--bdk);background:var(--ink2)}
+.comp-cap{width:100%;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--faint);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
 
-/* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-  .hero h1 { font-size: 48px; }
-  h2 { font-size: 36px; }
-  nav a { display: none; }
-  main { padding: 70px 20px 80px; }
-  .reel-wrap { flex-direction: column; }
-}
+/* ── MARKERS ── */
+.mk-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:24px}
+@media(max-width:680px){.mk-grid{grid-template-columns:1fr 1fr}}
+.mk{border:1px solid var(--bdk);background:var(--ink2);padding:22px 18px;text-align:center}
+.mk .g{font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:800;color:var(--lime);line-height:1}
+.mk h5{font-size:12px;font-weight:800;color:var(--off);margin:14px 0 6px}
+.mk p{font-size:11px;color:var(--muted);line-height:1.4}
 
-/* ── SECTION NUMBER ── */
-.big-num {
-  font-size: 96px; font-weight: 900;
-  color: rgba(198,253,43,0.05);
-  line-height: 1; margin-bottom: -30px;
-  display: block; user-select: none;
-}
+/* ── VOICE ── */
+.voice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+@media(max-width:680px){.voice-grid{grid-template-columns:1fr}}
+.vq{border:1px solid var(--bdk);background:var(--ink2);padding:20px}
+.vq h4{font-size:12px;font-weight:800;color:var(--lime);margin-bottom:12px;letter-spacing:1px;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+.vq p{font-size:13px;color:var(--muted);line-height:1.6}
+.vq .ex{display:inline-block;background:rgba(200,255,0,.07);border:1px solid rgba(200,255,0,.15);color:var(--off);font-size:12px;padding:3px 9px;border-radius:3px;margin:3px 3px 0 0}
+.vq .no{background:rgba(255,77,77,.07);border-color:rgba(255,77,77,.18);color:rgba(255,140,140,.9);text-decoration:line-through}
+
+/* ── CHECKLIST ── */
+.check{margin-top:24px;border:1px solid var(--bdk);background:var(--ink2)}
+.check li{display:flex;gap:14px;align-items:flex-start;padding:16px 22px;border-bottom:1px solid var(--bdk);font-size:14px;color:var(--off);line-height:1.5}
+.check li:last-child{border-bottom:none}
+.check li:hover{background:rgba(200,255,0,.03)}
+.check-box{width:18px;height:18px;border:1.5px solid var(--lime);border-radius:3px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;color:var(--lime);font-size:11px;font-weight:900}
+.check li b{color:var(--lime)}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--bdk);padding:70px 0 90px;position:relative;z-index:1}
+.foot-src{margin-top:30px;font-size:12px;color:var(--faint);line-height:1.9}
+.foot-src a{color:rgba(200,255,0,.6)}
+.foot-src a:hover{color:var(--lime)}
+.tag-strip{display:flex;gap:6px;flex-wrap:wrap;margin-top:22px}
+.tag-strip span{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);border:1px solid var(--bdk);padding:5px 10px;border-radius:3px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--lime);color:var(--ink);padding:10px 20px;border-radius:4px;font-weight:800;font-size:13px;opacity:0;transition:all .3s var(--ez);z-index:80;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
+<div class="bg-grid"></div><div class="bg-gl"></div><div class="bg-gv"></div><div class="bg-noise"></div>
+<div class="prog" id="prog"></div>
 
 <nav>
-  <div class="logo">Оля Лондон · Дизайн-язык</div>
-  <a href="#identity">Личность</a>
-  <a href="#colors">Цвета</a>
-  <a href="#type">Шрифты</a>
-  <a href="#tov">TOV</a>
-  <a href="#reels">Рилзы</a>
-  <a href="#carousels">Карусели</a>
-  <a href="#site">Сайт</a>
-  <a href="#checklist">Чек-лист</a>
+  <div class="nav-in">
+    <div class="nav-logo"><span class="nav-dot"></span>ОЛЯ&nbsp;<b>ЛОНДОН</b>&nbsp;/ brand book</div>
+    <div class="nav-links">
+      <a href="#essence">01 essence</a>
+      <a href="#logo">02 logo</a>
+      <a href="#color">03 color</a>
+      <a href="#type">04 type</a>
+      <a href="#grid">05 grid</a>
+      <a href="#motion">06 motion</a>
+      <a href="#reels">07 reels</a>
+      <a href="#apps">08 apps</a>
+      <a href="#components">09 ui</a>
+      <a href="#voice">10 voice</a>
+      <a href="#qc">11 qc</a>
+    </div>
+  </div>
 </nav>
 
-<main>
-
-<!-- ── HERO ── -->
-<div class="hero">
-  <div class="hero-badge">Дизайн-язык · v1.0 · 2026-06-14</div>
-  <h1>Оля <em>Лондон</em><br>Design Language</h1>
-  <p class="hero-sub">Единый источник правды по форме для всех визуалов бренда: рилзы, карусели, лендинг, сторис. Читать до начала любой работы с контентом.</p>
-</div>
-
-<!-- ── 01. IDENTITY ── -->
-<section id="identity">
-  <span class="big-num">01</span>
-  <span class="section-label">01 — Личность бренда</span>
-  <h2>«Подруга в чате,<br>которая знает как»</h2>
-
-  <div class="rule-box">
-    <p><strong>Прайм-образ:</strong> Оля — «свой» репетитор. Не эксперт на сцене, не менеджер. Девушка, которая прошла путь от 800₽/час → 500к/мес, всё ещё в деле, и теперь показывает путь другим — с самоиронией, конкретными цифрами и без пафоса. Оля на приколе, с чувством юмора, но знает что делает и даёт реальные результаты.</p>
-  </div>
-
-  <div class="grid-3" style="margin-top:24px;">
-    <div class="card">
-      <span class="card-title">⚡ Энергия</span>
-      <p style="font-size:13px;">Капслок, восклицательные, эмодзи-кусты, мемный мат. Пишет так, как будто скидывает голосовое подружке прямо сейчас.</p>
-    </div>
-    <div class="card">
-      <span class="card-title">🤡 Самоирония</span>
-      <p style="font-size:13px;">«Я лохушка какая-то», «ПФФ, ПОДЕРЖИТЕ МОЁ ПИВО», «(спойлер) нет, не смогу 🤡» — разбивает пафос и делает её человеком.</p>
-    </div>
-    <div class="card">
-      <span class="card-title">📊 Конкретика</span>
-      <p style="font-size:13px;">800₽, 5.000₽/час, 11 учеников за неделю, 63 тысячи. Никаких «многих», «значительного роста», «куча учеников».</p>
+<!-- COVER -->
+<header class="cover">
+  <div class="wrap">
+    <div class="cover-tag"><span class="nav-dot"></span>Brand Book · Дизайн-язык · Edition v2 · 2026</div>
+    <h1 class="cover-wm">Оля<br><span>Лондон</span></h1>
+    <p class="cover-sub">Система формы для бренда, который выглядит на <em>миллион</em> — и звучит как своя</p>
+    <p class="cover-desc">Единый дизайн-язык: от лендинга до рилза, до карусели, до сторис. Собран на ДНК сайта «Репетитор-Миллионер». Главный раздел — монтаж рилзов на 10/10.</p>
+    <div class="cover-foot">
+      <div><div class="l">Brand</div><div class="v">Оля Лондон · менторство</div></div>
+      <div><div class="l">Core accent</div><div class="v"><b>#C8FF00</b></div></div>
+      <div><div class="l">Typeface</div><div class="v">Onest</div></div>
+      <div><div class="l">Источник</div><div class="v">Сайт v5</div></div>
     </div>
   </div>
+  <div class="scroll-hint">↓ листай · 11 разделов</div>
+</header>
 
-  <div class="rule-box" style="margin-top:20px;">
-    <p><strong>Главная формула образа:</strong> хаос снаружи — дисциплина внутри. Жёсткая логика и конкретные цифры поданы через живой разговорный голос, мемы и самоиронию. Убери любую из трёх веток (энергия / самоирония / конкретика) — голос ломается.</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <h3>Три сегмента ЦА — меняем интонацию</h3>
-  <div class="grid-3">
-    <div class="card">
-      <span class="card-title">A — Прокачанные молодые</span>
-      <p style="font-size:13px;">22–28 лет, МСК/СПб. Много вложила в образование, учеников нет. Боль: «почему у других получается?» → про разницу упаковки и методики, мемы «педагог от бога за 800₽».</p>
-    </div>
-    <div class="card">
-      <span class="card-title">B — Много учеников, низкий чек</span>
-      <p style="font-size:13px;">25–35 лет, регионы. Упахивается, боится поднять цену. Боль: «потеряю тех, что есть». → математика: 300 часов по 1000₽ vs 75 часов по 4000₽.</p>
-    </div>
-    <div class="card">
-      <span class="card-title">C — Начинашки</span>
-      <p style="font-size:13px;">18–25 лет. Нет учеников, не знает с чего начать. Боль: «не найду, недостаточно крутая». → кейсы «с нуля», Лера: 0 → 11 учеников за неделю.</p>
+<!-- CONTENTS -->
+<section id="contents" style="border-top:none;padding-top:40px">
+  <div class="wrap">
+    <div class="kicker"><span class="nn">00</span> Contents</div>
+    <h2 class="h-s">Что внутри <em>брендбука</em></h2>
+    <div class="toc">
+      <a href="#essence"><span class="toc-n">01</span><span class="toc-t">Brand Essence</span><span class="toc-d">Личность, 4 принципа, главное противоречие бренда</span></a>
+      <a href="#logo"><span class="toc-n">02</span><span class="toc-t">Логотип</span><span class="toc-d">Вордмарк, capital-правило, clear-space, misuse</span></a>
+      <a href="#color"><span class="toc-n">03</span><span class="toc-t">Цвет</span><span class="toc-d">Палитра, баланс 70/25/5, контраст A11y</span></a>
+      <a href="#type"><span class="toc-n">04</span><span class="toc-t">Типографика</span><span class="toc-d">Onest-шкала, закон em-акцента</span></a>
+      <a href="#grid"><span class="toc-n">05</span><span class="toc-t">Сетка и ритм</span><span class="toc-d">Spacing-шкала, углы, фактура, свет</span></a>
+      <a href="#motion"><span class="toc-n">06</span><span class="toc-t">Движение</span><span class="toc-d">Фирменный easing, тайминг, анти-AI</span></a>
+      <a href="#reels"><span class="toc-n">07</span><span class="toc-t">Рилзы · флагман</span><span class="toc-d">Живой макет, karaoke-субтитры, рендер</span></a>
+      <a href="#apps"><span class="toc-n">08</span><span class="toc-t">Применения</span><span class="toc-d">Сторис, карусель, обложка, бейдж</span></a>
+      <a href="#components"><span class="toc-n">09</span><span class="toc-t">UI-компоненты</span><span class="toc-d">Кнопки, метки, stat-плитки, кейс-карта</span></a>
+      <a href="#voice"><span class="toc-n">10</span><span class="toc-t">Голос</span><span class="toc-d">TOV на визуале, Instagram-safe</span></a>
+      <a href="#qc"><span class="toc-n">11</span><span class="toc-t">QC «дорого»</span><span class="toc-d">Чек-лист 10/10 перед публикацией</span></a>
+      <a href="#contents"><span class="toc-n">↑</span><span class="toc-t">Governance</span><span class="toc-d">Источник правды — сайт v5 + TOV.md</span></a>
     </div>
   </div>
 </section>
 
-<!-- ── 02. COLORS ── -->
-<section id="colors">
-  <span class="big-num">02</span>
-  <span class="section-label">02 — Цвета</span>
-  <h2>Палитра</h2>
+<!-- 01 ESSENCE -->
+<section id="essence">
+  <div class="wrap">
+    <div class="kicker"><span class="nn">01</span> Brand Essence</div>
+    <h2 class="h-s">Своя в доску — <em>зарабатывает 750к</em></h2>
+    <p class="lead">Главное противоречие бренда, которое держит весь визуал: <b>«подруга, которая прёт правду в лицо» + «железобетонный результат в цифрах»</b>. Без баланса — либо дёшево-панибратски, либо холодно-инфоцыгански. Дизайн обязан передавать оба полюса одновременно.</p>
 
-  <div class="color-grid">
-    <div class="color-swatch">
-      <div class="color-block" style="background:#262594;"></div>
-      <div class="color-info">
-        <span class="color-name">Navy</span>
-        <span class="color-hex">#262594</span>
-        <div class="color-use">Основной фон · карусели · рилзы · кнопки-вторичные</div>
-      </div>
+    <div class="eyebrow">4 принципа дизайна</div>
+    <div class="princ">
+      <div class="princ-item"><div class="princ-n">01</div><h4>Прикол</h4><p>Дерзкий копирайт, капс, ирония над собой. Допустимы «хрень» и «пиздёж» — это голос Оли, не баг.</p></div>
+      <div class="princ-item"><div class="princ-n">02</div><h4>Резкость</h4><p>Острые углы 3px, лаконичная сетка, удар лаймом. Ничего мягкого и округлого — характер режет.</p></div>
+      <div class="princ-item"><div class="princ-n">03</div><h4>Дорого</h4><p>Глубокая тьма, воздух, один акцент на экран. Сомневаешься — убери, а не добавь.</p></div>
+      <div class="princ-item"><div class="princ-n">04</div><h4>Энергия</h4><p>Свечение, движение слов, пульс CTA. Кадр живой, но не цирк — движение целенаправленное.</p></div>
     </div>
-    <div class="color-swatch">
-      <div class="color-block" style="background:#c6fd2b;"></div>
-      <div class="color-info">
-        <span class="color-name">Lime</span>
-        <span class="color-hex">#c6fd2b</span>
-        <div class="color-use">Акцент-герой · хайлайты · субтитры · CTA-фон</div>
-      </div>
-    </div>
-    <div class="color-swatch">
-      <div class="color-block" style="background:#080c76;"></div>
-      <div class="color-info">
-        <span class="color-name">Indigo</span>
-        <span class="color-hex">#080c76</span>
-        <div class="color-use">Текст на lime · тёмный контраст · глубина</div>
-      </div>
-    </div>
-    <div class="color-swatch">
-      <div class="color-block" style="background:#ffffff; border: 1px solid rgba(255,255,255,0.1);"></div>
-      <div class="color-info">
-        <span class="color-name">White</span>
-        <span class="color-hex">#FFFFFF</span>
-        <div class="color-use">Текст на navy · хуки рилзов · заголовки слайдов</div>
-      </div>
-    </div>
-    <div class="color-swatch">
-      <div class="color-block" style="background:#0a0a24;"></div>
-      <div class="color-info">
-        <span class="color-name">Dark</span>
-        <span class="color-hex">#0a0a24</span>
-        <div class="color-use">Лендинг-фон · секция Hero · глубина сайта</div>
-      </div>
-    </div>
-    <div class="color-swatch">
-      <div class="color-block" style="background:#e63946;"></div>
-      <div class="color-info">
-        <span class="color-name">Red</span>
-        <span class="color-hex">#e63946</span>
-        <div class="color-use">🔴 «было» в кейсах · только в паре с Green</div>
-      </div>
-    </div>
-    <div class="color-swatch">
-      <div class="color-block" style="background:#2dc653;"></div>
-      <div class="color-info">
-        <span class="color-name">Green</span>
-        <span class="color-hex">#2dc653</span>
-        <div class="color-use">🟢 «стало» в кейсах · только в паре с Red</div>
-      </div>
-    </div>
-  </div>
 
-  <div class="divider"></div>
-
-  <h3>Два режима слайда карусели</h3>
-  <div style="display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;">
-    <div>
-      <p style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-weight:800;margin-bottom:10px;">Основной (Navy)</p>
-      <div class="mockup-slide ms-navy" style="width:210px;height:264px;">
-        <span class="slide-num">01 / 06</span>
-        <div class="slide-tag">Правда о чеке</div>
-        <div class="slide-h1">Бездарь<br>берёт <span class="hl">3500</span><br>а ты боишься<br>с 1000</div>
-        <div class="slide-sig">Оля Лондон</div>
-      </div>
-      <p style="font-size:11px;color:var(--muted);margin-top:8px;">Фон #262594 · Текст белый · Акцент lime</p>
-    </div>
-    <div>
-      <p style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-weight:800;margin-bottom:10px;">Инвертированный (Lime)</p>
-      <div class="mockup-slide ms-lime" style="width:210px;height:264px;">
-        <span class="slide-num">04 / 06</span>
-        <div class="slide-tag">Результат</div>
-        <div class="slide-h1" style="font-size:28px;">+63.000₽<br>за неделю</div>
-        <div class="slide-sig">@musaxmusic</div>
-      </div>
-      <p style="font-size:11px;color:var(--muted);margin-top:8px;">Фон lime #c6fd2b · Текст indigo #080c76</p>
-    </div>
-    <div style="flex:1;min-width:220px;">
-      <div class="rule-box" style="margin-top:40px;">
-        <p><strong>Правило:</strong> Lime-режим — только для цифр-якорей, цитат учениц и CTA. Не более 1–2 слайдов на карусель. Остальное — navy.</p>
-      </div>
+    <div class="spec-row" style="border-left-color:var(--violet2);margin-top:24px">
+      <h4>⚡ Закон №1 — один акцент на экран</h4>
+      <p>Лайм <b style="color:var(--lime)">#C8FF00</b> — это удар, а не заливка. Если лайма много, он перестаёт бить. На любом кадре доминирует тьма, лайм держит ровно одну мысль: цифру, активное слово или кнопку. Шутка без цифры = клоунада; цифра без шутки = инфобизнес-скукота.</p>
     </div>
   </div>
 </section>
 
-<!-- ── 03. TYPOGRAPHY ── -->
+<!-- 02 LOGO -->
+<section id="logo">
+  <div class="wrap">
+    <div class="kicker"><span class="nn">02</span> Logotype</div>
+    <h2 class="h-s">Вордмарк <em>«Оля Лондон»</em></h2>
+    <p class="lead">Логотип — это набор «Оля Лондон» шрифтом Onest 900. Без иконок и завитушек: имя и есть знак. Фирменная деталь — лайм-точка после набора (эхо пульсирующего dot с сайта).</p>
+
+    <div class="wm-stage">
+      <div class="wm-box">
+        <div class="wm-lock">Оля <b>Лондон</b><span class="dot"></span></div>
+        <div class="wm-cap">Onest 900 · UPPERCASE-вес, но имя в обычном регистре · tracking <b>−2px</b> · «Лондон» — лайм</div>
+      </div>
+      <div class="wm-rules">
+        <div class="wm-rule"><h5>Capital-правило</h5><p>«Оля» / «Оли» / «Олю» — всегда с большой буквы, даже в строчном TOV-стиле. Имя не строчим никогда.</p></div>
+        <div class="wm-rule"><h5>Clear-space</h5><p>Свободное поле вокруг знака = высота буквы «О». Ничего не залезает в эту зону.</p></div>
+        <div class="wm-rule"><h5>Контраст</h5><p>Только на тёмном (#08080F / #0E0E1A) или на чистом лайме (инверсия: знак ink-цветом). Не на фото без подложки.</p></div>
+      </div>
+    </div>
+
+    <div class="eyebrow">Так — нельзя</div>
+    <div class="wm-misuse">
+      <div class="wm-m"><div class="x">✕</div><div class="ex" style="font-style:italic;color:var(--off)">Оля Лондон</div><p>Не наклонять, не курсивить весь знак</p></div>
+      <div class="wm-m"><div class="x">✕</div><div class="ex" style="color:#7C3AED">Оля Лондон</div><p>Не красить в фиолет или другие цвета</p></div>
+      <div class="wm-m"><div class="x">✕</div><div class="ex" style="font-family:Georgia,serif;text-transform:none">Оля Лондон</div><p>Не менять шрифт — только Onest</p></div>
+      <div class="wm-m"><div class="x">✕</div><div class="ex" style="letter-spacing:4px;color:var(--off)">О Л Я</div><p>Не разряжать набор</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 COLOR -->
+<section id="color">
+  <div class="wrap">
+    <div class="kicker"><span class="nn">03</span> Color</div>
+    <h2 class="h-s">Палитра <em>сайта</em></h2>
+    <p class="lead">Источник правды — токены сайта v5 (namespace <code style="color:var(--lime)">--olv-</code>). Глубокая тьма + кислотный лайм + фиолет глубины. Это апгрейд от старой Montserrat-navy схемы каруселей. <span style="color:var(--faint)">Клик по hex — копирует.</span></p>
+
+    <div class="eyebrow">База — тьма · 70% площади</div>
+    <div class="sw-grid">
+      <div class="sw"><div class="sw-chip" style="background:#08080F;border-bottom:1px solid var(--bdk)"></div><div class="sw-meta"><div class="sw-name">Ink</div><div class="sw-hex">#08080F</div><div class="sw-use">Главный фон. Холст рилза, hero-секции.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#0E0E1A;border-bottom:1px solid var(--bdk)"></div><div class="sw-meta"><div class="sw-name">Ink 2</div><div class="sw-hex">#0E0E1A</div><div class="sw-use">Карточки, чередование секций.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#141428"></div><div class="sw-meta"><div class="sw-name">Ink 3</div><div class="sw-hex">#141428</div><div class="sw-use">Вложенные блоки, инпуты, плитки.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#1A0A3B"></div><div class="sw-meta"><div class="sw-name">Plum</div><div class="sw-hex">#1A0A3B</div><div class="sw-use">Глубина под видео, градиент секций цифр.</div></div></div>
+    </div>
+
+    <div class="eyebrow">Фиолет — глубина и второй смысл · 25%</div>
+    <div class="sw-grid">
+      <div class="sw"><div class="sw-chip" style="background:#250D52"></div><div class="sw-meta"><div class="sw-name">Plum 2</div><div class="sw-hex">#250D52</div><div class="sw-use">Заглушки видео, аватары, градиент окна.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#5B21B6"></div><div class="sw-meta"><div class="sw-name">Violet</div><div class="sw-hex">#5B21B6</div><div class="sw-use">Вторичные кнопки, бейджи, рамки.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#7C3AED"></div><div class="sw-meta"><div class="sw-name">Violet 2</div><div class="sw-hex">#7C3AED</div><div class="sw-use">Glow, хэндлы, второстепенные цифры.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:linear-gradient(135deg,rgba(124,58,237,.5),transparent)"></div><div class="sw-meta"><div class="sw-name">Violet glow</div><div class="sw-hex">rgba(124,58,237,.08)</div><div class="sw-use">Radial-свечение снизу-слева кадра.</div></div></div>
+    </div>
+
+    <div class="eyebrow">Лайм — герой-акцент · 5%, но решает всё</div>
+    <div class="sw-grid">
+      <div class="sw"><div class="sw-chip" style="background:#C8FF00"><span style="color:#08080F;font-weight:900;font-size:11px;font-family:'JetBrains Mono',monospace">HERO</span></div><div class="sw-meta"><div class="sw-name">Lime</div><div class="sw-hex">#C8FF00</div><div class="sw-use">Активное слово, цифры, CTA, em-акцент.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#B2E600"></div><div class="sw-meta"><div class="sw-name">Lime 2</div><div class="sw-hex">#B2E600</div><div class="sw-use">Hover, нижний край градиента кнопки.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#E8E8F2"><span style="color:#08080F;font-weight:800;font-size:10px;font-family:'JetBrains Mono',monospace">TEXT</span></div><div class="sw-meta"><div class="sw-name">Off-white</div><div class="sw-hex">#E8E8F2</div><div class="sw-use">Базовый текст, неактивные субтитры.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#FF4D4D"></div><div class="sw-meta"><div class="sw-name">Alert red</div><div class="sw-hex">#FF4D4D</div><div class="sw-use">ТОЛЬКО shock-хук и зачёркивание «было».</div></div></div>
+    </div>
+
+    <div class="eyebrow">Баланс площади — закон 70 / 25 / 5</div>
+    <div class="ratio">
+      <div style="background:#08080F;color:var(--muted);flex:70;border-right:1px solid var(--bdk)">70 · ТЬМА</div>
+      <div style="background:#5B21B6;color:#fff;flex:25;border-right:1px solid var(--ink)">25 · ФИОЛЕТ</div>
+      <div style="background:#C8FF00;color:#08080F;flex:5">5</div>
+    </div>
+
+    <div class="eyebrow">Контраст · читаемость (WCAG)</div>
+    <div class="a11y">
+      <div class="a11y-row"><span class="a11y-sample" style="background:#08080F;color:#C8FF00;border:1px solid var(--bdk)">Лайм на тьме</span><span class="a11y-pass">✓ AAA · 15.8:1</span></div>
+      <div class="a11y-row"><span class="a11y-sample" style="background:#08080F;color:#E8E8F2;border:1px solid var(--bdk)">Текст на тьме</span><span class="a11y-pass">✓ AAA · 16.5:1</span></div>
+      <div class="a11y-row"><span class="a11y-sample" style="background:#C8FF00;color:#08080F">Тьма на лайме</span><span class="a11y-pass">✓ AAA · 15.8:1</span></div>
+      <div class="a11y-row"><span class="a11y-sample" style="background:#C8FF00;color:#FFFFFF">Белый на лайме</span><span class="a11y-pass" style="color:#FF6B6B">✕ fail · никогда</span></div>
+    </div>
+    <p style="font-size:12px;color:var(--faint);margin-top:12px">На лайм-плашке текст всегда тёмный (ink), не белый. На тьме — лайм или off-white. Субтитры рилза всегда с тенью для читаемости на видео.</p>
+  </div>
+</section>
+
+<!-- 04 TYPE -->
 <section id="type">
-  <span class="big-num">03</span>
-  <span class="section-label">03 — Типографика</span>
-  <h2>Шрифт</h2>
+  <div class="wrap">
+    <div class="kicker"><span class="nn">04</span> Typography</div>
+    <h2 class="h-s">Один шрифт — <em>Onest</em></h2>
+    <p class="lead">Сайт построен на <b>Onest</b> — геометричный гротеск с характером, не дефолтный Inter. Это база и для рилзов: единый шрифт от сайта до субтитра = узнаваемость. Числа и тех-метки — <b>JetBrains Mono</b>.</p>
 
-  <div class="rule-box">
-    <p><strong>Единственный шрифт:</strong> <strong>Montserrat</strong> (Google Fonts). Карусели, рилзы, лендинг — только он. Никаких других. Вариации по весу создают всю иерархию.</p>
-  </div>
+    <div class="type-row"><div class="ts-display">Репетитор-<em>миллионер</em></div><div class="type-spec">Onest <b>900</b> · clamp(46–118px) · tracking <b>−4px</b> · UPPER · line .86</div></div>
+    <div class="type-row"><div class="ts-h">Сколько зарабатывают выпускницы</div><div class="type-spec">Onest <b>800</b> · 24–32px · tracking <b>−.8px</b></div></div>
+    <div class="type-row"><div class="ts-body">Выстрой очередь из учеников на 2 месяца вперёд и выйди на 300к+</div><div class="type-spec">Onest <b>500</b> · 15–17px · line 1.7</div></div>
+    <div class="type-row"><div class="ts-label">ПОТОК 2026 · 100+ УЧЕНИЦ</div><div class="type-spec">JetBrains Mono <b>700</b> · 10–11px · tracking <b>+3px</b></div></div>
+    <div class="type-row"><div class="ts-num">750к</div><div class="type-spec">Onest <b>900</b> · крупно · tracking <b>−2px</b> · lime</div></div>
 
-  <div style="margin-top:20px;">
-    <div class="type-row">
-      <div class="type-meta">
-        <span class="type-label">Black · 900</span>
-        <div class="type-spec">Хуки рилзов · H1 каруселей · цифры · hl-плашки · CTA</div>
-      </div>
-      <div style="font-weight:900;font-size:44px;text-transform:uppercase;color:white;line-height:1;">СТАВКА 5000</div>
+    <div class="eyebrow">Закон em-акцента</div>
+    <div class="spec-row">
+      <h4>🟢 В каждом заголовке — ровно одно лайм-слово</h4>
+      <p>На сайте <code style="color:var(--lime)">&lt;em&gt;</code> внутри заголовка красится в лайм (курсив снят). Фирменный приём: «Сколько зарабатывают <span style="color:var(--lime);font-weight:800">выпускницы</span>», «посмотри <span style="color:var(--lime);font-weight:800">сама</span>». В рилзах — то же: в хуке одно ключевое слово лаймом, остальное белым. <b>Никогда два акцента в одной строке.</b></p>
     </div>
-    <div class="type-row">
-      <div class="type-meta">
-        <span class="type-label">ExtraBold · 800</span>
-        <div class="type-spec">Субтитры рилзов · sub-заголовки · акцентный body</div>
-      </div>
-      <div style="font-weight:800;font-size:26px;text-transform:uppercase;color:white;line-height:1.2;">Высокий чек — это не талант, а очередь</div>
-    </div>
-    <div class="type-row">
-      <div class="type-meta">
-        <span class="type-label">Bold · 700</span>
-        <div class="type-spec">Body text карусели · теги · подписи · лендинг-блоки</div>
-      </div>
-      <div style="font-weight:700;font-size:17px;color:rgba(255,255,255,0.85);line-height:1.6;">Я преподаю за 800₽/час и половину отдаю за студию 🗿</div>
-    </div>
-    <div class="type-row">
-      <div class="type-meta">
-        <span class="type-label">Regular · 400</span>
-        <div class="type-spec">Юридические тексты · мелкие подсказки · подписи</div>
-      </div>
-      <div style="font-weight:400;font-size:13px;color:rgba(255,255,255,0.45);line-height:1.6;">Расчёт по 4 неделям. Реальный доход зависит от ставки и нагрузки.</div>
-    </div>
-  </div>
 
-  <div class="divider"></div>
-
-  <h3>Размерная сетка (карусели 1080×1350)</h3>
-  <div class="grid-3">
-    <div class="card">
-      <span class="card-title">Hook H1 — слайд 1</span>
-      <ul class="slist">
-        <li>72–80px · weight 900</li>
-        <li>Uppercase обязательно</li>
-        <li>Одна hl-плашка ≤17 символов</li>
-      </ul>
-    </div>
-    <div class="card">
-      <span class="card-title">Заголовок — текстовый слайд</span>
-      <ul class="slist">
-        <li>68–72px · weight 900</li>
-        <li>Auto-fit при переполнении</li>
-        <li>Max-width 820px</li>
-      </ul>
-    </div>
-    <div class="card">
-      <span class="card-title">Цифра / CTA крупная</span>
-      <ul class="slist">
-        <li>96–120px · weight 900</li>
-        <li>Только 1–2 ключевых слова</li>
-        <li>Lime-фон или navy</li>
-      </ul>
-    </div>
-    <div class="card">
-      <span class="card-title">Body text</span>
-      <ul class="slist">
-        <li>42–44px · weight 700</li>
-        <li>Буллеты с эмодзи обязательны</li>
-        <li>Пункты — uppercase целиком</li>
-      </ul>
-    </div>
-    <div class="card">
-      <span class="card-title">Tag (мета-метка)</span>
-      <ul class="slist">
-        <li>22px · letter-spacing 4px</li>
-        <li>Weight 700 · Uppercase</li>
-        <li>Самодостаточный ярлык — не начало фразы h1</li>
-      </ul>
-    </div>
-    <div class="card">
-      <span class="card-title">Подпись «Оля Лондон»</span>
-      <ul class="slist">
-        <li>24px · letter-spacing 1px</li>
-        <li>Weight 700 · Opacity 0.6</li>
-        <li>Нижний левый угол слайда</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="warn-box" style="margin-top:20px;">
-    <p>⚠️ Размер шрифта: слово длиннее 12–13 символов (uppercase Montserrat 900) при 72px уже рискует вылезти за 820px. Перед вёрсткой считать: длина слова × 0.6em ≤ 820px. «СТАБИЛЬНОСТЬ» (12 букв) = предел при 68px.</p>
+    <table class="ptable">
+      <tr><th>Роль</th><th>Шрифт / вес</th><th>Размер</th><th>Tracking</th></tr>
+      <tr><td>Display H1</td><td><b>Onest 900</b> UPPER</td><td>clamp(46,9vw,118)</td><td>−4px</td></tr>
+      <tr><td>Section H2</td><td><b>Onest 900</b> UPPER</td><td>clamp(32,5vw,62)</td><td>−2px</td></tr>
+      <tr><td>Subhead</td><td><b>Onest 800</b></td><td>21–28px</td><td>−.8px</td></tr>
+      <tr><td>Body</td><td><b>Onest 500</b></td><td>15–17px</td><td>0 · line 1.7</td></tr>
+      <tr><td>Eyebrow / метка</td><td><b>Mono 700</b> UPPER</td><td>10–11px</td><td>+3px</td></tr>
+      <tr><td>Числа / hero-цифра</td><td><b>Onest 900</b> lime</td><td>крупно</td><td>−1…−2px</td></tr>
+    </table>
   </div>
 </section>
 
-<!-- ── 04. TOV ── -->
-<section id="tov">
-  <span class="big-num">04</span>
-  <span class="section-label">04 — Голос (TOV)</span>
-  <h2>Как Оля звучит</h2>
+<!-- 05 GRID -->
+<section id="grid">
+  <div class="wrap">
+    <div class="kicker"><span class="nn">05</span> Grid · Spacing · Surface</div>
+    <h2 class="h-s">Сетка, ритм, <em>фактура</em></h2>
+    <p class="lead">То, что делает тьму «дорогой», а не просто чёрной: единый ритм отступов, острые углы и три слоя атмосферы — переносятся с сайта в рилзы.</p>
 
-  <p>Полный TOV — в файле <code>00 Ключевые файлы/TOV.md</code>. Здесь — обязательный минимум для любого визуала.</p>
-
-  <div class="divider"></div>
-
-  <h3>Обязательные маркеры — в каждом материале</h3>
-  <div class="grid-2">
-    <div class="checklist">
-      <div class="check-item">
-        <div class="check-n">✓</div>
-        <div class="check-t"><strong>Капслок на акцентах</strong> — 1–3 слова посреди текста: ДЕНЯК, ЖОСТКИЙ, АФИГЕТЬ, СТАБИЛЬНОСТЬ</div>
-      </div>
-      <div class="check-item">
-        <div class="check-n">✓</div>
-        <div class="check-t"><strong>Эмодзи в начале буллетов</strong> — голый список «1. 2. 3.» без эмодзи не Олин</div>
-      </div>
-      <div class="check-item">
-        <div class="check-n">✓</div>
-        <div class="check-t"><strong>Фирменный эмодзи</strong> 🗿 / 🤡 / 🥵 / 🤯 — хотя бы один. Без них голос звучит «универсально»</div>
-      </div>
-      <div class="check-item">
-        <div class="check-n">✓</div>
-        <div class="check-t"><strong>Цифра без округления</strong> — «800₽», «5.000₽/час», «11 учеников за неделю», «63 тысячи»</div>
-      </div>
-      <div class="check-item">
-        <div class="check-n">✓</div>
-        <div class="check-t"><strong>Самоирония / ремарка в скобках</strong> — «(скромно, да 🤡)», «(спойлер)», «(реальная история, было!!1!)»</div>
-      </div>
-      <div class="check-item">
-        <div class="check-n">✓</div>
-        <div class="check-t"><strong>«Ты», не «вы»</strong> — глобальное правило. Ctrl+F «вы/вам/вас/ваш» → заменить</div>
-      </div>
-      <div class="check-item">
-        <div class="check-n">✓</div>
-        <div class="check-t"><strong>ЦА — девушки</strong>, глаголы в ж.р.: «разобралась», «забила», «закрыла», «устала», «готова»</div>
-      </div>
-      <div class="check-item">
-        <div class="check-n">✓</div>
-        <div class="check-t"><strong>Нет точек в конце строк</strong> на слайдах/хуках. Можно: «!», «…», «))0)», эмодзи</div>
-      </div>
+    <div class="eyebrow">Spacing-шкала · базовая единица 4px</div>
+    <div class="space-scale">
+      <div class="space-row"><div class="space-bar" style="width:8px"></div><span class="space-lbl"><b>8</b> — зазор внутри чипа, gap иконки</span></div>
+      <div class="space-row"><div class="space-bar" style="width:10px"></div><span class="space-lbl"><b>10</b> — gap между карточками в гриде</span></div>
+      <div class="space-row"><div class="space-bar" style="width:18px"></div><span class="space-lbl"><b>18</b> — внутренний padding мелких блоков</span></div>
+      <div class="space-row"><div class="space-bar" style="width:24px"></div><span class="space-lbl"><b>24</b> — padding карточки</span></div>
+      <div class="space-row"><div class="space-bar" style="width:48px"></div><span class="space-lbl"><b>48</b> — отступ между блоками внутри секции</span></div>
+      <div class="space-row"><div class="space-bar" style="width:96px"></div><span class="space-lbl"><b>96</b> — вертикальный ритм секций</span></div>
     </div>
 
-    <div>
-      <h3>Словарь Оли</h3>
-      <div class="chips">
-        <span class="chip chip-lime">ДЕНЯК</span>
-        <span class="chip chip-lime">ЖОСТКИЙ</span>
-        <span class="chip chip-lime">АФИГЕТЬ</span>
-        <span class="chip chip-lime">говно-вопрос</span>
-        <span class="chip chip-lime">ПФФ</span>
-        <span class="chip chip-lime">Уиии</span>
-        <span class="chip chip-lime">погнали</span>
-        <span class="chip chip-navy">нахрен</span>
-        <span class="chip chip-navy">блин</span>
-        <span class="chip chip-navy">сочных кейсов</span>
-        <span class="chip chip-navy">КААААК</span>
-        <span class="chip chip-navy">чо</span>
-        <span class="chip chip-navy">короче</span>
-        <span class="chip chip-navy">ПА-ЧЕ-МУ</span>
-      </div>
-
-      <h3 style="margin-top:24px;">Смех Оли (хотя бы раз в материале)</h3>
-      <div class="laugh-grid">
-        <div class="laugh-item"><span class="laugh-sym">)))</span><div class="laugh-role">улыбочка</div></div>
-        <div class="laugh-item"><span class="laugh-sym">))0)</span><div class="laugh-role">лол / ахах</div></div>
-        <div class="laugh-item"><span class="laugh-sym">))00)0)0</span><div class="laugh-role">«100К НАМ МАЛО»</div></div>
-        <div class="laugh-item"><span class="laugh-sym">!!1!1!</span><div class="laugh-role">опечатка возбуждения</div></div>
-      </div>
-
-      <h3 style="margin-top:24px;">Паттерн заголовка</h3>
-      <div class="card" style="margin-top:8px;">
-        <p style="font-size:12px;font-weight:800;text-transform:uppercase;color:white;line-height:1.8;">
-          🤯<span style="color:var(--lime);">ВЫШЛИ НА 120К В МЕСЯЦ</span> на репетиторстве!🤯
-        </p>
-        <p style="font-size:10px;color:var(--muted);margin-top:8px;">Эмодзи симметрично по бокам хука — фирменный обрамляющий приём</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h3>Эмодзи-словарь (опорные)</h3>
-  <div class="emoji-grid">
-    <div class="emoji-item"><span class="emoji-char">🗿</span><div class="emoji-role">Ирония · «ну ты понял» · дожим кустами 🗿🗿🗿🗿🗿</div></div>
-    <div class="emoji-item"><span class="emoji-char">🤡</span><div class="emoji-role">Клоунада · самоирония · «я сама дура была»</div></div>
-    <div class="emoji-item"><span class="emoji-char">🥵</span><div class="emoji-role">Трэш · «ну и ну» · реакция на дорогую цифру</div></div>
-    <div class="emoji-item"><span class="emoji-char">🤯</span><div class="emoji-role">Вау · шок · симметрично по бокам заголовка</div></div>
-    <div class="emoji-item"><span class="emoji-char">🔥</span><div class="emoji-role">Огонь · результат · кустами 🔥🔥🔥</div></div>
-    <div class="emoji-item"><span class="emoji-char">💥</span><div class="emoji-role">Бомба · прорыв · итог-панч</div></div>
-    <div class="emoji-item"><span class="emoji-char">💎</span><div class="emoji-role">Звезда · премиум-кейс</div></div>
-    <div class="emoji-item"><span class="emoji-char">🔴</span><div class="emoji-role">«Было» в кейсах — только в паре с 🟢</div></div>
-    <div class="emoji-item"><span class="emoji-char">🟢</span><div class="emoji-role">«Стало» в кейсах — только в паре с 🔴</div></div>
-    <div class="emoji-item"><span class="emoji-char">📍</span><div class="emoji-role">Открывает блок «📍Что мы сделали:»</div></div>
-    <div class="emoji-item"><span class="emoji-char">📌</span><div class="emoji-role">Итог / закрывающий блок «📌Итого:»</div></div>
-    <div class="emoji-item"><span class="emoji-char">❗️</span><div class="emoji-role">Усилитель «❗️МЕСТ ВСЕГО 100»</div></div>
-    <div class="emoji-item"><span class="emoji-char">🥹</span><div class="emoji-role">Жалостно прошу · тронута · «посмотри плз»</div></div>
-    <div class="emoji-item"><span class="emoji-char">😏</span><div class="emoji-role">Прищур · «ну ты понял» · лукаво</div></div>
-    <div class="emoji-item"><span class="emoji-char">💁🏻‍♀️</span><div class="emoji-role">«Вот она я / вот персонаж» — открывает сцену-якорь</div></div>
-    <div class="emoji-item"><span class="emoji-char">🤝🏻</span><div class="emoji-role">Союз · «встречаемся🤝🏻» · CTA-связка</div></div>
-    <div class="emoji-item"><span class="emoji-char">🫶🏻</span><div class="emoji-role">Обнимашки · тёплое окончание поста</div></div>
-    <div class="emoji-item"><span class="emoji-char">🥺👉🏻👈🏻</span><div class="emoji-role">Просящие глазки на трогательных кейсах</div></div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h3>Стоп-слова — Anti-AI фильтр (приоритет №1)</h3>
-  <div class="stoplist">
-    <div class="stop-item"><span class="stop-x">✕</span><span class="stop-t">«Важно отметить / понять что...»</span></div>
-    <div class="stop-item"><span class="stop-x">✕</span><span class="stop-t">«Не просто X, а Y» — классический GPT-оборот</span></div>
-    <div class="stop-item"><span class="stop-x">✕</span><span class="stop-t">«Давайте разберёмся / погрузимся»</span></div>
-    <div class="stop-item"><span class="stop-x">✕</span><span class="stop-t">«Следует учитывать / отметить»</span></div>
-    <div class="stop-item"><span class="stop-x">✕</span><span class="stop-t">«Раскрыть потенциал / революционный / трансформация»</span></div>
-    <div class="stop-item"><span class="stop-x">✕</span><span class="stop-t">«Без воды / без лишней воды» — клише инфоцыгана, ломает TOV</span></div>
-    <div class="stop-item"><span class="stop-x">✕</span><span class="stop-t">«Вероятно / в большинстве случаев / нельзя сказать наверняка» — смягчители</span></div>
-    <div class="stop-item"><span class="stop-x">✕</span><span class="stop-t">«Целевая аудитория / ключевые компетенции / качественный контент»</span></div>
-    <div class="stop-item"><span class="stop-x">✕</span><span class="stop-t">Ровный тон без перепадов — все строки одинаковой длины и одинаково «правильные»</span></div>
-    <div class="stop-item"><span class="stop-x">✕</span><span class="stop-t">Тире (—) как AI-тик: чаще 1–2 раз на слайд = переделать. Замены: запятая, двоеточие, новое предложение</span></div>
-  </div>
-</section>
-
-<!-- ── 05. REELS ── -->
-<section id="reels">
-  <span class="big-num">05</span>
-  <span class="section-label">05 — Рилзы</span>
-  <h2>Монтаж рилзов</h2>
-
-  <div class="rule-box">
-    <p><strong>Источник материала:</strong> нарезки из Zoom-разборов (2.5–3 часа). Из первых 30 минут одного разбора — до 8+ рилзов. Оля говорит живым голосом, не в камеру — это плюс: ощущение «подсмотрел» создаёт доверие.</p>
-  </div>
-
-  <div class="reel-wrap" style="margin-top:36px;">
-
-    <!-- MOCKUP -->
-    <div>
-      <div class="mockup-reel">
-        <!-- Hook zone -->
-        <div class="reel-zone-block reel-hook-block">
-          <div class="reel-hook-txt">
-            БЕЗДАРЬ БЕРЁТ <span style="background:var(--lime);color:var(--indigo);padding:0 3px;border-radius:2px;">3500</span><br>
-            А ТЫ БОИШЬСЯ<br>ПОДНЯТЬ С 1000
-          </div>
-          <div class="reel-cta-txt">пиши ЗАПИСЬ в комментарии</div>
-        </div>
-
-        <div class="zone-line" style="top:35%;"></div>
-        <span class="zone-badge" style="top:calc(35% + 4px);">видео</span>
-
-        <!-- Video zone -->
-        <div class="reel-zone-block reel-vid-block">
-          Zoom · Оля говорит
-        </div>
-
-        <div class="zone-line" style="top:75%;"></div>
-        <span class="zone-badge" style="top:calc(75% + 4px);">субтитры</span>
-
-        <!-- Subtitle zone -->
-        <div class="reel-zone-block reel-sub-block">
-          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
-            <div class="sub-prev">
-              <span>ЧЕ</span><span>МЫ</span>
-              <span style="background:var(--lime);color:var(--indigo);padding:2px 6px;border-radius:3px;">ПАРИМСЯ</span>
-              <span style="opacity:0.3;">ЗА</span>
-            </div>
-          </div>
-        </div>
-
-        <span class="zone-badge" style="top:4px;">хук</span>
-      </div>
-      <p style="font-size:10px;color:var(--muted);margin-top:8px;text-align:center;">1080 × 1920</p>
+    <div class="eyebrow">Углы, рамки, маркеры</div>
+    <div class="grid g3">
+      <div class="card"><span class="tag">radius</span><h4>3px — почти квадрат</h4><p>Кнопки, карточки, плашки — острые 3px. Это «резкость» характера. Аватары — круг 50%, окно видео в рилзе — 8px.</p></div>
+      <div class="card"><span class="tag">borders</span><h4>Волосяные линии</h4><p><code style="color:var(--lime)">rgba(255,255,255,.07)</code> — еле видимый контур. Акцент-рамка <code style="color:var(--lime)">rgba(200,255,0,.2)</code>.</p></div>
+      <div class="card"><span class="tag">left-bar</span><h4>Лайм-засечка слева</h4><p>Важные блоки помечаются <code style="color:var(--lime)">border-left:3px lime</code> — маркер «вот это читай».</p></div>
     </div>
 
-    <!-- SPECS -->
-    <div style="flex:1;">
-      <h3 style="margin-top:0;">Технические спецификации</h3>
-      <div class="spec-row"><span class="spec-key">Холст</span><span class="spec-val">1080 × 1920 px</span></div>
-      <div class="spec-row"><span class="spec-key">Фон</span><span class="spec-val">Navy #262594 — заполняет всё вне видео</span></div>
-      <div class="spec-row"><span class="spec-key">Хук-зона</span><span class="spec-val">0 – ~656px (35% сверху)</span></div>
-      <div class="spec-row"><span class="spec-key">Видео-зона</span><span class="spec-val">~656px – ~1264px (letterbox 16:9 по ширине)</span></div>
-      <div class="spec-row"><span class="spec-key">Субтитры</span><span class="spec-val">~1264px – 1920px (под видео)</span></div>
-      <div class="spec-row"><span class="spec-key">Длина клипа</span><span class="spec-val">30–70 сек (оптимум 45–60)</span></div>
-      <div class="spec-row"><span class="spec-key">Монтаж</span><span class="spec-val">Прямой кусок ИЛИ 2 врезки из одного эфира</span></div>
-      <div class="spec-row"><span class="spec-key">Звук</span><span class="spec-val">Оригинальный голос Оли · без музыки</span></div>
-
-      <div class="rule-box" style="margin-top:20px;">
-        <p><strong>Принцип:</strong> голос Оли — контент. Музыка не нужна, она только отвлекает. Живой Zoom-звук с лёгкой компрессией (без шума вентилятора).</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h3>Хук-плашка — правила</h3>
-  <div class="grid-2">
-    <div>
-      <div class="card">
-        <span class="card-title">Шрифт хука</span>
-        <ul class="slist">
-          <li>Montserrat ExtraBold / Black (800–900)</li>
-          <li>Цвет: белый #FFFFFF</li>
-          <li>Фон: navy #262594 (нет отдельной плашки)</li>
-          <li>Uppercase обязательно</li>
-          <li>Letter-spacing: 0.3–1px</li>
-          <li><strong>Без text-stroke / обводки</strong> — вес шрифта читает без них</li>
-        </ul>
-      </div>
-    </div>
-    <div>
-      <div class="card">
-        <span class="card-title">Размеры хука</span>
-        <ul class="slist">
-          <li>Font-size: 52–70px</li>
-          <li>Line-height: 1.15–1.25</li>
-          <li>Max-width: 920px (padding 80px с боков)</li>
-          <li>Макс 3 строки</li>
-          <li>Позиция: центр хук-зоны по горизонтали</li>
-          <li>Акцент на ключевое число → lime #c6fd2b фон</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <h3>Handle Оли</h3>
-  <div class="card" style="margin-top:-8px;">
-    <p style="font-size:13px;">@olga_na_million (TG/IG) — нижний левый угол хук-зоны. Font-size 22px · weight 700 · opacity 0.55 · uppercase.</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <h3>3 типа хука на каждый рилз</h3>
-  <p style="margin-bottom:16px;">Каждый рилз рендерится в 3 версиях хука. В продакшне по умолчанию — первый (shock). Остальные — A/B тест.</p>
-
-  <div class="hook-examples">
-    <div class="hook-ex">
-      <div class="hook-type-badge">Shock</div>
-      <div class="hook-txt">Этот репетитор берёт 3500 за час с русским акцентом</div>
-    </div>
-    <div class="hook-ex">
-      <div class="hook-type-badge">Claim</div>
-      <div class="hook-txt">Бездари берут 3500, а ты боишься поднять с 1000</div>
-    </div>
-    <div class="hook-ex">
-      <div class="hook-type-badge">Curiosity</div>
-      <div class="hook-txt">Почему ты боишься брать дороже чем берёшь сейчас</div>
-    </div>
-  </div>
-
-  <div class="rule-box" style="margin-top:16px;">
-    <p><strong>Выбор хука по ЦА:</strong> shock → холодная аудитория (факт шокирует сразу). Claim → тёплая (уже знает проблему, провоцируем). Curiosity → любая (вопрос-крюк). Для роста охвата — тестировать shock vs curiosity.</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <h3>Субтитры — стиль</h3>
-  <div class="grid-2">
-    <div>
-      <div class="spec-row"><span class="spec-key">Тип</span><span class="spec-val">Word-by-word highlight</span></div>
-      <div class="spec-row"><span class="spec-key">Активное слово</span><span class="spec-val">Фон lime #c6fd2b · текст indigo #080c76</span></div>
-      <div class="spec-row"><span class="spec-key">Пройденные</span><span class="spec-val">Белый · opacity 0.2–0.3</span></div>
-      <div class="spec-row"><span class="spec-key">Шрифт</span><span class="spec-val">Montserrat ExtraBold (800) · Uppercase</span></div>
-      <div class="spec-row"><span class="spec-key">Font-size</span><span class="spec-val">48–56px</span></div>
-      <div class="spec-row"><span class="spec-key">Позиция</span><span class="spec-val">Центр под видео-зоной · padding 32px с боков</span></div>
-      <div class="spec-row"><span class="spec-key">Точки</span><span class="spec-val">Без точек в конце предложений — голос Оли</span></div>
-    </div>
-    <div>
-      <div class="sub-demo">
-        <p style="font-size:9px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;">Субтитры · пример</p>
-        <div class="sub-demo-words">
-          <span class="sub-w past">ЧЕ</span>
-          <span class="sub-w past">МЫ</span>
-          <span class="sub-w active">ПАРИМСЯ</span>
-          <span class="sub-w future">ЗА</span>
-          <span class="sub-w future">3500</span>
-        </div>
-        <p style="font-size:9px;color:rgba(255,255,255,0.15);margin-top:10px;text-align:center;">← прошедшее · активное · будущее →</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h3>CTA в рилзе</h3>
-  <div class="grid-3">
-    <div class="card">
-      <span class="card-title">Текст CTA</span>
-      <p style="font-size:14px;font-weight:900;color:var(--lime);text-transform:uppercase;line-height:1.4;">«пиши ЗАПИСЬ в комментарии — пришлю запись целиком»</p>
-      <p style="margin-top:8px;font-size:12px;">Слово-ключ капсом. <strong>Без слова «разбор»</strong> — алго-чистка Instagram (режет охват).</p>
-    </div>
-    <div class="card">
-      <span class="card-title">Появление</span>
-      <ul class="slist">
-        <li>Через 3–5 сек после старта хука</li>
-        <li>Fade-in: opacity 0 → 1 за 0.4с</li>
-        <li>Остаётся до конца клипа</li>
-        <li>Не исчезает при смене слайдов/врезок</li>
-      </ul>
-    </div>
-    <div class="card">
-      <span class="card-title">Позиция и стиль</span>
-      <ul class="slist">
-        <li>В хук-зоне под текстом хука</li>
-        <li>Montserrat 700 · 22px · uppercase</li>
-        <li>Цвет: white · opacity 0.55</li>
-        <li>Без рамки и фона — чисто текст</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h3>Монтажные правила</h3>
-  <div class="checklist">
-    <div class="check-item">
-      <div class="check-n">01</div>
-      <div class="check-t"><strong>Начало — с целой фразы</strong>: не с середины предложения. Таймкод начала выверять по SRT.</div>
-    </div>
-    <div class="check-item">
-      <div class="check-n">02</div>
-      <div class="check-t"><strong>Панч внутри клипа</strong>: самая сильная реплика не в первые и не в последние 5 секунд.</div>
-    </div>
-    <div class="check-item">
-      <div class="check-n">03</div>
-      <div class="check-t"><strong>2 куска одного эфира — допустимо.</strong> Соединять на паузе в речи или cut-on-action.</div>
-    </div>
-    <div class="check-item">
-      <div class="check-n">04</div>
-      <div class="check-t"><strong>Мат — решать поштучно.</strong> «Пиздёж» / «нахрен» → бипнуть ИЛИ вырезать фрагмент, если хук не теряет смысл.</div>
-    </div>
-    <div class="check-item">
-      <div class="check-n">05</div>
-      <div class="check-t"><strong>Preflight перед рендером:</strong> проверить span SRT совпадает с длиной видео (допустимый сдвиг &lt;2с).</div>
-    </div>
-    <div class="check-item">
-      <div class="check-n">06</div>
-      <div class="check-t"><strong>Топ под холодный охват:</strong> #01 (лето-миф), #03 (3500/самозванец), #04 (5000/очередь), #08 (чаты), #12 (буква Ф).</div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h3>Анимации — тайминг</h3>
-  <div class="anim-timeline">
-    <div style="font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;">Timeline рилза (0 → конец клипа)</div>
-    <div class="timeline-row">
-      <span class="tl-label">Хук</span>
-      <div class="tl-bar tl-lime" style="width:100%;">появляется с кадра 0 · fade-in 0.3с</div>
-    </div>
-    <div class="timeline-row">
-      <span class="tl-label">CTA</span>
-      <div class="tl-bar tl-ghost" style="width:12%;min-width:20px;"></div>
-      <div class="tl-bar tl-navy" style="width:88%;">появляется через 3–5с · остаётся до конца</div>
-    </div>
-    <div class="timeline-row">
-      <span class="tl-label">Субтитры</span>
-      <div class="tl-bar tl-lime" style="width:100%;">word-by-word синхронно со звуком</div>
-    </div>
-    <div class="timeline-row">
-      <span class="tl-label">Видео</span>
-      <div class="tl-bar tl-ghost" style="width:100%;">оригинал · без zoom/scale/glitch</div>
-    </div>
-  </div>
-
-  <div class="grid-3" style="margin-top:20px;">
-    <div class="card">
-      <span class="card-title">Хук — появление</span>
-      <ul class="slist">
-        <li>Fade-in: opacity 0 → 1</li>
-        <li>Длительность: 0.3–0.4 сек</li>
-        <li>Delay: 0 (сразу при старте)</li>
-        <li>Без slide-up / scale</li>
-      </ul>
-    </div>
-    <div class="card">
-      <span class="card-title">Субтитры — highlight</span>
-      <ul class="slist">
-        <li>Per-word: каждое слово отдельный span</li>
-        <li>Активация: bg lime, fade 0.05с</li>
-        <li>Деактивация: fade 0.1с</li>
-        <li>Текущее + 1 слово вперёд видны</li>
-      </ul>
-    </div>
-    <div class="card">
-      <span class="card-title">Запрещённые эффекты</span>
-      <ul class="slist">
-        <li>Без zoom / scale на видео</li>
-        <li>Без глитч-эффектов</li>
-        <li>Без slow-mo</li>
-        <li>Без музыки поверх голоса</li>
-        <li>Без цветокоррекции (LUT)</li>
-      </ul>
+    <div class="eyebrow">Три слоя атмосферы</div>
+    <div class="grid g3">
+      <div class="card"><span class="tag">слой 1</span><h4>Grid-сетка</h4><p>Тонкая лайм-сетка <code style="color:var(--lime)">.02 alpha</code>, шаг 72–80px (в рилзе ~30px). «Техничность» вместо плоской заливки.</p></div>
+      <div class="card"><span class="tag">слой 2</span><h4>Лайм-glow</h4><p>Radial-свечение в правом-верхнем углу, дышит 8–10с (scale 1→1.12). Притягивает взгляд к хуку.</p></div>
+      <div class="card"><span class="tag">слой 3</span><h4>Фиолет-glow + noise</h4><p>Холодное свечение снизу-слева + еле заметный noise (.025) — объём и «плёнка», убирает цифровую стерильность.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ── 06. CAROUSELS ── -->
-<section id="carousels">
-  <span class="big-num">06</span>
-  <span class="section-label">06 — Карусели</span>
-  <h2>Instagram карусели</h2>
+<!-- 06 MOTION -->
+<section id="motion">
+  <div class="wrap">
+    <div class="kicker"><span class="nn">06</span> Motion</div>
+    <h2 class="h-s">Движение с <em>характером</em></h2>
+    <p class="lead">Принцип 2026 — «purposeful motion»: анимация ведёт взгляд и задаёт ритм, а не цирк ради цирка. Один фирменный easing, дисциплинированный тайминг.</p>
 
-  <div class="spec-row"><span class="spec-key">Формат</span><span class="spec-val">1080 × 1350 px (4:5)</span></div>
-  <div class="spec-row"><span class="spec-key">Макс слайдов</span><span class="spec-val">6 — лишние детали/кейсы → в caption поста</span></div>
-  <div class="spec-row"><span class="spec-key">Padding слайда</span><span class="spec-val">110px vertical × 130px horizontal</span></div>
-  <div class="spec-row"><span class="spec-key">Max-width контента</span><span class="spec-val">820px (= 1080 − 130×2)</span></div>
-  <div class="spec-row"><span class="spec-key">Движок</span><span class="spec-val">Carousel Studio · studio.html · вкладка «Оля Лондон»</span></div>
+    <div class="grid g2">
+      <div class="card"><span class="tag">// фирменный easing</span><h4 class="mono" style="color:var(--lime);font-size:16px">cubic-bezier(.22, 1, .36, 1)</h4><p>«easeOutExpo» — быстрый старт, мягкое торможение с лёгким овершутом. Easing сайта (вход hero). Всё на нём: выезд хука, появление слов, reveal цифр. Линейное = робот.</p></div>
+      <div class="card"><span class="tag">// тайминг</span><h4>Каскад · стаггер 90мс</h4><p>Элементы появляются волной: pill → заголовок (.09с) → строки (.2с) → CTA (.38с). Каждое слово хука — отдельный выезд с шагом ~90мс. Длительность движения 550–750мс.</p></div>
+    </div>
 
-  <div class="divider"></div>
-
-  <h3>Роли слайдов (выбирать нужные, не пихать все)</h3>
-  <div class="grid-3">
-    <div class="card">
-      <span class="card-title">1. Хук</span>
-      <p style="font-size:13px;">8–10 слов · капслок на ключевом слове · эмодзи симметрично по бокам: 🤯...🤯. Всегда слайд 1.</p>
-    </div>
-    <div class="card">
-      <span class="card-title">2. Боль / контекст</span>
-      <p style="font-size:13px;">3 буллета с 🥵/🔴/❗️. Конкретные цифры или мини-сцена. Не «многие» — а «9 из 10».</p>
-    </div>
-    <div class="card">
-      <span class="card-title">3. Шаги / план</span>
-      <p style="font-size:13px;">1️⃣ 2️⃣ 3️⃣ с эмодзи на каждом. Все пункты uppercase. Конкретное действие, не абстракция.</p>
-    </div>
-    <div class="card">
-      <span class="card-title">4. Цифра / кейс</span>
-      <p style="font-size:13px;">Lime-фон или navy. Большая цифра (96–120px). Короткая цитата с @никнеймом. Соцпруф.</p>
-    </div>
-    <div class="card">
-      <span class="card-title">5. Переписка / сцена</span>
-      <p style="font-size:13px;">Слайд-DM (диалог). 1 раз за карусель max. Передаёт «внутренний голос» читателя через реплику героя.</p>
-    </div>
-    <div class="card">
-      <span class="card-title">6. CTA</span>
-      <p style="font-size:13px;">«пиши + в комментарии / напиши СЛОВО». Кнопка ИЛИ билет попеременно. Дефицит мест если есть.</p>
+    <div class="dd">
+      <div class="dd-col dd-do"><div class="dd-h">⚡ дорого</div><ul>
+        <li>Один оркестрированный вход кадра (каскад)</li>
+        <li>Активное слово субтитра чуть растёт (scale 1.12)</li>
+        <li>Медленное «дыхание» glow и пульс CTA</li>
+        <li>Reveal цифры с овершутом — «прибивается»</li>
+      </ul></div>
+      <div class="dd-col dd-no"><div class="dd-h">🚫 дёшево</div><ul>
+        <li>Буквы прыгают/крутятся каждое слово</li>
+        <li>Bounce-springs на всём подряд</li>
+        <li>Разные easing в одном ролике</li>
+        <li>Мигающие неон-обводки, fake-glitch</li>
+      </ul></div>
     </div>
   </div>
+</section>
 
-  <div class="divider"></div>
+<!-- 07 REELS -->
+<section id="reels" style="background:linear-gradient(180deg,transparent,rgba(124,58,237,.045),transparent)">
+  <div class="wrap">
+    <div class="kicker"><span class="nn">07</span> Reels · флагман</div>
+    <h2 class="h-s">Монтаж рилзов <em>10/10</em></h2>
+    <p class="lead">Сердце брендбука. Рилз Оли = тёмный холст сайта + говорящая голова в светящемся окне + хук-удар сверху + <b style="color:var(--lime)">пословные karaoke-субтитры</b> снизу. Макет справа живой: активное слово реально вспыхивает лаймом в такт.</p>
 
-  <h3>Три стиля (миксовать в пропорции)</h3>
-  <div class="grid-3">
-    <div class="card" style="border-color:rgba(198,253,43,0.3);">
-      <span class="card-title">Стандарт <span style="background:var(--lime);color:var(--indigo);font-size:9px;padding:2px 7px;border-radius:3px;font-weight:900;letter-spacing:1px;margin-left:6px;">50%</span></span>
-      <p style="font-size:13px;">Navy/lime, крупная типографика, hl-плашки. Подходит для всех типов слайдов. Основной стиль бренда.</p>
-    </div>
-    <div class="card">
-      <span class="card-title">Стикербук <span style="background:rgba(198,253,43,0.2);color:var(--lime);font-size:9px;padding:2px 7px;border-radius:3px;font-weight:900;letter-spacing:1px;margin-left:6px;">25%</span></span>
-      <p style="font-size:13px;">Фоновые элементы как стикеры. Игровой, весёлый. Для шуток, самоиронии, мемных форматов.</p>
-    </div>
-    <div class="card">
-      <span class="card-title">Тетрадь <span style="background:rgba(198,253,43,0.2);color:var(--lime);font-size:9px;padding:2px 7px;border-radius:3px;font-weight:900;letter-spacing:1px;margin-left:6px;">25%</span></span>
-      <p style="font-size:13px;">Стиль «конспект». Не чаще 1 раза на 3 карусели — приедается. Для образовательного, «Шаг N» контента.</p>
-    </div>
-  </div>
+    <div class="reel-stage">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-grid"></div><div class="phone-glow"></div><div class="phone-glow2"></div>
+        <div class="zone zone-top"><span class="zone-lbl" style="top:3px">SAFE · UI Reels</span></div>
+        <div class="zone zone-bot"><span class="zone-lbl" style="bottom:3px">SAFE · кнопки + подпись</span></div>
+        <div class="r-pill"><span class="r-pill-dot"></span>разбор репетиторов</div>
+        <div class="r-hook"><span class="w">Моя</span> <span class="w">ставка</span> <span class="w"><em>5000</em></span> <span class="w">в</span> <span class="w">час</span></div>
+        <div class="r-video"><div class="r-face">🎤</div></div>
+        <div class="r-subs"><span class="kw k1">а</span> <span class="kw k2">прикол</span> <span class="kw k3">в</span> <span class="kw k4">том</span> <span class="kw k5">—</span></div>
+        <div class="r-cta">пиши ЗАПИСЬ в комментах →</div>
+      </div>
 
-  <div class="divider"></div>
-
-  <h3>Instagram-safe — деньги-слова запрещены на слайдах</h3>
-  <div class="warn-box">
-    <p>⚠️ Instagram режет охват за слова на изображениях: <strong>заработок, доход, деньги, кэш, купить, покупка, оплата, продажа, чек, пассивный доход, money, income, earn.</strong> Эмодзи 💵 💰 🤑 💸 — только в caption поста, не на слайдах.</p>
-  </div>
-
-  <div class="grid-2" style="margin-top:16px;">
-    <div>
-      <h3 style="color:var(--red);">✕ На слайдах заменять</h3>
-      <div class="stoplist">
-        <div class="stop-item"><span class="stop-x">✕</span><span class="stop-t">«доход 100к» → «100к в месяц»</span></div>
-        <div class="stop-item"><span class="stop-x">✕</span><span class="stop-t">«деньги» → «результат» / «цифры»</span></div>
-        <div class="stop-item"><span class="stop-x">✕</span><span class="stop-t">«купить» → «зайти» / «прийти»</span></div>
-        <div class="stop-item"><span class="stop-x">✕</span><span class="stop-t">«продавать» → «работать с клиентами»</span></div>
-        <div class="stop-item"><span class="stop-x">✕</span><span class="stop-t">💸💰🤑 → убрать со слайда, в caption</span></div>
+      <div class="reel-specs">
+        <div class="spec-row"><h4>① Холст <span class="px">1080×1920 · 30fps</span></h4><p>Фон <b>#08080F</b> + grid 30px + лайм-glow справа-сверху + фиолет-glow снизу-слева. Никакого плоского navy.</p></div>
+        <div class="spec-row"><h4>② Pill-метка <span class="px">top 11%</span></h4><p>Лайм-капсула с пульсирующей точкой: «разбор репетиторов». Mono-вайб. Появляется первой.</p></div>
+        <div class="spec-row"><h4>③ Хук <span class="px">top 16.5%</span></h4><p><b>Onest 900 UPPER</b>, белый, одно слово лаймом (<code style="color:var(--lime)">em</code>). Каскадный выезд по словам, тень для читаемости.</p></div>
+        <div class="spec-row"><h4>④ Окно видео <span class="px">y 40% · h 24%</span></h4><p>Кроп головы в окне с лайм-рамкой <b>1px</b>, углы <b>8px</b>, glow вокруг. Не на весь экран — в «конверте» бренда.</p></div>
+        <div class="spec-row" style="border-left-color:var(--lime)"><h4>⑤ Karaoke-субтитры <span class="px">y 68%</span></h4><p><b>Главная фишка.</b> Onest 800. Фраза целиком off-white <b>55%</b>, активное слово вспыхивает <b style="color:var(--lime)">#C8FF00</b> + scale 1.12 в такт речи.</p></div>
+        <div class="spec-row"><h4>⑥ CTA <span class="px">bottom 25.5%</span></h4><p>Лайм-кнопка, мягкий пульс. «пиши ЗАПИСЬ в комментах». Над safe-зоной кнопок Reels.</p></div>
       </div>
     </div>
-    <div>
-      <h3>Caption поста — чек</h3>
-      <div class="checklist">
-        <div class="check-item">
-          <div class="check-n">✓</div>
-          <div class="check-t">Первые 125 символов = хук+боль ЦА (без эмодзи в строке 1)</div>
+
+    <div class="eyebrow">Раскладка холста и safe-зоны</div>
+    <table class="ptable">
+      <tr><th>Зона</th><th>Y (от 1920)</th><th>Содержимое</th><th>Правило</th></tr>
+      <tr><td>TOP_SAFE</td><td><b>0–80px</b></td><td>—</td><td>Пусто: статус-бар + шапка Reels</td></tr>
+      <tr><td>PILL</td><td><b>~210px</b></td><td>Лайм-метка</td><td>Контекст ролика</td></tr>
+      <tr><td>HOOK</td><td><b>~320–620px</b></td><td>Хук 2–4 слова</td><td>1 лайм-слово, остальное белое</td></tr>
+      <tr><td>VIDEO</td><td><b>~768–1230px</b></td><td>Окно с лицом</td><td>Лайм-рамка + glow, углы 8px</td></tr>
+      <tr><td>SUBS</td><td><b>~1300px</b></td><td>Karaoke-строка</td><td>3–5 слов, активное — лайм</td></tr>
+      <tr><td>CTA</td><td><b>~1430px</b></td><td>Кнопка</td><td>Над BOT_SAFE</td></tr>
+      <tr><td>BOT_SAFE</td><td><b>1450–1920px</b></td><td>—</td><td>Пусто: кнопки + подпись Reels</td></tr>
+    </table>
+
+    <div class="eyebrow">Почему лайм-подсветка, а не жёлтая</div>
+    <div class="spec-row">
+      <h4>🟢 Тот же karaoke-механизм, но кадр узнаётся как «Оля»</h4>
+      <p>Ресёрч 2026: word-by-word с контрастной подсветкой — топ-стиль платформ, жёлтый <code>#f7c204</code> — дефолт всех шаблонов CapCut. Берём <b style="color:var(--lime)">бренд-лайм</b>: механизм проверенный (зелёный — второй по популярности highlight), но кадр мгновенно читается как «Оля», а не как ещё один безликий клип.</p>
+    </div>
+
+    <div class="eyebrow">Тайм-лайн первых 6 секунд</div>
+    <div class="tl">
+      <div class="tl-track"><div class="tl-fill"></div>
+        <div class="tl-pt" style="left:2%"><div class="t">0.0s</div><div class="l">grid + glow</div><div class="d"></div></div>
+        <div class="tl-pt" style="left:14%"><div class="t">0.3s</div><div class="l">pill</div><div class="d"></div></div>
+        <div class="tl-pt" style="left:30%"><div class="t">0.5s</div><div class="l">хук каскадом</div><div class="d"></div></div>
+        <div class="tl-pt" style="left:50%"><div class="t">0.9s</div><div class="l">окно видео</div><div class="d"></div></div>
+        <div class="tl-pt" style="left:70%"><div class="t">1.2s+</div><div class="l">субтитры</div><div class="d"></div></div>
+        <div class="tl-pt" style="left:92%"><div class="t">5.0s</div><div class="l">CTA пульс</div><div class="d"></div></div>
+      </div>
+    </div>
+
+    <div class="eyebrow">3 архетипа хука — у каждого свой сигнал</div>
+    <div class="arch">
+      <div class="arch-card arch-shock"><div class="arch-k">// shock</div><h4>Разрыв шаблона</h4><p>Шок-факт/цифра. Допускается красный <b style="color:#FF4D4D">#FF4D4D</b> на одно слово — единственный случай красного.</p><div class="arch-ex">Моя ставка <span style="color:#FF4D4D">5000</span> — и я не лучший педагог</div></div>
+      <div class="arch-card arch-claim"><div class="arch-k">// claim</div><h4>Дерзкое утверждение</h4><p>Манифест-позиция. Классика: белое + одно лайм-слово. Самый частый, дефолт в рендере.</p><div class="arch-ex">Высокий чек — не талант, а <span style="color:var(--lime)">очередь</span></div></div>
+      <div class="arch-card arch-cur"><div class="arch-k">// curiosity</div><h4>Вопрос-крючок</h4><p>Открытая петля, заставляет досмотреть. Акцент-слово — фиолет <b style="color:var(--violet2)">#7C3AED</b> или лайм.</p><div class="arch-ex">Почему у одной <span style="color:var(--violet2)">очередь</span>, а у тебя нет?</div></div>
+    </div>
+
+    <div class="eyebrow">Связь с пайплайном рендера · PIL/Pillow + FFmpeg</div>
+    <table class="ptable">
+      <tr><th>Параметр</th><th>Значение</th><th>Откуда</th></tr>
+      <tr><td>CANVAS</td><td><b>1080×1920 @ 30fps</b></td><td>фикс</td></tr>
+      <tr><td>BG</td><td><b>(8,8,15)</b> ink + grid 30px + 2 glow</td><td>токены сайта</td></tr>
+      <tr><td>HOOK_FONT</td><td><b>Onest 900</b>, white, 1 слово lime</td><td>em-закон</td></tr>
+      <tr><td>SUB_BASE</td><td><b>(232,232,242)·55%</b> Onest 800</td><td>off-white</td></tr>
+      <tr><td>SUB_ACTIVE</td><td><b>(200,255,0)</b> + scale 1.12</td><td>lime karaoke</td></tr>
+      <tr><td>WORDS</td><td><code class="mono">mlx_whisper --word-timestamps</code></td><td>транскрипт</td></tr>
+      <tr><td>TOP/BOT_SAFE</td><td><b>80 / 1450</b></td><td>Instagram Reels</td></tr>
+      <tr><td>CTA_START</td><td><b>~5.0s</b>, lime-плашка</td><td>дефолт</td></tr>
+    </table>
+
+    <div class="eyebrow">Рилзы: можно / нельзя</div>
+    <div class="dd">
+      <div class="dd-col dd-do"><div class="dd-h">⚡ на 10/10</div><ul>
+        <li>Тёмный холст + grid + два glow — глубина с 1-го кадра</li>
+        <li>Лицо в брендовом окне с лайм-рамкой, не на весь экран</li>
+        <li>Хук 2–4 слова, одно лаймом, каскадный выезд</li>
+        <li>Субтитры по 3–5 слов, активное вспыхивает лаймом</li>
+        <li>Текст в «ты», без точки в конце, голосом Оли</li>
+        <li>CTA над safe-зоной, мягкий пульс</li>
+      </ul></div>
+      <div class="dd-col dd-no"><div class="dd-h">🚫 провал</div><ul>
+        <li>Navy #262594 и Montserrat (старые карусели, не сайт)</li>
+        <li>Жёлтые дефолтные субтитры CapCut</li>
+        <li>Вся фраза простынёй, мелкий текст до края</li>
+        <li>Два акцентных цвета в одной строке</li>
+        <li>Текст залезает в safe-зоны — обрежет UI Reels</li>
+        <li>Прыгающие буквы, glitch, неон-обводки</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 APPLICATIONS -->
+<section id="apps">
+  <div class="wrap">
+    <div class="kicker"><span class="nn">08</span> Applications</div>
+    <h2 class="h-s">Один язык — <em>все носители</em></h2>
+    <p class="lead">Система масштабируется на любой формат. Одна ДНК — тьма, Onest, em-лайм, grid+glow — узнаётся от сторис до обложки YouTube.</p>
+
+    <div class="apps">
+      <div class="app">
+        <div class="app-vis"><div class="ag"></div><div class="agl"></div>
+          <div><div class="app-eyebrow">// карусель · слайд 1</div><div class="app-big">Убери <em>цену</em> из объявления</div><div class="app-sm">1080×1350 · ≤6 слайдов</div></div>
         </div>
-        <div class="check-item">
-          <div class="check-n">✓</div>
-          <div class="check-t">Ключевики front-load: «репетитор», «как найти учеников», «доход репетитора»</div>
+        <div class="app-cap"><b>Instagram-карусель</b><span>хук Onest 900 + em-лайм</span></div>
+      </div>
+      <div class="app">
+        <div class="app-vis"><div class="ag"></div><div class="agl"></div>
+          <div><div class="app-eyebrow">// сторис</div><div class="app-num">+63к</div><div class="app-big" style="font-size:18px;margin-top:8px">за первую <em>неделю</em></div><div class="app-sm">1080×1920 · цифра-герой</div></div>
         </div>
-        <div class="check-item">
-          <div class="check-n">✓</div>
-          <div class="check-t">Один CTA: «напиши слово X в комментарии»</div>
+        <div class="app-cap"><b>Сторис-результат</b><span>цифра лаймом, тёмный фон</span></div>
+      </div>
+      <div class="app">
+        <div class="app-vis"><div class="ag"></div><div class="agl"></div>
+          <div><div class="app-eyebrow">// YouTube · обложка</div><div class="app-big">5000₽ <em>в&nbsp;час</em></div><div class="app-sm">1280×720 · хук другим заходом</div></div>
         </div>
-        <div class="check-item">
-          <div class="check-n">✓</div>
-          <div class="check-t">3–5 нишевых хэштегов в конце (не в первых 125 символах)</div>
+        <div class="app-cap"><b>Обложка разбора</b><span>превью ≠ копия титула</span></div>
+      </div>
+      <div class="app">
+        <div class="app-vis"><div class="ag"></div><div class="agl"></div>
+          <div><span class="demo-pill" style="position:relative;z-index:1"><span class="nav-dot"></span>Поток 2026</span></div>
         </div>
-        <div class="check-item">
-          <div class="check-n">✓</div>
-          <div class="check-t">Деньги-слова и 💰 — здесь можно</div>
+        <div class="app-cap"><b>Бейдж / метка</b><span>лайм-pill, пульс-точка</span></div>
+      </div>
+      <div class="app">
+        <div class="app-vis"><div class="ag"></div><div class="agl"></div>
+          <div><div class="app-eyebrow">// TG-пост</div><div class="app-big" style="font-size:20px;text-transform:none;letter-spacing:-.5px;color:var(--off)">Перестала спрашивать «будете летом» — и <em>никто не ушёл</em></div></div>
         </div>
+        <div class="app-cap"><b>Telegram-анонс</b><span>голос Оли, «ты», без точки</span></div>
+      </div>
+      <div class="app">
+        <div class="app-vis"><div class="ag"></div><div class="agl"></div>
+          <div><div class="app-eyebrow">// рилз</div><div class="app-big">Karaoke-<em>субтитры</em></div><div class="app-sm">1080×1920 · флагман →&nbsp;§07</div></div>
+        </div>
+        <div class="app-cap"><b>Reels</b><span>главный носитель бренда</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── 07. SITE ── -->
-<section id="site">
-  <span class="big-num">07</span>
-  <span class="section-label">07 — Сайт / Лендинг</span>
-  <h2>Лендинг</h2>
+<!-- 09 COMPONENTS -->
+<section id="components">
+  <div class="wrap">
+    <div class="kicker"><span class="nn">09</span> UI Components</div>
+    <h2 class="h-s">Библиотека <em>элементов</em></h2>
+    <p class="lead">Готовые кирпичи с сайта — переиспользуются в постах, обложках, презентациях. Острые 3px, Onest, лайм-акцент.</p>
 
-  <div class="rule-box">
-    <p><strong>Референс:</strong> olgalondon.ru/testolga — «Репетитор-Миллионер». Источник правды — <code>06 Attachments/(C) olgalondon-site-v5.html</code>. CSS namespace <code>olv-</code>. Платформа: Tilda.</p>
-  </div>
-
-  <div class="grid-2" style="margin-top:24px;">
-    <div>
-      <h3>Визуальные принципы</h3>
-      <ul class="slist">
-        <li>Тёмный фон #0a0a24 / #080c76 — стиль «ночной город»</li>
-        <li>Акцент lime #c6fd2b — кнопки, цифры, плашки, теги</li>
-        <li>Белый текст на тёмном; без светлых секций</li>
-        <li>Шрифт Montserrat — все весы от 400 до 900</li>
-        <li>Видео-отзывы приоритетнее скриншотов</li>
-        <li>Конкретные цифры в каждом блоке</li>
-        <li>Имена + ниша + до/после (не «одна ученица»)</li>
-        <li>Никаких стоковых фото — только реальные Оля и ученицы</li>
-      </ul>
+    <div class="comp-row"><div class="comp-cap">// кнопки</div>
+      <button class="btn-lime">Записаться →</button><button class="btn-ghost">Смотреть отзывы</button><button class="btn-violet">Вторичное действие</button>
     </div>
-    <div>
-      <h3>Структура блоков</h3>
-      <ul class="slist">
-        <li>Hero: заголовок-гарантия + 5 метрик</li>
-        <li>Видео-отзывы (hover autoplay)</li>
-        <li>Результаты: roller-бегущая строка + карточки кейсов</li>
-        <li>Кому подходит: 3 сегмента (A/B/C)</li>
-        <li>Программа: 8 аккордеонов</li>
-        <li>Сопровождение: 6 пунктов команды</li>
-        <li>Путь к результату: 3 месяца по этапам</li>
-        <li>Калькулятор окупаемости</li>
-        <li>Гарантии + тарифы</li>
-        <li>FAQ + финальный CTA</li>
-      </ul>
+    <div class="comp-row" style="margin-top:10px"><div class="comp-cap">// метки и бейджи</div>
+      <span class="demo-pill"><span class="nav-dot"></span>Поток 2026</span>
+      <span class="demo-pill" style="background:rgba(124,58,237,.1);border-color:var(--bviolet);color:var(--violet2)">−42% скидка</span>
+      <span class="ts-label" style="border:1px solid var(--bdk);padding:6px 12px;border-radius:3px">100+ УЧЕНИЦ</span>
     </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h3>Кнопки</h3>
-  <div style="margin-top:8px;">
-    <div class="cta-demo">Записаться →</div>
-    <div class="cta-demo-ghost">Смотреть отзывы</div>
-  </div>
-
-  <div class="grid-2" style="margin-top:20px;">
-    <div class="card">
-      <span class="card-title">Основная кнопка</span>
-      <ul class="slist">
-        <li>Bg: lime #c6fd2b · Text: indigo #080c76</li>
-        <li>Font: Montserrat 900 · 14px · uppercase</li>
-        <li>Padding: 14px 32px · border-radius: 8px</li>
-        <li>Letter-spacing: 1.5px</li>
-        <li>Hover: bg → #d8ff50 (чуть ярче)</li>
-      </ul>
+    <div class="comp-row" style="margin-top:10px"><div class="comp-cap">// stat-плитки · доказательство цифрами</div>
+      <div class="demo-stat"><div class="n">100+</div><div class="l">учениц</div></div>
+      <div class="demo-stat"><div class="n">750к</div><div class="l">рекорд/мес</div></div>
+      <div class="demo-stat"><div class="n">5 000₽</div><div class="l">ставка/час</div></div>
+      <div class="demo-stat"><div class="n">100%</div><div class="l">окупаемость</div></div>
     </div>
-    <div class="card">
-      <span class="card-title">Вторичная кнопка</span>
-      <ul class="slist">
-        <li>Border: 2px rgba(198,253,43,0.4)</li>
-        <li>Text: lime · bg: transparent</li>
-        <li>Hover: border opacity → 0.7</li>
-      </ul>
+    <div class="comp-row" style="margin-top:10px;flex-direction:column;align-items:stretch"><div class="comp-cap">// карточка кейса · before → after</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <div style="background:var(--ink3);border:1px solid var(--bdk);padding:18px;flex:1;min-width:200px">
+          <div style="font-size:11px;font-weight:700;color:var(--violet2);margin-bottom:2px">Настя Бабина</div>
+          <div style="font-size:11px;color:var(--faint);margin-bottom:10px">Русский язык · ЕГЭ</div>
+          <div style="font-size:12px;color:var(--faint);text-decoration:line-through;margin-bottom:3px">30 000₽/мес</div>
+          <div style="font-size:26px;font-weight:900;color:var(--lime);letter-spacing:-1px">750 000₽/мес</div>
+          <div style="font-size:12px;color:var(--muted);font-style:italic;margin-top:9px">3 группы по 10, свой курс по ЕГЭ, ставка 5 000₽/час</div>
+        </div>
+        <div style="background:rgba(91,33,182,.12);border:1px solid var(--bviolet);padding:18px;flex:1;min-width:200px">
+          <div style="font-size:11px;font-weight:700;color:rgba(200,255,0,.65);margin-bottom:2px">Алисия Литвинова</div>
+          <div style="font-size:11px;color:var(--faint);margin-bottom:10px">Вокал</div>
+          <div style="font-size:12px;color:var(--faint);text-decoration:line-through;margin-bottom:3px">150 000₽/мес</div>
+          <div style="font-size:26px;font-weight:900;color:var(--lime);letter-spacing:-1px">400 000₽/мес</div>
+          <div style="font-size:12px;color:var(--muted);font-style:italic;margin-top:9px">Студия пассивно, наставничество с чеком 70 000₽</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="eyebrow">Маркеры списков — фирменные</div>
+    <div class="mk-grid">
+      <div class="mk"><div class="g">++</div><h5>Плюс / можно</h5><p>Преимущества, do-списки</p></div>
+      <div class="mk"><div class="g" style="color:#FF6B6B">−−</div><h5>Минус / нельзя</h5><p>Боли, don't-списки</p></div>
+      <div class="mk"><div class="g">→</div><h5>Следствие</h5><p>«было → стало», шаг</p></div>
+      <div class="mk"><div class="g">✓</div><h5>Чек</h5><p>Что входит, QC-пункт</p></div>
     </div>
   </div>
 </section>
 
-<!-- ── 08. CHECKLIST ── -->
-<section id="checklist">
-  <span class="big-num">08</span>
-  <span class="section-label">08 — Чек-лист</span>
-  <h2>«Дорого» — прогон<br>перед выдачей</h2>
-
-  <p>Прогнать до публикации любого материала. 2+ пункта мимо — переделать.</p>
-
-  <div class="divider"></div>
-
-  <h3>Голос — любой формат</h3>
-  <div class="checklist">
-    <div class="check-item"><div class="check-n">01</div><div class="check-t"><strong>Есть капслок-акценты</strong> — хотя бы 1–3 на единицу контента</div></div>
-    <div class="check-item"><div class="check-n">02</div><div class="check-t"><strong>Эмодзи в начале буллетов</strong> — голый список = не Оля</div></div>
-    <div class="check-item"><div class="check-n">03</div><div class="check-t"><strong>Фирменный эмодзи</strong> 🗿 / 🤡 / 🥵 / 🤯 — хотя бы один</div></div>
-    <div class="check-item"><div class="check-n">04</div><div class="check-t"><strong>Конкретная цифра без округления</strong> — «11 учеников за неделю», «63 тысячи»</div></div>
-    <div class="check-item"><div class="check-n">05</div><div class="check-t"><strong>Самоирония</strong> — ремарка в скобках, )) смех, «лохушка какая-то»</div></div>
-    <div class="check-item"><div class="check-n">06</div><div class="check-t"><strong>«Ты», не «вы»</strong> — Ctrl+F «вы/вам/вас/ваш» → заменить</div></div>
-    <div class="check-item"><div class="check-n">07</div><div class="check-t"><strong>ЦА девушки</strong> — глаголы в ж.р.: «разобралась», «забила», «закрыла»</div></div>
-    <div class="check-item"><div class="check-n">08</div><div class="check-t"><strong>Нет AI-маркеров</strong> — прогон по стоп-листу (раздел TOV §3.1)</div></div>
-    <div class="check-item"><div class="check-n">09</div><div class="check-t"><strong>Нет ровного тона</strong> — перепады: длинная → короткая → резкая → капс → мягкая</div></div>
-    <div class="check-item"><div class="check-n">10</div><div class="check-t"><strong>Нет точек в конце строк</strong> на слайдах/хуках. Можно: «!», «…», «))0)», эмодзи</div></div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h3>Карусели</h3>
-  <div class="checklist">
-    <div class="check-item"><div class="check-n">11</div><div class="check-t"><strong>Цвета только из палитры</strong>: navy #262594, lime #c6fd2b, indigo #080c76, white. Никаких «похожих».</div></div>
-    <div class="check-item"><div class="check-n">12</div><div class="check-t"><strong>Шрифт только Montserrat</strong>. Никаких других.</div></div>
-    <div class="check-item"><div class="check-n">13</div><div class="check-t"><strong>Максимум 6 слайдов</strong>. Остальное → в caption.</div></div>
-    <div class="check-item"><div class="check-n">14</div><div class="check-t"><strong>Instagram-safe</strong>: слова «доход/деньги/заработок» на слайдах заменены.</div></div>
-    <div class="check-item"><div class="check-n">15</div><div class="check-t"><strong>Бровь не начинает фразу</strong>: h1 читается без тега/брови.</div></div>
-    <div class="check-item"><div class="check-n">16</div><div class="check-t"><strong>Caption написан</strong>: хук в первых 125 символов, ключевики, один CTA, хэштеги.</div></div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h3>Рилзы</h3>
-  <div class="checklist">
-    <div class="check-item"><div class="check-n">17</div><div class="check-t"><strong>Preflight</strong>: span SRT совпадает с длиной видео (Δ &lt; 2с).</div></div>
-    <div class="check-item"><div class="check-n">18</div><div class="check-t"><strong>Хук начинается с целой фразы</strong>: не с середины предложения.</div></div>
-    <div class="check-item"><div class="check-n">19</div><div class="check-t"><strong>3 варианта хука готовы</strong>: shock / claim / curiosity.</div></div>
-    <div class="check-item"><div class="check-n">20</div><div class="check-t"><strong>CTA без слова «разбор»</strong>: алго-чистка Instagram.</div></div>
-    <div class="check-item"><div class="check-n">21</div><div class="check-t"><strong>Мат решён</strong>: каждый клип с флагом ⚠️ — бипнуть или вырезать.</div></div>
-    <div class="check-item"><div class="check-n">22</div><div class="check-t"><strong>Без text-stroke</strong> на хуке: вес шрифта 800–900 читается без обводки.</div></div>
+<!-- 10 VOICE -->
+<section id="voice">
+  <div class="wrap">
+    <div class="kicker"><span class="nn">10</span> Voice</div>
+    <h2 class="h-s">Голос на <em>визуале</em></h2>
+    <p class="lead">Форма без правильного текста = пусто. Любой текст в кадре/слайде сверяется с <code style="color:var(--lime)">TOV.md</code> (Anti-AI фильтр — приоритет №1). Шпаргалка:</p>
+    <div class="voice-grid">
+      <div class="vq"><h4>Обращение</h4><p>Везде «ты», не «вы». ЦА — девушки, глаголы в женском роде: разобралась, забила, закрыла.</p></div>
+      <div class="vq"><h4>Пунктуация</h4><p>Без точки в конце предложения. Можно «!», «…», «)))», эмодзи. Капс на эмо-акценте.</p></div>
+      <div class="vq"><h4>Имя</h4><p>Оля / Оли / Олю — всегда с большой буквы, даже в строчном стиле.</p></div>
+      <div class="vq"><h4>Эмодзи</h4><p>~6–8 на пост, не 12–15. Плотнее ≠ лучше. В рилз-хук — обычно без эмодзи.</p></div>
+      <div class="vq"><h4>Разрешено</h4><p><span class="ex">«хрень», «пиздёж»</span> <span class="ex">самоирония</span> <span class="ex">конкретные цифры</span> <span class="ex">правда в лицо</span></p></div>
+      <div class="vq"><h4>Запрещено</h4><p><span class="ex no">«без воды»</span> <span class="ex no">«Слушай…»</span> <span class="ex no">AI-канцелярит</span> <span class="ex no">жених Оли</span> <span class="ex no">деньги-слова на визуале</span></p></div>
+    </div>
+    <div class="spec-row" style="border-left-color:#FF4D4D;margin-top:14px">
+      <h4>🚫 Instagram-safe — деньги-слова на визуале бан</h4>
+      <p>На слайдах/в кадре не пишем «доход», «заработок», «купить», «продажи» — режет охваты. Замены: доход→<b>результат</b>, купить→<b>зайти</b>, продать→<b>помочь закрыть</b>. Цифры (5000₽, 750к) — можно. Хэштеги в caption — не работают.</p>
+    </div>
   </div>
 </section>
 
-<div class="divider"></div>
-<div style="text-align:center;padding:32px 0 60px;color:rgba(255,255,255,0.18);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:3px;">
-  Оля Лондон · Дизайн-язык v1.0 · 2026-06-14<br>
-  <span style="margin-top:6px;display:inline-block;font-size:9px;letter-spacing:2px;">Источник правды: TOV.md · Foundation.md · carousel-creator-olya.md</span>
-</div>
+<!-- 11 QC -->
+<section id="qc">
+  <div class="wrap">
+    <div class="kicker"><span class="nn">11</span> Quality Control</div>
+    <h2 class="h-s">Чек-лист <em>10/10</em></h2>
+    <p class="lead">Прогон любого визуала перед публикацией. Не прошёл хотя бы один пункт — переделать.</p>
+    <ul class="check">
+      <li><span class="check-box">✓</span><span><b>Тьма доминирует.</b> Фон #08080F, лайма ≤5% площади. Один акцент на экран.</span></li>
+      <li><span class="check-box">✓</span><span><b>Шрифт Onest.</b> Заголовок 900 UPPER, tracking минус. Нет Montserrat/Inter/Arial.</span></li>
+      <li><span class="check-box">✓</span><span><b>Один em-акцент.</b> В заголовке/хуке ровно одно лайм-слово, не два.</span></li>
+      <li><span class="check-box">✓</span><span><b>Атмосфера есть.</b> Grid + лайм-glow + фиолет-glow. Не плоская заливка.</span></li>
+      <li><span class="check-box">✓</span><span><b>Углы 3px.</b> Острые, кроме аватаров (круг) и окна видео (8px).</span></li>
+      <li><span class="check-box">✓</span><span><b>Рилз: субтитры karaoke.</b> Активное слово лаймом + scale, по 3–5 слов, синхрон.</span></li>
+      <li><span class="check-box">✓</span><span><b>Рилз: лицо в окне.</b> Лайм-рамка + glow, не на весь экран. Safe-зоны (80/1450) пустые.</span></li>
+      <li><span class="check-box">✓</span><span><b>Движение на одном easing.</b> easeOutExpo, каскад, без прыгающих букв.</span></li>
+      <li><span class="check-box">✓</span><span><b>Голос Оли.</b> «ты», женский род, без точки, без «без воды». Anti-AI пройден.</span></li>
+      <li><span class="check-box">✓</span><span><b>Instagram-safe.</b> Нет деньги-слов на визуале. Цифры — можно.</span></li>
+      <li><span class="check-box">✓</span><span><b>Тест «дорого».</b> Сомневаешься в элементе — убери его, а не добавь ещё.</span></li>
+    </ul>
+  </div>
+</section>
 
-</main>
+<footer>
+  <div class="wrap">
+    <div class="demo-pill" style="margin-bottom:20px"><span class="nav-dot"></span>конец брендбука</div>
+    <h3 style="font-size:clamp(26px,4vw,46px);font-weight:900;letter-spacing:-1.5px;text-transform:uppercase;color:var(--off);line-height:.95">Сомневаешься — <span style="color:var(--lime)">убери</span>,<br>а не добавь</h3>
+    <div class="tag-strip">
+      <span>Onest</span><span>#C8FF00</span><span>#08080F</span><span>easeOutExpo</span><span>karaoke-subs</span><span>3px</span><span>safe 80/1450</span><span>70/25/5</span>
+    </div>
+    <p class="foot-src">
+      <b style="color:var(--muted)">Governance · источник правды:</b> сайт «Репетитор-Миллионер» v5 (токены <code class="mono">--olv-</code>) · TOV.md · скилл kinetic-typography · спек «Рилзы — Разборы 7 июня». При расхождении — приоритет у сайта v5.<br><br>
+      <b style="color:var(--muted)">Ресёрч 2026:</b>
+      <a href="https://www.opus.pro/blog/instagram-reels-caption-subtitle-best-practices" target="_blank">OpusClip — Reels captions</a> ·
+      <a href="https://blitzcutai.com/blog/best-caption-style-tiktok" target="_blank">Blitzcut — caption styles</a> ·
+      <a href="https://www.digitalsilk.com/digital-trends/kinetic-typography/" target="_blank">DigitalSilk — kinetic typography</a> ·
+      <a href="https://subtitlesfast.com/blog/social-media-subtitle-best-practices/" target="_blank">SubtitlesFast — subtitle rules</a> ·
+      <a href="https://www.ebaqdesign.com/blog/brand-guidelines" target="_blank">ebaqdesign — brand guidelines</a> ·
+      <a href="https://www.frontify.com/en/guide/brand-guidelines" target="_blank">Frontify — brand guide framework</a>.
+    </p>
+  </div>
+</footer>
+
+<div class="toast" id="toast">скопировано ✓</div>
+<script>
+// progress bar
+var prog=document.getElementById('prog');
+addEventListener('scroll',function(){
+  var h=document.documentElement;var sc=(h.scrollTop)/(h.scrollHeight-h.clientHeight);
+  prog.style.width=(sc*100)+'%';
+},{passive:true});
+// copy hex
+var toast=document.getElementById('toast');var tt;
+document.querySelectorAll('.sw-hex').forEach(function(el){
+  el.addEventListener('click',function(){
+    var t=el.textContent.trim();
+    if(navigator.clipboard)navigator.clipboard.writeText(t);
+    toast.textContent=t+' скопировано ✓';toast.classList.add('show');
+    clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('show')},1400);
+  });
+});
+</script>
 </body>
 </html>
