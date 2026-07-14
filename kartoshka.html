@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🥔 Секретный подгон от Ольги Лондон — 99 ₽, окно 24 часа</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   СЕКРЕТНЫЙ ПОДГОН — слепой оффер 99 ₽ · Оля Лондон
+   Канон: (C) Оля Лондон — Дизайн-язык. Тьма 70 / фиолет 25 / лайм 5.
+   Углы 3px. Onest + JetBrains Mono. Easing .22,1,.36,1. Один акцент на экран.
+   Концепция: страница дропа засекреченного товара — цензор-полосы,
+   паспорт продукта, картошка вместо продуктового фото.
+   ============================================================ */
+:root{
+  --ink:#08080F; --ink2:#0E0E1A; --ink3:#141428;
+  --plum:#1A0A3B; --plum2:#250D52;
+  --violet:#5B21B6; --violet2:#7C3AED;
+  --lime:#C8FF00; --lime2:#B2E600;
+  --off:#E8E8F2; --red:#FF4D4D;
+  --muted:rgba(232,232,242,.52);
+  --dim:rgba(232,232,242,.34);
+  --hair:rgba(255,255,255,.07);
+  --limeline:rgba(200,255,0,.2);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Onest',system-ui,sans-serif;
+  background:var(--ink);color:var(--off);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;line-height:1.5;
+}
+.mono{font-family:'JetBrains Mono',monospace}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+
+/* ---------- атмосфера: сетка + glow + noise (канон, 3 слоя) ---------- */
+.atmo{position:fixed;inset:0;z-index:0;pointer-events:none}
+.atmo .grid{position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(200,255,0,.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(200,255,0,.02) 1px,transparent 1px);
+  background-size:76px 76px}
+.atmo .glow-lime{position:absolute;top:-220px;right:-180px;width:640px;height:640px;
+  background:radial-gradient(closest-side,rgba(200,255,0,.07),transparent 70%);
+  animation:breathe 9s ease-in-out infinite}
+.atmo .glow-violet{position:absolute;bottom:-260px;left:-200px;width:760px;height:760px;
+  background:radial-gradient(closest-side,rgba(124,58,237,.12),transparent 70%)}
+.atmo .noise{position:absolute;inset:0;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+
+main{position:relative;z-index:1}
+
+/* ---------- шапка: вордмарк + живой таймер ---------- */
+header{display:flex;justify-content:space-between;align-items:center;
+  padding:22px 0;border-bottom:1px solid var(--hair)}
+.wordmark{font-weight:900;font-size:19px;letter-spacing:-.02em;color:var(--off)}
+.wordmark i{font-style:normal;color:var(--lime)}
+.h-timer{text-align:right}
+.h-timer .lbl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.h-timer .val{font-size:17px;font-weight:700;color:var(--off);font-variant-numeric:tabular-nums}
+
+/* ---------- цензор-полосы (сигнатура) ---------- */
+.redact{display:inline-block;height:.86em;vertical-align:-.08em;
+  background:var(--ink3);border:1px solid var(--hair);border-radius:2px;
+  position:relative;overflow:hidden}
+.redact::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(105deg,transparent 40%,rgba(200,255,0,.10) 50%,transparent 60%);
+  transform:translateX(-120%);animation:scan 7s var(--ease) infinite}
+@keyframes scan{0%,72%{transform:translateX(-120%)}86%{transform:translateX(120%)}100%{transform:translateX(120%)}}
+.r-1{width:5.2em}.r-2{width:7.4em}.r-3{width:3.6em}.r-4{width:4.6em}.r-5{width:6.2em}
+
+/* ---------- герой ---------- */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;
+  padding:84px 0 96px;min-height:calc(100vh - 70px)}
+.hero-copy .sec-tag{margin-bottom:26px}
+.sec-tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.sec-tag b{color:var(--muted);font-weight:700}
+h1{font-size:clamp(40px,6.4vw,86px);font-weight:900;line-height:.92;
+  letter-spacing:-.03em;text-transform:uppercase;color:#fff;margin-bottom:30px}
+h1 .lnd{color:var(--lime)}
+.secret-line{font-size:clamp(17px,2vw,21px);font-weight:600;color:var(--off);
+  line-height:1.75;margin-bottom:10px}
+.secret-note{font-size:12px;color:var(--dim);margin-bottom:26px}
+.lead{font-size:clamp(17px,2.1vw,21px);color:var(--muted);max-width:520px;
+  font-weight:500;margin-bottom:40px}
+.lead b{color:var(--off);font-weight:700}
+
+.price-row{display:flex;align-items:flex-end;gap:22px;flex-wrap:wrap;margin-bottom:36px}
+.price{font-size:clamp(64px,9vw,120px);font-weight:700;line-height:.85;
+  letter-spacing:-.05em;color:#fff;font-variant-numeric:tabular-nums}
+.price small{font-size:.42em;font-weight:400;color:var(--muted);letter-spacing:0}
+.price-was{padding-bottom:10px;font-size:14px;line-height:1.6;color:var(--muted)}
+.price-was s{color:var(--red);text-decoration-thickness:2px}
+
+.cta{display:inline-block;background:linear-gradient(180deg,var(--lime),var(--lime2));
+  color:var(--ink);font-weight:900;font-size:clamp(17px,2vw,20px);letter-spacing:-.01em;
+  padding:21px 38px;border-radius:3px;text-decoration:none;border:none;cursor:pointer;
+  transition:transform .55s var(--ease),box-shadow .55s var(--ease)}
+.cta:hover{transform:translateY(-3px);box-shadow:0 16px 44px rgba(200,255,0,.25)}
+.cta:focus-visible{outline:2px solid var(--lime);outline-offset:4px}
+.cta-micro{font-size:12px;color:var(--dim);margin-top:14px}
+.cta-micro b{color:var(--muted)}
+
+/* продуктовый кадр: картошка в спотлайте */
+.stage{position:relative;text-align:center;padding:40px 0 8px}
+.stage .spot{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);
+  width:120%;max-width:460px;aspect-ratio:1;
+  background:radial-gradient(closest-side,rgba(124,58,237,.30),rgba(37,13,82,.12) 55%,transparent 72%);
+  animation:breathe 10s ease-in-out infinite}
+.stage .potato{position:relative;font-size:clamp(170px,20vw,280px);line-height:1;
+  display:inline-block;
+  filter:drop-shadow(0 34px 44px rgba(0,0,0,.55)) drop-shadow(0 0 70px rgba(124,58,237,.28))}
+.stage .pedestal{position:relative;margin:-18px auto 26px;width:64%;max-width:300px;height:44px;
+  border:1px solid var(--hair);border-radius:50%;
+  background:radial-gradient(closest-side,rgba(124,58,237,.16),transparent 75%)}
+.stage .cap{font-size:11px;line-height:1.7;color:var(--dim);max-width:280px;margin:0 auto}
+
+/* ---------- секция 2: паспорт + Оля ---------- */
+.divider{border:0;height:1px;background:var(--hair)}
+.s2{padding:96px 0}
+h2{font-size:clamp(30px,4.4vw,56px);font-weight:900;line-height:.96;
+  letter-spacing:-.03em;text-transform:uppercase;color:#fff;margin-bottom:18px}
+h2 .em{color:var(--lime)}
+.s2-sub{font-size:clamp(16px,2vw,20px);color:var(--muted);max-width:560px;margin-bottom:56px}
+.s2-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+
+.olya{position:relative}
+.olya img{width:100%;display:block;border-radius:3px;border:1px solid var(--hair);
+  background:var(--plum2)}
+.olya .tag{display:flex;justify-content:space-between;gap:10px;
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);
+  padding:10px 2px 0}
+.pledge{border-left:3px solid var(--lime);padding:6px 0 6px 22px;margin-top:28px}
+.pledge p{font-size:clamp(17px,2vw,21px);font-weight:600;line-height:1.55;color:var(--off)}
+.pledge p b{color:#fff;font-weight:800}
+.pledge .sign{margin-top:14px;font-weight:900;font-size:15px;color:var(--off)}
+.pledge .sign i{font-style:normal;color:var(--lime)}
+
+/* паспорт продукта */
+.passport{border:1px solid var(--hair);border-radius:3px;background:rgba(14,14,26,.6)}
+.passport .head{display:flex;justify-content:space-between;align-items:center;
+  padding:14px 20px;border-bottom:1px solid var(--hair);
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.passport .head b{color:var(--muted)}
+.prow{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:baseline;
+  padding:15px 20px;border-bottom:1px solid var(--hair)}
+.prow:last-child{border-bottom:0}
+.prow .k{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.prow .v{font-size:15px;font-weight:600;color:var(--off);line-height:1.5}
+.prow .v.locked{color:var(--dim);font-weight:400}
+.prow .v .ok{color:var(--lime);font-weight:800}
+.prow .v .no{color:var(--red)}
+.prow.hot .v{color:var(--lime);font-weight:800;font-size:17px}
+
+/* ---------- секция 3: ласт-колл ---------- */
+.s3{padding:110px 0 130px;text-align:center;position:relative;overflow:hidden}
+.s3::before{content:"";position:absolute;left:50%;bottom:-320px;transform:translateX(-50%);
+  width:900px;height:620px;
+  background:radial-gradient(closest-side,rgba(200,255,0,.06),transparent 70%)}
+.s3 .inner{position:relative}
+.big-timer{font-size:clamp(58px,11vw,140px);font-weight:700;letter-spacing:-.04em;
+  line-height:1;color:#fff;font-variant-numeric:tabular-nums;margin:8px 0 6px}
+.big-timer .u{color:var(--dim);font-size:.32em;font-weight:400;letter-spacing:.08em}
+.t-lbl{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+.s3 h2{margin:44px 0 14px}
+.s3 .out{font-size:clamp(16px,2vw,20px);color:var(--muted);max-width:520px;margin:0 auto 44px}
+.s3 .out b{color:var(--off)}
+
+/* ---------- липкая плашка ---------- */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;
+  background:rgba(8,8,15,.92);backdrop-filter:blur(12px);
+  border-top:1px solid var(--hair);padding:12px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  transform:translateY(120%);transition:transform .6s var(--ease)}
+.sticky.show{transform:translateY(0)}
+.sticky .st-l{display:flex;align-items:baseline;gap:12px;min-width:0}
+.sticky .st-t{font-size:19px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sticky .st-x{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.sticky .cta{padding:13px 24px;font-size:15px}
+
+/* ---------- каскадный вход (канон: стаггер 90мс) ---------- */
+.cas{opacity:0;transform:translateY(26px);
+  animation:rise .68s var(--ease) forwards}
+.d1{animation-delay:.05s}.d2{animation-delay:.14s}.d3{animation-delay:.23s}
+.d4{animation-delay:.32s}.d5{animation-delay:.41s}.d6{animation-delay:.5s}.d7{animation-delay:.59s}
+@keyframes rise{to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .68s var(--ease),transform .68s var(--ease)}
+.reveal.on{opacity:1;transform:translateY(0)}
+
+/* ---------- закрытое окно ---------- */
+body.ended .cta{background:var(--ink3);color:var(--dim);pointer-events:none;box-shadow:none}
+.dead{display:none}
+body.ended .live{display:none}
+body.ended .dead{display:inline}
+
+@media (prefers-reduced-motion:reduce){
+  .cas,.reveal{animation:none;transition:none;opacity:1;transform:none}
+  .atmo .glow-lime,.stage .spot,.redact::after{animation:none}
+}
+
+@media(max-width:860px){
+  .hero{grid-template-columns:1fr;gap:12px;padding:48px 0 72px;min-height:auto}
+  .stage{order:-1;padding:8px 0 0}
+  .stage .potato{font-size:clamp(130px,36vw,190px)}
+  .stage .cap{max-width:240px}
+  .s2-grid{grid-template-columns:1fr;gap:40px}
+  .prow{grid-template-columns:1fr;gap:4px;padding:13px 16px}
+  .h-timer .lbl{display:none}
+  body{padding-bottom:72px}
+  .sticky .st-x{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="atmo" aria-hidden="true">
+  <div class="grid"></div>
+  <div class="glow-lime"></div>
+  <div class="glow-violet"></div>
+  <div class="noise"></div>
+</div>
+
+<main>
+<div class="wrap">
+
+  <!-- ============ ШАПКА ============ -->
+  <header class="cas d1">
+    <div class="wordmark">Оля Лондон<i>.</i></div>
+    <div class="h-timer">
+      <div class="lbl mono"><span class="live">окно закроется через</span><span class="dead">окно закрылось</span></div>
+      <div class="val mono t-count">--:--:--</div>
+    </div>
+  </header>
+
+  <!-- ============ ЭКРАН 1 · ДРОП ============ -->
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="sec-tag mono cas d2">гриф: секретно&ensp;//&ensp;дроп на 24 часа&ensp;//&ensp;до 16.07 12:00</div>
+
+      <h1 class="cas d3">Секретный подгон<br>от Ольги <span class="lnd">Лондон</span><span class="lnd">.</span></h1>
+
+      <p class="secret-line cas d4">Внутри: <span class="redact r-2"></span> <span class="redact r-3"></span>, с которым ты наберёшь дорогих учеников на год вперёд.</p>
+      <p class="secret-note mono cas d4">[ название рассекречу завтра. вместе с новой ценой ]</p>
+
+      <p class="lead cas d5">Один сентябрь — и доход расписан до следующего лета. <b>Что это — секрет. Что оно работает — нет.</b></p>
+
+      <div class="price-row cas d6">
+        <div class="price mono">99<small> ₽</small></div>
+        <div class="price-was">завтра — <s>99 ₽</s> другая цифра<br>сегодня — дешевле пачки чипсов</div>
+      </div>
+
+      <div class="cas d7">
+        <a class="cta" href="#pay"><span class="live">Забрать вслепую за 99 ₽</span><span class="dead">Окно закрылось</span></a>
+        <div class="cta-micro mono">оплата 30 секунд · доступ приходит сразу</div>
+      </div>
+    </div>
+
+    <div class="stage cas d4" aria-hidden="true">
+      <div class="spot"></div>
+      <div class="potato">🥔</div>
+      <div class="pedestal"></div>
+      <div class="cap mono">фото продукта скрыто по соображениям секретности. здесь могла быть ваша картошка</div>
+    </div>
+  </section>
+
+</div>
+
+<hr class="divider">
+
+<!-- ============ ЭКРАН 2 · ПАСПОРТ + ОЛЯ ============ -->
+<section class="s2">
+  <div class="wrap">
+    <h2 class="reveal">Покупаешь вслепую.<br>Но <span class="em">не наугад</span>.</h2>
+    <p class="s2-sub reveal">99 ₽ — это не цена продукта. Это цена входа для тех, кто мне доверяет. Остальные узнают завтра — и заплатят как обычно.</p>
+
+    <div class="s2-grid">
+      <div class="olya reveal">
+        <img src="https://optim.tildacdn.com/tild3930-6635-4431-a563-633636613733/-/format/webp/Rectangle.png.webp" alt="Ольга Лондон">
+        <div class="tag mono"><span>Оля Лондон</span><span>собрала подгон лично</span></div>
+        <div class="pledge">
+          <p>Если продукт продаю я — он <b>приносит результат</b>. Этот я собрала так же, как всё, за что мне платили в десятки раз больше. Зуб даю)</p>
+          <div class="sign">— Оля<i>.</i></div>
+        </div>
+      </div>
+
+      <div class="passport reveal">
+        <div class="head mono"><b>// паспорт продукта</b><span>versия для своих</span></div>
+        <div class="prow"><div class="k mono">наименование</div><div class="v locked"><span class="redact r-2"></span></div></div>
+        <div class="prow"><div class="k mono">формат</div><div class="v locked"><span class="redact r-4"></span> + <span class="redact r-3"></span></div></div>
+        <div class="prow"><div class="k mono">для кого</div><div class="v">для тебя, если хочешь забить сентябрь дорогими учениками — а не искать их весь год</div></div>
+        <div class="prow"><div class="k mono">результат</div><div class="v"><span class="ok">✓</span> отвечаю лично. как за всё, что делаю</div></div>
+        <div class="prow hot"><div class="k mono">цена сегодня</div><div class="v mono">99 ₽</div></div>
+        <div class="prow"><div class="k mono">цена завтра</div><div class="v">выше. и уже без сюрприза</div></div>
+        <div class="prow"><div class="k mono">возвраты</div><div class="v"><span class="no">нет</span> — за 99 ₽ просто доверься)</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ ЭКРАН 3 · ЛАСТ-КОЛЛ ============ -->
+<section class="s3" id="pay">
+  <div class="wrap inner">
+    <div class="t-lbl mono reveal"><span class="live">до закрытия окна</span><span class="dead">окно закрылось</span></div>
+    <div class="big-timer mono reveal t-count">--:--:--</div>
+
+    <h2 class="reveal"><span class="live">В 12:00 16 июля<br>окно <span class="em">закроется</span> 🥔</span><span class="dead">Всё. Окно<br><span class="em">закрылось</span> 🥔</span></h2>
+    <p class="out reveal"><span class="live">Завтра назову продукт вслух — и он станет дороже. А сегодняшние 99 ₽ останутся историей, которую будут пересказывать те, кто успел. <b>Никаких «потом». Потом — по полной.</b></span><span class="dead">Продукт скоро выйдет в открытую продажу — по обычной цене. Следи за каналом.</span></p>
+
+    <div class="reveal">
+      <a class="cta" href="#pay"><span class="live">Забрать вслепую за 99 ₽</span><span class="dead">Окно закрылось</span></a>
+      <div class="cta-micro mono">оплата 30 секунд · доступ сразу · таких цен у меня больше не будет</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ ЛИПКАЯ ПЛАШКА ============ -->
+<div class="sticky" id="sticky">
+  <div class="st-l">
+    <div class="st-t mono t-count">--:--:--</div>
+    <div class="st-x mono">до закрытия · 99 ₽</div>
+  </div>
+  <a class="cta" href="#pay">Забрать 🥔</a>
+</div>
+
+<script>
+/* =========================================================
+   НАСТРОЙКИ — правь тут
+   ========================================================= */
+// Ссылка оплаты (подставь боевую Prodamus/CoreApp/бота):
+var PAYMENT_URL = "#pay";
+// Дедлайн окна — 16 июля 2026, 12:00 по Москве (+03:00):
+var DEADLINE = new Date("2026-07-16T12:00:00+03:00").getTime();
+/* ========================================================= */
+
+// прошиваем ссылку оплаты во все CTA
+document.querySelectorAll('a.cta').forEach(function(a){ a.href = PAYMENT_URL; });
+
+function pad(n){return String(n).padStart(2,'0');}
+
+var counts = document.querySelectorAll('.t-count');
+function tick(){
+  var diff = DEADLINE - Date.now();
+  if(diff <= 0){
+    document.body.classList.add('ended');
+    counts.forEach(function(el){ el.textContent = "00:00:00"; });
+    return;
+  }
+  var h = Math.floor(diff/3600000);   // сплошные часы: 27:14:03
+  var m = Math.floor(diff/60000)%60;
+  var s = Math.floor(diff/1000)%60;
+  var str = pad(h)+":"+pad(m)+":"+pad(s);
+  counts.forEach(function(el){ el.textContent = str; });
+}
+tick();
+setInterval(tick,1000);
+
+// scroll-reveal (один раз, каскадом через transition-delay)
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      var kids = e.target.parentElement.querySelectorAll('.reveal');
+      var i = Array.prototype.indexOf.call(kids, e.target);
+      e.target.style.transitionDelay = (i>=0 ? i*0.09 : 0)+"s";
+      e.target.classList.add('on');
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+
+// липкая плашка после первого экрана
+var sticky = document.getElementById('sticky');
+window.addEventListener('scroll',function(){
+  sticky.classList.toggle('show', window.scrollY > window.innerHeight*0.85);
+},{passive:true});
+</script>
+</body>
+</html>
