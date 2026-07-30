@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Промпт для профессионального фото репетитора</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#08080F; --plum:#1A0A3B; --violet:#5B21B6; --lime:#C8FF00; --off:#E8E8F2;
+  --dim:rgba(232,232,242,.62); --line:rgba(232,232,242,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--ink); color:var(--off);
+  font-family:'Onest',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-weight:300; line-height:1.6; -webkit-font-smoothing:antialiased;
+  padding:clamp(20px,5vw,64px) clamp(16px,4vw,40px) 100px;
+}
+.wrap{max-width:860px;margin:0 auto}
+
+header{border-bottom:1px solid var(--line);padding-bottom:36px;margin-bottom:44px}
+.kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--lime);font-weight:600;margin-bottom:16px}
+h1{font-size:clamp(28px,5.4vw,48px);line-height:1.08;font-weight:800;letter-spacing:-.02em;margin-bottom:16px}
+h1 em{font-style:normal;color:var(--lime)}
+.lead{font-size:clamp(15px,2.1vw,18px);color:var(--dim);max-width:62ch}
+
+h2{font-size:clamp(21px,3.2vw,28px);font-weight:800;letter-spacing:-.015em;margin:56px 0 14px;line-height:1.15}
+h2 .num{color:var(--violet);font-weight:800;margin-right:12px}
+h3{font-size:17px;font-weight:600;margin:34px 0 10px}
+p{margin-bottom:14px;max-width:70ch;color:var(--dim)}
+p strong,strong{font-weight:600;color:#fff}
+a{color:var(--lime)}
+
+.copyblock{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:20px 0;background:#0E0E1A}
+.cb-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line);background:rgba(124,58,237,.14)}
+.cb-title{font-size:14px;font-weight:600;letter-spacing:.01em;color:#fff}
+.cb-sub{font-size:12px;color:var(--dim);font-weight:300;display:block;margin-top:2px}
+pre{
+  margin:0;padding:18px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;color:var(--off);white-space:pre-wrap;word-wrap:break-word;
+  max-height:440px;overflow:auto;
+}
+pre mark{background:rgba(200,255,0,.18);color:var(--lime);padding:1px 3px;border-radius:3px}
+button.copy{
+  flex-shrink:0;background:var(--lime);color:var(--ink);border:0;border-radius:999px;
+  padding:9px 20px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;
+  transition:transform .12s ease,background .2s ease;
+}
+button.copy:hover{transform:translateY(-1px)}
+button.copy.done{background:#B2E600}
+
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin:18px 0 26px}
+.fld{background:#0E0E1A;border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:13px;color:var(--dim);line-height:1.45}
+.fld b{display:block;color:var(--lime);font-weight:600;font-size:12px;letter-spacing:.05em;margin-bottom:4px;font-family:ui-monospace,Menlo,monospace}
+
+.niche{display:grid;gap:10px;margin:20px 0}
+.nrow{display:grid;grid-template-columns:190px 1fr auto;gap:16px;align-items:center;background:#0E0E1A;border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+.nrow b{font-size:14px;font-weight:600;color:#fff}
+.nrow span{font-size:13px;color:var(--dim);line-height:1.45}
+.nrow button{padding:8px 18px;font-size:12px}
+@media(max-width:680px){.nrow{grid-template-columns:1fr;gap:9px}.nrow button{justify-self:start}}
+
+footer{margin-top:72px;padding-top:26px;border-top:1px solid var(--line);font-size:13px;color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Материал для репетиторов</div>
+  <h1>Промпт для профессионального фото <em>из обычного селфи</em></h1>
+  <p class="lead">Загружаешь своё фото в нейросеть, вставляешь этот промпт — получаешь студийный портрет для профиля. Лицо остаётся твоим, меняются только свет, одежда и фон.</p>
+</header>
+
+<h2><span class="num">01</span>Промпт</h2>
+<p>Заполняешь только пять полей в квадратных скобках, они подсвечены. Остальной текст не трогай — он отвечает за сходство лица и качество картинки.</p>
+
+<div class="fields">
+  <div class="fld"><b>[ПРЕДМЕТ]</b>что преподаёшь</div>
+  <div class="fld"><b>[ОДЕЖДА]</b>во что одеть</div>
+  <div class="fld"><b>[ФОН]</b>что вокруг</div>
+  <div class="fld"><b>[ДЕТАЛЬ]</b>предмет в кадре, можно «нет»</div>
+  <div class="fld"><b>[НАСТРОЕНИЕ]</b>выражение лица</div>
+</div>
+
+<div class="copyblock">
+  <div class="cb-head">
+    <div>
+      <div class="cb-title">Шаблон промпта</div>
+      <span class="cb-sub">Скопируй и замени пять полей вместе со скобками</span>
+    </div>
+    <button class="copy" id="btn-tpl">Скопировать</button>
+  </div>
+  <pre id="pre-tpl"></pre>
+</div>
+
+<h2><span class="num">02</span>Пример заполнения</h2>
+<p>Так выглядит тот же промпт, когда поля заполнены. Здесь — репетитор по химии.</p>
+
+<div class="copyblock">
+  <div class="cb-head">
+    <div>
+      <div class="cb-title">Готовый промпт: химия</div>
+      <span class="cb-sub">Можно отправить как есть, чтобы посмотреть, как работает</span>
+    </div>
+    <button class="copy" id="btn-example">Скопировать</button>
+  </div>
+  <pre id="pre-example"></pre>
+</div>
+
+<h2><span class="num">03</span>Заготовки по предметам</h2>
+<p>Если не хочешь придумывать сам — найди свой предмет и нажми «Копировать». В буфер уйдёт <strong>весь промпт целиком, уже заполненный</strong>. Останется вставить его в нейросеть вместе со своим фото.</p>
+
+<div class="niche" id="niches"></div>
+
+<footer>
+  Материал программы «Репетитор-Миллионер», Ольга Лондон.
+</footer>
+
+</div>
+
+<script>
+const TPL = `Ты — профессиональный фотограф-портретист. Из приложенного фото сделай студийный портрет для профиля в соцсетях. В кадре тот же самый человек, просто снятый профессионально и в другой обстановке.
+
+1. ЛИЦО — НЕ МЕНЯТЬ. ГЛАВНОЕ ПРАВИЛО.
+Сохрани точь-в-точь лицо человека с фото: овал и форму лица, линию челюсти и скул, разрез, посадку и цвет глаз, форму и густоту бровей, форму и ширину носа, форму губ, форму ушей, родинки, веснушки, шрамы, мимические морщины и естественную асимметрию лица. Возраст, вес и телосложение — ровно как на исходном фото. Причёска, длина, цвет и пробор волос — как на исходном. Очки, борода, усы, серьги, пирсинг — сохрани, если они есть на фото.
+Кожа — с натуральной текстурой: поры, лёгкие неровности, пушок, естественный тон. Без бьюти-фильтра, без сглаживания, без выравнивания.
+Меняй только одежду, фон, свет, кадр и техническое качество съёмки.
+
+2. КТО В КАДРЕ
+Человек — репетитор по предмету: {{ПРЕДМЕТ}}.
+Одежда: {{ОДЕЖДА}}.
+Обстановка вокруг: {{ФОН}}.
+Дополнительно в кадре: {{ДЕТАЛЬ}}.
+Выражение лица: {{НАСТРОЕНИЕ}}.
+
+3. КАК СНЯТО
+Реалистичная фотография с полнокадровой камеры, портретный объектив 85 мм, диафрагма f/2.5 — фон мягко размыт, лицо и глаза в резкости.
+Свет мягкий рассеянный: основной источник сбоку-сверху под углом 45 градусов, отражатель заполняет тени, лёгкий контровой свет отделяет фигуру от фона. Без жёстких теней на лице, без пересветов на лбу и носу.
+Камера на уровне глаз. Человек смотрит в объектив, корпус развёрнут чуть в сторону, плечи расслаблены и опущены.
+Кадр: голова, плечи и верх груди. Немного воздуха над головой, макушка не обрезана, глаза примерно на верхней трети кадра. Формат квадратный 1:1. Максимальное разрешение и детализация.
+
+4. ЧЕГО НЕ ДЕЛАТЬ
+Не менять черты лица и не «улучшать» их. Не омолаживать, не худить, не выравнивать асимметрию, не менять форму глаз и носа. Не делать пластиковую, восковую или матовую кожу. Не добавлять надписи, логотипы, водяные знаки, рамки. Не добавлять других людей и лишние предметы. Не превращать в 3D-рендер, иллюстрацию, картину или мультфильм — только фотография. Руки, если попадают в кадр, анатомически правильные, по пять пальцев.`;
+
+const SLOTS = ['ПРЕДМЕТ','ОДЕЖДА','ФОН','ДЕТАЛЬ','НАСТРОЕНИЕ'];
+
+// label, ПРЕДМЕТ, ОДЕЖДА, ФОН, ДЕТАЛЬ, НАСТРОЕНИЕ
+const NICHES = [
+  ['Химия','химия','белый лабораторный халат поверх тёмной водолазки, халат чистый и хорошо сидит','светлый кабинет химии, на дальнем плане размытые полки со стеклянной посудой и штативами','на столе рядом стеклянная колба с прозрачной жидкостью, не в фокусе','спокойная уверенность, лёгкая доброжелательная улыбка'],
+  ['Биология','биология','белый халат поверх светлой рубашки','светлый кабинет, размытые ботанические плакаты и микроскоп на дальнем плане','нет','тёплое внимание, мягкая улыбка'],
+  ['Физика','физика','тёмно-синий пиджак поверх белой рубашки','светлый класс, размытая меловая доска с формулами позади','нет','собранность и доброжелательность'],
+  ['Математика','математика','тёмно-синий пиджак поверх белой рубашки','светлый класс, размытая меловая доска с формулами позади','нет','собранность и доброжелательность'],
+  ['Английский и языки','английский язык','бежевый мягкий джемпер поверх белой рубашки','светлая комната, размытая книжная полка, тёплый свет из окна','стопка книг на столе на дальнем плане, не в фокусе','открытая тёплая улыбка'],
+  ['Русский, литература, ЕГЭ','русский язык и литература','тёмно-зелёный жакет поверх кремовой блузы','светлый кабинет, размытые книжные полки','нет','спокойная уверенность, лёгкая улыбка'],
+  ['Вокал','вокал','чёрный сценический наряд, минимум украшений','сцена концертного зала, тёмный зал за спиной, мягкий контровой свет прожекторов','микрофон на стойке частично в кадре сбоку, не в фокусе','вдохновение, лёгкая улыбка'],
+  ['Фортепиано и музыка','фортепиано','чёрное лаконичное платье или чёрная рубашка','камерный зал, размытый рояль позади, тёплый приглушённый свет','нет','сосредоточенное тепло'],
+  ['Информатика','информатика и программирование','тёмно-серая рубашка или чистая тёмная худи','светлый современный кабинет, размытые мониторы на дальнем плане','нет','спокойный дружелюбный взгляд'],
+  ['Начальная школа','подготовка к школе и начальные классы','мягкий свитер тёплого цвета','светлый детский кабинет, размытые полки с книгами и развивающими материалами','нет','тёплая открытая улыбка'],
+  ['Рисование','рисование','рубашка с закатанными рукавами, фартук художника','светлая мастерская, размытые мольберты и холсты','нет','живой заинтересованный взгляд'],
+  ['Спорт, танцы, пилатес','пилатес и растяжка','спортивный топ и лонгслив нейтрального цвета','светлый просторный зал, зеркала и мягкий дневной свет, всё размыто','нет','лёгкость и энергия, улыбка'],
+  ['Универсальный вариант','школьные предметы','тёмно-синий пиджак поверх белой футболки','однотонный светло-серый студийный фон с мягким градиентом','нет','спокойная уверенность, лёгкая улыбка'],
+];
+
+function fill(values){
+  return SLOTS.reduce((t,slot,i)=>t.split('{{'+slot+'}}').join(values[i]), TPL);
+}
+function esc(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// шаблон с подсветкой пустых полей
+const blank = fill(SLOTS.map(s=>'[' + s + ']'));
+document.getElementById('pre-tpl').innerHTML =
+  SLOTS.reduce((h,s)=>h.split('[' + s + ']').join('<mark>[' + s + ']</mark>'), esc(blank));
+document.getElementById('btn-tpl').dataset.text = blank;
+
+// пример — химия, первая строка каталога
+const example = fill(NICHES[0].slice(1));
+document.getElementById('pre-example').textContent = example;
+document.getElementById('btn-example').dataset.text = example;
+
+const nichesEl = document.getElementById('niches');
+NICHES.forEach(n=>{
+  const row = document.createElement('div');
+  row.className = 'nrow';
+  row.innerHTML = '<b></b><span></span><button class="copy">Копировать промпт</button>';
+  row.querySelector('b').textContent = n[0];
+  row.querySelector('span').textContent = n[2] + ' · ' + n[3];
+  row.querySelector('button').dataset.text = fill(n.slice(1));
+  nichesEl.appendChild(row);
+});
+
+document.addEventListener('click', e=>{
+  const btn = e.target.closest('button.copy');
+  if(!btn) return;
+  navigator.clipboard.writeText(btn.dataset.text).then(()=>{
+    const old = btn.textContent;
+    btn.textContent = 'Скопировано';
+    btn.classList.add('done');
+    setTimeout(()=>{btn.textContent = old; btn.classList.remove('done');}, 1600);
+  });
+});
+</script>
+</body>
+</html>
