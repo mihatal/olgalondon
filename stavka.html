@@ -828,7 +828,7 @@ function calc(){
   const mainMkt = A.market.slice().sort(byBase).reverse()[0];
   const R = rateFor(mainMkt);
   const cur = +rate.value;
-  const showcase = Math.max(1000, r100(R*0.50));   // цена места в четвёрке, она же витрина
+  const showcase = Math.max(500, r100(R*0.30));   // цена места в четвёрке, она же витрина
 
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
   document.getElementById('result').classList.add('on');
@@ -868,11 +868,11 @@ function calc(){
     }
   }
 
-  /* сетка форматов: пропорции из разбора, 2000 → 1500 / 1200 / 1000 */
+  /* сетка форматов: пропорции из разбора, 2000 → 1500 / 1100 / 600 */
   const grid = [['Индивидуально','один на один',1.00,1,false],['Пара','двое',0.75,2,false]];
   if(!BR.noGroup){
-    grid.push(['Тройка','трое',0.60,3,false]);
-    grid.push([BR.group,'четверо',0.50,4,true]);
+    grid.push(['Тройка','трое',0.55,3,false]);
+    grid.push([BR.group,'четверо',0.30,4,true]);
   }
   document.getElementById('r-grid').innerHTML = grid.map(g=>{
     const per = g[4] ? showcase : r100(R*g[2]);
