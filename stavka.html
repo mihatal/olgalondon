@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Калькулятор ставки репетитора</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#08080F; --plum:#1A0A3B; --violet:#5B21B6; --lime:#C8FF00;
+  --white:#FFFFFF; --off:#E8E8F2;
+  --muted:rgba(232,232,242,.48); --faint:rgba(232,232,242,.2);
+  --bdk:rgba(255,255,255,.07); --blime:rgba(200,255,0,.12); --bviolet:rgba(124,58,237,.25);
+  --ez:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink); color:var(--off);
+  font-family:'Onest',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:17px; line-height:1.55; -webkit-font-smoothing:antialiased; min-height:100vh;
+  background-image:
+    radial-gradient(900px 600px at 12% -5%, rgba(91,33,182,.30), transparent 60%),
+    radial-gradient(700px 500px at 105% 8%, rgba(200,255,0,.06), transparent 55%);
+  background-attachment:fixed;
+}
+.wrap{max-width:780px;margin:0 auto;padding:28px 20px 96px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:30px;flex-wrap:wrap}
+.back{background:none;border:1px solid var(--bdk);border-radius:10px;color:var(--muted);
+  font-family:inherit;font-size:14px;padding:7px 14px;cursor:pointer;transition:all .2s var(--ez);visibility:hidden}
+.back:hover{color:var(--off);border-color:var(--faint)}
+.back.on{visibility:visible}
+.stepcount{font-size:12px;letter-spacing:.1em;color:var(--muted)}
+.bar{height:3px;background:var(--bdk);border-radius:2px;overflow:hidden;margin-top:10px;width:100%}
+.bar i{display:block;height:100%;width:0;background:var(--lime);transition:width .45s var(--ez)}
+
+.hero h1{font-size:clamp(30px,6.2vw,48px);line-height:1.05;font-weight:800;letter-spacing:-.025em;
+  margin-bottom:20px;text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--lime)}
+.hero p{color:var(--muted);font-size:18px;max-width:56ch;margin-bottom:26px}
+.timer{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--bdk);border-radius:100px;
+  padding:8px 18px;font-size:14px;color:var(--muted);margin-bottom:30px}
+.timer b{color:var(--lime);font-weight:600}
+
+.step{display:none;animation:in .4s var(--ez)}
+.step.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.qnum{font-size:12px;letter-spacing:.12em;color:var(--lime);font-weight:600;margin-bottom:10px}
+.q{font-size:clamp(23px,4.4vw,31px);font-weight:700;line-height:1.18;letter-spacing:-.015em;margin-bottom:8px}
+.hint{color:var(--muted);font-size:15px;margin-bottom:22px;max-width:56ch}
+.grp{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:20px 0 9px}
+.grp:first-child{margin-top:0}
+.opts{display:grid;gap:9px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.opt{background:rgba(255,255,255,.035);border:1px solid var(--bdk);border-radius:14px;
+  padding:14px 16px;cursor:pointer;transition:all .2s var(--ez);text-align:left;
+  color:var(--off);font-family:inherit;font-size:15.5px;font-weight:500;line-height:1.3}
+.opt:hover{background:rgba(255,255,255,.07);border-color:var(--bviolet);transform:translateY(-1px)}
+.opt.sel{background:var(--blime);border-color:var(--lime);color:var(--white)}
+.opt small{display:block;color:var(--muted);font-size:12.5px;font-weight:400;margin-top:4px;line-height:1.35}
+.opt.sel small{color:rgba(232,232,242,.65)}
+.nav{display:flex;gap:12px;margin-top:26px;align-items:center;flex-wrap:wrap}
+.btn{background:var(--lime);color:var(--ink);border:none;border-radius:12px;padding:14px 28px;
+  font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s var(--ez)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,255,0,.22)}
+.multi-note{font-size:13px;color:var(--muted);margin-top:14px}
+
+.slider-box{background:rgba(255,255,255,.035);border:1px solid var(--bdk);border-radius:16px;padding:22px;margin-bottom:8px}
+.slider-val{font-size:38px;font-weight:800;letter-spacing:-.02em;color:var(--lime);margin-bottom:14px}
+.slider-val small{font-size:15px;color:var(--muted);font-weight:500;letter-spacing:0}
+input[type=range]{-webkit-appearance:none;width:100%;height:4px;border-radius:2px;
+  background:linear-gradient(90deg,var(--lime) 0%,var(--lime) var(--pct,30%),rgba(255,255,255,.12) var(--pct,30%));
+  outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+  background:var(--lime);cursor:pointer;box-shadow:0 0 0 5px rgba(200,255,0,.14)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border:none;border-radius:50%;background:var(--lime);cursor:pointer}
+.slider-ends{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:9px}
+
+#result{display:none}
+#result.on{display:block;animation:in .5s var(--ez)}
+.res-lead{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px}
+.bignum{background:linear-gradient(150deg,rgba(91,33,182,.5),rgba(26,10,59,.75));
+  border:1px solid var(--bviolet);border-radius:22px;padding:34px 30px;margin-bottom:14px;position:relative;overflow:hidden}
+.bignum::after{content:'';position:absolute;top:-60%;right:-15%;width:280px;height:280px;
+  background:radial-gradient(circle,rgba(200,255,0,.14),transparent 68%)}
+.bignum .lbl{font-size:14px;color:var(--muted);margin-bottom:6px;position:relative}
+.bignum .val{font-size:clamp(48px,12vw,84px);font-weight:800;line-height:1;letter-spacing:-.035em;color:var(--lime);position:relative}
+.bignum .val span{font-size:.36em;color:var(--off);font-weight:600;letter-spacing:0}
+.bignum .sub{margin-top:14px;font-size:16px;position:relative;max-width:48ch}
+.bignum .sub b{color:var(--lime);font-weight:600}
+
+.delta{border:1px solid var(--bdk);border-radius:16px;padding:20px 22px;margin-bottom:14px;background:rgba(255,255,255,.03)}
+.delta.up{border-color:rgba(200,255,0,.3);background:var(--blime)}
+.delta .big{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
+.delta .big.lime{color:var(--lime)}
+.delta p{font-size:15px;color:var(--muted);max-width:54ch}
+
+h2.sec{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:36px 0 14px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:0 12px 10px 0;border-bottom:1px solid var(--bdk)}
+th:last-child,td:last-child{text-align:right;padding-right:0}
+td{padding:13px 12px 13px 0;border-bottom:1px solid var(--bdk)}
+tr:last-child td{border-bottom:none}
+td.fmt{font-weight:600}
+td.fmt small{display:block;color:var(--muted);font-size:12.5px;font-weight:400;margin-top:2px}
+td.num{font-family:'JetBrains Mono',monospace;font-weight:600}
+td.hour{color:var(--lime);font-family:'JetBrains Mono',monospace;font-weight:600}
+tr.showcase td{background:rgba(200,255,0,.06)}
+.note{margin-top:14px;font-size:14.5px;color:var(--muted);line-height:1.5;max-width:62ch}
+
+.year{background:linear-gradient(140deg,rgba(200,255,0,.14),rgba(91,33,182,.28));
+  border:1px solid rgba(200,255,0,.3);border-radius:22px;padding:32px 30px;margin-top:16px}
+.year .yl{font-size:14px;color:rgba(232,232,242,.7);margin-bottom:8px}
+.year .yv{font-size:clamp(40px,10vw,68px);font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--lime)}
+.year .yv span{font-size:.34em;color:var(--off);font-weight:600;letter-spacing:0}
+.ycols{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-top:22px}
+.ycol{background:rgba(0,0,0,.22);border-radius:14px;padding:15px 17px}
+.ycol .cl{font-size:12px;color:rgba(232,232,242,.55);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
+.ycol .cv{font-size:22px;font-weight:700;letter-spacing:-.02em}
+.year .yf{margin-top:18px;font-size:14.5px;color:rgba(232,232,242,.62);max-width:52ch}
+
+.cta{margin-top:40px;background:linear-gradient(135deg,var(--violet),var(--plum));border-radius:22px;padding:36px 30px;text-align:center}
+.cta .pre{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(232,232,242,.5);font-weight:600;margin-bottom:14px}
+.cta h3{font-size:clamp(23px,4.6vw,31px);font-weight:800;line-height:1.15;letter-spacing:-.02em;margin-bottom:14px}
+.cta p{color:rgba(232,232,242,.78);font-size:16.5px;max-width:48ch;margin:0 auto 24px}
+.cta a{display:inline-block;background:var(--lime);color:var(--ink);text-decoration:none;border-radius:12px;
+  padding:16px 38px;font-weight:700;font-size:16.5px;transition:all .2s var(--ez)}
+.cta a:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(200,255,0,.25)}
+.cta .small{font-size:13.5px;color:rgba(232,232,242,.5);margin-top:16px}
+
+.foot{margin-top:30px;font-size:13px;color:var(--muted);line-height:1.5;max-width:62ch}
+.restart{margin-top:20px;display:inline-block;background:none;border:none;color:var(--muted);
+  font-family:inherit;font-size:14px;cursor:pointer;text-decoration:underline;padding:0}
+.restart:hover{color:var(--off)}
+@media(max-width:520px){.wrap{padding:20px 16px 70px}.opts{grid-template-columns:1fr}.bignum,.year{padding:26px 22px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <button class="back" id="back" onclick="back()">← Назад</button>
+    <div class="stepcount" id="stepcount"></div>
+    <div class="bar"><i id="bar"></i></div>
+  </div>
+
+  <div class="step on" id="s0">
+    <div class="hero">
+      <h1>Калькулятор ставки <em>репетитора</em></h1>
+      <p>Отвечаешь на десять вопросов про свой предмет, опыт и то, что у тебя уже есть. Получаешь ставку, ниже которой тебе брать нельзя, готовый прайс на пару, тройку и группу, и цифру, которую надо поставить в объявление.</p>
+      <div class="timer">Время прохождения — <b>4 минуты</b></div>
+      <div><button class="btn" onclick="go(1)">Посчитать мою ставку</button></div>
+    </div>
+  </div>
+
+  <div class="step" id="s1">
+    <div class="qnum">Вопрос 1 из 10</div>
+    <div class="q">Что ты преподаёшь?</div>
+    <div class="hint">Дальше вопросы будут уже под твою нишу. У вокалиста и у математика ставку поднимают совсем разные вещи.</div>
+    <div id="o1"></div>
+  </div>
+
+  <div class="step" id="s2">
+    <div class="qnum">Вопрос 2 из 10</div>
+    <div class="q" id="q2">Кто у тебя занимается?</div>
+    <div class="hint" id="h2">Отметь всех, кто у тебя есть.</div>
+    <div class="opts" id="o2"></div>
+    <div class="multi-note">Можно выбрать несколько.</div>
+    <div class="nav"><button class="btn" onclick="next(3,'audience')">Дальше</button></div>
+  </div>
+
+  <div class="step" id="s3">
+    <div class="qnum">Вопрос 3 из 10</div>
+    <div class="q">На какой город ты работаешь?</div>
+    <div class="hint">Не где живёшь, а откуда приходят ученики. Это самый сильный рычаг во всём расчёте. Если работаешь и на свой город, и на другие — отметь всё.</div>
+    <div class="opts" id="o3"></div>
+    <div class="multi-note">Можно выбрать несколько.</div>
+    <div class="nav"><button class="btn" onclick="next(4,'market')">Дальше</button></div>
+  </div>
+
+  <div class="step" id="s4">
+    <div class="qnum">Вопрос 4 из 10</div>
+    <div class="q">Как проходят занятия?</div>
+    <div class="opts" id="o4"></div>
+  </div>
+
+  <div class="step" id="s5">
+    <div class="qnum">Вопрос 5 из 10</div>
+    <div class="q">Сколько лет ты преподаёшь?</div>
+    <div class="opts" id="o5"></div>
+  </div>
+
+  <div class="step" id="s6">
+    <div class="qnum">Вопрос 6 из 10</div>
+    <div class="q">Что у тебя с образованием?</div>
+    <div class="hint">У меня образование не педагогическое, а бизнесовое, Высшая школа экономики. И ставка 5 000 ₽ в час. Так что на доверие это влияет, но решает не оно.</div>
+    <div class="opts" id="o6"></div>
+  </div>
+
+  <div class="step" id="s7">
+    <div class="qnum">Вопрос 7 из 10</div>
+    <div class="q" id="q7">Что из этого про тебя?</div>
+    <div class="hint" id="h7">Отметь всё, что есть.</div>
+    <div class="opts" id="o7"></div>
+    <div class="multi-note">Можно выбрать несколько. Если ничего — жми дальше.</div>
+    <div class="nav"><button class="btn" onclick="go(8)">Дальше</button></div>
+  </div>
+
+  <div class="step" id="s8">
+    <div class="qnum">Вопрос 8 из 10</div>
+    <div class="q" id="q8">Чем ты можешь доказать результат?</div>
+    <div class="hint" id="h8">Кейсы с цифрами.</div>
+    <div class="opts" id="o8a"></div>
+    <div class="q" style="margin-top:30px;font-size:22px">А сколько у тебя отзывов?</div>
+    <div class="hint">На всех площадках вместе.</div>
+    <div class="opts" id="o8b"></div>
+  </div>
+
+  <div class="step" id="s9">
+    <div class="qnum">Вопрос 9 из 10</div>
+    <div class="q">Что ты даёшь сверх самого урока?</div>
+    <div class="hint">Я завела ученикам личные кабинеты, когда моя ставка дошла до 3 500. За копейки такое делать не буду.</div>
+    <div class="opts" id="o9"></div>
+    <div class="multi-note">Можно выбрать несколько. Если ничего — жми дальше.</div>
+    <div class="nav"><button class="btn" onclick="go(10)">Дальше</button></div>
+  </div>
+
+  <div class="step" id="s10">
+    <div class="qnum">Вопрос 10 из 10</div>
+    <div class="q">Сколько ты берёшь сейчас?</div>
+    <div class="hint">За один индивидуальный час. Нужно, чтобы показать разницу.</div>
+    <div class="slider-box">
+      <div class="slider-val" id="rateval">1 500 <small>₽ в час</small></div>
+      <input type="range" id="rate" min="300" max="8000" step="100" value="1500">
+      <div class="slider-ends"><span>300 ₽</span><span>8 000 ₽</span></div>
+    </div>
+    <div class="q" style="margin-top:30px;font-size:22px">И как у тебя с расписанием?</div>
+    <div class="opts" id="o10"></div>
+  </div>
+
+  <div id="result">
+    <div class="res-lead" id="r-lead">Твой расчёт</div>
+
+    <div class="bignum">
+      <div class="lbl">Ниже этого тебе брать нельзя</div>
+      <div class="val" id="r-main">— <span>₽ / час</span></div>
+      <div class="sub" id="r-sub"></div>
+    </div>
+
+    <div id="r-online"></div>
+
+    <h2 class="sec">Твой прайс на все форматы</h2>
+    <table>
+      <thead><tr><th>Формат</th><th>С человека</th><th>Тебе за час</th></tr></thead>
+      <tbody id="r-grid"></tbody>
+    </table>
+    <div class="note" id="r-note"></div>
+
+    <h2 class="sec">Что это даёт в деньгах</h2>
+    <div class="year" id="r-year"></div>
+
+    <div class="cta">
+      <div class="pre">Что дальше</div>
+      <h3>Осталось найти тех, кто эту ставку заплатит</h3>
+      <p>Цифру ты теперь знаешь. Но новую цену платят не те же самые ученики, а другие — и искать их надо иначе. Я записала видео, где по шагам показываю, где они сидят и как их забрать.</p>
+      <a href="https://t.me/OlgaLondon_Bot/?start=london" target="_blank" rel="noopener">Смотреть видео</a>
+      <div class="small">Откроется в Телеграме, заполнять ничего не нужно</div>
+    </div>
+
+    <div class="foot" id="r-foot"></div>
+    <button class="restart" onclick="location.reload()">Пересчитать заново</button>
+  </div>
+
+</div>
+
+<script>
+/* ================================================================
+   Базы, коэффициенты и формулы выведены из живых разборов:
+   26 назначений ставки, потолки городов, формула пары
+   (индив ÷ 2 × 1,5), сетка групп 2000 → 1500 / 1200 / 850.
+   ================================================================ */
+
+const SUBJECTS = [
+  {g:'Школьные предметы и экзамены', items:[
+    {id:'math',  t:'Математика',            s:'', b:'school', k:1.12},
+    {id:'phys',  t:'Физика',                s:'', b:'school', k:1.12},
+    {id:'chem',  t:'Химия',                 s:'', b:'school', k:1.10},
+    {id:'bio',   t:'Биология',              s:'', b:'school', k:1.10},
+    {id:'rus',   t:'Русский, литература',   s:'', b:'school', k:0.92},
+    {id:'soc',   t:'Обществознание, история',s:'',b:'school', k:1.00},
+    {id:'inf',   t:'Информатика',           s:'', b:'school', k:1.05}
+  ]},
+  {g:'Иностранные языки', items:[
+    {id:'eng',   t:'Английский',            s:'', b:'lang', k:0.95},
+    {id:'esp',   t:'Испанский, итальянский, французский',s:'',b:'lang',k:1.14},
+    {id:'chin',  t:'Китайский, японский, корейский',s:'',b:'lang',k:1.14},
+    {id:'deu',   t:'Немецкий',              s:'', b:'lang', k:1.08},
+    {id:'rare',  t:'Другой редкий язык',    s:'Арабский, иврит, турецкий', b:'lang', k:1.14}
+  ]},
+  {g:'Музыка и инструменты', items:[
+    {id:'piano', t:'Фортепиано',            s:'', b:'music', k:1.05},
+    {id:'violin',t:'Скрипка, оркестровые',  s:'', b:'music', k:1.15},
+    {id:'guitar',t:'Гитара',                s:'', b:'music', k:1.00},
+    {id:'solf',  t:'Сольфеджио, теория музыки',s:'',b:'music',k:1.05},
+    {id:'instr', t:'Другой инструмент',     s:'', b:'music', k:1.10}
+  ]},
+  {g:'Голос и сцена', items:[
+    {id:'vocal', t:'Вокал',                 s:'', b:'voice', k:1.05},
+    {id:'speech',t:'Техника речи, ораторское',s:'',b:'voice', k:1.15},
+    {id:'act',   t:'Актёрское мастерство',  s:'', b:'voice', k:1.05}
+  ]},
+  {g:'Малыши и начальная школа', items:[
+    {id:'presch',t:'Подготовка к школе',    s:'', b:'kids', k:0.75},
+    {id:'prim',  t:'Начальная школа',       s:'1–4 класс', b:'kids', k:0.78},
+    {id:'logo',  t:'Логопед, дефектолог',   s:'', b:'kids', k:1.00}
+  ]},
+  {g:'IT и творческие', items:[
+    {id:'prog',  t:'Программирование',      s:'', b:'it', k:1.08},
+    {id:'design',t:'Рисование, дизайн',     s:'', b:'it', k:0.95},
+    {id:'chess', t:'Шахматы',               s:'', b:'it', k:0.95}
+  ]}
+];
+
+const BRANCH = {
+  school:{
+    q2:'Кого ты готовишь?', h2:'Отметь всех, кто у тебя есть.',
+    aud:[
+      {id:'a1',t:'Началка и средняя школа',s:'Подтянуть успеваемость',k:0},
+      {id:'a2',t:'ОГЭ, девятый класс',s:'',k:0.05},
+      {id:'a3',t:'ЕГЭ и поступление',s:'',k:0.12},
+      {id:'a4',t:'Олимпиады, топ-вузы',s:'',k:0.18},
+      {id:'a5',t:'Студенты вузов',s:'Платят за себя сами',k:-0.08},
+      {id:'a6',t:'Взрослые',s:'Для работы или переквалификации',k:0.05}
+    ],
+    q7:'Что из этого про тебя?',
+    h7:'Я разбирала педагога, у которой есть и сертификат эксперта, и стобалльники. А в профиле написано просто «репетитор по математике». Отметь своё.',
+    flex:[
+      {id:'f1',t:'Эксперт ЕГЭ или ОГЭ',s:'Сертификат ФИПИ, проверяю работы',k:0.12},
+      {id:'f2',t:'Есть стобалльники',s:'',k:0.12},
+      {id:'f3',t:'Ученики берут олимпиады',s:'',k:0.10},
+      {id:'f4',t:'Средний балл выше, чем по стране',s:'',k:0.08},
+      {id:'f5',t:'Преподаю в вузе или сильной школе',s:'',k:0.07},
+      {id:'f6',t:'Свой банк заданий и методика',s:'',k:0.06}
+    ],
+    q8:'Чем ты можешь доказать результат?',
+    h8:'Не «доведу до экзамена», а «с тройки до пятёрки за полгода». Было 22 балла, стало 80.',
+    group:'Группа', groupHint:'четверо и больше'
+  },
+  lang:{
+    q2:'Кто у тебя занимается?', h2:'Отметь всех, кто у тебя есть.',
+    aud:[
+      {id:'a1',t:'Дети и школьники',s:'',k:0},
+      {id:'a2',t:'ЕГЭ и ОГЭ по языку',s:'',k:0.10},
+      {id:'a3',t:'Международные экзамены',s:'',k:0.15},
+      {id:'a4',t:'Взрослые для себя',s:'Хобби, путешествия',k:0.05},
+      {id:'a5',t:'Взрослые для работы',s:'Бизнес, переговоры, релокация',k:0.30},
+      {id:'a6',t:'Те, кто уехал за границу',s:'Русскоязычные экспаты',k:0.25}
+    ],
+    q7:'Что из этого про тебя?',
+    h7:'Испанистке на разборе я сказала: только сейчас узнала, что ты жила и училась в Испании. Это же понт номер один вообще. Отметь своё.',
+    flex:[
+      {id:'f1',t:'Жила или училась за границей',s:'',k:0.12},
+      {id:'f2',t:'Носитель или билингв',s:'',k:0.10},
+      {id:'f3',t:'Готовлю к международным экзаменам',s:'',k:0.10},
+      {id:'f4',t:'Уровень C1 или C2 подтверждён',s:'',k:0.08},
+      {id:'f5',t:'Международный сертификат преподавателя',s:'',k:0.08},
+      {id:'f6',t:'Работала переводчиком или в международной компании',s:'',k:0.07}
+    ],
+    q8:'Чем ты можешь доказать результат?',
+    h8:'Не «подтяну язык», а «плюс десять баллов после первого месяца» или «заговорила через три месяца».',
+    group:'Разговорный клуб', groupHint:'четверо и больше'
+  },
+  music:{
+    q2:'Кто у тебя занимается?', h2:'Отметь всех, кто у тебя есть.',
+    aud:[
+      {id:'a1',t:'Дети, для удовольствия',s:'',k:0},
+      {id:'a2',t:'Дети из музыкальной школы',s:'Помощь по программе',k:0.05},
+      {id:'a3',t:'Поступление в колледж или консерваторию',s:'',k:0.15},
+      {id:'a4',t:'Взрослые-любители',s:'Мечта детства',k:0.15},
+      {id:'a5',t:'Малыши до семи лет',s:'',k:-0.10}
+    ],
+    q7:'Что из этого про тебя?',
+    h7:'Педагогу по сольфеджио я говорила: у тебя ученики поступают в консерватории и заканчивают колледжи с красными дипломами. Космические результаты. А где про это написано? Отметь своё.',
+    flex:[
+      {id:'f1',t:'Ученики поступают в колледжи и консерватории',s:'',k:0.14},
+      {id:'f2',t:'Ученики берут конкурсы',s:'',k:0.10},
+      {id:'f3',t:'Играю на сцене или в оркестре',s:'',k:0.08},
+      {id:'f4',t:'Записываю с учениками треки, ставлю номера',s:'',k:0.07},
+      {id:'f5',t:'Консерватория или профильный вуз',s:'',k:0.07},
+      {id:'f6',t:'Свои аранжировки и программа',s:'Пишу ноты под ученика',k:0.06}
+    ],
+    q8:'Чем ты можешь доказать результат?',
+    h8:'Не «научу играть», а «сыграешь свою любимую песню двумя руками через месяц».',
+    group:'Ансамбль', groupHint:'четверо и больше'
+  },
+  voice:{
+    q2:'Кто у тебя занимается?', h2:'Отметь всех, кто у тебя есть.',
+    aud:[
+      {id:'a1',t:'Дети, для удовольствия',s:'',k:0},
+      {id:'a2',t:'Подростки: конкурсы и кастинги',s:'',k:0.08},
+      {id:'a3',t:'Взрослые для себя',s:'Спеть в караоке, записать песню',k:0.12},
+      {id:'a4',t:'Постановка речи для работы',s:'',k:0.25},
+      {id:'a5',t:'Предприниматели, спикеры, психологи',s:'',k:0.35}
+    ],
+    q7:'Что из этого про тебя?',
+    h7:'Педагогов по технике речи, которые умеют себя показать, — это космос всегда просто. Отметь своё.',
+    flex:[
+      {id:'f1',t:'Работала со спикерами и бизнесом',s:'',k:0.12},
+      {id:'f2',t:'Ученики выступают, ходят на кастинги',s:'',k:0.10},
+      {id:'f3',t:'Вторая профессия',s:'Психолог, актриса, диктор',k:0.08},
+      {id:'f4',t:'Сцена, концерты, театр',s:'',k:0.08},
+      {id:'f5',t:'Своя методика постановки голоса',s:'',k:0.07},
+      {id:'f6',t:'Профильное образование по вокалу или речи',s:'',k:0.07}
+    ],
+    q8:'Чем ты можешь доказать результат?',
+    h8:'Записанная песня, выступление, человек перестал бояться сцены. Всё, что видно и слышно.',
+    group:'Вокальная группа', groupHint:'четверо и больше'
+  },
+  kids:{
+    q2:'С кем ты работаешь?', h2:'Отметь всех, кто у тебя есть.',
+    aud:[
+      {id:'a1',t:'Подготовка к школе, пять-семь лет',s:'',k:0},
+      {id:'a2',t:'Первый-четвёртый класс',s:'',k:0.03},
+      {id:'a3',t:'Дети с трудностями',s:'Дисграфия, дислексия, речь',k:0.10},
+      {id:'a4',t:'Поступление в гимназию или лицей',s:'',k:0.12},
+      {id:'a5',t:'Веду в основном группы',s:'',k:0}
+    ],
+    q7:'Что из этого про тебя?',
+    h7:'У одной моей ученицы офигенски красивые интерактивы, где нарисован Гарри Поттер. На миллениальских родителей это заходит шикарно. Отметь своё.',
+    flex:[
+      {id:'f1',t:'Свои интерактивные материалы',s:'',k:0.08},
+      {id:'f2',t:'Готовлю в сильные гимназии и лицеи',s:'',k:0.12},
+      {id:'f3',t:'Дефектологическое или логопедическое образование',s:'',k:0.10},
+      {id:'f4',t:'Авторская игровая методика',s:'',k:0.08},
+      {id:'f5',t:'Отзывы родителей с результатами',s:'',k:0.07},
+      {id:'f6',t:'Работала в школе или садике',s:'',k:0.05}
+    ],
+    q8:'Чем ты можешь доказать результат?',
+    h8:'Не «подготовлю к школе», а «научу читать за полтора месяца» или «таблица умножения за десять занятий без зубрёжки».',
+    group:'Мини-группа', groupHint:'четверо и больше'
+  },
+  it:{
+    q2:'Кто у тебя занимается?', h2:'Отметь всех, кто у тебя есть.',
+    aud:[
+      {id:'a1',t:'Дети и подростки',s:'Кружок, интерес',k:0},
+      {id:'a2',t:'Подростки с прицелом на профессию',s:'',k:0.10},
+      {id:'a3',t:'Взрослые, переквалификация',s:'',k:0.25},
+      {id:'a4',t:'Те, кто уехал за границу',s:'',k:0.20}
+    ],
+    q7:'Что из этого про тебя?', h7:'Отметь всё, что есть.',
+    flex:[
+      {id:'f1',t:'Действующий разработчик или дизайнер',s:'Преподаю параллельно с работой',k:0.14},
+      {id:'f2',t:'Опыт в известной компании',s:'',k:0.10},
+      {id:'f3',t:'Ученики собирают портфолио и проекты',s:'',k:0.10},
+      {id:'f4',t:'Готовлю к олимпиадам или ЕГЭ по информатике',s:'',k:0.08},
+      {id:'f5',t:'Свой курс или учебные проекты',s:'',k:0.06},
+      {id:'f6',t:'Профильное образование',s:'',k:0.05}
+    ],
+    q8:'Чем ты можешь доказать результат?', h8:'Проекты учеников, поступления, первая работа.',
+    group:'Группа', groupHint:'четверо и больше'
+  }
+};
+
+const MARKET = [
+  {id:'msk',   t:'Москва или Питер',      s:'Живу там или работаю онлайн',   base:2500},
+  {id:'abroad',t:'Заграница',             s:'Русскоязычные, которые уехали', base:3000},
+  {id:'big',   t:'Свой город, крупный',   s:'Миллионник или близко',         base:1600},
+  {id:'small', t:'Свой город, небольшой', s:'',                              base:1300}
+];
+const FORMAT = [
+  {id:'off', t:'Только офлайн', s:'У себя, у ученика или в студии', k:0},
+  {id:'on',  t:'Только онлайн', s:'', k:0},
+  {id:'both',t:'И так, и так',  s:'', k:0}
+];
+const EXP = [
+  {id:'e0', t:'Меньше года',        s:'', k:-0.10},
+  {id:'e1', t:'От года до трёх',    s:'', k:-0.05},
+  {id:'e3', t:'От трёх до семи',    s:'', k:0},
+  {id:'e7', t:'Больше семи лет',    s:'', k:0.10},
+  {id:'stu',t:'Я ещё студентка',    s:'Преподаю параллельно с учёбой', k:-0.12}
+];
+const EDU = [
+  {id:'prof',   t:'Профильное высшее',        s:'', k:0.05},
+  {id:'many',   t:'Высшее плюс курсы',        s:'Несколько удостоверений', k:0.10},
+  {id:'course', t:'Курсы, переподготовка',    s:'', k:0},
+  {id:'nonprof',t:'Высшее по другой специальности', s:'Или образования нет', k:-0.05}
+];
+const CASES = [
+  {id:'c0', t:'Кейсов пока нет',           s:'', k:-0.10},
+  {id:'c1', t:'Результаты есть, цифр нет', s:'', k:0},
+  {id:'c2', t:'Один-три кейса с цифрами',  s:'', k:0.10},
+  {id:'c3', t:'Много кейсов с цифрами',    s:'', k:0.18}
+];
+const REV = [
+  {id:'r0', t:'Отзывов нет',        s:'', k:-0.12},
+  {id:'r1', t:'От одного до пяти',  s:'', k:0},
+  {id:'r2', t:'От шести до двадцати',s:'', k:0.08},
+  {id:'r3', t:'Больше двадцати',    s:'', k:0.12}
+];
+const SERV = [
+  {id:'s1', t:'Личный кабинет ученика',    s:'Расписание, домашки, трекер', k:0.05},
+  {id:'s2', t:'Интерактивные материалы',   s:'', k:0.04},
+  {id:'s3', t:'Проверяю домашки между занятиями', s:'', k:0.04},
+  {id:'s4', t:'Отчёты родителям',          s:'', k:0.03},
+  {id:'s5', t:'Записи занятий',            s:'', k:0.03}
+];
+const LOAD = [
+  {id:'l0', t:'Есть свободные окна',       s:'', k:0},
+  {id:'l1', t:'Расписание плотное',        s:'', k:0.05},
+  {id:'l2', t:'Очередь, приходится отказывать', s:'', k:0.15}
+];
+
+const A = {flex:[], serv:[], audience:[], market:[]};
+let SUB = null, BR = null, HIST = [], CUR = 0;
+
+function optEl(o, onClick){
+  const b = document.createElement('button');
+  b.className = 'opt';
+  b.innerHTML = o.t + (o.s ? '<small>'+o.s+'</small>' : '');
+  b.onclick = ()=>onClick(o, b);
+  return b;
+}
+function paint(box, list, key, nextStep, multi){
+  const el = document.getElementById(box);
+  el.innerHTML = '';
+  list.forEach(o=>{
+    const btn = optEl(o, (opt, b)=>{
+      if(multi){
+        const i = A[key].indexOf(opt.id);
+        if(i>-1){A[key].splice(i,1); b.classList.remove('sel');}
+        else {A[key].push(opt.id); b.classList.add('sel');}
+      } else {
+        A[key] = opt.id;
+        [...el.children].forEach(c=>c.classList.remove('sel'));
+        b.classList.add('sel');
+        if(nextStep==='calc') setTimeout(calc,220); else if(nextStep) setTimeout(()=>go(nextStep),220);
+      }
+    });
+    if(multi && A[key].includes(o.id)) btn.classList.add('sel');
+    el.appendChild(btn);
+  });
+}
+
+(function(){
+  const box = document.getElementById('o1');
+  SUBJECTS.forEach(grp=>{
+    const h = document.createElement('div'); h.className='grp'; h.textContent=grp.g; box.appendChild(h);
+    const row = document.createElement('div'); row.className='opts';
+    grp.items.forEach(o=>{
+      row.appendChild(optEl(o, (opt, btn)=>{
+        const changed = !SUB || SUB.id !== opt.id;
+        SUB = opt; A.subject = opt.id; BR = BRANCH[opt.b];
+        box.querySelectorAll('.opt').forEach(c=>c.classList.remove('sel'));
+        btn.classList.add('sel');
+        if(changed){ A.audience = []; A.flex = []; }
+        buildBranch();
+        setTimeout(()=>go(2),220);
+      }));
+    });
+    box.appendChild(row);
+  });
+})();
+
+function buildBranch(){
+  document.getElementById('q2').textContent = BR.q2;
+  document.getElementById('h2').textContent = BR.h2;
+  document.getElementById('q7').textContent = BR.q7;
+  document.getElementById('h7').textContent = BR.h7;
+  document.getElementById('q8').textContent = BR.q8;
+  document.getElementById('h8').textContent = BR.h8;
+  paint('o2', BR.aud,  'audience', null, true);
+  paint('o7', BR.flex, 'flex',     null, true);
+  paint('o8a',CASES,   'cases',    null);
+}
+
+paint('o3', MARKET, 'market', null, true);
+paint('o4', FORMAT, 'format', 5);
+paint('o5', EXP,    'exp',    6);
+paint('o6', EDU,    'edu',    7);
+paint('o8b',REV,    'rev',    9);
+paint('o9', SERV,   'serv',   null, true);
+paint('o10',LOAD,   'load',   'calc');
+
+function next(step, key){
+  if(!A[key] || A[key].length === 0) return;
+  go(step);
+}
+function go(n){
+  if(n !== CUR) HIST.push(CUR);
+  show(n);
+}
+function back(){
+  if(!HIST.length) return;
+  show(HIST.pop(), true);
+}
+function show(n, isBack){
+  document.getElementById('result').classList.remove('on');
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
+  document.getElementById('s'+n).classList.add('on');
+  CUR = n;
+  document.getElementById('bar').style.width = (n/10*100)+'%';
+  document.getElementById('stepcount').textContent = n>0 ? n+' / 10' : '';
+  document.getElementById('back').classList.toggle('on', HIST.length>0);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+const rate = document.getElementById('rate');
+function paintSlider(){
+  const v = +rate.value;
+  document.getElementById('rateval').innerHTML = v.toLocaleString('ru-RU')+' <small>₽ в час</small>';
+  rate.style.setProperty('--pct', ((v-300)/(8000-300)*100)+'%');
+}
+rate.addEventListener('input', paintSlider);
+paintSlider();
+
+const find = (list,id)=>list.find(x=>x.id===id) || {k:0,t:'',base:0};
+const money = n=>Math.round(n).toLocaleString('ru-RU');
+const r100 = n=>Math.round(n/100)*100;
+const bestMarket = ids => ids.slice().sort((a,b)=>find(MARKET,b).base - find(MARKET,a).base)[0];
+
+function rateFor(marketId){
+  const base = find(MARKET, marketId).base;
+  let m = 1;
+  m += Math.max(...A.audience.map(id=>find(BR.aud,id).k));
+  m += find(EXP,   A.exp).k;
+  m += find(EDU,   A.edu).k;
+  m += find(CASES, A.cases).k;
+  m += find(REV,   A.rev).k;
+  m += find(LOAD,  A.load).k;
+
+  let f = 0; A.flex.forEach(id=> f += find(BR.flex,id).k);
+  m += Math.min(f, 0.28);
+  let s = 0; A.serv.forEach(id=> s += find(SERV,id).k);
+  m += Math.min(s, 0.15);
+
+  m = Math.max(0.75, Math.min(1.80, m));
+  let val = base * SUB.k * m;
+
+  // В регионе офлайн выше рынка города не прыгнуть:
+  // ловить акулу в озере бессмысленно, сколько ни старайся.
+  if(A.format === 'off' && (marketId === 'big' || marketId === 'small')){
+    val = Math.min(val, base * SUB.k * 1.45);
+  }
+  return Math.max(1000, r100(val));
+}
+
+function calc(){
+  const mainMkt = bestMarket(A.market);
+  const R = rateFor(mainMkt);
+  const cur = +rate.value;
+  const showcase = r100(R*0.425);
+
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
+  document.getElementById('result').classList.add('on');
+  document.getElementById('bar').style.width = '100%';
+  document.getElementById('stepcount').textContent = 'готово';
+  document.getElementById('back').classList.remove('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  document.getElementById('r-lead').textContent = SUB.t + ' · твой расчёт';
+  document.getElementById('r-main').innerHTML = money(R)+' <span>₽ / час</span>';
+  document.getElementById('r-sub').innerHTML =
+    'Это цена индивидуального занятия. В объявлении её не показывают: там стоит <b>от '+money(showcase)+' ₽</b>, и это честно — столько стоит твоя группа. Настоящую цену человек узнаёт уже на пробном, когда увидел, как ты работаешь.';
+
+  /* вторая цифра, если работаешь и на свой город тоже */
+  const on = document.getElementById('r-online');
+  const localMkt = A.market.filter(id=>id==='big'||id==='small')[0];
+  if(localMkt && localMkt !== mainMkt){
+    const low = rateFor(localMkt);
+    on.innerHTML = low < R ?
+      '<div class="delta"><div class="big">'+money(low)+' ₽ / час</div>'+
+      '<p>Столько ты стоишь в своём городе. Разница с онлайном — '+money(R-low)+' ₽ с каждого часа, и это при одинаковой работе. Дорогих учеников не ищут там, где их нет: акулу не ловят в озере.</p></div>' : '';
+  } else if(mainMkt==='big' || mainMkt==='small'){
+    const msk = rateFor('msk');
+    on.innerHTML = msk > R ?
+      '<div class="delta up"><div class="big lime">'+money(msk)+' ₽ / час</div>'+
+      '<p>Столько ты стоишь, если те же занятия вести онлайн на Москву, Питер и тех, кто уехал за границу. Разница — '+money(msk-R)+' ₽ с каждого часа. Дорогих учеников не ищут там, где их нет: акулу не ловят в озере.</p></div>' : '';
+  } else on.innerHTML = '';
+
+  /* сетка: пропорции из живого разбора, 2000 → 1500 / 1200 / 850 */
+  const grid = [
+    ['Индивидуально', 'один на один', 1.000, 1, false],
+    ['Пара',          'двое',         0.750, 2, false],
+    ['Тройка',        'трое',         0.600, 3, false],
+    [BR.group,        BR.groupHint,   0.425, 5, true]
+  ];
+  document.getElementById('r-grid').innerHTML = grid.map(g=>
+    '<tr'+(g[4]?' class="showcase"':'')+'><td class="fmt">'+g[0]+'<small>'+g[1]+'</small></td>'+
+    '<td class="num">'+money(r100(R*g[2]))+' ₽</td>'+
+    '<td class="hour">'+money(r100(R*g[2])*g[3])+' ₽</td></tr>'
+  ).join('');
+  document.getElementById('r-note').innerHTML =
+    'Подсвеченная строка — та самая цифра для объявления. Ставим ценник чуть пониже, подразумевая в цене группу или пару, зовём человека на бесплатный пробник, и уже после пробника продаём индивидуальное за полную цену. Абонемент на восемь занятий выходит '+money(R*8)+' ₽.';
+
+  /* деньги за год при 20 часах в неделю */
+  const H = 20*4;                 // часов в месяц
+  const nowM = cur*H, newM = R*H;
+  const y = document.getElementById('r-year');
+  if(R > cur){
+    y.innerHTML =
+      '<div class="yl">Разница за год при двадцати часах в неделю</div>'+
+      '<div class="yv">+ '+money((newM-nowM)*12)+' <span>₽</span></div>'+
+      '<div class="ycols">'+
+        '<div class="ycol"><div class="cl">Сейчас в месяц</div><div class="cv">'+money(nowM)+' ₽</div></div>'+
+        '<div class="ycol"><div class="cl">С новой ставкой</div><div class="cv">'+money(newM)+' ₽</div></div>'+
+        '<div class="ycol"><div class="cl">Разница в месяц</div><div class="cv">'+money(newM-nowM)+' ₽</div></div>'+
+      '</div>'+
+      '<div class="yf">Двадцать часов в неделю — это четыре занятия в день и два выходных. Нагрузка одна и та же в обоих случаях. Меняется только цифра, которую ты называешь.</div>';
+  } else {
+    y.innerHTML =
+      '<div class="yl">При двадцати часах в неделю</div>'+
+      '<div class="yv">'+money(newM*12)+' <span>₽ в год</span></div>'+
+      '<div class="ycols">'+
+        '<div class="ycol"><div class="cl">В месяц</div><div class="cv">'+money(newM)+' ₽</div></div>'+
+        '<div class="ycol"><div class="cl">В неделю</div><div class="cv">'+money(R*20)+' ₽</div></div>'+
+        '<div class="ycol"><div class="cl">Абонемент</div><div class="cv">'+money(R*8)+' ₽</div></div>'+
+      '</div>'+
+      '<div class="yf">Твоя ставка уже на уровне расчёта. Значит вопрос не в цене, а в потоке: при такой ставке у тебя должна стоять очередь, иначе часы простаивают.</div>';
+  }
+
+  document.getElementById('r-foot').innerHTML =
+    'Расчёт построен на моих разборах: потолки по городам, разница в конкуренции между нишами, формула сетки — индив делим на два и умножаем на полтора. Это вилка по рынку, а не приговор. Точную цифру под твой профиль и твои кейсы я называю лично.';
+}
+</script>
+</body>
+</html>
