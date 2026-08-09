@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Фактура по Профи.ру — разбор подкаста Ильи</title>
+<meta name="description" content="Что забрать в эфир 11 августа: механики, цифры, приёмы откликов">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#08080F; --ink2:#0E0E1A; --ink3:#141428;
+  --plum:#1A0A3B; --plum2:#250D52;
+  --violet:#5B21B6; --violet2:#7C3AED;
+  --lime:#C8FF00; --lime2:#B2E600;
+  --white:#FFFFFF; --off:#E8E8F2;
+  --red:#FF6B6B; --red2:#FF4D4D;
+  --muted:rgba(232,232,242,.52); --faint:rgba(232,232,242,.24);
+  --bdk:rgba(255,255,255,.07); --blime:rgba(200,255,0,.14); --bviolet:rgba(124,58,237,.25);
+  --ez:cubic-bezier(.22,1,.36,1);
+  --gut:24px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ink);color:var(--off);font-family:'Onest',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.62;overflow-x:hidden;font-size:16px}
+a{color:inherit}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* ── фон ── */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(680px 420px at 88% -8%, rgba(124,58,237,.20), transparent 62%),
+    radial-gradient(560px 380px at 4% 12%, rgba(200,255,0,.055), transparent 60%),
+    radial-gradient(700px 500px at 50% 108%, rgba(37,13,82,.55), transparent 65%);}
+.wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 var(--gut) 120px}
+
+/* ── шапка ── */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(8,8,15,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--bdk)}
+.topbar-in{max-width:900px;margin:0 auto;padding:11px var(--gut);display:flex;align-items:center;gap:12px;justify-content:space-between}
+.tb-brand{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;color:var(--lime);display:flex;align-items:center;gap:9px;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--lime);animation:blink 2.4s infinite;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.28}}
+.tb-date{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--faint);letter-spacing:1.4px;white-space:nowrap}
+
+/* ── обложка ── */
+.cover{padding:64px 0 40px}
+.tag{display:inline-flex;align-items:center;gap:9px;background:rgba(200,255,0,.06);border:1px solid rgba(200,255,0,.22);border-radius:100px;padding:7px 16px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;color:var(--lime);margin-bottom:30px}
+h1{font-size:clamp(34px,7.2vw,60px);line-height:1.03;font-weight:900;letter-spacing:-1.6px;margin:0 0 22px;color:var(--white)}
+h1 em{font-style:normal;color:var(--lime)}
+.lede{font-size:clamp(16px,3.4vw,19px);color:var(--muted);max-width:640px;margin:0 0 34px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--bdk);border:1px solid var(--bdk);border-radius:4px;overflow:hidden}
+.meta div{background:var(--ink2);padding:14px 16px}
+.meta .k{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint);margin-bottom:5px}
+.meta .v{font-size:14px;font-weight:700;color:var(--off)}
+
+/* ── навигация ── */
+.toc{margin:44px 0 0;border-top:1px solid var(--bdk);padding-top:26px}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-top:16px}
+.toc a{display:flex;gap:11px;align-items:baseline;text-decoration:none;padding:11px 13px;border:1px solid var(--bdk);border-radius:4px;background:rgba(255,255,255,.018);transition:all .18s var(--ez)}
+.toc a:hover{border-color:rgba(200,255,0,.3);background:rgba(200,255,0,.04)}
+.toc a .n{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;color:var(--violet2);flex-shrink:0}
+.toc a .t{font-size:14px;font-weight:600;line-height:1.35}
+.toc a.hot .n{color:var(--lime)}
+
+/* ── секции ── */
+section{padding-top:62px;scroll-margin-top:56px}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;color:var(--faint);margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.eyebrow::after{content:'';flex:1;height:1px;background:var(--bdk)}
+h2{font-size:clamp(24px,4.6vw,34px);line-height:1.14;font-weight:900;letter-spacing:-.8px;margin:0 0 18px;color:var(--white)}
+h3{font-size:clamp(17px,3.4vw,20px);font-weight:800;margin:34px 0 12px;color:var(--white);letter-spacing:-.2px}
+p{margin:0 0 16px}
+strong{color:var(--white);font-weight:700}
+em.hl{font-style:normal;color:var(--lime);font-weight:700}
+
+/* ── тезис ── */
+.quote{border-left:3px solid var(--lime);background:linear-gradient(90deg,rgba(200,255,0,.07),transparent 78%);padding:20px 22px;margin:24px 0;border-radius:0 4px 4px 0}
+.quote p{margin:0;font-size:clamp(17px,3.6vw,21px);font-weight:700;color:var(--white);line-height:1.4}
+.quote .src{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1.2px;margin-top:12px;text-transform:uppercase}
+
+/* ── карточки ── */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:24px 0}
+.card{background:var(--ink2);border:1px solid var(--bdk);border-radius:5px;padding:20px}
+.card .n{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:800;color:rgba(200,255,0,.2);line-height:1;margin-bottom:12px}
+.card h4{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--white);line-height:1.3}
+.card p{margin:0;font-size:14px;color:var(--muted);line-height:1.55}
+
+/* ── цифры ── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--bdk);border:1px solid var(--bdk);border-radius:5px;overflow:hidden;margin:24px 0}
+.stat{background:var(--ink2);padding:20px 16px}
+.stat .g{font-family:'JetBrains Mono',monospace;font-size:clamp(24px,5vw,32px);font-weight:800;color:var(--lime);line-height:1;letter-spacing:-1px}
+.stat .l{font-size:12.5px;color:var(--muted);margin-top:9px;line-height:1.4}
+
+/* ── таблицы ── */
+.tw{overflow-x:auto;margin:22px 0;border:1px solid var(--bdk);border-radius:5px;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;min-width:460px;background:var(--ink2)}
+th{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);text-align:left;padding:13px 16px;border-bottom:1px solid var(--bdk);background:rgba(255,255,255,.02);white-space:nowrap}
+td{padding:14px 16px;font-size:14.5px;border-bottom:1px solid rgba(255,255,255,.045);vertical-align:top;line-height:1.5}
+tr:last-child td{border-bottom:none}
+td:first-child{font-weight:700;color:var(--white)}
+.t-obj td:first-child{color:var(--red);font-weight:600}
+
+/* ── списки ── */
+ul.clean{list-style:none;padding:0;margin:18px 0}
+ul.clean li{position:relative;padding-left:26px;margin-bottom:12px;font-size:15px;line-height:1.55}
+ul.clean li::before{content:'>';position:absolute;left:0;top:0;color:var(--lime);font-family:'JetBrains Mono',monospace;font-weight:800;font-size:13px}
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:18px 0}
+ol.steps li{counter-increment:s;position:relative;padding-left:42px;margin-bottom:14px;font-size:15px;line-height:1.55}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:-1px;width:26px;height:26px;border-radius:50%;background:rgba(200,255,0,.1);border:1px solid rgba(200,255,0,.3);color:var(--lime);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+/* ── реплики ── */
+.msg{background:var(--ink3);border:1px solid var(--bdk);border-radius:4px 12px 12px 12px;padding:14px 17px;margin:10px 0;font-size:14.5px;line-height:1.5;max-width:560px}
+.msg.bad{border-color:rgba(255,107,107,.3);background:rgba(255,107,107,.05)}
+.msg.good{border-color:rgba(200,255,0,.28);background:rgba(200,255,0,.045)}
+.msg .who{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:7px}
+
+/* ── превью откликов ── */
+.preview-demo{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:22px 0}
+.pv{border:1px solid var(--bdk);border-radius:5px;overflow:hidden;background:var(--ink2)}
+.pv-h{padding:9px 14px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;border-bottom:1px solid var(--bdk)}
+.pv.bad .pv-h{color:var(--red);background:rgba(255,107,107,.07)}
+.pv.good .pv-h{color:var(--lime);background:rgba(200,255,0,.07)}
+.pv-b{padding:14px}
+.pv-row{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13.5px}
+.pv-row:last-child{border-bottom:none}
+.pv-av{width:26px;height:26px;border-radius:50%;background:rgba(232,232,242,.08);flex-shrink:0}
+.pv-txt{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pv.good .pv-row:first-child .pv-txt{color:var(--lime);font-weight:700}
+
+/* ── do / dont ── */
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0}
+.dd-col{border:1px solid var(--bdk);border-radius:5px;overflow:hidden;background:var(--ink2)}
+.dd-h{padding:13px 18px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;border-bottom:1px solid var(--bdk)}
+.dd-yes .dd-h{color:var(--lime);background:rgba(200,255,0,.07)}
+.dd-no .dd-h{color:var(--red);background:rgba(255,107,107,.07)}
+.dd-col ul{list-style:none;padding:16px 18px;margin:0}
+.dd-col li{position:relative;padding-left:24px;margin-bottom:15px;font-size:14.5px;line-height:1.5}
+.dd-col li:last-child{margin-bottom:0}
+.dd-col li b{display:block;color:var(--white);font-weight:700;margin-bottom:3px}
+.dd-col li span{color:var(--muted);font-size:13.5px}
+.dd-yes li::before{content:'++';position:absolute;left:0;top:1px;color:var(--lime);font-family:'JetBrains Mono',monospace;font-weight:800;font-size:11px}
+.dd-no li::before{content:'--';position:absolute;left:0;top:1px;color:var(--red);font-family:'JetBrains Mono',monospace;font-weight:800;font-size:11px}
+
+/* ── предупреждение ── */
+.warn{border:1px solid rgba(255,107,107,.32);background:rgba(255,107,107,.055);border-radius:5px;padding:18px 20px;margin:22px 0}
+.warn .h{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:var(--red);margin-bottom:9px}
+.warn p{margin:0;font-size:14.5px;line-height:1.55}
+.warn p + p{margin-top:10px}
+
+.note{border:1px solid var(--bviolet);background:rgba(124,58,237,.07);border-radius:5px;padding:18px 20px;margin:22px 0}
+.note .h{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:var(--violet2);margin-bottom:9px}
+.note p{margin:0;font-size:14.5px;line-height:1.55}
+
+/* ── итог ── */
+.final{margin-top:64px;border:1px solid rgba(200,255,0,.24);border-radius:6px;background:linear-gradient(160deg,rgba(200,255,0,.06),rgba(37,13,82,.35));padding:clamp(24px,5vw,40px)}
+.final h2{margin-bottom:14px}
+.final p{font-size:16px}
+
+footer{margin-top:70px;padding-top:24px;border-top:1px solid var(--bdk);font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--faint);letter-spacing:1.2px;line-height:2;text-transform:uppercase}
+
+@media(max-width:640px){
+  :root{--gut:18px}
+  .dd{grid-template-columns:1fr}
+  .cover{padding:44px 0 30px}
+  section{padding-top:50px}
+  td,th{padding:12px 13px}
+}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<div class="topbar"><div class="topbar-in">
+  <div class="tb-brand"><span class="dot"></span>Фактура по Профи.ру</div>
+  <div class="tb-date mono">эфир 11.08</div>
+</div></div>
+
+<div class="wrap">
+
+<header class="cover">
+  <div class="tag">Разбор конкурента · для эфира 11 августа</div>
+  <h1>Илья выложил <em>всю базу по Профи</em> и не заметил, что оставил дыру</h1>
+  <p class="lede">Тридцать три минуты подкаста «Реального Репетитора». Здесь только то, что можно пустить в дело: механики площадки, живые цифры конверсий, приёмы откликов. И отдельно — что из этого забирать в эфир, а что трогать не стоит.</p>
+
+  <div class="meta">
+    <div><div class="k">Источник</div><div class="v">Подкаст Ильи, 33 мин</div></div>
+    <div><div class="k">Кто это</div><div class="v">«Реальный Репетитор»</div></div>
+    <div><div class="k">Записан</div><div class="v">9 августа</div></div>
+    <div><div class="k">Придержал</div><div class="v">Систему откликов</div></div>
+  </div>
+
+  <nav class="toc">
+    <div class="eyebrow">Что внутри</div>
+    <div class="toc-grid">
+      <a href="#s1"><span class="n mono">01</span><span class="t">Чем ты платишь за каждый отклик</span></a>
+      <a href="#s2"><span class="n mono">02</span><span class="t">Тариф: платные против комиссии</span></a>
+      <a href="#s3"><span class="n mono">03</span><span class="t">Отклик как воронка, а не письмо</span></a>
+      <a href="#s4" class="hot"><span class="n mono">04</span><span class="t">Три приёма отклика</span></a>
+      <a href="#s5" class="hot"><span class="n mono">05</span><span class="t">Хак с превью отклика</span></a>
+      <a href="#s6"><span class="n mono">06</span><span class="t">Ноль отзывов — это возражение</span></a>
+      <a href="#s7"><span class="n mono">07</span><span class="t">Что площадка видит насквозь</span></a>
+      <a href="#s8"><span class="n mono">08</span><span class="t">Блиц по возражениям</span></a>
+      <a href="#s9"><span class="n mono">09</span><span class="t">Фундамент под всем этим</span></a>
+      <a href="#rec" class="hot"><span class="n mono">→</span><span class="t">Рекомендации: что брать, что нет</span></a>
+    </div>
+  </nav>
+</header>
+
+<section id="intro">
+  <div class="eyebrow">Расклад</div>
+  <h2>Кто говорит и почему это важно</h2>
+  <p>Илья ведёт «Реального Репетитора» — прямого конкурента в нише менторства репетиторов. Подкаст записан после его эфира по Профи на летнем потоке. Он отдал бесплатно почти всю базовую методологию и придержал ровно две вещи: <strong>систему откликов</strong>, которую разрабатывает с учениками на программе, и <strong>схемы работы с отзывами</strong>.</p>
+  <p>Его каркас почти дословно совпадает с программой эфира: рейтинг решает, что тебе показывают → выбор тарифа → упаковка анкеты. Это хорошая новость: позиционирование выбрано верно. Ниже фактура, которой не хватало, чтобы наполнить эти блоки конкретикой.</p>
+  <div class="note">
+    <div class="h">Как пользоваться</div>
+    <p>Механики брать, формулировки не брать. Аудитории пересекаются, узнаваемые фразы считываются мгновенно. Всё, что пойдёт в эфир, переписывается своим голосом.</p>
+  </div>
+</section>
+
+<section id="s1">
+  <div class="eyebrow">01 · Механика площадки</div>
+  <h2>Чем ты платишь за каждый отклик</h2>
+
+  <div class="quote">
+    <p>Ты платишь за каждый отклик всегда. Либо деньгами, либо репутацией внутри платформы.</p>
+    <div class="src mono">Ключевой тезис подкаста</div>
+  </div>
+
+  <p>Как это устроено по его наблюдениям:</p>
+  <ul class="clean">
+    <li>Площадка отслеживает две вещи: <strong>открывают ли твой отклик</strong> и <strong>записываются ли потом</strong> на занятия.</li>
+    <li>Отклики не конвертят — площадка делает вывод, что специалист слабый, и <strong>режет показ заказов</strong>. Ты видишь всё меньше заявок и решаешь, что Профи умер.</li>
+    <li>На тарифе «комиссия» слив бесплатных откликов бьёт сильнее всего: с точки зрения площадки ты тратишь её ресурс и ничего не приносишь.</li>
+    <li>При устойчивой неэффективности <strong>тариф «комиссия» могут забрать совсем</strong>, останутся только платные отклики.</li>
+  </ul>
+
+  <p>Это прямой ответ на первый блок эфира. Дорогие заявки есть, но профиль отнесён к слабому сорту, и до него они не доходят.</p>
+
+  <div class="warn">
+    <div class="h">Осторожно с подачей</div>
+    <p>Всё сказанное про рейтинг — практический вывод Ильи, а не публичная документация площадки. В эфире это звучит как «вот что видно по практике», а не «в правилах Профи написано». Разница принципиальная: во втором случае любой скептик в чате открывает справку площадки и рушит доверие ко всему эфиру.</p>
+  </div>
+</section>
+
+<section id="s2">
+  <div class="eyebrow">02 · Блок 19:35</div>
+  <h2>Тариф: почему он выбрал платные отклики</h2>
+
+  <p>Контринтуитивно: Илья работает преимущественно <strong>на платных откликах</strong>, а не на комиссии. Четыре причины.</p>
+
+  <div class="cards">
+    <div class="card"><div class="n mono">01</div><h4>Контакт сразу</h4><p>Платный отклик открывает связь с клиентом мгновенно. Можно позвонить, а не переписываться сутки.</p></div>
+    <div class="card"><div class="n mono">02</div><h4>Площадка любит платящих</h4><p>Видит: этот делает 20 откликов по 200-300₽ в день. Показывает ему больше заказов, чтобы он сделал ещё 20.</p></div>
+    <div class="card"><div class="n mono">03</div><h4>Рейтинг не горит</h4><p>Бесплатные отклики на комиссии жгут внутреннюю репутацию. Платные не жгут.</p></div>
+    <div class="card"><div class="n mono">04</div><h4>Взрослый хочет голосом</h4><p>Родители готовы созвониться и закрыть вопрос за три минуты. На комиссии преподаватели, наоборот, умоляют клиента не давать контакты, чтобы не платить комиссию, и этим убивают продажу.</p></div>
+  </div>
+
+  <h3>Схема для опытных</h3>
+  <p>Микс в один день: <em class="hl">10-20 откликов на комиссии плюс 20-30 платных</em>. Так расходуется бесплатный лимит и добирается объём.</p>
+
+  <h3>Экономика, которую он показывает</h3>
+  <div class="stats">
+    <div class="stat"><div class="g mono">10 → 1-2</div><div class="l">написал десяти, ответили один-два</div></div>
+    <div class="stat"><div class="g mono">3-4 тыс ₽</div><div class="l">во столько выходит привлечение ученика</div></div>
+    <div class="stat"><div class="g mono">7 тыс ₽</div><div class="l">его чек за месяц в группе</div></div>
+    <div class="stat"><div class="g mono">×2</div><div class="l">первый ученик окупает привлечение двух следующих</div></div>
+  </div>
+  <p>Дальше цепочка: двое учеников дают 14 тысяч, отклик стоит 300₽, на эти деньги набирается ещё несколько учеников. <strong>Воронка сама себя финансирует.</strong> Это готовый ответ на вопрос «с какой цифрой бюджета я уйду с эфира»: не «попробуй продвижение», а стоимость привлечения против чека за месяц занятий.</p>
+  <div class="note">
+    <div class="h">Пересчитать</div>
+    <p>Цифры его, под его нишу и его чек. Для эфира считать под ставки нашей аудитории — там чеки выше, и экономика выглядит ещё убедительнее.</p>
+  </div>
+</section>
+
+<section id="s3">
+  <div class="eyebrow">03 · Чего нет в программе эфира</div>
+  <h2>Отклик — это воронка, а не письмо</h2>
+
+  <div class="stats">
+    <div class="stat"><div class="g mono">25-50</div><div class="l">откликов в день, норма в его проектах</div></div>
+    <div class="stat"><div class="g mono">1 / 7</div><div class="l">его конверсия отклика в пробный урок</div></div>
+    <div class="stat"><div class="g mono">1 / 10-15</div><div class="l">средняя по рынку, и она падает</div></div>
+  </div>
+
+  <p>Вывод для аудитории жёсткий: <strong>пять откликов в день — это даже не попытка.</strong> Это статистический ноль, при котором человек делает вывод обо всей площадке.</p>
+
+  <div class="quote">
+    <p>Разговор дилетанта звучит как «Профи не работает». Разговор профессионала звучит как «у меня конверсия из открытия отклика в запись на пробное такая-то».</p>
+    <div class="src mono">Пересказ, не цитата</div>
+  </div>
+
+  <h3>Чем Профи отличается от Авито</h3>
+  <div class="tw"><table>
+    <thead><tr><th></th><th>Авито</th><th>Профи.ру</th></tr></thead>
+    <tbody>
+      <tr><td>Что это</td><td>Витрина: объявление работает за тебя</td><td>Аукцион откликов</td></tr>
+      <tr><td>Что делает клиент</td><td>Листает, сравнивает, пишет двум-четырём сразу</td><td>Создал заказ и ушёл по делам. Каталог не листает вообще</td></tr>
+      <tr><td>Что решает</td><td>Текст и фото объявления, скорость ответа</td><td>Попадёшь ли ты в первые открытые отклики</td></tr>
+    </tbody>
+  </table></div>
+  <p>Его аргумент, почему клиент не листает каталог: зайди на Профи и посмотри, сколько преподавателей твоего предмета в Москве. Их физически не пересмотреть, и у половины десятки отзывов. Поэтому человек создаёт заказ и ждёт, пока придут к нему.</p>
+</section>
+
+<section id="s4">
+  <div class="eyebrow">04 · Самое ценное</div>
+  <h2>Три приёма отклика</h2>
+
+  <h3>Приём первый. Задай вопрос</h3>
+  <p>Большинство кидает шаблон-простыню о себе. Клиент читает и думает: а я-то здесь где. Аналогия Ильи: подойти со словами «классная погода» — человек пожмёт плечами. Подойти со словами «слушай, а где ты взял эти кроссовки» — начнётся разговор.</p>
+
+  <div class="msg bad"><span class="who mono">Как пишут почти все</span>Здравствуйте! Занимаюсь на платформе Teams, индивидуальный подход, авторская методика, все материалы мои. 1600 рублей за час.</div>
+  <div class="msg good"><span class="who mono">Как надо</span>Кого ищете — школьника или взрослого? Был опыт с другим преподавателем? Когда хотите начать?</div>
+
+  <h3>Приём второй. Забронируй место одним словом</h3>
+  <p>Главное возражение аудитории: «заказ уходит за сорок секунд, я успеваю кинуть только шаблон». Ответ — разбить на письма.</p>
+  <ol class="steps">
+    <li><strong>Мгновенно:</strong> «Здравствуйте, Степан». Всё. Место в диалоге застолблено, ты уже внутри переписки.</li>
+    <li><strong>Вторым письмом:</strong> вопрос про ситуацию.</li>
+    <li><strong>Третьим:</strong> под полученный ответ — нужный шаблон из библиотеки на три-четыре сценария.</li>
+    <li><strong>Не ответил:</strong> следующее письмо даёт кусок пользы и снова заканчивается вопросом.</li>
+  </ol>
+  <div class="stats">
+    <div class="stat"><div class="g mono">1 / 15-20</div><div class="l">один универсальный шаблон на всех</div></div>
+    <div class="stat"><div class="g mono">1 / 7-10</div><div class="l">диалог с вопросами и шаблонами под ситуацию</div></div>
+  </div>
+
+  <h3>Приём третий. Веди до недели</h3>
+  <p>Отклик отправлен, ответа нет — большинство закрывает вкладку. Он пишет на следующий день, через день, через три: «удалось найти репетитора?».</p>
+  <p>Логика железная. Клиент мог сходить на пробный и не совпасть. Личный пример Ильи: преподаватель понравился, но у неё два слота подряд в неудобное время, и он пошёл искать дальше. Значит человек снова в рынке, а твой отклик уже оплачен.</p>
+  <div class="msg good"><span class="who mono">Касание через день</span>У меня завтра как раз бесплатный пробный урок, вот ссылка. Может, вы сейчас не видите письмо — увидите потом и приходите.</div>
+  <div class="msg good"><span class="who mono">Касание через три дня</span>Ссылочку удалось посмотреть? Вдруг вы вообще не видите мои письма, ответьте, пожалуйста.</div>
+  <p>Правило: писать, пока клиент прямым текстом не скажет, что уже нашёл.</p>
+</section>
+
+<section id="s5">
+  <div class="eyebrow">05 · Забрать обязательно</div>
+  <h2>Хак с превью отклика</h2>
+
+  <p>Самый сильный приём подкаста, и он ложится прямо в блок про анкету. Клиент в списке откликов видит <strong>только первые три-четыре слова письма</strong>. Всё остальное скрыто, пока он не откроет.</p>
+
+  <div class="preview-demo">
+    <div class="pv bad">
+      <div class="pv-h mono">Что видит клиент обычно</div>
+      <div class="pv-b">
+        <div class="pv-row"><div class="pv-av"></div><div class="pv-txt">Уважаемый Семён Петрович,…</div></div>
+        <div class="pv-row"><div class="pv-av"></div><div class="pv-txt">Здравствуйте! Меня зовут…</div></div>
+        <div class="pv-row"><div class="pv-av"></div><div class="pv-txt">Добрый день, я репетитор…</div></div>
+        <div class="pv-row"><div class="pv-av"></div><div class="pv-txt">Уважаемый Семён Петрович,…</div></div>
+      </div>
+    </div>
+    <div class="pv good">
+      <div class="pv-h mono">Что выбивается из ленты</div>
+      <div class="pv-b">
+        <div class="pv-row"><div class="pv-av"></div><div class="pv-txt">Пробное бесплатно</div></div>
+        <div class="pv-row"><div class="pv-av"></div><div class="pv-txt">Уважаемый Семён Петрович,…</div></div>
+        <div class="pv-row"><div class="pv-av"></div><div class="pv-txt">Здравствуйте! Меня зовут…</div></div>
+        <div class="pv-row"><div class="pv-av"></div><div class="pv-txt">Добрый день, я репетитор…</div></div>
+      </div>
+    </div>
+  </div>
+
+  <p>Варианты первых слов, которые он тестирует как заголовки рассылки: <em class="hl">«Пробное бесплатно»</em>, <em class="hl">«Вам подарок»</em>, <em class="hl">«Приготовила для вас бонус»</em>, <em class="hl">«Выгода 5000 рублей»</em>. Если 28 откликов из 30 начинаются со слова «уважаемый», открывают тот единственный, который выглядит иначе.</p>
+
+  <div class="quote">
+    <p>Открываемость с одного из десяти до одного из пяти — это двукратный доход с площадки. При том же количестве откликов и том же бюджете.</p>
+    <div class="src mono">Достигается перестановкой пары блоков внутри письма</div>
+  </div>
+
+  <div class="note">
+    <div class="h">Идея для прямого эфира</div>
+    <p>Это лучший кандидат на демонстрацию в живом эфире: открыть ленту откликов глазами клиента и показать, что там реально читается. Приём работает мгновенно, не требует ни рубля вложений и даёт зрителю ощущение, что он уже получил результат.</p>
+  </div>
+</section>
+
+<section id="s6">
+  <div class="eyebrow">06 · Блок 20:10</div>
+  <h2>Ноль отзывов — это возражение, а не приговор</h2>
+
+  <h3>Если ты новичок на площадке</h3>
+  <p>Страх снимается прямо в тексте анкеты. Смысл такой: я только вышла на Профи, отзывы есть в соцсетях и на Авито, поэтому не пугайтесь, что здесь рейтинга пока нет — посмотрите альбом.</p>
+  <ul class="clean">
+    <li><strong>Альбом первый:</strong> кейсы учеников.</li>
+    <li><strong>Альбом второй:</strong> скриншоты отзывов с других площадок.</li>
+  </ul>
+  <p>Клиент видит опыт, а не пустой профиль. Возражение «она новенькая, значит слабая» переворачивается в «она опытная, просто пришла сюда недавно».</p>
+
+  <h3>Если у тебя уже есть имя и ставка</h3>
+  <p>Вторая крайность, и по Илье она вреднее. Человек со ставкой 3000₽ приходит с нулём отзывов и отказывается брать дешёвых, потому что это «падение вниз по социальной горке». Рабочая схема:</p>
+  <ol class="steps">
+    <li>Взять два-четыре коротких некоронных заказа: помощь с домашними заданиями, подготовка к пересдаче в вузе, помощь с поступлением. В своём предмете, но короткий формат.</li>
+    <li>Отработать за месяц, собрать четыре-пять отзывов.</li>
+    <li>Поставить свою ставку 3000₽.</li>
+  </ol>
+  <div class="quote">
+    <p>Формула площадок целиком: быстро сделал рейтинг, потом поставил нужный чек. Не наоборот.</p>
+  </div>
+</section>
+
+<section id="s7">
+  <div class="eyebrow">07 · Границы</div>
+  <h2>Что площадка видит насквозь</h2>
+  <ul class="clean">
+    <li><strong>Увести ученика и не заплатить комиссию.</strong> На аккаунте загорается метка. Люди берут трёх учеников, не платят и потом удивляются, что лента заказов опустела.</li>
+    <li><strong>Накрутка отзывов через прямую ссылку</strong> родным и знакомым. Площадка давно сопоставляет переход по прямой ссылке с оставленным отзывом. Палится на автомате.</li>
+  </ul>
+  <div class="warn">
+    <div class="h">Дыра в нашей программе</div>
+    <p>Илья говорит, что безопасные схемы работы с отзывами существуют, и учит им на потоке. То есть у аудитории есть живой запрос «как легально набрать отзывы» — и в программе эфира он сейчас не закрыт ничем.</p>
+    <p>Если не дать хотя бы один честный приём, этот вопрос уйдёт к нему вместе с человеком.</p>
+  </div>
+</section>
+
+<section id="s8">
+  <div class="eyebrow">08 · Готовый блок</div>
+  <h2>Блиц по возражениям</h2>
+  <div class="tw"><table class="t-obj">
+    <thead><tr><th>Что говорят</th><th>Что отвечать</th></tr></thead>
+    <tbody>
+      <tr><td>«Я из маленького города, у нас нет заказов»</td><td>Перенеси анкету в Москву и не выдумывай себе проблему</td></tr>
+      <tr><td>«Заполнила анкету, жду заказы»</td><td>Не придут. Задача — видеть максимум заказов и максимум на них откликаться</td></tr>
+      <tr><td>«Моего клиента заберут профессора»</td><td>Профессора пишут «я кандидат наук, 3000₽ за урок» и уходят в молчанку. Ты конкурируешь не с регалиями, а с их немотой</td></tr>
+      <tr><td>«Не готова брать дешёвых»</td><td>Возьми троих дешёвых, четвёртому продай дорого</td></tr>
+      <tr><td>«Летом никого нет»</td><td>Ты проверяла или тебе сказали? У него сейчас из шести человек на групповых пробных двое-трое пришли с Профи, и Профи летом обходится дешевле Авито</td></tr>
+    </tbody>
+  </table></div>
+  <div class="quote">
+    <p>Главная проблема преподавателей: они умеют разговаривать, но не умеют общаться. Работают в одну калитку — выдали монолог о себе и замолчали.</p>
+    <div class="src mono">Хорошо звучит со сцены</div>
+  </div>
+</section>
+
+<section id="s9">
+  <div class="eyebrow">09 · Фундамент</div>
+  <h2>На чём он строит всё остальное</h2>
+  <p>Под всеми приёмами у него лежит разбор клиента: боли, желания, страхи, возражения. Формулировка Ильи: волшебная кнопка существует, она называется знанием клиента; не знаешь, что у человека болит — не знаешь, куда нажимать.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Что в заказе</th><th>Что делать</th></tr></thead>
+    <tbody>
+      <tr><td>Есть маркеры и детали</td><td>Бьёшь в конкретную боль прямо в первом отклике</td></tr>
+      <tr><td>Пусто: «нужен преподаватель английского два раза в неделю»</td><td>Сначала выводишь на разговор и выясняешь ситуацию, только потом предлагаешь заниматься</td></tr>
+    </tbody>
+  </table></div>
+  <p>Рамка, которую он повторяет весь подкаст: раньше был рынок преподавателя — администраторы площадки звонили и уговаривали взять ученика, соглашались поднять чек. Теперь рынок клиента и двадцать-тридцать откликов на одну заявку. Кто ждёт, что его будут уговаривать, тот выпадает.</p>
+  <p>И его аргумент к продаже программы: на изучение аудитории он тратит месяц, плюс ещё две недели на то, как об этом говорить, и только потом выпускает людей на площадки. Одновременно это ответ, почему бесплатный эфир не заменяет сопровождение.</p>
+</section>
+
+<section id="rec">
+  <div class="eyebrow">Рекомендации</div>
+  <h2>Что забирать в эфир, а что оставить ему</h2>
+  <p>Разбор выше — это сырьё. Дальше мой отбор: что усилит эфир 11 августа, а что создаст риск или сработает против нас.</p>
+
+  <div class="dd">
+    <div class="dd-col dd-yes">
+      <div class="dd-h mono">Забирать</div>
+      <ul>
+        <li><b>Хак с превью отклика</b><span>Приоритет номер один. Демонстрируется вживую, работает мгновенно, не стоит ни рубля. Зритель уходит с ощущением, что уже получил результат, а не обещание.</span></li>
+        <li><b>Схему касаний целиком</b><span>Бронь-письмо, вопрос, шаблон под ответ, дожим до недели. Это ровно то, что Илья придержал под платный поток. Отдав её бесплатно, эфир по полезности встаёт выше его подкаста. Продажу это не рушит: тридцать откликов в день с библиотекой шаблонов человек в одиночку не поднимет.</span></li>
+        <li><b>Норму откликов в день</b><span>Ломает главную иллюзию аудитории — «я откликаюсь, но не работает». Пять откликов против двадцати пяти. Одна цифра, которая обесценивает весь их прошлый опыт неудач и объясняет его без вины.</span></li>
+        <li><b>Экономику привлечения</b><span>Стоимость ученика против чека за месяц занятий. Закрывает страх «сольются деньги» в блоке про тариф. Считать под наши ставки, не под его.</span></li>
+        <li><b>Альбомы кейсов и отзывов</b><span>Готовый приём для блока про анкету, применяется в тот же вечер.</span></li>
+        <li><b>«Возьми троих дешёвых, четвёртому продай дорого»</b><span>Сильный контринтуитив, снимает главный затык дорогих преподавателей на новой площадке.</span></li>
+        <li><b>Блиц по возражениям</b><span>Хороший динамичный кусок перед оффером: быстрый, узнаваемый, каждый второй услышит свою фразу.</span></li>
+      </ul>
+    </div>
+
+    <div class="dd-col dd-no">
+      <div class="dd-h mono">Не забирать</div>
+      <ul>
+        <li><b>Совет «переходи на платные отклики» в лоб</b><span>Без навыка отклика человек сольёт бюджет за три дня и вернётся с претензией. Отдавать только связкой: сначала схема письма, потом платный тариф. Порядок нарушать нельзя.</span></li>
+        <li><b>Его термин для разбора клиента</b><span>Аббревиатура узнаваемая, это его брендированный маркер. Говорить своими словами: что у человека болит, чего он боится, чего хочет.</span></li>
+        <li><b>Утверждения о рейтинге как о правилах площадки</b><span>Это его практические наблюдения. Подавать как «вот что видно по практике». Иначе скептик в чате открывает справку Профи и рушит доверие к эфиру целиком.</span></li>
+        <li><b>Тему накрутки отзывов</b><span>Не заходить вообще. Он сам её продаёт как закрытую, а нам светиться на серой схеме в бесплатном эфире — прямой репутационный риск.</span></li>
+        <li><b>«Перенеси анкету в Москву» без оговорки</b><span>Отдавать только в связке с онлайн-форматом занятий. Иначе часть аудитории поймёт как «укажи чужой адрес» и получит проблемы с площадкой и с клиентами.</span></li>
+        <li><b>Его цифры как свои</b><span>«Сорок учеников с Профи за весну» — его результат. У нас должны звучать наши кейсы, иначе первый же человек, слушавший оба эфира, поймает совпадение.</span></li>
+        <li><b>Рамку «рынок изменился, раньше умоляли, теперь нет»</b><span>Это его заход, и он его только что отработал на ту же аудиторию. У нас своя рамка сильнее: заявки есть каждый день, просто показывают их не тебе. Она конкретнее и злее.</span></li>
+        <li><b>Его тон</b><span>Мат, «вылизывают попец», «как из голодного края» — это его регистр. Голос другой.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Куда что вставить</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Блок эфира</th><th>Что усилить</th></tr></thead>
+    <tbody>
+      <tr><td>19:00 Почему падают заявки по 700₽</td><td>Механика «платишь всегда деньгами или репутацией». Объясняет провал без обвинения зрителя</td></tr>
+      <tr><td>19:35 Какой тариф брать</td><td>Четыре причины за платные отклики плюс экономика привлечения. Обязательно с условием про навык отклика</td></tr>
+      <tr><td>20:10 Анкета под 3000-5000₽</td><td>Хак превью отклика вживую, альбомы кейсов и отзывов, снятие возражения о нулевом рейтинге</td></tr>
+      <tr><td>Новый кусок, которого нет</td><td>Отклик как воронка: норма в день, схема касаний, конверсии. Это и есть главный подарок эфира</td></tr>
+      <tr><td>Дыра, которую надо закрыть</td><td>Легальный сбор отзывов. Хотя бы один честный приём, иначе вопрос уйдёт к нему</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<div class="final">
+  <div class="eyebrow">Вывод</div>
+  <h2>Где у него дыра</h2>
+  <p>Вся ценность методологии Ильи упирается в систему откликов — и именно её он не отдал, оставил под платный поток. Аудитория дослушала тридцать три минуты, поняла, что дело в откликах, и осталась без инструмента.</p>
+  <p>Если на эфире отдать <strong>работающую схему касаний</strong> и показать <strong>живые превью откликов глазами клиента</strong>, эфир закроет ровно ту потребность, которую он вскрыл и не закрыл. Продавать это не мешает: делать тридцать откликов в день с библиотекой шаблонов и считать конверсии человек в одиночку не начнёт — ему нужно сопровождение.</p>
+</div>
+
+<footer>
+  Источник: подкаст Ильи «Реальный Репетитор», 33 мин, 9 августа 2026<br>
+  Проект «Ольга Лондон Менторство» · запуск «Методичка Профи.ру» · эфир 11 августа, 19:00 мск<br>
+  Внутренний документ. Публикации не подлежит.
+</footer>
+
+</div>
+</body>
+</html>
