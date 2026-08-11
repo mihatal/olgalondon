@@ -92,6 +92,9 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border:none;border-ra
 .bignum .lbl{font-size:14px;color:var(--muted);margin-bottom:6px;position:relative}
 .bignum .val{font-size:clamp(40px,10vw,72px);font-weight:800;line-height:1;letter-spacing:-.035em;color:var(--lime);position:relative}
 .bignum .val span{font-size:.4em;color:var(--off);font-weight:600;letter-spacing:0}
+.bignum .real{position:relative;display:flex;align-items:flex-start;gap:9px;margin-top:14px;
+  font-size:14px;line-height:1.45;color:rgba(232,232,242,.62);max-width:46ch}
+.bignum .real i{flex:0 0 auto;width:6px;height:6px;border-radius:50%;background:var(--lime);opacity:.75;margin-top:7px}
 .subnote{margin:16px 0 14px;font-size:16px;max-width:50ch;color:var(--off)}
 .subnote b{color:var(--lime);font-weight:600}
 
@@ -292,6 +295,7 @@ tr.showcase td{background:rgba(200,255,0,.06)}
     <div class="bignum">
       <div class="lbl" id="r-lbl">Твоя целевая ставка</div>
       <div class="val" id="r-main">— <span>₽</span></div>
+      <div class="real" id="r-real"><i></i>Это реальная рыночная ставка: столько платят за такой профиль прямо сейчас.</div>
     </div>
 
     <a class="webi" id="r-webi" href="https://olgalondon.ru/profihack?utm_source=calculator&utm_medium=lead_magnet&utm_campaign=profi_efir_1108&utm_content=result_top" target="_blank" rel="noopener">
@@ -896,6 +900,9 @@ function calc(){
   document.getElementById('r-lead').textContent = SUB.t + ' · твой расчёт';
   document.getElementById('r-lbl').textContent = above ? 'Рынок за такой профиль платит' : 'Твоя целевая ставка';
   document.getElementById('r-main').innerHTML = money(R)+' <span>₽ за занятие</span>';
+  document.getElementById('r-real').innerHTML = '<i></i>' + (above
+    ? 'Это реальная рыночная вилка по твоему профилю, а не потолок: столько платят таким, как ты, прямо сейчас.'
+    : 'Это реальная рыночная ставка: столько платят за такой профиль прямо сейчас.');
   document.getElementById('r-sub').innerHTML = above
     ? 'Ты уже берёшь <b>'+money(cur)+' ₽</b>, это выше расчёта. Цену не трогаем: расчёт — вилка по рынку, а не потолок. Значит вопрос не в цене, а в потоке. При такой ставке у тебя должна стоять очередь, иначе часы простаивают.'
     : 'В объявлении эту цифру не показывают. Там стоит <b>от '+money(showcase)+' ₽</b> — столько стоит место в твоей группе, и это честно. Индивидуальную цену человек узнаёт уже на пробном, когда увидел, как ты работаешь. На Профи ставь широкую вилку: от '+money(showcase)+' до '+money(r100(R*1.6))+' ₽, так тебе попадётся больше заказов.';
