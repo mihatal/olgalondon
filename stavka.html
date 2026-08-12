@@ -4,6 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Калькулятор ставки репетитора</title>
+
+<!-- Яндекс.Метрика — счётчик сайта Оли (110579623).
+     Калькулятор живёт на другом домене, поэтому визиты с olgalondon.ru
+     в один визит не склеиваются. Отделять сегментом:
+     параметр визита tool = stavka-calculator (шлётся ниже). -->
+<script>
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+m[i].l=1*new Date();
+for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
+ym(110579623,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+ym(110579623,"params",{tool:"stavka-calculator"});
+/* Цель шлём безопасно: если Метрика не загрузилась, страница не падает. */
+function goal(name){ try{ ym(110579623,"reachGoal",name); }catch(e){} }
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/110579623" style="position:absolute;left:-9999px" alt=""></div></noscript>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
@@ -194,7 +212,7 @@ tr.showcase td{background:rgba(200,255,0,.06)}
       <p>Десять шагов про твой предмет, опыт и то, что у тебя уже есть.</p>
       <p>На выходе — ставка, к которой тебе надо идти, прайс на пару и группу, и цифра, которую ставят в объявление.</p>
       <div class="timer">Время прохождения — <b>4 минуты</b></div>
-      <div><button class="btn" onclick="go(1)">Посчитать мою ставку</button></div>
+      <div><button class="btn" onclick="goal('calc_start');go(1)">Посчитать мою ставку</button></div>
     </div>
   </div>
 
@@ -826,7 +844,12 @@ function back(){
   if(!HIST.length) return;
   show(HIST.pop());
 }
+/* Каждый шаг квиза шлём в Метрику один раз за визит — иначе «Назад»
+   надувает цифры и воронка врёт. */
+const SEEN = new Set();
+function stepGoal(n){ if(SEEN.has(n)) return; SEEN.add(n); goal('calc_step_'+n); }
 function show(n){
+  stepGoal(n);
   document.getElementById('result').classList.remove('on');
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
   document.getElementById('s'+n).classList.add('on');
@@ -837,7 +860,14 @@ function show(n){
   document.getElementById('back').classList.toggle('on', HIST.length>0);
   window.scrollTo({top:0,behavior:'smooth'});
 }
-function restart(){ location.reload(); }
+function restart(){ goal('calc_restart'); location.reload(); }
+
+/* Клик по любой ссылке на эфир — одна цель. Какая именно из трёх кнопок
+   сработала, видно в отчёте внешних переходов по utm_content. */
+document.addEventListener('click', function(e){
+  const a = e.target.closest('a[href*="profihack"]');
+  if(a) goal('calc_cta');
+});
 
 const rate = document.getElementById('rate');
 function paintSlider(){
@@ -889,6 +919,7 @@ function calc(){
   const cur = +rate.value;
   const showcase = Math.max(500, r100(R*0.30));   // цена места в четвёрке, она же витрина
 
+  goal('calc_done');
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
   document.getElementById('result').classList.add('on');
   document.getElementById('bar').style.width = '100%';
