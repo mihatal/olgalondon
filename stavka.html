@@ -316,10 +316,10 @@ tr.showcase td{background:rgba(200,255,0,.06)}
       <div class="real" id="r-real"><i></i>Это реальная рыночная ставка: столько платят за такой профиль прямо сейчас.</div>
     </div>
 
-    <a class="webi" id="r-webi" href="https://olgalondon.ru/profihack?utm_source=calculator&utm_medium=lead_magnet&utm_campaign=profi_efir_1108&utm_content=result_top" target="_blank" rel="noopener">
+    <a class="webi" id="r-webi" href="https://olgalondon.ru/noburn?utm_source=calculator&utm_medium=lead_magnet&utm_campaign=noburn_vebinar_1608&utm_content=result_top" target="_blank" rel="noopener">
       <div class="webi-l">
-        <div class="webi-t" id="webi-t">Бесплатный эфир <b>«Взлом алгоритмов Профи.ру»</b> — уже сегодня в 19:00 мск</div>
-        <div class="webi-p" id="webi-p">Два часа про то, как получать на Профи заказы по 3 000–5 000 ₽.<br>Ведущая — репетитор-миллионер Ольга Лондон.<br>Запись сохранится для всех, кто зарегистрировался.</div>
+        <div class="webi-t" id="webi-t">Бесплатный вебинар <b>«Как репетитору много зарабатывать и не выгорать»</b> — 16 августа в 19:00 мск</div>
+        <div class="webi-p" id="webi-p">Пошаговая стратегия по выходу на 150–350 тысяч рублей в месяц для репетитора БЕЗ выгорания и переработок.<br>Ведущая — репетитор-миллионер Ольга Лондон.<br>Запись сохранится для всех, кто зарегистрировался.</div>
       </div>
       <div class="webi-r">
         <div class="webi-cd" id="webi-cd"><small>До начала</small>—</div>
@@ -345,9 +345,9 @@ tr.showcase td{background:rgba(200,255,0,.06)}
 
     <div class="cta">
       <div class="pre">Что дальше</div>
-      <h3>Осталось найти тех, кто эту ставку заплатит</h3>
-      <p>Бесплатный эфир «Взлом алгоритмов Профи.ру» — уже сегодня в 19:00 мск. Два часа про то, как получать на Профи заказы по 3 000–5 000 ₽.<br><br>Ведущая — репетитор-миллионер Ольга Лондон.</p>
-      <a id="cta-link" href="https://olgalondon.ru/profihack?utm_source=calculator&utm_medium=lead_magnet&utm_campaign=profi_efir_1108&utm_content=result_cta" target="_blank" rel="noopener">Занять место на эфире</a>
+      <h3>Осталось заработать эти деньги и не выгореть</h3>
+      <p>Бесплатный вебинар «Как репетитору много зарабатывать и не выгорать» — 16 августа в 19:00 мск. Пошаговая стратегия по выходу на 150–350 тысяч рублей в месяц для репетитора БЕЗ выгорания и переработок.<br><br>Ведущая — репетитор-миллионер Ольга Лондон.</p>
+      <a id="cta-link" href="https://olgalondon.ru/noburn?utm_source=calculator&utm_medium=lead_magnet&utm_campaign=noburn_vebinar_1608&utm_content=result_cta" target="_blank" rel="noopener">Занять место на вебинаре</a>
       <div class="small" id="cta-small">Запись сохранится для всех, кто зарегистрировался</div>
     </div>
 
@@ -356,7 +356,7 @@ tr.showcase td{background:rgba(200,255,0,.06)}
       <div class="meet-tx">
         <div class="meet-n">Ольга Лондон · <b>репетитор-миллионер</b></div>
         <p>Начинала с 800 ₽ за урок, половина уходила за аренду студии. Сейчас моя ставка 5 000 ₽ в час, доход с преподавания и наставничества — 500 000 ₽ в месяц. Профи для меня как холодильник: захотела учеников, открыла, набрала, закрыла. Больше сотни моих учениц уже подняли ставку и берут учеников по 3 500–5 000 ₽.</p>
-        <a class="meet-cta" id="meet-link" href="https://olgalondon.ru/profihack?utm_source=calculator&utm_medium=lead_magnet&utm_campaign=profi_efir_1108&utm_content=result_meet" target="_blank" rel="noopener">Занять место на эфире →</a>
+        <a class="meet-cta" id="meet-link" href="https://olgalondon.ru/noburn?utm_source=calculator&utm_medium=lead_magnet&utm_campaign=noburn_vebinar_1608&utm_content=result_meet" target="_blank" rel="noopener">Занять место на вебинаре →</a>
       </div>
     </div>
 
@@ -862,10 +862,10 @@ function show(n){
 }
 function restart(){ goal('calc_restart'); location.reload(); }
 
-/* Клик по любой ссылке на эфир — одна цель. Какая именно из трёх кнопок
+/* Клик по любой ссылке на вебинар — одна цель. Какая именно из трёх кнопок
    сработала, видно в отчёте внешних переходов по utm_content. */
 document.addEventListener('click', function(e){
-  const a = e.target.closest('a[href*="profihack"]');
+  const a = e.target.closest('a[href*="noburn"]');
   if(a) goal('calc_cta');
 });
 
@@ -1008,12 +1008,17 @@ function calc(){
 }
 
 /* ================================================================
-   Эфир «Взлом алгоритмов Профи.ру» — 11 августа 2026, 19:00 мск.
+   Вебинар «Как репетитору много зарабатывать и не выгорать»
+   — 16 августа 2026, 19:00 мск.
    Три состояния: отсчёт → идёт → прошёл (ссылка ведёт на запись).
    ================================================================ */
-const WEBI_START = new Date('2026-08-11T19:00:00+03:00').getTime();
+const WEBI_START = new Date('2026-08-16T19:00:00+03:00').getTime();
 const WEBI_END   = WEBI_START + 2*60*60*1000;
 const pad2 = n => String(n).padStart(2,'0');
+const plural = (n,a,b,c) => { const n10 = n%10, n100 = n%100;
+  if(n10===1 && n100!==11) return a;
+  if(n10>=2 && n10<=4 && (n100<10 || n100>=20)) return b;
+  return c; };
 
 function tickWebi(){
   const cd = document.getElementById('webi-cd');
@@ -1026,21 +1031,24 @@ function tickWebi(){
   const left = WEBI_START - Date.now();
 
   if(left > 0){
-    const h = Math.floor(left/3600000), m = Math.floor(left%3600000/60000), s = Math.floor(left%60000/1000);
-    cd.innerHTML = '<small>До начала</small>' + (h > 0 ? h+':'+pad2(m)+':'+pad2(s) : pad2(m)+':'+pad2(s));
+    const d = Math.floor(left/86400000);
+    const h = Math.floor(left%86400000/3600000), m = Math.floor(left%3600000/60000), s = Math.floor(left%60000/1000);
+    cd.innerHTML = '<small>До начала</small>' + (d > 0
+      ? d+' '+plural(d,'день','дня','дней')+' '+pad2(h)+':'+pad2(m)
+      : (h > 0 ? h+':'+pad2(m)+':'+pad2(s) : pad2(m)+':'+pad2(s)));
   } else if(Date.now() < WEBI_END){
     cd.innerHTML = '<small>Прямо сейчас</small>В эфире';
-    t.innerHTML = 'Бесплатный эфир <b>«Взлом алгоритмов Профи.ру»</b> идёт прямо сейчас';
-    if(cta) cta.textContent = 'Зайти в эфир →';
-    if(link) link.textContent = 'Зайти в эфир';
-    if(meet) meet.textContent = 'Зайти в эфир →';
+    t.innerHTML = 'Бесплатный вебинар <b>«Как репетитору много зарабатывать и не выгорать»</b> идёт прямо сейчас';
+    if(cta) cta.textContent = 'Зайти на вебинар →';
+    if(link) link.textContent = 'Зайти на вебинар';
+    if(meet) meet.textContent = 'Зайти на вебинар →';
     if(small) small.textContent = 'Идёт прямо сейчас, до 21:00 по Москве · запись сохранится для всех, кто зарегистрировался';
   } else {
-    cd.innerHTML = '<small>Эфир прошёл</small>Запись';
-    t.innerHTML = 'Эфир <b>«Взлом алгоритмов Профи.ру»</b> уже прошёл — запись на странице';
+    cd.innerHTML = '<small>Вебинар прошёл</small>Запись';
+    t.innerHTML = 'Вебинар <b>«Как репетитору много зарабатывать и не выгорать»</b> уже прошёл — запись на странице';
     if(cta) cta.textContent = 'Смотреть запись →';
-    if(link) link.textContent = 'Смотреть запись эфира';
-    if(meet) meet.textContent = 'Смотреть запись эфира →';
+    if(link) link.textContent = 'Смотреть запись вебинара';
+    if(meet) meet.textContent = 'Смотреть запись вебинара →';
     if(small) small.textContent = 'Запись сохранилась для всех, кто зарегистрировался';
   }
 }
