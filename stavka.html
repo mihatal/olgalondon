@@ -56,14 +56,28 @@ body{
 .stepcount{font-size:12px;letter-spacing:.1em;color:var(--muted)}
 .bar{height:3px;background:var(--bdk);border-radius:2px;overflow:hidden;margin-top:10px;width:100%}
 .bar i{display:block;height:100%;width:0;background:var(--lime);transition:width .45s var(--ez)}
+/* Подпись под шкалой: чем ближе к концу, тем сильнее подталкивает дойти */
+.barnote{width:100%;font-size:13px;color:var(--lime);opacity:.85;margin-top:8px;min-height:18px;
+  animation:in .35s var(--ez)}
+.barnote:empty{margin-top:0}
+/* На экране результата шкала прохождения не нужна — остаётся только «Назад» */
+.top.done .bar, .top.done .stepcount, .top.done .barnote{display:none}
+.top.done{margin-bottom:20px}
 
 .hero h1{font-size:clamp(30px,6.2vw,48px);line-height:1.05;font-weight:800;letter-spacing:-.025em;
   margin-bottom:20px;text-transform:uppercase}
 .hero h1 em{font-style:normal;color:var(--lime)}
 .hero p{color:var(--muted);font-size:18px;max-width:52ch;margin-bottom:14px}
+/* Титул-обещание над первым вопросом: компактнее прежней заставки,
+   чтобы первый вопрос попадал на первый экран телефона */
+.hero.intro{margin-bottom:34px}
+.hero.intro h1{font-size:clamp(25px,5.2vw,38px);margin-bottom:14px}
+.hero.intro p{font-size:16px;margin-bottom:0}
 .timer{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--bdk);border-radius:100px;
-  padding:8px 18px;font-size:14px;color:var(--muted);margin:14px 0 30px}
+  padding:8px 18px;font-size:14px;color:var(--muted);margin:14px 0 0}
 .timer b{color:var(--lime);font-weight:600}
+/* Второй и третий вопрос на том же экране */
+.q.sub{font-size:clamp(19px,3.4vw,23px);margin-top:34px;padding-top:26px;border-top:1px solid var(--bdk)}
 
 .step{display:none;animation:in .4s var(--ez)}
 .step.on{display:block}
@@ -263,112 +277,93 @@ tr.showcase td{background:rgba(200,255,0,.06)}
     <button class="back" id="back" onclick="back()">← Назад</button>
     <div class="stepcount" id="stepcount"></div>
     <div class="bar"><i id="bar"></i></div>
+    <div class="barnote" id="barnote"></div>
   </div>
 
-  <div class="step on" id="s0">
-    <div class="hero">
-      <h1>Калькулятор ставки репетитора <em>от Ольги Лондон</em></h1>
-      <p>Десять шагов про твой предмет, опыт и то, что у тебя уже есть.</p>
-      <p>На выходе — ставка, к которой тебе надо идти, прайс на пару и группу, и цифра, которую ставят в объявление.</p>
-      <div class="timer">Время прохождения — <b>4 минуты</b></div>
-      <div><button class="btn" onclick="goal('calc_start');go(1)">Посчитать мою ставку</button></div>
+  <div class="step on" id="s1">
+    <div class="hero intro">
+      <h1>Ответь на несколько вопросов — <em>и увидишь свою ставку</em></h1>
+      <div class="timer">Займёт <b>полторы минуты</b></div>
     </div>
-  </div>
-
-  <div class="step" id="s1">
-    <div class="qnum">Шаг 1 из 10</div>
     <div class="q">Что ты преподаёшь?</div>
-    <div class="hint">Дальше вопросы будут уже под твою нишу. У вокалиста и у математика ставку поднимают совсем разные вещи. Если предметов несколько — выбирай тот, где хочешь расти.</div>
     <div id="o1"></div>
+    <div class="multi-note">Выбери одно.</div>
   </div>
 
   <div class="step" id="s2">
-    <div class="qnum">Шаг 2 из 10</div>
     <div class="q" id="q2">Кто у тебя занимается?</div>
-    <div class="hint" id="h2">Отметь всех, кто у тебя есть. Считать буду по самому дорогому сегменту.</div>
     <div class="opts" id="o2"></div>
     <div class="multi-note">Можно выбрать несколько.</div>
-    <div class="warn-pick" id="w2">Отметь хотя бы один вариант.</div>
-    <div class="nav"><button class="btn" onclick="next(3,'audience','w2')">Дальше</button></div>
+
+    <div class="q sub">Откуда приходят твои ученики?</div>
+    <div class="opts" id="o3"></div>
+    <div class="multi-note">Можно выбрать несколько.</div>
+
+    <div class="warn-pick" id="w2">Ответь на оба вопроса.</div>
+    <div class="nav"><button class="btn" onclick="nextTwo(3,'audience','market','w2')">Дальше</button></div>
   </div>
 
   <div class="step" id="s3">
-    <div class="qnum">Шаг 3 из 10</div>
-    <div class="q">Откуда приходят твои ученики?</div>
-    <div class="hint">Не где живёшь ты, а где живут они. Это самый сильный рычаг во всём расчёте. Работаешь и на свой город, и на другие — отметь всё.</div>
-    <div class="opts" id="o3"></div>
-    <div class="multi-note">Можно выбрать несколько.</div>
-    <div class="warn-pick" id="w3">Отметь хотя бы один вариант.</div>
-    <div class="nav"><button class="btn" onclick="next(4,'market','w3')">Дальше</button></div>
+    <div class="q">Как проходят занятия?</div>
+    <div class="opts" id="o4"></div>
+    <div class="multi-note">Выбери одно.</div>
+
+    <div class="q sub">Сколько лет ты преподаёшь?</div>
+    <div class="opts" id="o5"></div>
+    <div class="multi-note">Выбери одно.</div>
+
+    <div class="warn-pick" id="w3">Ответь на оба вопроса.</div>
+    <div class="nav"><button class="btn" onclick="nextTwo(4,'format','exp','w3')">Дальше</button></div>
   </div>
 
   <div class="step" id="s4">
-    <div class="qnum">Шаг 4 из 10</div>
-    <div class="q">Как проходят занятия?</div>
-    <div class="opts" id="o4"></div>
+    <div class="q">Что у тебя с образованием?</div>
+    <div class="opts" id="o6"></div>
+    <div class="multi-note">Выбери одно.</div>
+
+    <div class="q sub" id="q7">Что из этого про тебя?</div>
+    <div class="opts" id="o7"></div>
+    <div class="multi-note">Можно выбрать несколько.</div>
+
+    <div class="warn-pick" id="w4">Ответь на оба вопроса. Если пока нечем похвастаться — так и отметь, это нормально.</div>
+    <div class="nav"><button class="btn" onclick="nextTwo(5,'edu','flex','w4')">Дальше</button></div>
   </div>
 
   <div class="step" id="s5">
-    <div class="qnum">Шаг 5 из 10</div>
-    <div class="q">Сколько лет ты преподаёшь?</div>
-    <div class="opts" id="o5"></div>
+    <div class="q" id="q8">Чем ты можешь доказать результат?</div>
+    <div class="opts" id="o8a"></div>
+    <div class="multi-note">Выбери одно.</div>
+
+    <div class="q sub">И сколько у тебя отзывов?</div>
+    <div class="opts" id="o8b"></div>
+    <div class="multi-note">Выбери одно.</div>
+
+    <div class="warn-pick" id="w5">Ответь на оба вопроса.</div>
+    <div class="nav"><button class="btn" onclick="nextTwo(6,'cases','rev','w5')">Дальше</button></div>
   </div>
 
   <div class="step" id="s6">
-    <div class="qnum">Шаг 6 из 10</div>
-    <div class="q">Что у тебя с образованием?</div>
-    <div class="hint">У меня бизнес-образование, ВШЭ. И ставка 5 000 ₽ в час. Так что на доверие диплом влияет, но решает не он.</div>
-    <div class="opts" id="o6"></div>
-  </div>
-
-  <div class="step" id="s7">
-    <div class="qnum">Шаг 7 из 10</div>
-    <div class="q" id="q7">Что из этого про тебя?</div>
-    <div class="hint" id="h7">Отметь всё, что есть.</div>
-    <div class="opts" id="o7"></div>
-    <div class="multi-note">Можно выбрать несколько.</div>
-    <div class="warn-pick" id="w7">Отметь хотя бы один вариант. Если пока нечем похвастаться — так и отметь, это нормально.</div>
-    <div class="nav"><button class="btn" onclick="next(8,'flex','w7')">Дальше</button></div>
-  </div>
-
-  <div class="step" id="s8">
-    <div class="qnum">Шаг 8 из 10</div>
-    <div class="q" id="q8">Чем ты можешь доказать результат?</div>
-    <div class="hint" id="h8">Кейсы с цифрами.</div>
-    <div class="opts" id="o8a"></div>
-    <div class="q" style="margin-top:30px;font-size:22px">И сколько у тебя отзывов?</div>
-    <div class="hint">На всех площадках вместе.</div>
-    <div class="opts" id="o8b"></div>
-    <div class="warn-pick" id="w8">Ответь на оба вопроса.</div>
-    <div class="nav"><button class="btn" onclick="nextTwo(9,'cases','rev','w8')">Дальше</button></div>
-  </div>
-
-  <div class="step" id="s9">
-    <div class="qnum">Шаг 9 из 10</div>
     <div class="q">Что ты даёшь сверх самого занятия?</div>
-    <div class="hint">Личные кабинеты я завела на ставке 3 500 ₽. Не потому что доросла, а потому что это и был мой повод вырасти дальше.</div>
     <div class="opts" id="o9"></div>
     <div class="multi-note">Можно выбрать несколько.</div>
-    <div class="warn-pick" id="w9">Отметь хотя бы один вариант.</div>
-    <div class="nav"><button class="btn" onclick="next(10,'serv','w9')">Дальше</button></div>
-  </div>
 
-  <div class="step" id="s10">
-    <div class="qnum">Шаг 10 из 10</div>
-    <div class="q">Сколько ты берёшь сейчас?</div>
+    <div class="q sub">Сколько ты берёшь сейчас?</div>
     <div class="hint" id="h10">За одно индивидуальное занятие. Нужно, чтобы показать разницу.</div>
     <div class="slider-box">
       <div class="slider-val" id="rateval">1 500 <small>₽ за занятие</small></div>
       <div class="slider-hit"><input type="range" id="rate" min="300" max="10000" step="100" value="1500"></div>
       <div class="slider-ends"><span>300 ₽</span><span>10 000 ₽</span></div>
     </div>
-    <div class="q" style="margin-top:30px;font-size:22px">И сколько часов в неделю ты ведёшь?</div>
+
+    <div class="q sub">И сколько часов в неделю ты ведёшь?</div>
     <div class="opts" id="o10"></div>
+    <div class="multi-note">Выбери одно.</div>
+
+    <div class="warn-pick" id="w6">Ответь на все вопросы этого экрана.</div>
+    <div class="nav"><button class="btn" onclick="finish()">Посчитать мою ставку</button></div>
   </div>
 
   <div id="result">
-    <div class="res-lead" id="r-lead">Твой расчёт</div>
-
     <div class="bignum">
       <div class="lbl" id="r-lbl">Твоя целевая ставка</div>
       <div class="val" id="r-main">— <span>₽</span></div>
@@ -378,7 +373,6 @@ tr.showcase td{background:rgba(200,255,0,.06)}
     <div class="subnote" id="r-sub"></div>
 
 
-    <h2 class="sec">Твой прайс на все форматы</h2>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th>Формат</th><th>С человека</th><th>Тебе за час</th></tr></thead>
@@ -849,7 +843,7 @@ const LOAD = [
 ];
 
 const A = {flex:[], serv:[], audience:[], market:[]};
-let SUB = null, BR = null, HIST = [], CUR = 0, RATE_TOUCHED = false;
+let SUB = null, BR = null, HIST = [], CUR = 0, RATE_TOUCHED = false, STARTED = false;
 
 function optEl(o, onClick){
   const b = document.createElement('button');
@@ -897,6 +891,9 @@ function paint(box, list, key, nextStep, multi){
         SUB = opt; A.subject = opt.id; BR = BRANCH[opt.b];
         box.querySelectorAll('.opt').forEach(c=>c.classList.remove('sel'));
         btn.classList.add('sel');
+        /* Первый ответ = реальный старт квиза. Заставки больше нет,
+           поэтому старт считаем здесь, один раз за визит. */
+        if(!STARTED){ STARTED = true; goal('calc_start'); }
         if(branchChanged){ A.audience = []; A.flex = []; }
         buildBranch();
         setTimeout(()=>go(2),220);
@@ -921,33 +918,48 @@ function buildBranch(){
 function buildFlex(){
   const alt = BR.flexAlt && BR.audExam && !A.audience.some(id=>BR.audExam.includes(id));
   const list = alt ? BR.flexAlt : BR.flex;
-  document.getElementById('h7').textContent = alt && BR.h7alt ? BR.h7alt : BR.h7;
-  document.getElementById('h8').textContent = alt && BR.h8alt ? BR.h8alt : BR.h8;
   const known = list.map(o=>o.id);
   A.flex = A.flex.filter(id=>known.includes(id));
   paint('o7', list, 'flex', null, true);
 }
 
 paint('o3', MARKET, 'market', null, true);
-paint('o4', FORMAT, 'format', 5);
-paint('o5', EXP,    'exp',    6);
-paint('o6', EDU,    'edu',    7);
+paint('o4', FORMAT, 'format', null);
+paint('o5', EXP,    'exp',    null);
+paint('o6', EDU,    'edu',    null);
 paint('o8b',REV,    'rev',    null);
 paint('o9', SERV,   'serv',   null, true);
-paint('o10',LOAD,   'load',   'calc');
+paint('o10',LOAD,   'load',   null);
+
+const STEPS = 6;
+/* Подпись под шкалой: чем ближе к результату, тем сильнее подталкиваем.
+   Первый экран молчит — там своё обещание в титуле. */
+const BARNOTE = {
+  2: 'Отвечаешь быстро — так и надо',
+  3: 'Половина позади',
+  4: 'Осталось чуть-чуть',
+  5: 'Почти всё, два вопроса',
+  6: 'Последний экран — и считаю твою ставку'
+};
 
 function warn(id,on){ const w=document.getElementById(id); if(w) w.classList.toggle('on',!!on); }
+function filled(key){ const v = A[key]; return Array.isArray(v) ? v.length > 0 : !!v; }
 function next(step, key, warnId){
-  if(!A[key] || A[key].length === 0){ warn(warnId,true); return; }
+  if(!filled(key)){ warn(warnId,true); return; }
   warn(warnId,false); go(step);
 }
 function nextTwo(step, k1, k2, warnId){
-  if(!A[k1] || !A[k2]){ warn(warnId,true); return; }
+  if(!filled(k1) || !filled(k2)){ warn(warnId,true); return; }
   warn(warnId,false); go(step);
+}
+/* Последний экран: три ответа, ставка со слайдера всегда задана значением по умолчанию. */
+function finish(){
+  if(!filled('serv') || !filled('load')){ warn('w6',true); return; }
+  warn('w6',false); calc();
 }
 function go(n){ if(n !== CUR) HIST.push(CUR); show(n); }
 function back(){
-  if(document.getElementById('result').classList.contains('on')){ show(10); return; }
+  if(document.getElementById('result').classList.contains('on')){ show(STEPS); return; }
   if(!HIST.length) return;
   show(HIST.pop());
 }
@@ -957,13 +969,15 @@ const SEEN = new Set();
 function stepGoal(n){ if(SEEN.has(n)) return; SEEN.add(n); goal('calc_step_'+n); }
 function show(n){
   stepGoal(n);
+  document.querySelector('.top').classList.remove('done');
   document.getElementById('result').classList.remove('on');
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
   document.getElementById('s'+n).classList.add('on');
-  if(n === 7) buildFlex();
+  if(n === 4) buildFlex();
   CUR = n;
-  document.getElementById('bar').style.width = (n/10*100)+'%';
-  document.getElementById('stepcount').textContent = n>0 ? n+' / 10' : '';
+  document.getElementById('bar').style.width = (n/STEPS*100)+'%';
+  document.getElementById('stepcount').textContent = n + ' / ' + STEPS;
+  document.getElementById('barnote').textContent = BARNOTE[n] || '';
   document.getElementById('back').classList.toggle('on', HIST.length>0);
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -1019,24 +1033,26 @@ function rateFor(marketId){
 }
 
 function calc(){
-  if(!A.audience.length || !A.market.length){ show(A.audience.length ? 3 : 2); return; }
+  if(!A.audience.length || !A.market.length){ show(2); return; }
 
   const mainMkt = A.market.slice().sort(byBase).reverse()[0];
   const R = rateFor(mainMkt);
   const cur = +rate.value;
-  const showcase = Math.max(500, r100(R*0.30));   // цена места в четвёрке, она же витрина
+  const showcase = Math.max(500, r100(R*0.30));   // цена места в мини-группе, она же витрина
 
   goal('calc_done');
   armSticky();
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
   document.getElementById('result').classList.add('on');
+  /* На результате шкала и счётчик шагов не нужны — квиз пройден */
+  document.querySelector('.top').classList.add('done');
   document.getElementById('bar').style.width = '100%';
-  document.getElementById('stepcount').textContent = 'готово';
+  document.getElementById('stepcount').textContent = '';
+  document.getElementById('barnote').textContent = '';
   document.getElementById('back').classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
 
   const above = RATE_TOUCHED && cur >= R*1.1;
-  document.getElementById('r-lead').textContent = SUB.t + ' · твой расчёт';
   document.getElementById('r-lbl').textContent = above ? 'Рынок за такой профиль платит' : 'Твоя целевая ставка';
   document.getElementById('r-main').innerHTML = money(R)+' <span>₽ за занятие</span>';
   document.getElementById('r-real').innerHTML = '<i></i>' + (above
@@ -1050,7 +1066,7 @@ function calc(){
   const grid = [['Индивидуально','один на один',1.00,1,false],['Пара','двое',0.75,2,false]];
   if(!BR.noGroup){
     grid.push(['Тройка','трое',0.55,3,false]);
-    grid.push([BR.group,'четверо',0.30,4,true]);
+    grid.push([BR.group,'пятеро',0.30,5,true]);
   }
   document.getElementById('r-grid').innerHTML = grid.map(g=>{
     const per = g[4] ? showcase : r100(R*g[2]);
@@ -1139,6 +1155,16 @@ function tickWebi(){
 }
 tickWebi();
 setInterval(tickWebi, 1000);
+
+/* Заставки нет — первый экран сразу с вопросом, поэтому шкалу и счётчик
+   инициализируем руками. Скролл при этом не трогаем. */
+(function initFirst(){
+  stepGoal(1);
+  CUR = 1;
+  document.getElementById('bar').style.width = (1/STEPS*100)+'%';
+  document.getElementById('stepcount').textContent = '1 / ' + STEPS;
+  document.getElementById('barnote').textContent = BARNOTE[1] || '';
+})();
 
 /* ================================================================
    Дорога к продающему блоку: стрелка «самое важное» и липкая плашка.
