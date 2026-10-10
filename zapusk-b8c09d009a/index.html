@@ -79,7 +79,8 @@ section{padding:110px 0 30px;position:relative}
 /* hero */
 .hero{min-height:92vh;display:flex;align-items:center;padding:110px 0 210px;overflow:hidden}
 .hero .spot{position:absolute;inset:0;pointer-events:none;background:radial-gradient(600px circle at var(--mx,70%) var(--my,30%),rgba(200,255,0,.07),transparent 60%)}
-.hero-grid{display:block}
+.hero-grid{display:block;width:100%;min-width:0}
+.hero-sub,.hstats{max-width:100%}
 .h1{font-size:clamp(48px,9vw,128px);font-weight:900;line-height:.86;letter-spacing:-4.5px;text-transform:uppercase;color:var(--white)}
 .h1 .ln{display:block;overflow:hidden}
 .h1 .ln span{display:inline-block;transform:translateY(105%);animation:up 1.1s var(--ez) forwards}
@@ -364,6 +365,29 @@ section{padding:110px 0 30px;position:relative}
 .summ dt{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding-top:2px}
 .summ dd{color:var(--white)}
 
+.ownbox{display:grid;gap:10px;margin-top:16px;padding:16px;border:1px dashed var(--bviolet);border-radius:3px;background:rgba(91,33,182,.06)}
+.ownbox label{display:grid;gap:6px;font-size:13.5px;font-weight:700;color:var(--white)}
+.ownbox input,.ownbox textarea,.ownbox select{background:var(--ink3);border:1px solid var(--bdk);border-radius:3px;padding:10px 12px;font-size:14.5px;color:var(--off);font-weight:400;outline:none;width:100%}
+.ownbox input:focus,.ownbox textarea:focus{border-color:var(--blime)}
+.ownbox textarea{min-height:64px;resize:vertical;line-height:1.5}
+.b2{display:grid;gap:12px;margin-top:18px}
+.b2row{padding:14px;border:1px solid var(--bdk);border-radius:3px;background:rgba(8,8,15,.5)}
+.b2h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:10px}.b2h b{color:var(--white)}
+.b2chips{display:flex;flex-wrap:wrap;gap:6px}
+.map{margin-top:20px;padding:18px;border:1px solid var(--bdk);border-radius:3px;background:rgba(8,8,15,.5);overflow-x:auto}
+.map-scale{display:flex;margin-left:150px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--faint);min-width:500px}
+.map-scale span{flex:1;border-left:1px solid var(--bdk);padding-left:4px}
+.lane{display:grid;grid-template-columns:150px 1fr;align-items:center;margin-top:8px;min-width:650px}
+.lane-n{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--muted);padding-right:10px}
+.lane-t{position:relative;height:56px;background:rgba(255,255,255,.02);border-radius:3px}
+.blk{position:absolute;top:4px;bottom:4px;border-radius:3px;padding:6px 9px;overflow:hidden;font-size:12px;line-height:1.2;display:flex;flex-direction:column;justify-content:center;animation:sdIn .5s var(--ez) both}
+.blk b{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.blk span{font-family:'JetBrains Mono',monospace;font-size:10px;opacity:.75}
+.map-tot{margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);text-align:right}.map-tot b{color:var(--lime)}
+.map-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:14px}
+.mc{padding:14px;border:1px solid var(--bdk);border-top:3px solid;border-radius:3px;background:rgba(14,14,26,.8)}
+.mc-h{display:flex;justify-content:space-between;gap:8px;margin-bottom:8px}.mc-h b{color:var(--white)}.mc-h span{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);white-space:nowrap}
+.mc ul{display:grid;gap:4px;font-size:13.5px}.mc li::before{content:'· ';color:var(--lime)}
+.mc p{font-size:12.5px;color:var(--muted);margin-top:8px}
 footer{padding:70px 0 50px;border-top:1px solid var(--bdk);margin-top:70px}
 .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint)}
 .foot button{color:var(--muted);text-decoration:underline;font-size:11px}
@@ -517,7 +541,7 @@ footer{padding:70px 0 50px;border-top:1px solid var(--bdk);margin-top:70px}
       <figure class="sq"><img src="img/p5179.jpg" alt="" loading="lazy"></figure>
       <figure><img src="img/p5194.jpg" alt="" loading="lazy"></figure>
     </div>
-    <p class="lead reveal">Ты продюсер Полины. Строим лестницу: сначала массово продаём любителям маленький продукт, потом из них и самых заинтересованных подписчиков греем к профессии. На каждом шаге варианты и разбор, у каждой ветки свой портрет ЦА. В конце сверка с вариантом Миши.</p>
+    <p class="lead reveal">Ты продюсер Полины. Это задание, а не тест: на каждом шаге бери вариант-подсказку или пиши свой с цифрами. В конце получится карта запуска по неделям и прикидка денег по твоим решениям. Её отправляешь Мише.</p>
     <div class="wiz reveal d1" id="wiz"><div class="wiz-top" id="wizTop"></div><div class="wiz-body" id="wizBody"></div>
       <div class="wiz-nav"><button class="btn btn-g btn-s" id="wPrev">← Назад</button><button class="btn btn-l btn-s" id="wNext">Дальше →</button></div></div>
   </div>
@@ -940,108 +964,144 @@ function evaluate(){
 }
 $('#clearC').onclick=()=>{S.cons.picks={};S.cons.why={};save();renderCons()};
 
-/* ===== Полина: две ветки ===== */
-if(S.pol.v!==2){S.pol={v:2,step:0,pick:{},prof:{a:{},b:{}},whys:{}};save()}
-const POL_REF={
- a:{aw:['cold'],time:['free','frag'],dig:['hi'],dec:['imp'],money:['tight'],soc:['group'],skep:['new'],fmt:['watch'],mot:['dream']},
- b:{aw:['prob'],time:['free','frag'],dig:['hi'],dec:['rat'],money:['tight','mid'],soc:['group'],skep:['new','open'],fmt:['watch','live'],mot:['dream']}
-};
-const POL_WHY={
- a:{aw:'Подписались ради «вау». Фокусы для них развлечение, никакой проблемы они не решают.',time:'Молодая аудитория: вечера есть, смотрят в основном с телефона.',dig:'Instagram до 30 лет: бот и оплата по ссылке привычны.',dec:'Фокус это эмоция. Маленький продукт покупают на волне «хочу так же удивить друзей».',money:'Студенты и молодые: поэтому продукт маленький, до тысячи-трёх.',soc:'Фокусы показывают людям, аудитория любит движ и хвастаться.',skep:'Онлайн-обучение фокусам почти никто не покупал.',fmt:'Фокусы смотрят, а не читают.',mot:'Мечта стать душой компании, болей тут нет.'},
- b:{aw:'Уже купили маленький продукт или видят, что Полина зарабатывает. Проблема понятна: «хочу так же, но не знаю, с чего начать».',time:'Те же молодые люди: время на практику есть.',dig:'Та же цифровая аудитория.',dec:'90 тысяч на профессию уже считают: окупится ли за пару выступлений? Нужны гонорары, кейсы, цифры.',money:'Денег немного, но под заработок готовы платить, если есть рассрочка.',soc:'Хотят в среду таких же: группа, чат, совместные выступления.',skep:'Одни впервые покупают обучение, другие уже взяли маленький продукт и доверяют.',fmt:'Смотрят видео, а на профессию хотят живого общения с Полиной.',mot:'Мечта: зарабатывать любимым делом по 50 тысяч за вечер.'}
-};
+/* ===== Полина: задание продюсеру ===== */
+if(S.pol.v!==3){S.pol={v:3,step:0,ch:{},own:{},prof:{a:{},b:{}},note:{a:'',b:''},b2:{},b2own:{},why:{},weeks:{},as:{}};save()}
 const BR={a:'Ветка 1 · любители',b:'Ветка 2 · профессия'};
-const STEPS=[
- {t:'Архитектура',q:'У Полины две аудитории: массовые любители и те, кто хочет зарабатывать. Как строим воронку?',opts:[
-  {h:'Лестница из двух веток',pr:'любители → профессия',d:'Массово зовём на маленький продукт «душа компании», а из купивших и самых заинтересованных греем к профессии.',m:'ok',f:'<b>Так и делаем.</b> Ветка 1 собирает много людей и окупает рекламу маленьким продуктом. Купившие уже доверяют Полине, и часть из них захочет большего: им ветка 2 и наставничество.'},
-  {h:'Только профессия',pr:'сразу наставничество',d:'Говорим только про заработок 50 тысяч за вечер.',m:'mid',f:'<b>Можно, но теряем большинство.</b> Из 7 000 подписчиков про профессию думают немногие. Остальные уйдут, не заплатив ни рубля, хотя могли бы купить маленький продукт и дозреть.'},
-  {h:'Только любители',pr:'массовый курс',d:'Продаём фокусы для вечеринок и всё.',m:'mid',f:'<b>Деньги на столе.</b> Продажи будут, но маленькие. Самый дорогой продукт Полины, её умение зарабатывать, никто не купит.'},
-  {h:'Один продукт для всех',pr:'и удивить, и заработать',d:'«Удиви друзей и зарабатывай 50 тысяч».',m:'no',f:'<b>Каша.</b> Сообщение для всех не цепляет никого. Любителю страшно слово «профессия», будущему профи несерьёзно «удиви друзей».'}]},
- {t:'Две ЦА',q:'У веток разная аудитория. Опиши обе по девяти характеристикам и сравни с Мишей.',axes:true},
- {br:'a',t:'Лид-магнит',q:'Ветка 1. Что Полина отдаёт любителям за кодовое слово под рилзом?',opts:[
-  {h:'Видео: фокус с монеткой за 5 минут',pr:'видео в боте',d:'Повторяешь и вечером удивляешь друзей.',m:'ok',f:'<b>Идеально для ветки 1.</b> Быстрый «вау», человек видит Полину живьём и хочет ещё.'},
-  {h:'Квиз «Какой ты фокусник»',pr:'квиз',d:'Весёлый тест на две минуты.',m:'mid',f:'<b>Как второй вход нормально.</b> Весело, но фокуса не даёт, а значит не греет к продукту.'},
-  {h:'Видео: как я в 20 лет зарабатываю фокусами',pr:'видео в боте',d:'Путь к платным выступлениям.',m:'mid',f:'<b>Это вход ветки 2, а не первой.</b> Любителям рано про деньги. Это видео пригодится на мостике.'},
-  {h:'PDF «История фокусов от Гудини»',pr:'PDF',d:'Факты про великих фокусников.',m:'no',f:'<b>Мимо.</b> Аудитория смотрит, а не читает, пользы прямо сейчас нет.'}]},
- {br:'a',t:'Маленький продукт',q:'Ветка 1. Что продаём любителям недорого?',opts:[
-  {h:'Практикум «5 фокусов без реквизита за вечер»',pr:'300-990 ₽',d:'Ручки, монетки, ложки. В выходные уже показываешь друзьям.',m:'ok',f:'<b>Сильный вход.</b> Узко, понятно, результат за вечер. Окупает рекламу и даёт базу покупателей для ветки 2.'},
-  {h:'Мини-курс «Фокусы для вечеринок»',pr:'2 990 ₽',d:'10 фокусов, чат, разбор видео участников.',m:'ok',f:'<b>Тоже рабочий.</b> Дороже, но больше вовлечения: чат и разборы видео дают Полине время показать себя.'},
-  {h:'Курс «Фокусник с нуля», 30 уроков',pr:'990 ₽',d:'Всё обо всём за копейки.',m:'no',f:'<b>Обесценивает.</b> Отдали всё за 990, и непонятно, зачем потом платить за наставничество.'},
-  {h:'Платная консультация с Полиной',pr:'3 000 ₽',d:'Час лично.',m:'no',f:'<b>Не для любителей.</b> Им не о чем консультироваться, им нужен фокус.'}]},
- {br:'ab',t:'Мостик',q:'Как перевести любителей из ветки 1 в профессию?',opts:[
-  {h:'Последний урок продукта и вопрос в боте',pr:'сегментация',d:'В конце практикума Полина рассказывает, как фокусы стали работой и сколько платят. Бот спрашивает: «Хочешь зарабатывать на фокусах?» Ответившие «да» уходят в ветку 2.',m:'ok',f:'<b>Так.</b> Мост внутри продукта, когда доверие на пике, а сегментация разводит любителей и будущих профи по разным цепочкам.'},
-  {h:'Реалити выступлений в блоге',pr:'контент',d:'Корпоративы, сцены, закулисье, сколько платят.',m:'ok',f:'<b>Тоже нужно.</b> Это прогрев к профессии для всех подписчиков, не только купивших. Лучше всего вместе с первым вариантом.'},
-  {h:'Сразу продавать наставничество всем купившим',pr:'в лоб',d:'Всем, кто купил практикум, ссылка на наставничество за 90 тысяч.',m:'no',f:'<b>Отпугнёт.</b> Большинство пришло за весельем, предложение профессии им не нужно, а нужным ещё рано без прогрева.'},
-  {h:'Ждать, пока сами спросят',pr:'ничего не делать',d:'Кому надо, тот напишет.',m:'no',f:'<b>Не напишут.</b> Без моста и прогрева ветка 2 не появится.'}]},
- {br:'b',t:'Флагман',q:'Ветка 2. Что продаём тем, кто хочет зарабатывать?',opts:[
-  {h:'Наставничество «Фокусник на заказ»',pr:'90 000 ₽',d:'3 месяца: номер под ключ, упаковка, первые выступления по 30-50 тысяч.',m:'ok',f:'<b>Флагман.</b> Продаёт доход: два-три выступления окупают обучение.',price:90000},
-  {h:'Групповой курс «Первое платное выступление»',pr:'30 000 ₽',d:'Записи, чат, разборы номеров.',m:'mid',f:'<b>Хорош как облегчённый тариф</b> для тех, кто не тянет наставничество. Флагманом лучше сделать личную работу.',price:30000},
-  {h:'Клуб по подписке',pr:'990 ₽ в месяц',d:'Новый фокус каждую неделю.',m:'no',f:'<b>Это продукт для любителей,</b> к профессии он не ведёт.',price:990},
-  {h:'Офлайн мастер-класс',pr:'5 000 ₽',d:'Вечер с Полиной в Москве.',m:'mid',f:'<b>Это событие, а не флагман.</b> На нём можно продавать наставничество.',price:5000}]},
- {br:'b',t:'Запуск ветки 2',q:'Собери в конструкторе запуск к профессии. Портрет ветки 2 и цена флагмана подставятся сами. Вход уже есть: покупатели маленького продукта и мостик.'},
- {t:'Цифры',q:'Посчитай лестницу: сколько денег даст ветка 1, сколько ветка 2 и где узкое место.'},
- {t:'Нахуя',q:'Ответ человеку на каждом шаге лестницы.'},
- {t:'Сверка',q:'Сравни с вариантом Миши и отправь ответы.'}];
-const BRH=s=>s.br?`<span class="chip ${s.br==='b'?'on':'v on'}" style="margin-bottom:12px;display:inline-block">${s.br==='a'?BR.a:s.br==='b'?BR.b:'Из ветки 1 в ветку 2'}</span>`:'';
-function axRows(br){const P=S.pol,pr=P.prof[br];return AXES.map(a=>{const v=pr[a.k],ok=v&&POL_REF[br][a.k].includes(v);return `<div class="row"><b>${a.n}</b><div class="vals">${a.v.map(([x,n])=>`<button class="chip ${v===x?'on':''}" data-br="${br}" data-k="${a.k}" data-v="${x}">${n}</button>`).join('')}</div>${v?`<div class="res ${ok?'ok':'no'}">${ok?'✓ Совпало с Мишей. ':'Миша поставил бы «'+POL_REF[br][a.k].map(z=>axVal(a.k,z).toLowerCase()).join('» или «')+'». '}${POL_WHY[br][a.k]}</div>`:''}</div>`}).join('')}
+const POL_STEPS=[
+ {k:'arch',t:'Ветки',q:'Из каких веток строим продюсирование Полины? Выбери вариант или опиши свой.',opts:[
+  {h:'Две ветки: любители, потом профессия',d:'Массово продаём любителям маленький продукт «душа компании», из купивших и самых заинтересованных греем к профессии.',br:'ab'},
+  {h:'Только профессия',d:'Сразу работаем с теми, кто хочет зарабатывать фокусами.',br:'b'},
+  {h:'Только любители',d:'Продаём массовые продукты про фокусы для себя и друзей.',br:'a'}],own:'arch'},
+ {k:'aud',t:'Аудитория',q:'Опиши аудиторию каждой ветки по девяти характеристикам и своими словами. Можно применить портрет к базе и посмотреть, какие инструменты подходят.'},
+ {k:'lm',t:'Вход',q:'Что Полина отдаёт за кодовое слово? От этого зависит, сколько подписчиков попадёт в бота.',opts:[
+  {h:'Видео: фокус с монеткой за 5 минут',d:'Повторяешь и вечером удивляешь друзей.',p:{conv:20},hint:'Быстрый «вау» и Полина живьём.'},
+  {h:'Квиз «Какой ты фокусник»',d:'Весёлый тест на две минуты.',p:{conv:25},hint:'Проходят охотно, но фокуса не даёт.'},
+  {h:'Гайд «10 фокусов для вечеринки»',d:'PDF с картинками.',p:{conv:12},hint:'Аудитория больше смотрит, чем читает.'},
+  {h:'Видео: как я в 20 лет зарабатываю фокусами',d:'Путь к платным выступлениям.',p:{conv:15},hint:'Сразу отбирает тех, кому интересна профессия.'}],own:'conv'},
+ {k:'small',br:'a',t:'Маленький продукт',q:'Что продаём любителям недорого? Цена и доля купивших пойдут в расчёт.',opts:[
+  {h:'Практикум «5 фокусов без реквизита за вечер»',d:'Ручки, монетки, ложки. В выходные уже показываешь друзьям.',p:{price:490,conv:8}},
+  {h:'Мини-курс «Фокусы для вечеринок»',d:'10 фокусов, чат, разбор видео участников.',p:{price:2990,conv:4}},
+  {h:'Челлендж «5 дней, 5 фокусов»',d:'Каждый день фокус и задание в чате.',p:{price:990,conv:6}},
+  {h:'Офлайн мастер-класс в Москве',d:'Живой вечер с Полиной.',p:{price:5000,conv:1.5}}],own:'pricec'},
+ {k:'bridge',br:'ab',t:'Мостик',q:'Как переводим любителей в ветку 2? Доля перешедших пойдёт в расчёт.',opts:[
+  {h:'Последний урок продукта и вопрос в боте',d:'Полина рассказывает, как фокусы стали работой. Бот спрашивает «хочешь зарабатывать?», ответившие «да» уходят в ветку 2.',p:{conv:30}},
+  {h:'Эфир для купивших «Фокусы как профессия»',d:'Отдельный эфир только для тех, кто купил маленький продукт.',p:{conv:25}},
+  {h:'Реалити выступлений в блоге',d:'Корпоративы, сцены, гонорары. Для всех подписчиков.',p:{conv:12}}],own:'conv'},
+ {k:'flag',br:'b',t:'Флагман',q:'Что продаём тем, кто хочет зарабатывать?',opts:[
+  {h:'Наставничество «Фокусник на заказ»',d:'3 месяца: номер под ключ, упаковка, первые выступления.',p:{price:90000}},
+  {h:'Групповой курс «Первое платное выступление»',d:'Записи, чат, разборы номеров.',p:{price:30000}},
+  {h:'Два тарифа: группа и личное наставничество',d:'30 000 и 90 000 ₽, средний чек около 60 000 ₽.',p:{price:60000}}],own:'price'},
+ {k:'b2',br:'b',t:'Запуск ветки 2',q:'Собери путь к профессии из инструментов базы или впиши свои. Подсказка по конверсии посчитается из твоего набора.'},
+ {k:'weeks',t:'Сроки',q:'Сколько недель на каждый этап? Из этого соберётся карта.'},
+ {k:'map',t:'Карта и результат',q:'Твоя карта запуска и прикинутый результат. Допущения можно поправить, цифры пересчитаются.'}];
+const B2ST=[['warm','Прогрев к профессии'],['free','Продающее событие'],['paid','Платный вход'],['sale','Личная продажа'],['close','Дожим']];
+const branches=()=>{const c=S.pol.ch.arch;if(c==='own')return (S.pol.own.arch&&S.pol.own.arch.archBr)||'ab';return c===undefined?'ab':POL_STEPS[0].opts[c].br};
+const hasA=()=>branches().includes('a'),hasB=()=>branches().includes('b');
+const visSteps=()=>POL_STEPS.map((s,i)=>i).filter(i=>{const s=POL_STEPS[i];if(!s.br)return true;if(s.br==='ab')return hasA()&&hasB();return branches().includes(s.br)});
+function choice(k){const P=S.pol,s=POL_STEPS.find(x=>x.k===k),c=P.ch[k];if(c===undefined)return null;if(c==='own'){const o=P.own[k]||{};return{h:o.name||'свой вариант',p:{price:+o.price||0,conv:+o.conv||0},own:1}}return s.opts[c]}
+function suggestConv(){const b=S.pol.b2,n=g=>(b[g]||[]).length+((S.pol.b2own[g]||'').trim()?1:0);const win=Math.min(n('free')+n('paid'),3);return Math.min(15,3+2*win+(n('sale')?3:0)+(n('close')?1:0))}
 function renderWiz(){
-  const P=S.pol,st=P.step,s=STEPS[st];
-  $('#wizTop').innerHTML=STEPS.map((x,i)=>`<button class="wstep ${i===st?'cur':i<st?'done':''}" data-i="${i}"><i>${i<st?'✓':i+1}</i>${x.t}</button>`).join('');
+  const P=S.pol,vs=visSteps();if(!vs.includes(P.step))P.step=vs.find(i=>i>P.step)??vs[vs.length-1];
+  const st=P.step,s=POL_STEPS[st],pos=vs.indexOf(st);
+  $('#wizTop').innerHTML=vs.map((i,n)=>`<button class="wstep ${i===st?'cur':n<pos?'done':''}" data-i="${i}"><i>${n<pos?'✓':n+1}</i>${POL_STEPS[i].t}</button>`).join('');
   $$('.wstep').forEach(b=>b.onclick=()=>{P.step=+b.dataset.i;save();renderWiz()});
-  let h=`${BRH(s)}<h3>${s.t}</h3><p class="q">${s.q}</p>`;
-  if(s.opts){const sel=P.pick[st];h+=`<div class="pick">${s.opts.map((o,i)=>`<button class="pk ${sel===i?'sel-'+o.m:''}" data-i="${i}"><span class="mk">${o.m==='ok'?'✓':o.m==='mid'?'~':'✕'}</span><h5>${o.h}</h5><span class="pr">${o.pr}</span><p>${o.d}</p></button>`).join('')}</div>`;if(sel!==undefined){const o=s.opts[sel];h+=`<div class="fb ${o.m}">${o.f}</div>`}}
-  else if(s.axes){const tab=P.axTab||'a',done=AXES.filter(a=>P.prof[tab][a.k]).length;
-    h+=`<div style="display:flex;gap:8px;margin-top:18px;flex-wrap:wrap">${['a','b'].map(b=>`<button class="chip ${tab===b?(b==='b'?'on':'v on'):''}" data-tab="${b}">${BR[b]} · ${AXES.filter(a=>P.prof[b][a.k]).length}/9</button>`).join('')}</div>
-    <div class="axq">${axRows(tab)}</div>
-    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="btn btn-l btn-s" id="applyProf" ${done<9?'disabled style="opacity:.5"':''}>Показать базу под ${tab==='a'?'любителей':'профессию'}</button><span class="hint">${done} из 9. Сравни, как по-разному сортируются инструменты для двух веток.</span></div>`}
-  else if(st===6){const pr=P.pick[5]!==undefined?STEPS[5].opts[P.pick[5]]:null;
-    h+=`<div class="summ"><div><dt>Портрет ветки 2</dt><dd>${profText(P.prof.b)||'не заполнен, вернись на шаг 2'}</dd></div><div><dt>Флагман</dt><dd>${pr?pr.h+' · '+pr.pr:'не выбран, вернись на шаг 6'}</dd></div></div>
-    <div style="margin-top:18px"><button class="btn btn-l" id="toCons">Открыть конструктор →</button></div>${P.consSnap?`<div class="fb ok"><b>Запуск сохранён (${P.consSnap.score} баллов):</b> ${snapText(P.consSnap)}</div>`:''}`}
-  else if(st===7){h+=`<div class="calc"><div class="cin" id="cin"></div><div><div class="funnel" id="funnel"></div><div id="verd"></div></div></div>`}
-  else if(st===8){const W=[['lm','Ветка 1. Нахуя забирать фокус с монеткой?','Что получит прямо сейчас'],['tw','Ветка 1. Нахуя платить за маленький продукт?','Что сможет показать друзьям уже в выходные'],['br','Мостик. Нахуя любителю слушать про профессию?','Чем это отличается от хобби, сколько платят'],['ev','Ветка 2. Нахуя приходить на эфир про заработок?','Что узнает, какой расчёт получит'],['call','Ветка 2. Нахуя переписка или созвон с Полиной?','Что разберут, какие условия']];
-    h+=`<div class="whys">${W.map(([k,l,p])=>`<div><label>${l}</label><textarea data-k="${k}" placeholder="Напиши ответ человеку">${esc(P.whys[k]||'')}</textarea><div class="hint">${p}</div></div>`).join('')}</div>`}
-  else if(st===9){h+=`<div class="summ">${polRows().map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</div>
-    <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-g" id="showRef">Показать вариант Миши</button><button class="btn btn-l pulse" id="copyAns">Скопировать ответы для Миши</button></div>
-    <div class="ref ${P.refShown?'show':''}" id="ref"><h4>Вариант <em>Миши</em></h4><ol>${POL_REF_PLAN.map(x=>`<li><span>${x}</span></li>`).join('')}</ol><p class="note">Это один из рабочих вариантов. Если у тебя две ветки с мостиком, запуск ветки 2 набрал 70+ и у каждого шага есть твёрдый «нахуя», твой тоже рабочий.</p></div>`}
+  const tag=s.br?`<span class="chip ${s.br==='b'?'on':'v on'}" style="margin-bottom:12px;display:inline-block">${s.br==='a'?BR.a:s.br==='b'?BR.b:'Из ветки 1 в ветку 2'}</span>`:'';
+  let h=`${tag}<h3>${s.t}</h3><p class="q">${s.q}</p>`;
+  if(s.opts){const c=P.ch[s.k],o=P.own[s.k]||{};
+    h+=`<div class="pick">${s.opts.map((x,i)=>`<button class="pk ${c===i?'sel-ok':''}" data-i="${i}"><span class="mk">✓</span><h5>${x.h}</h5>${x.p?`<span class="pr">${x.p.price?fmt(x.p.price)+' ₽':''}${x.p.price&&x.p.conv?' · ':''}${x.p.conv?x.p.conv+'%':''}</span>`:''}<p>${x.d}${x.hint?' <i style="color:var(--faint)">'+x.hint+'</i>':''}</p></button>`).join('')}
+    <button class="pk ${c==='own'?'sel-ok':''}" data-i="own"><span class="mk">✓</span><h5>✎ Свой вариант</h5><p>Опиши своё решение${s.own==='arch'?'':' и задай цифры для расчёта'}.</p></button></div>`;
+    if(c==='own'){h+=`<div class="ownbox">`+(s.own==='arch'?`<label>Как устроены ветки<textarea data-own="name">${esc(o.name||'')}</textarea></label><label>Какие ветки считать в карте<select data-own="archBr"><option value="ab" ${(o.archBr||'ab')==='ab'?'selected':''}>обе</option><option value="a" ${o.archBr==='a'?'selected':''}>только любители</option><option value="b" ${o.archBr==='b'?'selected':''}>только профессия</option></select></label>`:
+      `<label>Название и суть<input data-own="name" value="${esc(o.name||'')}"></label>`+(s.own==='price'||s.own==='pricec'?`<label>Цена, ₽<input type="number" data-own="price" value="${esc(o.price||'')}"></label>`:'')+(s.own==='conv'||s.own==='pricec'?`<label>${s.k==='small'?'Купят, % от бота':s.k==='bridge'?'Перейдут в ветку 2, % от купивших':'Заберут, % от подписчиков'}<input type="number" step="any" data-own="conv" value="${esc(o.conv||'')}"></label>`:''))+`</div>`}
+    if(s.k!=='arch')h+=whyBox(s.k);
+    if(s.k==='bridge')h+=`<div class="ownbox"><label>Сколько человек придут в ветку 2 напрямую из блога, мимо маленького продукта<input type="number" data-as="direct" value="${P.as.direct??20}"></label></div>`;
+  }
+  else if(s.k==='aud'){const brs=branches().split(''),tab=brs.includes(P.axTab)?P.axTab:brs[0];
+    h+=`<div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">${brs.map(b=>`<button class="chip ${tab===b?(b==='b'?'on':'v on'):''}" data-tab="${b}">${BR[b]} · ${AXES.filter(a=>P.prof[b][a.k]).length}/9</button>`).join('')}</div>
+    <div class="axq">${AXES.map(a=>`<div class="row"><b>${a.n}</b><div class="vals">${a.v.map(([x,n])=>`<button class="chip ${P.prof[tab][a.k]===x?'on':''}" data-br="${tab}" data-k="${a.k}" data-v="${x}">${n}</button>`).join('')}</div></div>`).join('')}</div>
+    <div class="ownbox"><label>Кто они своими словами<textarea data-note="${tab}" placeholder="Возраст, чем живут, зачем им фокусы">${esc(P.note[tab]||'')}</textarea></label></div>
+    <div style="margin-top:14px"><button class="btn btn-g btn-s" id="applyProf">Показать базу под эту ветку</button></div>`}
+  else if(s.k==='b2'){const sug=suggestConv();
+    h+=`<div class="b2">${B2ST.map(([g,n])=>{const arr=P.b2[g]||[];const list=TOOLS.filter(t=>t.g===g).map(t=>({t,f:fitOf(t,P.prof.b).s})).sort((x,y)=>y.f-x.f);
+      return `<div class="b2row"><div class="b2h"><b>${n}</b><span class="hint">${GROUPS[g].s}</span></div><div class="b2chips">${list.map(({t,f})=>`<button class="chip ${arr.includes(t.id)?'on':''}" data-b2="${g}" data-id="${t.id}" title="${esc(t.s)}">${hasProf(P.prof.b)&&f>=2?'★ ':''}${t.n}</button>`).join('')}</div><input class="why-in" data-b2own="${g}" placeholder="Свой инструмент или как именно сделать" value="${esc(P.b2own[g]||'')}"></div>`}).join('')}</div>
+    <div class="ownbox"><label>Из пришедших в ветку 2 купят флагман, %<input type="number" step="any" data-as="buyB" value="${P.as.buyB??sug}"></label><div class="hint">Подсказка по твоему набору: около ${sug}%. ★ отмечены инструменты, которые подходят портрету ветки 2. По рынку из трипваера во флагман переходят 5-15%.</div></div>${whyBox('b2')}`}
+  else if(s.k==='weeks'){const W=weekDefs();h+=`<div class="ownbox">${W.map(w=>`<label>${w.n}<input type="number" step="0.5" data-wk="${w.k}" value="${P.weeks[w.k]??w.d}"></label>`).join('')}</div>`}
+  else if(s.k==='map'){h+=`<div id="mapOut"></div><div class="calc"><div class="cin" id="cin"></div><div><div class="funnel" id="funnel"></div><div id="verd"></div></div></div>
+    <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-l pulse" id="copyAns">Скопировать карту для Миши</button><button class="btn btn-g" id="printMap">Сохранить в PDF</button></div>`}
   $('#wizBody').innerHTML=h;
-  $$('.pk').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;P.pick[st]=i;if(st===5)P.price=s.opts[i].price;if(st===3)P.small=[600,2990,990,3000][i];save();renderWiz();if(s.opts[i].m==='ok'){const r=b.getBoundingClientRect();confetti(r.left+r.width/2,r.top+20,40)}});
-  $$('.axq .chip').forEach(b=>b.onclick=()=>{P.prof[b.dataset.br][b.dataset.k]=b.dataset.v;save();renderWiz()});
+  $$('.pk').forEach(b=>b.onclick=()=>{const i=b.dataset.i;P.ch[s.k]=i==='own'?'own':+i;save();renderWiz()});
+  $$('[data-own]').forEach(el=>el.oninput=el.onchange=()=>{(P.own[s.k]=P.own[s.k]||{})[el.dataset.own]=el.value;save();if(el.dataset.own==='archBr')renderWiz()});
+  $$('[data-as]').forEach(el=>el.oninput=()=>{P.as[el.dataset.as]=+el.value;save()});
+  $$('[data-why]').forEach(el=>el.oninput=()=>{P.why[el.dataset.why]=el.value;save()});
   $$('[data-tab]').forEach(b=>b.onclick=()=>{P.axTab=b.dataset.tab;save();renderWiz()});
-  const ap=$('#applyProf');if(ap)ap.onclick=()=>{const tab=P.axTab||'a';if(AXES.some(a=>!P.prof[tab][a.k]))return;S.prof=Object.assign({},P.prof[tab]);S.presetOn=null;save();renderAll();document.getElementById('base').scrollIntoView({behavior:'smooth'});toast('База отсортирована под: '+BR[tab])};
-  const tc=$('#toCons');if(tc)tc.onclick=()=>{S.pol.consMode=true;if(hasProf(P.prof.b))S.prof=Object.assign({},P.prof.b);S.cons.price=P.price||90000;S.cons.picks={};S.cons.why={};save();renderAll();document.getElementById('build').scrollIntoView({behavior:'smooth'});toast('Режим «Полина, ветка 2» включён')};
-  if(st===7)renderCalc();
-  $$('.whys textarea').forEach(t=>t.oninput=()=>{P.whys[t.dataset.k]=t.value;save()});
-  const sr=$('#showRef');if(sr)sr.onclick=()=>{P.refShown=true;save();$('#ref').classList.add('show')};
+  $$('.axq .chip').forEach(b=>b.onclick=()=>{const pr=P.prof[b.dataset.br];pr[b.dataset.k]=pr[b.dataset.k]===b.dataset.v?undefined:b.dataset.v;if(!pr[b.dataset.k])delete pr[b.dataset.k];save();renderWiz()});
+  $$('[data-note]').forEach(el=>el.oninput=()=>{P.note[el.dataset.note]=el.value;save()});
+  const ap=$('#applyProf');if(ap)ap.onclick=()=>{const brs=branches().split(''),tab=brs.includes(P.axTab)?P.axTab:brs[0];S.prof=Object.assign({},P.prof[tab]);S.presetOn=null;save();renderAll();document.getElementById('base').scrollIntoView({behavior:'smooth'});toast('База отсортирована под: '+BR[tab])};
+  $$('[data-b2]').forEach(b=>b.onclick=()=>{const g=b.dataset.b2,arr=P.b2[g]=P.b2[g]||[],id=b.dataset.id;P.b2[g]=arr.includes(id)?arr.filter(x=>x!==id):[...arr,id];delete P.as.buyB;save();renderWiz()});
+  $$('[data-b2own]').forEach(el=>el.oninput=()=>{P.b2own[el.dataset.b2own]=el.value;save()});
+  $$('[data-wk]').forEach(el=>el.oninput=()=>{P.weeks[el.dataset.wk]=+el.value;save()});
+  if(s.k==='map'){renderMap();renderCalc()}
   const ca=$('#copyAns');if(ca)ca.onclick=copyAns;
-  $('#wPrev').style.visibility=st?'visible':'hidden';$('#wNext').style.visibility=st<STEPS.length-1?'visible':'hidden';
+  const pm=$('#printMap');if(pm)pm.onclick=printMap;
+  $('#wPrev').style.visibility=pos?'visible':'hidden';$('#wNext').style.visibility=pos<vs.length-1?'visible':'hidden';
 }
-function snapText(sn){return SLOTS.flatMap(([g])=>(sn.picks[g]||[]).map(id=>BYID[id]&&BYID[id].n)).filter(Boolean).join(' → ')}
-function polRows(){const P=S.pol,r=[];const pk=i=>{const s=STEPS[i],p=P.pick[i];return p!==undefined?s.opts[p].h+' · '+s.opts[p].pr:'не выбрано'};
-  r.push(['Архитектура',pk(0)]);
-  ['a','b'].forEach(b=>{const hit=AXES.filter(a=>P.prof[b][a.k]&&POL_REF[b][a.k].includes(P.prof[b][a.k])).length;r.push(['Портрет: '+BR[b].split(' · ')[1],(profText(P.prof[b])||'не заполнен')+` (совпало с Мишей ${hit} из 9)`])});
-  r.push(['Ветка 1, лид-магнит',pk(2)],['Ветка 1, продукт',pk(3)],['Мостик',pk(4)],['Ветка 2, флагман',pk(5)]);
-  r.push(['Запуск ветки 2',P.consSnap?snapText(P.consSnap)+' ('+P.consSnap.score+' баллов)':'не собран']);return r}
-function copyAns(){const P=S.pol;let t='Практика: Полина-фокусница, две ветки\n\n';polRows().forEach(([k,v])=>t+=k+': '+v+'\n');
-  const L={lm:'Нахуя лид-магнит',tw:'Нахуя маленький продукт',br:'Нахуя мостик',ev:'Нахуя эфир про заработок',call:'Нахуя созвон'};t+='\n';Object.keys(L).forEach(k=>t+=L[k]+': '+(P.whys[k]||'не заполнено')+'\n');
-  if(P.consSnap&&P.consSnap.why){t+='\nНахуя по этапам запуска ветки 2:\n';SLOTS.forEach(([g])=>{if(P.consSnap.why[g])t+=GROUPS[g].n+': '+P.consSnap.why[g]+'\n'})}
-  if(P.calcRes)t+='\nЦифры: '+P.calcRes+'\n';t+='\nПроверь себя: '+S.quiz.ans.filter((a,i)=>a===QUIZ[i].a).length+'/'+QUIZ.length;
-  const done=()=>{toast('Скопировано. Отправь Мише в телегу');level('pol')};
-  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done,()=>fb(t,done));else fb(t,done)}
-function fb(t,cb){const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();cb()}
-$('#wPrev').onclick=()=>{S.pol.step=Math.max(0,S.pol.step-1);save();renderWiz();$('#wiz').scrollIntoView({behavior:'smooth'})};
-$('#wNext').onclick=()=>{S.pol.step=Math.min(STEPS.length-1,S.pol.step+1);save();renderWiz();$('#wiz').scrollIntoView({behavior:'smooth'})};
-function renderCalc(){const P=S.pol;
-  if(!P.calc)P.calc={base:7000,bot:20,small:P.small||600,buyS:8,bridge:30,direct:20,buyB:10,check:P.price||90000};
-  const F=[['base','Подписчиков у Полины'],['bot','Забрали лид-магнит, %'],['small','Цена маленького продукта, ₽'],['buyS','Купили маленький продукт, % от бота'],['bridge','Из купивших ушли в ветку 2, %'],['direct','Пришли в ветку 2 напрямую из блога, человек'],['buyB','Из ветки 2 купили флагман, %'],['check','Чек флагмана, ₽']];
-  $('#cin').innerHTML=F.map(([k,l])=>`<label>${l}<input type="number" step="any" data-k="${k}" value="${P.calc[k]}"></label>`).join('')+'<div class="hint">Проценты условные. Ориентир по рынку: из трипваера во флагман переходят 5-15%.</div>';
-  $$('#cin input').forEach(i=>i.oninput=()=>{P.calc[i.dataset.k]=+i.value||0;save();calcOut()});calcOut()}
-function calcOut(){const c=S.pol.calc,bot=c.base*c.bot/100,bs=Math.round(bot*c.buyS/100),rA=bs*c.small,inB=Math.round(bs*c.bridge/100)+c.direct,bb=Math.floor(inB*c.buyB/100),rB=bb*c.check,tot=rA+rB;
-  const rows=[['Забрали лид-магнит',fmt(bot)+' чел.',bot],['Купили маленький продукт',fmt(bs)+' чел.',bs],['Выручка ветки 1',fmt(rA)+' ₽',rA],['Зашли в ветку 2',fmt(inB)+' чел.',inB],['Купили наставничество',fmt(bb)+' чел.',bb],['Выручка ветки 2',fmt(rB)+' ₽',rB]];
+function whyBox(k){return `<div class="ownbox"><label>Нахуя человеку это? Одной фразой, как сказала бы Полина<textarea data-why="${k}">${esc(S.pol.why[k]||'')}</textarea></label></div>`}
+function weekDefs(){const a=hasA(),b=hasB(),W=[];
+  if(a){W.push({k:'a1',n:'Ветка 1: рилзы и сбор базы, недель',d:2,br:'a'},{k:'a2',n:'Ветка 1: продажи маленького продукта и сам продукт, недель',d:2,br:'a'})}
+  if(a&&b)W.push({k:'br',n:'Мостик, недель',d:1,br:'ab'});
+  if(b){if(!a)W.push({k:'b0',n:'Ветка 2: сбор базы, недель',d:2,br:'b'});W.push({k:'b1',n:'Ветка 2: прогрев к профессии, недель',d:2,br:'b'},{k:'b2',n:'Ветка 2: события и продажи, недель',d:2,br:'b'},{k:'b3',n:'Ветка 2: дожим, недель',d:1,br:'b'})}
+  return W}
+const wk=k=>{const d=weekDefs().find(w=>w.k===k);return S.pol.weeks[k]??(d?d.d:0)};
+const nm=k=>{const c=choice(k);return c?c.h:'не выбрано'};
+const b2list=g=>[...(S.pol.b2[g]||[]).map(id=>BYID[id].n),...((S.pol.b2own[g]||'').trim()?[S.pol.b2own[g].trim()]:[])];
+function phases(){const P=S.pol,a=hasA(),b=hasB(),ph=[];let t=0;
+  if(a){ph.push({br:'a',n:'Вход и база',w:wk('a1'),s:t,items:['Охватные рилзы про фокусы',nm('lm')],why:P.why.lm});t+=wk('a1');
+    const sm=choice('small');ph.push({br:'a',n:'Маленький продукт',w:wk('a2'),s:t,items:[sm?sm.h+(sm.p.price?' · '+fmt(sm.p.price)+' ₽':''):'не выбрано'],why:P.why.small});t+=wk('a2')}
+  if(a&&b){ph.push({br:'ab',n:'Мостик',w:wk('br'),s:t,items:[nm('bridge')],why:P.why.bridge});t+=wk('br')}
+  if(b){if(!a){ph.push({br:'b',n:'Вход и база',w:wk('b0'),s:t,items:['Охватные рилзы',nm('lm')],why:P.why.lm});t+=wk('b0')}
+    const bs=a?Math.max(0,t-wk('br')):t;
+    ph.push({br:'b',n:'Прогрев к профессии',w:wk('b1'),s:bs,items:b2list('warm'),why:''});
+    ph.push({br:'b',n:'События и продажа',w:wk('b2'),s:bs+wk('b1'),items:[...b2list('free'),...b2list('paid'),...b2list('sale')],why:P.why.b2});
+    const fl=choice('flag');ph.push({br:'b',n:'Дожим и старт потока',w:wk('b3'),s:bs+wk('b1')+wk('b2'),items:[...b2list('close'),fl?'Флагман: '+fl.h+(fl.p.price?' · '+fmt(fl.p.price)+' ₽':''):'Флагман не выбран'],why:''})}
+  return ph}
+function wr(p){const a=Math.floor(p.s)+1,b=Math.max(a,Math.ceil(p.s+p.w));return a===b?'неделя '+a:'недели '+a+'-'+b}
+function renderMap(){const ph=phases(),tot=Math.max(...ph.map(p=>p.s+p.w),1),col={a:'#7C3AED',ab:'#FFB547',b:'#C8FF00'};
+  const lanes=[['a',BR.a],['ab','Мостик'],['b',BR.b]].filter(([k])=>ph.some(p=>p.br===k));
+  $('#mapOut').innerHTML=`<div class="map"><div class="map-scale">${Array.from({length:Math.ceil(tot)},(_,i)=>`<span>${i+1}</span>`).join('')}</div>
+   ${lanes.map(([k,n])=>`<div class="lane"><div class="lane-n">${n}</div><div class="lane-t">${ph.filter(p=>p.br===k).map(p=>`<div class="blk" style="left:${p.s/tot*100}%;width:${Math.max(p.w/tot*100,4)}%;background:${col[k]};color:${k==='b'||k==='ab'?'#08080F':'#fff'}"><b>${p.n}</b><span>${p.w} нед.</span></div>`).join('')}</div></div>`).join('')}
+   <div class="map-tot">Весь запуск ≈ <b>${Math.round(tot*2)/2} нед.</b></div></div>
+   <div class="map-cards">${ph.map(p=>`<div class="mc" style="border-top-color:${col[p.br]}"><div class="mc-h"><b>${p.n}</b><span>${wr(p)}</span></div><ul>${(p.items.length?p.items:['ничего не выбрано']).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>${p.why?`<p><i>Нахуя:</i> ${esc(p.why)}</p>`:''}</div>`).join('')}</div>`}
+function renderCalc(){const P=S.pol,a=hasA(),b=hasB(),lm=choice('lm'),sm=choice('small'),brd=choice('bridge'),fl=choice('flag');
+  const def={base:7000,lm:lm?lm.p.conv:15,smallPrice:sm?sm.p.price:490,smallConv:sm?sm.p.conv:6,bridge:brd?brd.p.conv:20,direct:P.as.direct??20,evt:30,buyB:P.as.buyB??suggestConv(),check:fl?fl.p.price:90000};
+  P.calc=Object.assign({},def,P.calcEdit||{});
+  const F=[['base','Подписчиков у Полины'],['lm','Забрали лид-магнит, %']];
+  if(a)F.push(['smallPrice','Цена маленького продукта, ₽'],['smallConv','Купили маленький продукт, % от бота']);
+  if(a&&b)F.push(['bridge','Из купивших перешли в ветку 2, %']);
+  if(b){if(!a)F.push(['evt','Из бота дошли до продающего события, %']);F.push(['direct','Пришли в ветку 2 напрямую, человек'],['buyB','Из ветки 2 купили флагман, %'],['check','Чек флагмана, ₽'])}
+  $('#cin').innerHTML='<span class="lbl">Допущения из твоих ответов</span>'+F.map(([k,l])=>`<label>${l}<input type="number" step="any" data-c="${k}" value="${P.calc[k]}"></label>`).join('')+'<div class="hint">Поменяешь здесь, пересчитается результат. Ответы в шагах при этом не меняются.</div>';
+  $$('[data-c]').forEach(i=>i.oninput=()=>{P.calcEdit=P.calcEdit||{};P.calcEdit[i.dataset.c]=+i.value||0;save();calcOut()});calcOut()}
+function calcOut(){const P=S.pol,c=P.calc,a=hasA(),b=hasB();const bot=c.base*c.lm/100;let bs=0,rA=0,inB=0,bb=0,rB=0;
+  if(a){bs=Math.round(bot*c.smallConv/100);rA=bs*c.smallPrice}
+  if(b){inB=Math.round(a?bs*c.bridge/100:bot*c.evt/100)+(+c.direct||0);bb=Math.floor(inB*c.buyB/100);rB=bb*c.check}
+  const tot=rA+rB,rows=[['Забрали лид-магнит',fmt(bot)+' чел.',bot,0]];
+  if(a)rows.push(['Купили маленький продукт',fmt(bs)+' чел.',bs,0],['Выручка ветки 1',fmt(rA)+' ₽',rA,1]);
+  if(b)rows.push(['Зашли в ветку 2',fmt(inB)+' чел.',inB,0],['Купили флагман',fmt(bb)+' чел.',bb,0],['Выручка ветки 2',fmt(rB)+' ₽',rB,1]);
   const mxP=Math.max(bot,1),mxR=Math.max(rA,rB,1);
-  $('#funnel').innerHTML=rows.map(([l,v,n],i)=>{const money=i===2||i===5;return `<div class="fr ${i===5?'last':''}"><div class="bar" style="width:${Math.max((money?n/mxR:n/mxP)*100,4)}%"></div><span>${l}</span><b>${v}</b></div>`}).join('');
-  const share=tot?Math.round(rB/tot*100):0;
-  $('#verd').innerHTML=`<div class="verd ${bb>0?'ok':'no'}"><b>Итого ${fmt(tot)} ₽.</b> ${bb>0?`Ветка 2 даёт ${share}% денег, хотя в неё заходит ${fmt(inB)} человек из ${fmt(bot)}. Ветка 1 кормит базой и окупает рекламу, деньги в профессии.`:'Ни одной продажи флагмана: усиливай мостик или прямой вход в ветку 2.'}</div>`;
-  S.pol.calcRes=`ветка 1: ${bs} покупок, ${fmt(rA)} ₽; ветка 2: ${bb} покупок, ${fmt(rB)} ₽; итого ${fmt(tot)} ₽`;save()}
+  $('#funnel').innerHTML=rows.map(([l,v,n,m],i)=>`<div class="fr ${i===rows.length-1?'last':''}"><div class="bar" style="width:${Math.max((m?n/mxR:n/mxP)*100,4)}%"></div><span>${l}</span><b>${v}</b></div>`).join('');
+  $('#verd').innerHTML=`<div class="verd ok"><b>Итого около ${fmt(tot)} ₽.</b> ${a&&b&&tot?`Ветка 1 даёт ${Math.round(rA/tot*100)}%, ветка 2 ${Math.round(rB/tot*100)}%.`:''} Это прикидка по твоим допущениям, а не прогноз.</div>`;
+  P.res={bot,bs,rA,inB,bb,rB,tot};save()}
+function mapText(){const P=S.pol,ph=phases();let t='ПРОДЮСИРОВАНИЕ ПОЛИНЫ: КАРТА ЗАПУСКА\n\nВетки: '+nm('arch')+(P.ch.arch==='own'?' ('+(P.own.arch&&P.own.arch.name||'')+')':'')+'\n';
+  branches().split('').forEach(b=>{t+='\n'+BR[b]+'. Портрет: '+(profText(P.prof[b])||'не заполнен')+(P.note[b]?'\nСвоими словами: '+P.note[b]:'')+'\n'});
+  t+='\nЭТАПЫ\n';ph.forEach(p=>{t+=`\n${p.n} (${p.br==='a'?'ветка 1':p.br==='b'?'ветка 2':'мостик'}, ${wr(p)})\n`+p.items.map(x=>'- '+x).join('\n')+'\n'+(p.why?'Нахуя: '+p.why+'\n':'')});
+  const r=P.res||{},c=P.calc||{};t+=`\nПРИКИДКА\nЗабрали лид-магнит: ${fmt(r.bot||0)}\n`;
+  if(hasA())t+=`Купили маленький продукт: ${fmt(r.bs||0)} по ${fmt(c.smallPrice||0)} ₽ = ${fmt(r.rA||0)} ₽\n`;
+  if(hasB())t+=`Зашли в ветку 2: ${fmt(r.inB||0)}, купили флагман: ${fmt(r.bb||0)} по ${fmt(c.check||0)} ₽ = ${fmt(r.rB||0)} ₽\n`;
+  t+=`Итого около ${fmt(r.tot||0)} ₽\n\nПроверь себя: `+S.quiz.ans.filter((a,i)=>a===QUIZ[i].a).length+'/'+QUIZ.length;return t}
+function copyAns(){const t=mapText(),done=()=>{toast('Карта скопирована. Отправь Мише в телегу');level('pol')};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done,()=>fb(t,done));else fb(t,done)}
+function printMap(){const w=window.open('','_blank');if(!w)return toast('Разреши всплывающие окна');w.document.write(`<!doctype html><meta charset="utf-8"><title>Карта запуска Полины</title><style>body{font-family:Onest,Arial,sans-serif;padding:32px;white-space:pre-wrap;line-height:1.5;font-size:14px;color:#08080F}</style>${esc(mapText())}`);w.document.close();w.focus();setTimeout(()=>w.print(),300);level('pol')}
+function fb(t,cb){const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();cb()}
+function stepMove(d){const vs=visSteps(),i=vs.indexOf(S.pol.step);S.pol.step=vs[Math.max(0,Math.min(vs.length-1,i+d))];save();renderWiz();$('#wiz').scrollIntoView({behavior:'smooth'})}
+$('#wPrev').onclick=()=>stepMove(-1);$('#wNext').onclick=()=>stepMove(1);
 
 
 /* ===== общее ===== */
