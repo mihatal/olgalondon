@@ -1,0 +1,1035 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="yandex" content="noindex, nofollow, noarchive">
+<title>Инструменты запуска</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#08080F; --ink2:#0E0E1A; --ink3:#141428;
+  --plum:#1A0A3B; --plum2:#250D52;
+  --violet:#5B21B6; --violet2:#7C3AED;
+  --lime:#C8FF00; --lime2:#B2E600;
+  --white:#FFFFFF; --off:#E8E8F2; --red:#FF4D4D; --amber:#FFB547;
+  --muted:rgba(232,232,242,.58); --faint:rgba(232,232,242,.24);
+  --bdk:rgba(255,255,255,.08); --blime:rgba(200,255,0,.2); --bviolet:rgba(124,58,237,.35);
+  --ez:cubic-bezier(.22,1,.36,1);
+  --gut:28px; --max:1240px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--ink);color:var(--off);font-family:'Onest',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+h1,h2,h3,h4,h5,p,ul,ol,li,figure,dl,dd{margin:0;padding:0}
+ul{list-style:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+input,select,textarea{font:inherit;color:inherit}
+a{color:inherit}
+.mono{font-family:'JetBrains Mono',monospace}
+::selection{background:var(--lime);color:var(--ink)}
+em{font-style:normal;color:var(--lime)}
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(200,255,0,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(200,255,0,.025) 1px,transparent 1px);background-size:80px 80px}
+.bg-gl{position:fixed;top:-14%;right:-10%;width:64vw;height:64vw;z-index:0;pointer-events:none;background:radial-gradient(circle,rgba(200,255,0,.06),transparent 60%);animation:glow 10s ease-in-out infinite alternate}
+.bg-gv{position:fixed;bottom:-20%;left:-14%;width:60vw;height:60vw;z-index:0;pointer-events:none;background:radial-gradient(circle,rgba(124,58,237,.12),transparent 60%);animation:glow 13s ease-in-out infinite alternate-reverse}
+@keyframes glow{from{opacity:.55;transform:scale(1)}to{opacity:1;transform:scale(1.14)}}
+main,nav,footer{position:relative;z-index:2}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+
+.prog{position:fixed;top:0;left:0;height:2px;background:var(--lime);z-index:70;width:0;box-shadow:0 0 12px var(--lime)}
+nav{position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(8,8,15,.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--bdk)}
+.nav-in{max-width:var(--max);margin:0 auto;padding:0 var(--gut);height:62px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-weight:900;font-size:14px;letter-spacing:.4px;color:var(--white);text-transform:uppercase;white-space:nowrap}
+.logo b{color:var(--lime)}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--muted);padding:8px 11px;border-radius:3px;text-decoration:none;white-space:nowrap;transition:all .2s var(--ez);display:flex;align-items:center;gap:6px}
+.tabs a:hover{color:var(--white);background:rgba(255,255,255,.04)}
+.tabs a.on{color:var(--ink);background:var(--lime)}
+.tabs a .dot{width:6px;height:6px;border-radius:50%;background:var(--faint)}
+.tabs a.done .dot{background:var(--lime);box-shadow:0 0 8px var(--lime)}
+.tabs a.on .dot{background:var(--ink);box-shadow:none}
+.xp{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.xp svg{width:34px;height:34px;transform:rotate(-90deg)}
+.xp .t{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);line-height:1.2}
+.xp .t b{color:var(--lime);font-size:13px}
+
+section{padding:110px 0 30px;position:relative}
+.h2{font-size:clamp(34px,6vw,76px);font-weight:900;line-height:.92;letter-spacing:-2.5px;text-transform:uppercase;color:var(--white);margin-bottom:20px}
+.lead{font-size:clamp(16px,1.6vw,18.5px);color:var(--muted);max-width:720px;line-height:1.6}
+.lead b{color:var(--off)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ez),transform .9s var(--ez)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border-radius:3px;font-weight:800;font-size:15px;transition:all .3s var(--ez);text-decoration:none;white-space:nowrap}
+.btn-l{background:var(--lime);color:var(--ink)}
+.btn-l:hover{transform:translateY(-2px);box-shadow:0 10px 40px rgba(200,255,0,.35)}
+.btn-g{border:1px solid var(--bdk);color:var(--off);background:rgba(255,255,255,.02)}
+.btn-g:hover{border-color:var(--blime);color:var(--white);transform:translateY(-2px)}
+.btn-s{padding:9px 14px;font-size:13px}
+.pulse{animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(200,255,0,.45)}50%{box-shadow:0 0 0 14px rgba(200,255,0,0)}}
+@keyframes sdIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes fade{to{opacity:1}}
+
+/* hero */
+.hero{min-height:92vh;display:flex;align-items:center;padding:110px 0 210px;overflow:hidden}
+.hero .spot{position:absolute;inset:0;pointer-events:none;background:radial-gradient(600px circle at var(--mx,70%) var(--my,30%),rgba(200,255,0,.07),transparent 60%)}
+.hero-grid{display:block}
+.h1{font-size:clamp(48px,9vw,128px);font-weight:900;line-height:.86;letter-spacing:-4.5px;text-transform:uppercase;color:var(--white)}
+.h1 .ln{display:block;overflow:hidden}
+.h1 .ln span{display:inline-block;transform:translateY(105%);animation:up 1.1s var(--ez) forwards}
+.h1 .ln:nth-child(2) span{animation-delay:.12s}
+@keyframes up{to{transform:none}}
+.hero-sub{font-size:clamp(17px,2vw,24px);font-weight:800;letter-spacing:-.4px;line-height:1.25;margin-top:26px;max-width:600px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.hstats{display:flex;gap:28px;flex-wrap:wrap;margin-top:38px;padding-top:24px;border-top:1px solid var(--bdk)}
+.hstats div{font-family:'JetBrains Mono',monospace}
+.hstats b{display:block;font-size:30px;color:var(--lime);letter-spacing:-1px;line-height:1}
+.hstats span{font-size:11px;color:var(--muted);letter-spacing:.5px}
+.marq{position:absolute;left:0;right:0;bottom:34px;display:grid;gap:10px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);overflow:hidden}
+.mrow{display:flex;gap:10px;width:max-content;animation:mq var(--d,60s) linear infinite}
+.mrow.r{animation-direction:reverse}
+.marq:hover .mrow{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.mrow button{white-space:nowrap;font-weight:800;padding:9px 14px;border-radius:3px;border:1px solid var(--bdk);background:rgba(14,14,26,.82);font-size:14px;color:var(--off);transition:all .25s}
+.mrow button:hover{border-color:var(--lime);color:var(--lime)}
+.mrow button.g{border-color:var(--blime);color:var(--lime)}
+.mrow button.v{border-color:var(--bviolet);background:rgba(37,13,82,.7)}
+.zz-unused{position:absolute;white-space:nowrap;font-weight:800;padding:9px 14px;border-radius:3px;border:1px solid var(--bdk);background:rgba(14,14,26,.82);font-size:14px;color:var(--off);animation:drift var(--d,9s) ease-in-out infinite;animation-delay:var(--dl,0s);opacity:0;backdrop-filter:blur(4px);transition:border-color .3s,color .3s}
+.zz1{border-color:var(--blime);color:var(--lime)}
+.zz2{border-color:var(--bviolet);background:rgba(37,13,82,.7)}
+@keyframes drift{0%{opacity:0;transform:translateY(20px)}12%{opacity:1}50%{transform:translateY(-14px)}88%{opacity:1}100%{opacity:0;transform:translateY(-34px)}}
+
+/* база */
+.base{display:grid;grid-template-columns:330px 1fr;gap:18px;margin-top:34px;align-items:start}
+.side{position:sticky;top:78px;max-height:calc(100vh - 92px);overflow:auto;border:1px solid var(--bdk);border-radius:3px;background:rgba(14,14,26,.88);padding:20px;scrollbar-width:thin;scrollbar-color:var(--violet) transparent}
+.side h3{font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:-.5px;color:var(--white);line-height:1}
+.side .sub{font-size:12.5px;color:var(--muted);margin:8px 0 14px;line-height:1.45}
+.presets{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px}
+.axis{padding:12px 0;border-top:1px solid var(--bdk)}
+.axis .an{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:800;font-size:13.5px;color:var(--white);margin-bottom:8px}
+.axis .an button{width:20px;height:20px;border-radius:50%;border:1px solid var(--faint);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);flex-shrink:0}
+.axis .an button:hover{border-color:var(--lime);color:var(--lime)}
+.axis .ah{font-size:12px;color:var(--muted);line-height:1.45;margin:-2px 0 9px;padding:9px 10px;border-left:2px solid var(--violet2);background:rgba(91,33,182,.1);display:none}
+.axis.open .ah{display:block;animation:sdIn .3s var(--ez)}
+.vals{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;padding:7px 10px;border-radius:100px;border:1px solid var(--bdk);color:var(--muted);transition:all .25s var(--ez);background:rgba(8,8,15,.55);white-space:nowrap;text-align:left}
+.chip:hover{color:var(--white);border-color:var(--faint)}
+.chip.on{background:var(--lime);border-color:var(--lime);color:var(--ink);font-weight:800}
+.chip.v.on{background:var(--violet2);border-color:var(--violet2);color:var(--white)}
+.vals .chip{white-space:normal;line-height:1.25}
+.side-foot{display:flex;gap:8px;margin-top:14px}
+.tools-top{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.search{flex:1;min-width:220px;position:relative}
+.search input{width:100%;background:rgba(14,14,26,.9);border:1px solid var(--bdk);border-radius:3px;padding:13px 14px 13px 42px;font-size:15px;color:var(--white);outline:none;transition:border-color .2s}
+.search input:focus{border-color:var(--blime)}
+.search::before{content:'⌕';position:absolute;left:14px;top:50%;transform:translateY(-52%);font-size:20px;color:var(--lime)}
+.gtabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.gtabs .chip i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:0}
+.summary-line{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted)}
+.summary-line b{color:var(--lime)}
+.mob-prof{display:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:14px}
+.tc{position:relative;text-align:left;padding:18px 18px 14px;border:1px solid var(--bdk);border-radius:3px;background:linear-gradient(170deg,rgba(20,20,40,.92),rgba(14,14,26,.92));transition:transform .35s var(--ez),border-color .3s,box-shadow .35s,opacity .4s;display:flex;flex-direction:column;min-height:186px;animation:sdIn .45s var(--ez) both}
+.tc:hover{border-color:var(--blime);box-shadow:0 24px 50px rgba(0,0,0,.4);transform:translateY(-3px)}
+.tc.neg{opacity:.5}
+.tc.neg:hover{opacity:1}
+.tc .gb{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;display:flex;align-items:center;gap:6px;color:var(--muted);margin-top:auto;padding-top:12px}
+.tc .gb i{width:8px;height:8px;border-radius:2px}
+.tc h4{font-size:17.5px;font-weight:900;color:var(--white);letter-spacing:-.3px;line-height:1.15;padding-right:62px}
+.tc p{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.45}
+.fit{position:absolute;top:14px;right:14px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;padding:4px 7px;border-radius:3px;letter-spacing:.3px}
+.fit.f2{background:var(--lime);color:var(--ink)}
+.fit.f1{background:rgba(200,255,0,.14);color:var(--lime)}
+.fit.f0{background:rgba(255,255,255,.06);color:var(--muted)}
+.fit.fm{background:rgba(255,181,71,.15);color:var(--amber)}
+.fit.fn{background:rgba(255,77,77,.16);color:#FF8A8A}
+.tc .row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tag{font-family:'JetBrains Mono',monospace;font-size:10px;padding:3px 7px;border-radius:3px;border:1px solid var(--bdk);color:var(--faint)}
+.tag.hc{color:var(--lime);border-color:var(--blime)}
+.empty{padding:40px;text-align:center;color:var(--muted);border:1px dashed var(--bdk);border-radius:3px;margin-top:14px}
+
+/* модалка */
+.modal{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(4,4,10,.74);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.modal.open{display:flex;animation:fade .3s forwards}
+.mbox{width:min(820px,100%);max-height:90vh;overflow:auto;border:1px solid var(--blime);border-radius:3px;background:linear-gradient(170deg,#141428,#0B0B16);padding:34px;position:relative;animation:pop .5s var(--ez);box-shadow:0 40px 120px rgba(0,0,0,.6)}
+@keyframes pop{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
+.mx{position:sticky;top:0;float:right;margin:-16px -16px 0 0;width:38px;height:38px;border-radius:3px;border:1px solid var(--bdk);font-size:20px;color:var(--muted);display:grid;place-items:center;background:var(--ink3);z-index:2}
+.mx:hover{color:var(--white)}
+.mbox h3{font-size:clamp(26px,4vw,40px);font-weight:900;text-transform:uppercase;letter-spacing:-1px;color:var(--white);line-height:.98}
+.mmeta{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 6px}
+.mmeta span{font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 9px;border-radius:3px;border:1px solid var(--bdk);color:var(--muted)}
+.mmeta b{color:var(--off)}
+.msum{font-size:17px;color:var(--off);line-height:1.55;margin:16px 0 4px}
+.mh{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--lime);margin:24px 0 10px}
+.steps{counter-reset:s;display:grid;gap:7px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:28px 1fr;gap:10px;font-size:15px;line-height:1.5}
+.steps li::before{content:counter(s);font-family:'JetBrains Mono',monospace;font-weight:800;color:var(--ink);background:var(--lime);width:22px;height:22px;border-radius:3px;display:grid;place-items:center;font-size:11px;margin-top:2px}
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pc div{padding:14px 16px;border-radius:3px;font-size:14px;line-height:1.5}
+.pc .p{background:rgba(200,255,0,.05);border:1px solid var(--blime)}
+.pc .c{background:rgba(255,77,77,.05);border:1px solid rgba(255,77,77,.3)}
+.pc b{display:block;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:1px;margin-bottom:6px}
+.pc .p b{color:var(--lime)}.pc .c b{color:#FF8A8A}
+.fitlist{display:grid;gap:6px}
+.fl{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:14px;line-height:1.45;padding:9px 12px;border-radius:3px;background:rgba(8,8,15,.5);border:1px solid var(--bdk)}
+.fl .k{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;padding:3px 7px;border-radius:3px;white-space:nowrap}
+.fl.pos .k{background:rgba(200,255,0,.14);color:var(--lime)}
+.fl.neg .k{background:rgba(255,77,77,.15);color:#FF8A8A}
+.fl.me{border-color:var(--blime);background:rgba(200,255,0,.04)}
+.fl.me.neg{border-color:rgba(255,77,77,.5);background:rgba(255,77,77,.05)}
+.fl small{color:var(--muted);display:block;font-size:12px}
+.metric{padding:14px 16px;border-left:3px solid var(--violet2);background:rgba(91,33,182,.12);font-size:14.5px;line-height:1.5;border-radius:0 3px 3px 0}
+.metric a{color:var(--lime);font-family:'JetBrains Mono',monospace;font-size:11px;margin-left:6px}
+.case{padding:18px;border:1px solid var(--blime);border-radius:3px;background:linear-gradient(160deg,rgba(200,255,0,.05),rgba(14,14,26,.5))}
+.case h5{font-size:17px;font-weight:900;color:var(--white);line-height:1.25}
+.case p{font-size:14.5px;line-height:1.55;margin-top:8px}
+.case .nums{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.case .nums span{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;color:var(--lime);background:rgba(200,255,0,.08);padding:4px 8px;border-radius:3px}
+.case a{display:inline-block;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--lime)}
+.case+.case{margin-top:8px}
+.combo{display:flex;flex-wrap:wrap;gap:6px}
+.mfoot{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px;padding-top:18px;border-top:1px solid var(--bdk)}
+
+/* квиз */
+.quiz{max-width:900px;margin-top:30px}
+.qhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.qdots{display:flex;gap:5px;flex-wrap:wrap}
+.qdots i{width:24px;height:6px;border-radius:2px;background:rgba(255,255,255,.08)}
+.qdots i.cur{background:var(--off)}.qdots i.ok{background:var(--lime)}.qdots i.no{background:var(--red)}
+.qcard{border:1px solid var(--bdk);border-radius:3px;background:rgba(14,14,26,.85);padding:32px;animation:sdIn .5s var(--ez)}
+.qcase{font-size:15px;color:var(--muted);line-height:1.55;padding:14px 16px;border-left:3px solid var(--violet2);background:rgba(91,33,182,.1);margin-bottom:18px}
+.qcase b{color:var(--white)}
+.qcard h3{font-size:clamp(20px,2.4vw,28px);font-weight:900;color:var(--white);letter-spacing:-.5px;line-height:1.2}
+.opts{display:grid;gap:8px;margin-top:20px}
+.opt{text-align:left;padding:15px 17px;border:1px solid var(--bdk);border-radius:3px;font-size:15px;background:rgba(8,8,15,.55);transition:all .3s var(--ez);display:grid;grid-template-columns:28px 1fr;gap:12px}
+.opt .k{font-family:'JetBrains Mono',monospace;font-weight:800;color:var(--faint);font-size:13px;padding-top:1px}
+.opt:hover:not([disabled]){border-color:var(--blime);transform:translateX(4px)}
+.opt.ok{border-color:var(--lime);background:rgba(200,255,0,.08)}.opt.ok .k{color:var(--lime)}
+.opt.no{border-color:rgba(255,77,77,.6);background:rgba(255,77,77,.07);animation:shake .4s}
+.opt[disabled]{cursor:default}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.expl{margin-top:16px;padding:15px 17px;border-left:3px solid var(--lime);background:rgba(200,255,0,.04);font-size:15px;line-height:1.55;animation:sdIn .4s var(--ez)}
+.expl button{color:var(--lime);text-decoration:underline;font-weight:700}
+.qnav{display:flex;justify-content:flex-end;margin-top:18px}
+.qres{text-align:center;padding:46px 26px}
+.qres .big{font-family:'JetBrains Mono',monospace;font-size:clamp(70px,12vw,140px);font-weight:800;color:var(--lime);line-height:1;letter-spacing:-5px}
+.qres p{font-size:18px;color:var(--muted);margin:16px auto 24px;max-width:480px}
+
+/* конструктор */
+.cons{display:grid;grid-template-columns:1.3fr .7fr;gap:14px;margin-top:30px;align-items:start}
+.panel{border:1px solid var(--bdk);border-radius:3px;background:rgba(14,14,26,.85);padding:26px;position:relative}
+.lbl{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:2px 0 9px;display:block}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.profbox{padding:13px 15px;border:1px dashed var(--bviolet);border-radius:3px;font-size:13.5px;line-height:1.5;color:var(--muted);margin-bottom:16px}
+.profbox b{color:var(--white)}
+.profbox button{color:var(--lime);text-decoration:underline;font-weight:700;font-size:13px}
+.slots{display:grid;gap:9px;margin-top:6px}
+.slot{display:grid;grid-template-columns:40px 1fr;gap:12px;padding:13px;border:1px solid var(--bdk);border-radius:3px;background:rgba(8,8,15,.55);transition:border-color .3s}
+.slot.filled{border-color:rgba(200,255,0,.25)}
+.slot .sl{width:40px;height:40px;border-radius:3px;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-weight:800;font-size:14px}
+.slot .nm{font-weight:800;font-size:14px;color:var(--white)}
+.slot .nm small{font-weight:500;color:var(--muted);font-size:12px;margin-left:6px}
+.picked{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pt{display:inline-flex;align-items:center;gap:8px;padding:7px 8px 7px 11px;border-radius:3px;font-size:13px;font-weight:700;border:1px solid var(--bdk);background:var(--ink3);color:var(--white);animation:sdIn .35s var(--ez)}
+.pt .d{width:8px;height:8px;border-radius:50%}
+.pt button{width:20px;height:20px;border-radius:3px;color:var(--muted);font-size:14px}
+.pt button:hover{color:var(--red);background:rgba(255,77,77,.1)}
+.addb{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:3px;border:1px dashed var(--faint);font-size:12.5px;font-weight:700;color:var(--muted);transition:all .2s}
+.addb:hover{border-color:var(--lime);color:var(--lime)}
+.why-in{width:100%;margin-top:8px;background:transparent;border:0;border-bottom:1px dashed var(--faint);padding:6px 2px;font-size:13px;color:var(--off);outline:none}
+.why-in:focus{border-bottom-color:var(--lime)}
+.why-in::placeholder{color:var(--faint)}
+.score-box{position:sticky;top:80px}
+.ring{display:flex;align-items:center;gap:18px}
+.ring svg{width:120px;height:120px;transform:rotate(-90deg);flex-shrink:0}
+.ring circle{fill:none;stroke-width:10}
+.ring .bg{stroke:rgba(255,255,255,.07)}
+.ring .fg{stroke:var(--lime);stroke-linecap:round;transition:stroke-dashoffset 1s var(--ez),stroke .4s}
+.ring-n{position:relative}
+.ring-n .v{position:absolute;inset:0;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:34px;font-weight:800;color:var(--white)}
+.verdict{font-size:20px;font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.05}
+.vsub{font-size:13px;color:var(--muted);margin-top:6px}
+.checks{display:grid;gap:7px;margin-top:18px}
+.ck{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:13.5px;line-height:1.45;padding:10px 12px;border-radius:3px;background:rgba(8,8,15,.5);border:1px solid var(--bdk);animation:sdIn .4s var(--ez) both}
+.ck .ic{width:22px;height:22px;border-radius:3px;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-weight:800;font-size:12px}
+.ck.ok .ic{background:rgba(200,255,0,.14);color:var(--lime)}
+.ck.warn .ic{background:rgba(255,181,71,.15);color:var(--amber)}
+.ck.bad .ic{background:rgba(255,77,77,.15);color:var(--red)}
+.ck b{color:var(--white)}
+.tl{margin-top:18px}
+.tl-bar{display:flex;height:38px;border-radius:3px;overflow:hidden;gap:2px}
+.tl-bar div{display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;color:var(--ink);min-width:0;overflow:hidden;white-space:nowrap;transition:flex-grow .8s var(--ez)}
+.tl-leg{display:flex;justify-content:space-between;gap:12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:8px}
+.tl-leg b{color:var(--lime);white-space:nowrap}
+.pmode{display:none;align-items:center;gap:12px;padding:11px 13px;border:1px solid var(--blime);border-radius:3px;background:rgba(200,255,0,.05);margin-bottom:14px;font-size:14px}
+.pmode.show{display:flex}
+.pmode img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--lime)}
+.picker{display:grid;gap:7px;margin-top:16px}
+.pick-it{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;text-align:left;padding:13px 15px;border:1px solid var(--bdk);border-radius:3px;background:rgba(8,8,15,.5);transition:all .25s var(--ez)}
+.pick-it:hover{border-color:var(--blime);transform:translateX(3px)}
+.pick-it.in{border-color:var(--lime);background:rgba(200,255,0,.06)}
+.pick-it b{color:var(--white);font-size:15px}
+.pick-it small{display:block;color:var(--muted);font-size:12.5px;margin-top:3px}
+
+/* Полина */
+.pol-hero{display:grid;grid-template-columns:.75fr 1.25fr;gap:44px;align-items:center;margin-top:26px}
+.vwin{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:9/14;border:2px solid var(--lime);box-shadow:0 0 0 6px rgba(200,255,0,.08),0 0 70px rgba(200,255,0,.25),0 40px 80px rgba(0,0,0,.5);max-width:380px;background:var(--ink3)}
+.vwin video{width:100%;height:100%;object-fit:cover;display:block}
+.vwin .rec{position:absolute;top:14px;left:14px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--white);background:rgba(8,8,15,.6);padding:5px 9px;border-radius:3px;display:flex;align-items:center;gap:7px}
+.vwin .rec i{width:7px;height:7px;border-radius:50%;background:var(--red);animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.2}}
+.pol-name{font-size:clamp(42px,7.5vw,104px);font-weight:900;text-transform:uppercase;letter-spacing:-4px;line-height:.85;color:var(--white)}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:26px}
+.fact{padding:17px;border:1px solid var(--bdk);border-radius:3px;background:rgba(14,14,26,.78)}
+.fact .n{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:800;color:var(--lime);line-height:1;letter-spacing:-1px}
+.fact .l{font-size:13px;color:var(--muted);margin-top:7px;line-height:1.4}
+.smysl{margin-top:14px;display:grid;gap:8px}
+.smysl div{padding:13px 15px;border-left:3px solid var(--violet2);background:rgba(91,33,182,.12);font-size:15px;line-height:1.5;border-radius:0 3px 3px 0}
+.smysl b{color:var(--white)}
+.gal{display:flex;gap:12px;overflow-x:auto;padding:30px 4px 20px;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--violet) transparent}
+.gal figure{flex:0 0 auto;width:200px;aspect-ratio:9/14;border-radius:3px;overflow:hidden;scroll-snap-align:start;border:1px solid var(--bdk);transition:transform .5s var(--ez),border-color .3s;background:var(--ink3)}
+.gal figure:nth-child(odd){transform:rotate(-1.4deg)}
+.gal figure:nth-child(even){transform:rotate(1.4deg) translateY(10px)}
+.gal figure:hover{transform:rotate(0) scale(1.04);border-color:var(--lime)}
+.gal img{width:100%;height:100%;object-fit:cover;display:block}
+.gal figure.sq{aspect-ratio:1/1;width:230px;align-self:center}
+.wiz{margin-top:26px;border:1px solid var(--bdk);border-radius:3px;background:rgba(14,14,26,.88);overflow:hidden}
+.wiz-top{display:flex;gap:4px;padding:14px 18px;border-bottom:1px solid var(--bdk);overflow-x:auto;scrollbar-width:none}
+.wiz-top::-webkit-scrollbar{display:none}
+.wstep{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--faint);padding:7px 10px;border-radius:3px;white-space:nowrap;display:flex;align-items:center;gap:7px}
+.wstep i{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;display:grid;place-items:center;font-style:normal;font-size:10px}
+.wstep.cur{color:var(--ink);background:var(--lime)}
+.wstep.done{color:var(--lime)}
+.wiz-body{padding:32px}
+.wiz-body h3{font-size:clamp(24px,3vw,36px);font-weight:900;text-transform:uppercase;letter-spacing:-1px;color:var(--white);line-height:1}
+.wiz-body .q{font-size:16px;color:var(--muted);margin-top:10px;max-width:740px}
+.pick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
+.pk{text-align:left;padding:19px;border:1px solid var(--bdk);border-radius:3px;background:rgba(8,8,15,.55);transition:all .35s var(--ez);position:relative}
+.pk:hover{border-color:var(--blime);transform:translateY(-3px)}
+.pk h5{font-size:17px;font-weight:900;color:var(--white);line-height:1.2;padding-right:40px}
+.pk .pr{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--lime);margin-top:6px;display:block}
+.pk p{font-size:13.5px;color:var(--muted);margin-top:7px;line-height:1.45}
+.pk .mk{position:absolute;top:15px;right:15px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-weight:800;font-size:13px;opacity:0;transform:scale(.4);transition:all .4s var(--ez)}
+.pk.sel-ok{border-color:var(--lime);background:rgba(200,255,0,.06)}.pk.sel-ok .mk{opacity:1;transform:none;background:var(--lime);color:var(--ink)}
+.pk.sel-mid{border-color:var(--amber);background:rgba(255,181,71,.06)}.pk.sel-mid .mk{opacity:1;transform:none;background:var(--amber);color:var(--ink)}
+.pk.sel-no{border-color:var(--red);background:rgba(255,77,77,.06)}.pk.sel-no .mk{opacity:1;transform:none;background:var(--red);color:var(--white)}
+.fb{margin-top:14px;padding:15px 17px;border-radius:3px;font-size:15px;line-height:1.55;animation:sdIn .45s var(--ez)}
+.fb.ok{border-left:3px solid var(--lime);background:rgba(200,255,0,.05)}
+.fb.mid{border-left:3px solid var(--amber);background:rgba(255,181,71,.06)}
+.fb.no{border-left:3px solid var(--red);background:rgba(255,77,77,.06)}
+.fb b{color:var(--white)}
+.axq{display:grid;gap:12px;margin-top:20px}
+.axq .row{display:grid;grid-template-columns:220px 1fr;gap:14px;align-items:center;padding:12px 0;border-top:1px solid var(--bdk)}
+.axq .row b{color:var(--white);font-size:14.5px}
+.axq .res{grid-column:2;font-size:13.5px;line-height:1.45;padding:9px 12px;border-radius:3px;animation:sdIn .35s var(--ez)}
+.axq .res.ok{background:rgba(200,255,0,.06);color:var(--off)}
+.axq .res.no{background:rgba(255,181,71,.07);color:var(--off)}
+.wiz-nav{display:flex;justify-content:space-between;gap:10px;padding:16px 32px;border-top:1px solid var(--bdk);background:rgba(8,8,15,.4)}
+.calc{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px;margin-top:22px}
+.cin{display:grid;gap:9px}
+.cin label{display:grid;grid-template-columns:1fr 130px;gap:10px;align-items:center;font-size:14px}
+.cin input{background:var(--ink3);border:1px solid var(--bdk);border-radius:3px;padding:10px 12px;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--lime);text-align:right;width:100%;outline:none}
+.funnel{display:grid;gap:6px}
+.fr{position:relative;display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-radius:3px;overflow:hidden;font-size:14px;border:1px solid var(--bdk)}
+.fr .bar{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,rgba(124,58,237,.35),rgba(124,58,237,.08));transition:width .8s var(--ez)}
+.fr span,.fr b{position:relative}
+.fr b{font-family:'JetBrains Mono',monospace;font-size:17px;color:var(--white)}
+.fr.last .bar{background:linear-gradient(90deg,rgba(200,255,0,.35),rgba(200,255,0,.06))}
+.fr.last b{color:var(--lime)}
+.verd{margin-top:10px;padding:15px;border-radius:3px;font-size:15px;line-height:1.5}
+.verd.ok{background:rgba(200,255,0,.07);border:1px solid var(--blime)}
+.verd.no{background:rgba(255,77,77,.07);border:1px solid rgba(255,77,77,.4)}
+.verd b{color:var(--white)}
+.hint{font-size:12.5px;color:var(--faint);margin-top:5px}
+.whys{display:grid;gap:14px;margin-top:20px}
+.whys label{display:block;font-weight:800;color:var(--white);font-size:15px;margin-bottom:6px}
+.whys textarea{width:100%;min-height:72px;background:var(--ink3);border:1px solid var(--bdk);border-radius:3px;padding:12px 14px;font-size:14.5px;color:var(--off);resize:vertical;outline:none;line-height:1.5}
+.whys textarea:focus{border-color:var(--blime)}
+.ref{margin-top:18px;border:1px solid var(--blime);border-radius:3px;padding:24px;background:linear-gradient(160deg,rgba(200,255,0,.05),rgba(14,14,26,.6));display:none}
+.ref.show{display:block;animation:sdIn .6s var(--ez)}
+.ref h4{font-size:22px;font-weight:900;color:var(--white);text-transform:uppercase;margin-bottom:14px}
+.ref ol{counter-reset:r;display:grid;gap:9px}
+.ref li{counter-increment:r;display:grid;grid-template-columns:34px 1fr;gap:12px;font-size:15px;line-height:1.5}
+.ref li::before{content:counter(r,decimal-leading-zero);font-family:'JetBrains Mono',monospace;font-weight:800;color:var(--lime);font-size:14px;padding-top:2px}
+.ref li b{color:var(--white)}
+.ref .note{font-size:13px;color:var(--muted);margin-top:14px}
+.summ{display:grid;margin-top:18px}
+.summ div{display:grid;grid-template-columns:160px 1fr;gap:12px;font-size:14px;padding:10px 0;border-bottom:1px solid var(--bdk)}
+.summ dt{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding-top:2px}
+.summ dd{color:var(--white)}
+
+footer{padding:70px 0 50px;border-top:1px solid var(--bdk);margin-top:70px}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint)}
+.foot button{color:var(--muted);text-decoration:underline;font-size:11px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,220%);visibility:hidden;z-index:100;background:var(--lime);color:var(--ink);padding:13px 20px;border-radius:3px;font-weight:800;font-size:15px;box-shadow:0 20px 60px rgba(200,255,0,.35);transition:transform .6s var(--ez),visibility .6s;max-width:calc(100vw - 32px)}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:95}
+
+@media (max-width:1020px){
+  .hero-grid,.cons,.pol-hero,.calc,.base{grid-template-columns:1fr}
+  .side{position:fixed;inset:62px 0 0 0;max-height:none;z-index:80;transform:translateX(-102%);transition:transform .45s var(--ez);border-radius:0;background:var(--ink2);padding-bottom:90px}
+  .side-foot{position:sticky;bottom:0;background:var(--ink2);padding:12px 0}
+  .side.open{transform:none}
+  .mob-prof{display:flex;position:sticky;top:70px;z-index:20;margin-top:12px}
+  .mob-prof .btn{width:100%;justify-content:center}
+  .score-box{position:relative;top:0}
+  .vwin{max-width:300px}
+  .xp .t{display:none}
+}
+@media (max-width:640px){
+  :root{--gut:16px}
+  section{padding:92px 0 24px}
+  .h1{letter-spacing:-2.5px}
+  .h2{letter-spacing:-1.5px}
+  .pick,.facts,.pc{grid-template-columns:1fr}
+  .summ div,.axq .row{grid-template-columns:1fr;gap:6px}
+  .axq .res{grid-column:1}
+  .mbox,.qcard,.wiz-body,.panel{padding:20px}
+  .wiz-nav{padding:13px 20px}
+  .cin label{grid-template-columns:1fr 110px}
+  .logo{display:none}
+  .hero{padding-bottom:180px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.h1 .ln span{transform:none}}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div><div class="bg-gl"></div><div class="bg-gv"></div>
+<div class="prog" id="prog"></div>
+<canvas id="cf"></canvas>
+<div class="toast" id="toast"></div>
+
+<nav><div class="nav-in">
+  <div class="logo">Запуск <b>·</b> инструменты</div>
+  <div class="tabs" id="tabs">
+    <a href="#base" data-lv="base"><span class="dot"></span>База</a>
+    <a href="#quiz" data-lv="quiz"><span class="dot"></span>Проверь себя</a>
+    <a href="#build" data-lv="build"><span class="dot"></span>Собери запуск</a>
+    <a href="#polina" data-lv="pol"><span class="dot"></span>Полина</a>
+  </div>
+  <div class="xp"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="4"/><circle id="xpc" cx="18" cy="18" r="15" fill="none" stroke="#C8FF00" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.25" stroke-dashoffset="94.25" style="transition:stroke-dashoffset 1s cubic-bezier(.22,1,.36,1)"/></svg><div class="t">уровни<br><b id="xpn">0</b> из 4</div></div>
+</div></nav>
+
+<main>
+<section class="hero">
+  <div class="spot"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <h1 class="h1"><span class="ln"><span>Инструменты</span></span><span class="ln"><span><em>запуска</em></span></span></h1>
+      <p class="hero-sub">Опиши свою аудиторию, и база покажет, какие инструменты на неё сработают, а какие будут мимо. С публичными кейсами и цифрами.</p>
+      <div class="hero-cta"><a href="#base" class="btn btn-l pulse">Открыть базу →</a><a href="#polina" class="btn btn-g">Практика на Полине</a></div>
+      <div class="hstats"><div><b id="stT">0</b><span>инструментов</span></div><div><b id="stC">0</b><span>публичных кейсов</span></div><div><b>9</b><span>характеристик ЦА</span></div><div><b>6</b><span>этапов запуска</span></div></div>
+    </div>
+    </div>
+  <div class="marq" id="marq"></div>
+</section>
+
+<section id="base">
+  <div class="wrap">
+    <h2 class="h2 reveal">База <em>инструментов</em></h2>
+    <p class="lead reveal d1">Слева портрет аудитории: девять характеристик, по которым инструменты реально отличаются. Выбери пресет или собери свой, и карточки отсортируются от «отлично подходит» до «мимо». В каждой карточке: как сделать, ориентиры по цифрам, кому лучше и хуже, публичный кейс.</p>
+    <div class="mob-prof"><button class="btn btn-l" id="openSide">Портрет аудитории <span id="profCnt"></span></button></div>
+    <div class="base">
+      <aside class="side" id="side">
+        <h3>Портрет <em>ЦА</em></h3>
+        <p class="sub">Пресеты это типовые аудитории. Нажми ⓘ у характеристики, там вопрос, по которому её определить.</p>
+        <div class="presets" id="presets"></div>
+        <div id="axes"></div>
+        <div class="side-foot"><button class="btn btn-g btn-s" id="clrProf">Сбросить</button><button class="btn btn-l btn-s" id="closeSide" style="display:none">Показать инструменты</button></div>
+      </aside>
+      <div>
+        <div class="tools-top"><div class="search"><input id="q" placeholder="Поиск: квиз, вебинар, дедлайн, Telegram…"></div></div>
+        <div class="gtabs" id="gtabs"></div>
+        <div class="summary-line" id="sumLine"></div>
+        <div class="grid" id="grid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="wrap">
+    <h2 class="h2 reveal">Проверь <em>себя</em></h2>
+    <p class="lead reveal d1">Десять ситуаций с реальными аудиториями. Выбираешь инструмент, сразу видишь разбор. Из разбора можно открыть карточку инструмента. Уровень засчитывается с семи правильных.</p>
+    <div class="quiz" id="quizBox"></div>
+  </div>
+</section>
+
+<section id="build">
+  <div class="wrap">
+    <h2 class="h2 reveal">Собери <em>запуск</em></h2>
+    <p class="lead reveal d1">Портрет ЦА берётся из базы. Добавляй инструменты на каждый этап: тренажёр сразу проверяет, подходят ли они аудитории, хватает ли окон продаж, не надорвётся ли эксперт и сколько недель займёт запуск.</p>
+    <div class="cons">
+      <div class="panel reveal">
+        <div class="pmode" id="pmode"><img src="img/p5186.jpg" alt=""><div><b style="color:var(--white)">Режим «Полина».</b> Собираешь запуск для неё, портрет из шага 2.</div></div>
+        <div class="profbox" id="profbox"></div>
+        <span class="lbl">Чек основного продукта</span>
+        <div class="seg" id="cPrice"></div>
+        <span class="lbl">Готовые схемы из публичных кейсов</span>
+        <div class="seg" id="recipes"></div>
+        <div class="slots" id="slots"></div>
+        <div style="display:flex;gap:8px;margin-top:12px"><button class="btn btn-g btn-s" id="clearC">Очистить</button></div>
+      </div>
+      <div class="panel score-box reveal d1">
+        <div class="ring"><div class="ring-n"><svg viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="50"/><circle class="fg" id="ringFg" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="314.16"/></svg><div class="v" id="ringV">0</div></div>
+          <div><div class="verdict" id="verdict">Пусто</div><div class="vsub" id="vsub">Добавь инструменты слева</div></div></div>
+        <div class="tl" id="tl"></div>
+        <div class="checks" id="checks"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="polina">
+  <div class="wrap">
+    <h2 class="h2 reveal">Твой первый <em>клиент</em></h2>
+    <div class="pol-hero">
+      <div class="vwin reveal"><video src="img/loop.mp4" poster="img/p5193.jpg" autoplay muted loop playsinline></video><div class="rec"><i></i>КЕЙС</div></div>
+      <div class="reveal d1">
+        <div class="pol-name">Полина<br>фокусница</div>
+        <div class="facts">
+          <div class="fact"><div class="n">7 000</div><div class="l">подписчиков в Instagram</div></div>
+          <div class="fact"><div class="n">0</div><div class="l">продаж: прогрева и событий не было никогда</div></div>
+          <div class="fact"><div class="n">20 лет</div><div class="l">выступает на корпоративах и сценах</div></div>
+          <div class="fact"><div class="n">50 000 ₽</div><div class="l">за выступление, около 200 000 ₽ в месяц</div></div>
+        </div>
+        <div class="smysl">
+          <div><b>Смысл 1. Душа компании.</b> Научись фокусам, удиви друзей, покажи фокус в лесу, и все офигеют.</div>
+          <div><b>Смысл 2. Фокусы как профессия.</b> В 20 лет зарабатываю 200 тысяч в месяц любимым делом. Хочешь так же?</div>
+        </div>
+      </div>
+    </div>
+    <div class="gal">
+      <figure><img src="img/p5193.jpg" alt="" loading="lazy"></figure>
+      <figure class="sq"><img src="img/p5181.jpg" alt="" loading="lazy"></figure>
+      <figure><img src="img/p5198.jpg" alt="" loading="lazy"></figure>
+      <figure><img src="img/p5197.jpg" alt="" loading="lazy"></figure>
+      <figure class="sq"><img src="img/p5182.jpg" alt="" loading="lazy"></figure>
+      <figure><img src="img/p5195.jpg" alt="" loading="lazy"></figure>
+      <figure><img src="img/p5190.jpg" alt="" loading="lazy"></figure>
+      <figure><img src="img/p5187.jpg" alt="" loading="lazy"></figure>
+      <figure class="sq"><img src="img/p5179.jpg" alt="" loading="lazy"></figure>
+      <figure><img src="img/p5194.jpg" alt="" loading="lazy"></figure>
+    </div>
+    <p class="lead reveal">Ты продюсер Полины. На каждом шаге выбираешь из вариантов и сразу видишь разбор. Сначала портрет аудитории, потом продукт, потом запуск в конструкторе. В конце сверяешься с вариантом Миши и отправляешь ему ответы.</p>
+    <div class="wiz reveal d1" id="wiz"><div class="wiz-top" id="wizTop"></div><div class="wiz-body" id="wizBody"></div>
+      <div class="wiz-nav"><button class="btn btn-g btn-s" id="wPrev">← Назад</button><button class="btn btn-l btn-s" id="wNext">Дальше →</button></div></div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap foot"><span>Для Стаси · база инструментов запуска · октябрь 2026</span><span>Фирстиль Оли Лондон · <button id="reset">сбросить прогресс</button></span></div></footer>
+<div class="modal" id="modal"><div class="mbox" id="mbox"></div></div>
+
+<script>
+const GROUPS={
+ in:{n:'Вход и база',c:'#E8E8F2',s:'Как человек впервые попадает к тебе: подписка, бот, почта.'},
+ warm:{n:'Прогрев',c:'#7C3AED',dark:1,s:'Контентные механики, которые заполняют доверие до продажи.'},
+ free:{n:'Бесплатное событие',c:'#C8FF00',s:'Событие, на котором делаем предложение. Человек платит временем.'},
+ paid:{n:'Платный вход',c:'#FFB547',s:'Недорогой продукт до основного: отсеивает халявщиков и продаёт дальше.'},
+ sale:{n:'Личная продажа',c:'#A78BFA',dark:1,s:'Разговор один на один, где закрывается сделка.'},
+ close:{n:'Дожим',c:'#FF4D4D',dark:1,s:'Причина купить сегодня, а не «потом подумаю».'}
+};
+const AXES=[
+ {k:'aw',n:'Осведомлённость',h:'Спроси, как она сама называет свою проблему и что уже пробовала. Не может назвать проблему: не знает о ней. Перечисляет курсы и экспертов: сравнивает решения. Это лестница Юджина Шварца.',v:[['cold','Не знает о проблеме'],['prob','Знает проблему, ищет решение'],['sol','Сравнивает решения и экспертов'],['hot','Знает тебя и продукт']]},
+ {k:'time',n:'Время и внимание',h:'Когда она смотрит контент и сколько раз в день открывает телеграм? Есть ли два свободных вечера подряд? Досматривает ли длинные видео?',v:[['free','Есть вечера и выходные'],['frag','Урывками, с телефона'],['none','Дефицит, работает по 10-12 часов']]},
+ {k:'dig',n:'Цифровая уверенность',h:'Была ли в Zoom, оплачивала ли по ссылке из бота, заполняла ли формы? Сама нашла тебя в сети или ей переслали?',v:[['hi','Свободно: Zoom, боты, оплата в два клика'],['mid','Средне: справится по инструкции'],['lo','Слабо: техника пугает']]},
+ {k:'dec',n:'Как принимает решение',h:'Как принимала последнее крупное решение о покупке? С кем советовалась? Нужны ли ей цифры, договор, гарантия?',v:[['imp','Эмоционально и быстро'],['rat','Рационально: цифры, кейсы, гарантии'],['col','Не одна: согласует с семьёй или руководством']]},
+ {k:'money',n:'Деньги',h:'Сколько тратила на обучение за год? Какая сумма для неё «дорого»? Спрашивает ли про рассрочку первым же вопросом?',v:[['tight','Считает каждую тысячу'],['mid','Платит за понятную пользу'],['rich','Время дороже денег']]},
+ {k:'soc',n:'Социальность',h:'Пишет ли в комментариях и чатах, включает ли камеру на эфирах, ходит ли на встречи? Или читает молча годами?',v:[['group','Любит чат, движ, включает камеру'],['solo','Наблюдатель, смотрит молча']]},
+ {k:'skep',n:'Опыт с онлайн-обучением',h:'Покупала ли курсы? Чем закончилось? Как говорит про «инфоцыган»?',v:[['new','Никогда не покупала'],['open','Покупала, доверяет формату'],['burnt','Обжигалась, скептик']]},
+ {k:'fmt',n:'Любимый формат',h:'Что потребляет в дороге и дома: каналы, подкасты, ютуб, живые встречи?',v:[['read','Читает'],['listen','Слушает'],['watch','Смотрит видео'],['live','Живое общение']]},
+ {k:'mot',n:'Мотив',h:'Что звучит в её словах чаще: «надоело, устала, не могу больше» или «хочу, мечтаю, вот бы»?',v:[['pain','Уйти от боли'],['dream','Прийти к мечте или статусу']]}
+];
+const PRESETS={
+ tutors:{n:'Репетиторы и педагоги',p:{aw:'prob',time:'frag',dig:'hi',dec:'imp',money:'tight',soc:'group',skep:'open',fmt:'watch',mot:'dream'}},
+ doctors:{n:'Врачи и стоматологи',p:{aw:'sol',time:'none',dig:'lo',dec:'rat',money:'rich',soc:'solo',skep:'burnt',fmt:'read',mot:'pain'}},
+ moms:{n:'Мамы в декрете',p:{aw:'prob',time:'frag',dig:'hi',dec:'imp',money:'tight',soc:'group',skep:'open',fmt:'listen',mot:'dream'}},
+ smb:{n:'Владельцы малого бизнеса',p:{aw:'sol',time:'none',dig:'mid',dec:'rat',money:'rich',soc:'solo',skep:'burnt',fmt:'read',mot:'pain'}},
+ corp:{n:'Компании, B2B-обучение',p:{aw:'sol',time:'none',dig:'mid',dec:'col',money:'rich',soc:'solo',skep:'open',fmt:'read',mot:'pain'}},
+ students:{n:'Студенты, вход в профессию',p:{aw:'cold',time:'free',dig:'hi',dec:'imp',money:'tight',soc:'group',skep:'new',fmt:'watch',mot:'dream'}},
+ w45:{n:'Женщины 45+, здоровье',p:{aw:'prob',time:'free',dig:'lo',dec:'imp',money:'mid',soc:'group',skep:'burnt',fmt:'live',mot:'pain'}},
+ experts:{n:'Эксперты и блогеры',p:{aw:'sol',time:'frag',dig:'hi',dec:'rat',money:'mid',soc:'group',skep:'open',fmt:'listen',mot:'dream'}}
+};
+
+const TOOLS=[
+/* ===== ВХОД И БАЗА ===== */
+{id:'kw',g:'in',n:'Кодовое слово под рилзом',s:'В рилзе или посте призыв написать слово в директ или комментарий, бот присылает подарок и забирает человека в базу.',how:['Сними рилз с одной болью и обещанием подарка','Настрой автоответ на слово (ManyChat, Salebot, Leadteh)','Бот отдаёт подарок и просит подписаться на канал или бота','Дальше человек попадает в цепочку прогрева'],pro:'Почти бесплатный и самый массовый вход. Комментарии со словом ещё и разгоняют охват рилза.',con:'Много случайных людей «за подарком». Без цепочки после выдачи база быстро остывает.',load:1,cost:0,f:[['dig','hi',2,'Написать слово и перейти в бота для неё привычно.'],['dig','lo',-2,'Слово, директ, бот: на каждом шаге теряется половина.'],['fmt','watch',1,'Рилз это видео, вход совпадает с форматом.'],['aw','cold',1,'Ловит тех, кто ещё не ищет решение, но узнал себя в ролике.'],['time','frag',1,'Действие на 10 секунд прямо из ленты.'],['dec','col',-1,'Компании так не заходят: им нужен сайт и менеджер.']],combo:['videolesson','guide','chain'],kw:'manychat директ комментарий рилс reels инстаграм'},
+{id:'guide',g:'in',n:'Гайд или чек-лист',s:'Полезный файл на одну конкретную задачу: список, пошаговая инструкция, шпаргалка.',how:['Выбери одну частую боль, решаемую за 10 минут чтения','Сделай 3-7 страниц, сразу с действием в конце','Последняя страница: кто ты и куда идти дальше','Выдавай через бота, чтобы человек остался в базе'],pro:'Делается за вечер, работает годами. Нравится рациональным: можно сохранить и переслать.',con:'Скачивают и не открывают. Сам по себе почти не продаёт, нужен следующий шаг.',load:1,cost:0,f:[['fmt','read',2,'Читающая аудитория откроет и сохранит.'],['dec','rat',1,'Конкретика и структура дают ощущение пользы.'],['time','none',1,'Две страницы можно прочитать между делами.'],['fmt','watch',-1,'Тем, кто смотрит, файл неинтересен, выбери видео.'],['aw','cold',-1,'Холодный не скачает гайд по проблеме, которой у себя не видит.']],combo:['kw','chain','minicourse'],kw:'pdf лид-магнит чеклист шпаргалка файл'},
+{id:'videolesson',g:'in',n:'Видео-урок в боте',s:'Короткий урок на 10-30 минут: эксперт виден живьём с первого касания и сразу даёт результат.',how:['Одна задача, которую можно решить по ходу просмотра','Запиши без монтажа, но со звуком и светом','В конце мостик к событию или продукту','Бот выдаёт и через сутки спрашивает, посмотрел ли'],pro:'Создаёт доверие быстрее текста: голос, манера, энергия эксперта.',con:'Досматривают не все. Нужен хороший первый кадр и обещание результата.',load:2,cost:0,f:[['fmt','watch',2,'Ровно её формат.'],['skep','burnt',1,'Скептик увидит живого человека, а не обещания.'],['time','none',-1,'Полчаса видео занятые откладывают навсегда, делай до 10 минут.'],['fmt','read',-1,'Читающим удобнее текст с картинками.'],['aw','prob',1,'Ищет решение, получает первый шаг сразу.']],combo:['kw','chain','webinar'],kw:'видео урок бот выдача'},
+{id:'minicourse',g:'in',n:'Мини-курс на 3-5 дней',s:'Бот или почта присылает по уроку в день. Длинный вход, который заодно прогревает.',how:['Разбей одну задачу на 3-5 шагов','Каждый день урок плюс маленькое задание','На последнем уроке приглашение на событие','Отметь тех, кто дошёл до конца: они самые тёплые'],pro:'Даёт много касаний подряд и приучает открывать твои сообщения.',con:'До конца доходит меньшинство, нужен азарт и напоминания.',load:2,cost:0,f:[['aw','cold',2,'Пять дней достаточно, чтобы холодный осознал проблему.'],['skep','new',1,'Знакомит с форматом онлайн-обучения бесплатно.'],['time','none',-2,'Пять дней подряд занятой не выдержит.'],['soc','solo',1,'Можно пройти молча, без чатов.'],['time','free',1,'Есть время на задания.']],combo:['chain','webinar','challenge'],kw:'email курс бот уроки рассылка'},
+{id:'quiz',g:'in',n:'Квиз или тест с результатом',s:'Несколько вопросов, в конце персональный результат: тип, уровень, рекомендация. Контакт оставляют ради результата.',how:['5-8 вопросов, первый самый лёгкий','Результаты делят аудиторию на сегменты','Каждому сегменту своя цепочка и свой оффер','Вопросы заодно дают тебе кастдев'],pro:'Сегментирует базу автоматически. Проходят до конца из любопытства.',con:'Без разных цепочек под результаты сегментация пропадает зря.',load:1,cost:1,f:[['dig','hi',1,'Проходит в два касания с телефона.'],['aw','cold',2,'«Узнай свой тип» цепляет тех, кто ещё не ищет.'],['dec','imp',1,'Любопытство сильнее рациональных доводов.'],['dig','lo',-1,'Формы и кнопки для неё препятствие.'],['dec','col',-1,'Компании квизы не проходят, им нужен расчёт.']],combo:['chain','videolesson'],kw:'тест опрос сегментация scoreapp marquiz'},
+{id:'calc',g:'in',n:'Калькулятор потерь или дохода',s:'Человек вводит свои цифры и видит, сколько теряет или может заработать. Боль становится личной.',how:['Найди одну денежную метрику ниши','Сделай простую форму на 3-5 полей','Результат с расшифровкой и следующим шагом','Предложи разбор результата лично'],pro:'Для рациональных лучший вход: цифра про них самих сильнее любого кейса.',con:'Нужна денежная или измеримая проблема, на эмоциональных нишах не работает.',load:1,cost:1,f:[['dec','rat',2,'Цифры про себя: главный аргумент рационального.'],['dec','col',2,'Расчёт можно показать руководству или партнёру.'],['mot','pain',1,'Видно, сколько уже потеряно.'],['mot','dream',-1,'Мечтателю цифры потерь неинтересны.'],['money','rich',1,'Состоятельным важно, окупится ли.']],combo:['diag','onepager'],kw:'расчёт окупаемость форма'},
+{id:'templates',g:'in',n:'Шаблоны, скрипты, таблицы',s:'Готовые рабочие инструменты: скрипт продаж, шаблон договора, таблица учёта. Используют сразу.',how:['Собери то, что сам используешь каждый день','Оформи так, чтобы можно было скопировать за минуту','Внутри пометки, где без эксперта не разобраться','Выдавай через бота'],pro:'Самая высокая воспринимаемая ценность за минимум работы. Часто пересылают коллегам.',con:'Если шаблон решает всё, мост к продукту не нужен. Оставь «как адаптировать под себя» на продукт.',load:1,cost:0,f:[['dec','rat',1,'Практическая польза без воды.'],['time','none',2,'Готовый инструмент экономит время, это и ценят.'],['aw','sol',1,'Тем, кто сравнивает экспертов, показывает уровень сразу.'],['aw','cold',-1,'Без осознания проблемы шаблон не нужен.']],combo:['kw','chain'],kw:'скрипт таблица шаблон договор'},
+{id:'reels',g:'in',n:'Охватные рилзы и шортсы',s:'Короткие видео на широкую боль или любопытство, которые алгоритм показывает новым людям.',how:['Хук в первые 2 секунды, одна мысль на ролик','Снимай пачками, 3-7 в неделю','В конце призыв к кодовому слову','Смотри досмотры и сохранения, а не лайки'],pro:'Бесплатный приток новых людей. Удачный ролик может принести тысячи подписчиков.',con:'Непредсказуемо. Аудитория с рилзов холодная и часто не та.',load:2,cost:0,f:[['fmt','watch',2,'Основной формат её потребления.'],['time','frag',2,'Листают урывками с телефона.'],['aw','cold',1,'Широкий охват тех, кто ещё не ищет.'],['dig','lo',-1,'Возрастная аудитория в рилзах сидит меньше.'],['dec','col',-1,'Компании решения по рилзам не принимают.']],combo:['kw','longvideo'],kw:'reels shorts клипы vk инстаграм тикток органика'},
+{id:'longvideo',g:'in',n:'Длинные видео на YouTube',s:'Видео на 15-60 минут, которые находят через поиск и рекомендации годами.',how:['Темы из поиска и частых вопросов аудитории','Упаковка: заголовок и обложка решают половину','В описании и в конце ссылка на лид-магнит','Публикуй стабильно, например раз в неделю'],pro:'Час просмотра даёт доверия больше, чем десять рилзов. Работает годами.',con:'Долго раскачивается, нужно продакшн-время эксперта.',load:3,cost:1,f:[['fmt','watch',2,'Длинное видео для смотрящих это главный канал доверия.'],['fmt','listen',2,'Слушают на фоне, как подкаст.'],['skep','burnt',2,'Скептик часами изучает эксперта до покупки.'],['dec','rat',1,'Видно глубину экспертизы.'],['time','none',-1,'Нужно время на просмотр, хотя на фоне смотрят даже занятые.']],combo:['podcast','videolesson'],kw:'youtube ютуб видео seo'},
+{id:'seeding',g:'in',n:'Посевы в Telegram-каналах',s:'Платная публикация в чужом канале с близкой аудиторией: на канал, бота или событие.',how:['Подбери каналы по ЦА, а не по числу подписчиков','Проверь живость: охват поста, реакции','Креатив: польза плюс повод перейти сейчас','Считай цену подписчика и цену заявки по каждому каналу'],pro:'Быстро и предсказуемо приводит людей, похожих на нужных.',con:'Деньги вперёд, много накрученных каналов, нужна маркировка рекламы.',load:0,cost:2,f:[['fmt','read',2,'Телеграм это читающая аудитория.'],['dig','hi',1,'Переход в канал в одно касание.'],['dig','lo',-1,'Возрастные в телеграме читают мало каналов.'],['money','rich',1,'Профильные каналы для состоятельных есть почти в каждой нише.']],combo:['tgads','chain','autoweb'],kw:'посев реклама в каналах телеграм'},
+{id:'tgads',g:'in',n:'Telegram Ads',s:'Официальная реклама в каналах Telegram: короткое объявление на канал или бота, таргет по тематикам и каналам.',how:['Запусти через агентство или кабинет вроде Telescope','Таргет по каналам с похожей ЦА','Короткий текст до 160 знаков с выгодой','Веди на канал с сильным закрепом'],pro:'Масштабируется и не зависит от админов каналов.',con:'Высокий порог входа и мало места под текст, без прогрева на канале подписчик быстро уходит.',load:0,cost:2,f:[['fmt','read',1,'Читающая аудитория телеграма.'],['money','rich',1,'Окупается на дорогих продуктах.'],['dig','lo',-1,'Мало возрастной аудитории.']],combo:['seeding','pinned'],kw:'реклама телеграм ads telescope'},
+{id:'target',g:'in',n:'Таргет VK и Яндекс',s:'Платная реклама на лид-магнит, бота или регистрацию на вебинар с настройкой по интересам и поиску.',how:['Сделай посадочную: лендинг регистрации или бот','Протестируй 3-5 креативов и 2-3 аудитории','Отключай всё, что дороже целевой заявки','Обязательно ретаргет на тех, кто не дошёл'],pro:'Самый управляемый приток. Позволяет считать запуск от бюджета.',con:'Нужен специалист и бюджет на тесты. Холодная аудитория требует прогрева.',load:0,cost:2,f:[['dig','lo',1,'VK и Яндекс охватывают тех, кого нет в телеграме.'],['aw','prob',1,'Поиск ловит тех, кто уже ищет решение.'],['aw','cold',-1,'Холодному с рекламы нужен долгий прогрев, дорого.'],['money','tight',-1,'Дешёвый продукт рекламу не окупит.']],combo:['autoweb','webinar','retarget'],kw:'vk реклама яндекс директ таргетинг'},
+{id:'collab',g:'in',n:'Коллаборации и взаимопиар',s:'Совместный эфир, пост или подкаст с блогером, у которого похожая аудитория.',how:['Найди блогеров со смежной, не конкурирующей темой','Предложи пользу его аудитории, а не обмен постами','Совместный эфир с подарком для зрителей','Договорись о взаимной рекламе в сторис'],pro:'Доверие переносится от партнёра. Бесплатно.',con:'Нужны равные по силе партнёры, договориться долго.',load:2,cost:0,f:[['skep','burnt',2,'Рекомендация знакомого блогера сильнее рекламы.'],['soc','group',1,'Любит совместные эфиры и живое общение.'],['aw','cold',1,'Новая аудитория знакомится через доверенного человека.']],combo:['guestlive','live'],kw:'взаимопиар коллаб совместный эфир'},
+{id:'jv',g:'in',n:'Партнёрский вебинар',s:'Эксперт проводит вебинар для базы партнёра, продажи делятся по договорённости. На Западе это JV.',how:['Найди партнёра с базой твоей ЦА','Договорись о проценте с продаж','Проведи полноценный продающий вебинар','Партнёр приглашает, ты продаёшь'],pro:'Тёплая чужая база с доверием к партнёру. Платишь только с продаж.',con:'Зависишь от силы приглашения партнёра. Конкуренция за хороших партнёров.',load:2,cost:0,f:[['skep','burnt',2,'Рекомендация партнёра снимает недоверие.'],['dec','col',1,'В B2B партнёрские мероприятия привычный формат.'],['aw','sol',1,'База партнёра уже в теме.']],combo:['webinar','deadline'],kw:'jv партнёрка партнёрский'},
+{id:'podcastguest',g:'in',n:'Гость в чужих подкастах и эфирах',s:'Выступаешь гостем у других, в конце зовёшь на подарок.',how:['Составь список подкастов и эфиров своей ниши','Предложи тему, полезную их аудитории','Подготовь один сильный рассказ с цифрами','В конце назови лид-магнит или слово'],pro:'Час внимания чужой аудитории и перенос доверия.',con:'Мало прямых переходов, эффект накопительный.',load:2,cost:0,f:[['fmt','listen',2,'Слушающие доверяют голосу.'],['skep','burnt',1,'Чужая площадка как рекомендация.'],['dec','rat',1,'Глубокий разговор показывает экспертизу.']],combo:['podcast','collab'],kw:'подкаст гость интервью'},
+{id:'speaking',g:'in',n:'Выступления и конференции',s:'Офлайн или онлайн выступление на отраслевом событии с QR-кодом на подарок.',how:['Выбирай события, где сидит твоя ЦА','Доклад-кейс с цифрами, а не реклама','QR на слайде с подарком','Собери контакты и пригласи на следующий шаг'],pro:'Люди видели тебя вживую. Такие подписчики очень лояльны.',con:'Мало людей за раз, дорого по времени.',load:3,cost:1,f:[['fmt','live',2,'Живой формат её любимый.'],['dec','col',2,'Компании выбирают подрядчиков на конференциях.'],['dig','lo',1,'Не требует цифровых навыков, QR сканируют все.'],['skep','burnt',1,'Живое выступление снимает подозрения.']],combo:['offline','onepager'],kw:'конференция выступление офлайн qr'},
+{id:'referral',g:'in',n:'Реферальная механика',s:'Приведи друга, получи бонус: доступ, урок, скидку. Аудитория сама зовёт похожих.',how:['Бонус, который ценен именно твоей ЦА','Персональная ссылка в боте','Счётчик приглашённых и лестница наград','Анонс в канале и в боте'],pro:'Похожие люди по цене бонуса. Друзья доверяют друзьям.',con:'Работает, когда база уже лояльна. С нуля не взлетит.',load:0,cost:1,f:[['soc','group',2,'Любит звать подруг и делиться.'],['money','tight',1,'Бонус вместо оплаты ей приятен.'],['soc','solo',-1,'Наблюдатель никого звать не станет.']],combo:['challenge','chain'],kw:'рефералка приведи друга виральность'},
+{id:'giveaway',g:'in',n:'Розыгрыш с партнёрами',s:'Совместный конкурс нескольких блогеров: подпишись на всех, получи шанс на приз.',how:['Приз, нужный только твоей ЦА, а не айфон','Партнёры с той же ЦА','Условие: подписка и действие с пользой','Сразу после розыгрыша сильный полезный контент'],pro:'Быстрый прирост подписчиков.',con:'Много халявщиков, после розыгрыша часть отписывается, охваты падают.',load:1,cost:1,f:[['money','tight',1,'Любит шанс получить даром.'],['dec','rat',-2,'Рациональных розыгрыш скорее отталкивает.'],['money','rich',-1,'Состоятельной аудитории неинтересно.']],combo:['collab'],kw:'гив гивэвей конкурс розыгрыш'},
+/* ===== ПРОГРЕВ ===== */
+{id:'chain',g:'warm',n:'Цепочка догрева в боте',s:'После выдачи подарка бот ещё 1-4 недели присылает истории, кейсы и приглашения.',how:['8-20 сообщений с паузами 1-3 дня','Чередуй пользу, историю, кейс, приглашение','У каждого сообщения своя кнопка','Купивших выключай из цепочки'],pro:'Работает без участия эксперта, каждый новый подписчик получает весь прогрев.',con:'Боты массово глушат. Без живых историй превращается в спам.',load:1,cost:0,f:[['dig','hi',1,'Бот для неё привычен.'],['time','frag',1,'Короткие сообщения читают урывками.'],['dig','lo',-1,'Ботом пользоваться сложно, сообщения теряются.'],['skep','burnt',-1,'Автоматика без живого человека скептика не прогреет.']],combo:['kw','autoweb'],kw:'бот автоворонка рассылка цепочка salebot'},
+{id:'email',g:'warm',n:'Серия писем',s:'Письма с историями и пользой, которые ведут к событию или продажной странице.',how:['Приветственное письмо с подарком','3-7 писем: история, ошибка, кейс, приглашение','Тема письма решает половину открытий','Сегментируй по кликам'],pro:'Длинные тексты, письма не теряются в потоке. Почта у всех, даже у тех, кто не в телеграме.',con:'В России открываемость ниже, чем у бота, нужен сильный тон и регулярность.',load:1,cost:0,f:[['fmt','read',2,'Читающей аудитории письма удобны.'],['dec','rat',1,'Можно аргументированно и подробно.'],['dec','col',2,'Письмо легко переслать руководителю.'],['dig','lo',1,'Почту знают все, в отличие от ботов.'],['fmt','watch',-1,'Тем, кто смотрит, лучше видео.']],combo:['plf','deadline'],kw:'email почта рассылка письма'},
+{id:'plf',g:'warm',n:'Серия из 3-4 видео',s:'Схема Джеффа Уокера: три бесплатных видео с ценностью и историей, четвёртое открывает продажи.',how:['Видео 1: возможность и почему сейчас','Видео 2: трансформация на примере','Видео 3: как это будет у тебя, разбор возражений','Видео 4: открытие продаж с дедлайном'],pro:'Классика запусков. Каждое видео ожидают, комментарии создают ажиотаж.',con:'Много продакшна. Требует базы, которая хочет смотреть длинное видео.',load:3,cost:1,f:[['fmt','watch',2,'Видео-серия ровно её формат.'],['dec','rat',1,'Много аргументов и логики.'],['time','none',-1,'Четыре видео по 20-40 минут занятые не досмотрят.'],['aw','prob',1,'Ищущему решение серия показывает путь.']],combo:['email','deadline','fastbonus'],kw:'product launch formula plf джефф уокер видео серия'},
+{id:'podcast',g:'warm',n:'Подкасты и голосовые в канале',s:'Аудио на 5-20 минут на боли ЦА, возражения и кейсы. Слушают в дороге.',how:['Темы из вопросов и возражений','Один подкаст, одна мысль','Пост-анонс с тезисами для тех, кто не слушает','Подкасты про возражения ставь ближе к продажам'],pro:'Голос даёт близость. Слушают целиком, пока заняты другим.',con:'Не все включают аудио. Сложно найти нужное место.',load:2,cost:0,f:[['fmt','listen',2,'Её главный формат.'],['time','none',1,'Слушают в машине и на ходу.'],['skep','burnt',1,'Живой голос убеждает лучше текста.'],['fmt','read',-1,'Читающим нужен текстовый дубль.']],combo:['objections','tgpost'],kw:'аудио голосовые подкаст телеграм'},
+{id:'tgpost',g:'warm',n:'Серия постов на боли',s:'Посты в канале, каждый раскрывает одну боль ЦА и показывает выход.',how:['Достань 6-7 жирных смыслов из кастдевов','На каждый смысл сильная история','Цепляющий заголовок с цифрой','В конце вопрос к аудитории'],pro:'Основа прогрева в телеграме, читают и пересылают.',con:'Без смыслов из живых разговоров посты пустые.',load:2,cost:0,f:[['fmt','read',2,'Текст её формат.'],['dec','rat',1,'Можно аргументировать подробно.'],['fmt','watch',-1,'Смотрящим нужен видео-дубль.']],combo:['custdev','podcast','objections'],kw:'посты телеграм канал смыслы'},
+{id:'stories',g:'warm',n:'Сторис-сериал',s:'Серия сторис по структуре: цепляющая мысль, кому актуально, контекст, история, вывод, вопрос.',how:['Цепляющая мысль без кликбейта','«Кому актуально, ставь плюс»','3-4 сторис контекста и история','Вывод и просьба поделиться'],pro:'Близко и каждый день. Реакции дают обратную связь мгновенно.',con:'Исчезает через сутки, нужен регулярный выход эксперта.',load:2,cost:0,f:[['fmt','watch',1,'Короткое видео и картинки.'],['time','frag',2,'Листает урывками.'],['soc','group',1,'Отвечает на опросы и реакции.'],['time','none',-1,'Сторис занятые пролистывают.']],combo:['reality','ama'],kw:'сторис инстаграм серия'},
+{id:'reality',g:'warm',n:'Реалити',s:'Показываешь процесс: учеников, работу, промежуточные результаты, «только зашёл новенький».',how:['Снимай рабочие моменты регулярно','Истории учеников в динамике: было, сейчас, план','Промежуточные результаты с цифрами','Ссылка на предзапись рядом'],pro:'Доказательство без слов: видно, что продукт живой и работает.',con:'Нужны ученики, готовые светиться, и регулярность.',load:2,cost:0,f:[['skep','burnt',2,'Скептик видит реальный процесс, а не обещания.'],['skep','new',1,'Показывает, как вообще выглядит обучение.'],['dec','rat',1,'Промежуточные цифры убеждают.'],['soc','group',1,'Хочет оказаться внутри движухи.']],combo:['casestory','hype'],kw:'реалити закулисье процесс'},
+{id:'casestory',g:'warm',n:'Кейс-сторителлинг',s:'История ученика: каким был, что мешало, что сделали, что стало. С цифрами и деталями.',how:['Выбери кейс, похожий на типичного клиента','Структура: до, препятствие, решение, после','Детали и цитаты, а не «увеличил доход»','Разные кейсы под разные сегменты'],pro:'Самый сильный ответ на «а получится ли у меня».',con:'Слабый или нетипичный кейс отталкивает.',load:1,cost:0,f:[['dec','rat',2,'Цифры и детали для рационального.'],['skep','burnt',2,'Доказательство результата у таких же людей.'],['skep','new',1,'Видит, что это вообще работает.'],['mot','dream',1,'Видит свою мечту в чужой истории.']],combo:['reality','guestlive'],kw:'кейс отзыв история ученика'},
+{id:'objections',g:'warm',n:'Закрытие возражений',s:'Серия постов или подкастов на 5 частых сомнений: дорого, нет времени, не получится, потом.',how:['Собери возражения из созвонов и комментариев','Каждое отдельным постом или подкастом','Отвечай через кейс, а не через спор','Ставь за неделю до продаж'],pro:'Снимает сомнения до продажи, менеджеру проще.',con:'Если звучит как оправдание, работает наоборот.',load:2,cost:0,f:[['dec','rat',2,'Рациональный ищет ответы на свои «но».'],['dec','col',2,'Даёт аргументы для разговора с семьёй или руководством.'],['money','tight',1,'Разбирает «дорого» через окупаемость.'],['skep','burnt',1,'Отвечает на «а вдруг обман».']],combo:['podcast','casestory','qa'],kw:'возражения сомнения дорого'},
+{id:'hype',g:'warm',n:'Ажиотаж и соцдоказательство',s:'Скрины заявок, «осталось N мест», отзывы, реакции в чате. Показываешь, что другие уже идут.',how:['Копи скрины анкет и сообщений','Публикуй счётчик мест честно','Отзывы сразу после событий','Не выдумывай, это быстро вскрывается'],pro:'Стадный эффект: если идут другие, значит стоит.',con:'Фальшь видна сразу и убивает доверие.',load:1,cost:0,f:[['dec','imp',2,'Эмоционального подталкивает страх упустить.'],['soc','group',2,'Хочет туда, где все.'],['dec','rat',-1,'Рациональный в ажиотаже видит давление.'],['skep','burnt',-1,'Скептик воспримет как манипуляцию.']],combo:['preapp','reality','deadline'],kw:'ажиотаж социальное доказательство скрины места'},
+{id:'preapp',g:'warm',n:'Анкета предзаписи',s:'За 2-3 недели до продаж даёшь анкету. Проверяешь спрос и собираешь самых тёплых.',how:['Анкета на 5-7 вопросов о ситуации','Выдай за 2-2,5 недели до старта продаж','Анкет должно быть минимум вдвое больше плановых продаж','Мало анкет? Переноси запуск или меняй смыслы'],pro:'Ранняя проверка спроса и готовый список для менеджера.',con:'Если не звонить по анкетам быстро, они остывают.',load:0,cost:0,f:[['dec','rat',1,'Анкета показывает серьёзность подхода.'],['dec','imp',1,'Легко оставить заявку на эмоции.'],['dig','lo',-1,'Формы для неё препятствие, лучше звонок.']],combo:['opcall','hype'],kw:'предзапись анкета лист ожидания спрос waitlist'},
+{id:'closedch',g:'warm',n:'Закрытый канал события',s:'Отдельный канал для участников разборов или интенсива: напоминания, материалы, прогрев без потери охватов основного.',how:['Создай канал под событие','Все напоминания и анонсы туда','Подкасты и кейсы для участников','После события канал продаёт продукт'],pro:'Основной канал не превращается в доску объявлений, охваты не падают.',con:'Лишний шаг перехода. Нужно вести два канала.',load:1,cost:0,f:[['soc','group',1,'Ощущение закрытого клуба.'],['dig','hi',1,'Переходит без проблем.'],['dig','lo',-1,'Ещё один канал её запутает.']],combo:['razbor','intensive'],kw:'канал разборов закрытый канал напоминания'},
+{id:'custdev',g:'warm',n:'Кастдевы с аудиторией',s:'15-30 разговоров с подписчиками до запуска: боли, слова, возражения. Заодно первые продажи.',how:['Пригласи 15-30 человек на 20 минут','Спрашивай про прошлое, а не «купила бы»','Выпиши их точные слова','Смыслы прогрева бери только отсюда'],pro:'Дает смыслы, которые попадают. Часть собеседников покупают сами.',con:'Требует времени эксперта и умения слушать.',load:3,cost:0,f:[['money','rich',1,'Разговор с экспертом сам по себе ценен.'],['aw','sol',1,'Помогает понять, чем ты отличаешься.'],['soc','solo',-1,'Наблюдатели неохотно идут на разговор.']],combo:['tgpost','preapp'],kw:'кастдев интервью исследование'},
+{id:'converter',g:'warm',n:'Видео-визитка продукта',s:'Одно видео на 10-30 минут: кто эксперт, что за продукт, кейсы, кому подходит. Всегда в закрепе.',how:['Структура: эксперт, проблема, метод, кейсы, продукт','Ссылку во все шапки и закрепы','Обновляй к каждому запуску','Конец ведёт на анкету или созвон'],pro:'Прогрев доступен в любой момент, без ожидания запуска.',con:'Одно видео не заменит событие для дорогого продукта.',load:2,cost:1,f:[['dec','rat',2,'Всё о продукте в одном месте.'],['time','frag',1,'Смотрит, когда удобно.'],['skep','burnt',1,'Можно изучить спокойно, без давления.']],combo:['longvideo','pinned'],kw:'видео конвертер визитка закреп'},
+{id:'pinned',g:'warm',n:'Закреп и навигация',s:'Закреплённый пост, синяя кнопка, подборка материалов. Каждый новый подписчик видит путь.',how:['Лид-магнит в закрепе','Кнопка в шапке на бота','Подборка: кто я, кейсы, продукт','Обновляй под каждый запуск'],pro:'Три касания с лид-магнитом без единого нового поста.',con:'Сам по себе не продаёт, это навигация.',load:0,cost:0,f:[['dig','lo',1,'Понятная навигация помогает тем, кто теряется.'],['time','frag',1,'Новичок сразу видит, куда идти.']],combo:['converter','kw'],kw:'закреп навигация шапка'},
+{id:'ama',g:'warm',n:'Вопросы аудитории',s:'«Задай вопрос» в сторис или канале, ответы публикуешь. Аудитория сама даёт темы и возражения.',how:['Окно вопросов в сторис','Ответы короткими видео или постами','Частые вопросы в отдельный разбор','Самые острые используй в прогреве'],pro:'Вовлечение и бесплатный кастдев.',con:'Если вопросов мало, выглядит пусто.',load:1,cost:0,f:[['soc','group',2,'Любит спрашивать и получать ответ.'],['soc','solo',-1,'Наблюдатель не напишет.']],combo:['stories','objections'],kw:'вопросы ответы сторис ама'},
+{id:'precedent',g:'warm',n:'Публичный эксперимент',s:'Перед запуском делаешь на глазах аудитории то, чему учишь: проект, результат, цифры.',how:['Выбери понятную цель на 2-6 недель','Покажи старт и план','Еженедельно цифры и ошибки','Финал: результат и приглашение'],pro:'Самое сильное доказательство: эксперт делает, а не рассказывает.',con:'Можно провалиться публично. Нужен запас времени.',load:3,cost:1,f:[['skep','burnt',2,'Скептик видит результат своими глазами.'],['dec','rat',2,'Цифры по ходу.'],['aw','sol',1,'Выделяет среди тех, кто только говорит.']],combo:['reality','casestory'],kw:'эксперимент прецедент челлендж эксперта'},
+/* ===== БЕСПЛАТНОЕ СОБЫТИЕ ===== */
+{id:'webinar',g:'free',n:'Живой вебинар',s:'Лекция на широкую боль, в конце презентация продукта и ссылка на оплату или заявку.',how:['Тема: широкая боль и обещание метода','Регистрация, напоминания за день, час и 5 минут','60-90 минут: польза, кейсы, оффер','Запись на 24-48 часов как дожим'],pro:'Классика, понятная всем. Живой эфир даёт энергию и вопросы.',con:'Доходимость обычно меньше половины зарегистрированных, нужен хороший спикер.',load:2,cost:1,f:[['dig','hi',1,'Зайти в вебинарную комнату не проблема.'],['dig','lo',-1,'Ссылки, комнаты, звук: часть отвалится на входе.'],['time','none',-1,'Живой вебинар в конкретное время им неудобен.'],['dec','rat',1,'Подробная логика и кейсы.'],['aw','prob',2,'Ищет решение и приходит за ним.']],combo:['deadline','opcall','replay'],kw:'вебинар веб zoom bizon лекция'},
+{id:'autoweb',g:'free',n:'Автовебинар',s:'Записанный вебинар по расписанию или по запросу, работает каждый день без эксперта.',how:['Запиши лучший живой вебинар','Расписание: несколько слотов в день','Имитация чата или живые модераторы','Оффер с таймером после эфира'],pro:'Масштабируется рекламой, эксперт свободен.',con:'Без живого чата конверсия ниже живого эфира.',load:1,cost:1,f:[['time','none',2,'Выбирает удобное время.'],['time','frag',1,'Можно смотреть, когда получится.'],['dec','rat',1,'Спокойно изучает без давления живого эфира.'],['soc','group',-1,'Ей не хватит живого общения.'],['skep','burnt',-1,'Скептик чувствует подделку под живой эфир.']],combo:['target','chain','opcall'],kw:'автовеб вечнозелёный evergreen записанный вебинар'},
+{id:'live',g:'free',n:'Тематический прямой эфир',s:'Узкая горячая тема, которая болит прямо сейчас. Продажа вшита в разговор.',how:['Тема из горячих вопросов недели','Анонс за 2-3 дня с конкретной пользой','45-60 минут, ответы в чате','Ближе к концу мостик к продукту'],pro:'Легко готовить, легко прийти. Узкая тема собирает самых заинтересованных.',con:'На узкую тему приходит меньше людей.',load:2,cost:0,f:[['soc','group',2,'Любит чат и живое общение.'],['fmt','live',2,'Живой формат.'],['aw','prob',1,'Решает её конкретную проблему.'],['time','none',-1,'Время эфира может не совпасть.']],combo:['closedch','opcall'],kw:'эфир прямой эфир инстаграм телеграм live'},
+{id:'razbor',g:'free',n:'Открытые разборы',s:'Эксперт разбирает реальных людей при зрителях. Чередуй: разбор, кейс, разбор.',how:['Анкета на разбор: заявок больше, чем мест','Выбирай участников из разных сегментов','Бутерброд: разбор, кейс выпускника, разбор','Анкеты участников потом используй для продаж'],pro:'Зрители примеряют решения на себя. Показывает экспертизу без лекции.',con:'Зависит от удачных участников. Тяжело для эксперта.',load:3,cost:0,f:[['dec','rat',2,'Видит метод в работе на живых примерах.'],['skep','burnt',2,'Видит реальную работу без сценария.'],['soc','group',1,'Хочет оказаться на разборе сама.'],['aw','sol',2,'Сравнивающий видит твой подход в деле.']],combo:['closedch','closedpres','opcall'],kw:'разборы открытые консультации кейсы'},
+{id:'challenge',g:'free',n:'Челлендж на 3-5 дней',s:'Каждый день задание и короткий эфир, в чате движ. В последний день оффер.',how:['Цель на 5 дней, достижимая и измеримая','Ежедневно урок до 30 минут и задание','Чат с модерацией и отчётами','День 5: итоги и оффер с дедлайном'],pro:'Вовлечение и маленькая победа до покупки. Доверие растёт каждый день.',con:'К пятому дню остаётся меньшинство. Нужна команда на чат.',load:3,cost:1,f:[['soc','group',2,'Чат и общие задания ей нравятся.'],['dec','imp',1,'На эмоциях победы легко купить.'],['time','free',2,'Есть время на задания.'],['time','none',-2,'Пять дней заданий занятой не потянет.'],['soc','solo',-1,'Наблюдатель не будет отчитываться в чате.']],combo:['paidchallenge','deadline','referral'],kw:'челлендж марафон 5 дней'},
+{id:'intensive',g:'free',n:'Трёхдневный интенсив',s:'Три вечера лекций и практики подряд. К концу человек хорошо знает эксперта.',how:['Три темы, каждая ведёт к продукту','Каждый вечер 1,5-2 часа','Домашка между днями','Продажа на третий день'],pro:'Много часов с экспертом, высокое доверие.',con:'Три вечера подряд выдерживают не все.',load:3,cost:1,f:[['time','free',2,'Есть три вечера.'],['soc','group',1,'Нравится общий процесс.'],['time','none',-2,'Три вечера подряд занятой не выделит.'],['dig','lo',-1,'Три раза входить в комнату для неё сложно.']],combo:['practicum','closedch'],kw:'интенсив три дня'},
+{id:'workshop',g:'free',n:'Воркшоп «делаем вместе»',s:'Практическое занятие: за 90 минут участник своими руками делает результат.',how:['Результат, который можно сделать за 90 минут','Шаблон заранее','Делаете вместе по шагам','В конце: «а дальше это делаем на продукте»'],pro:'Человек уходит с результатом, это лучшее доказательство метода.',con:'Сложно подобрать задачу, которая решается за раз.',load:2,cost:0,f:[['dec','rat',2,'Результат на руках убеждает.'],['time','none',1,'Не лекция, а работа, время не теряется.'],['mot','pain',1,'Снимает конкретную боль сразу.'],['soc','solo',1,'Можно работать молча.']],combo:['templates','opcall'],kw:'воркшоп практика мастерская'},
+{id:'mk',g:'free',n:'Бесплатный мастер-класс',s:'Короткое событие на одну узкую задачу, решаемую за час. В конце мост к продукту.',how:['Одна задача, один результат','40-60 минут','Пример решения на живом кейсе','Оффер в конце'],pro:'Легко прийти, легко провести.',con:'Узкая тема продаёт хуже широкой.',load:2,cost:0,f:[['time','frag',1,'Короткий формат.'],['aw','prob',1,'Решает конкретную проблему.']],combo:['opcall'],kw:'мастер-класс мк'},
+{id:'closedpres',g:'free',n:'Закрытая презентация',s:'Презентация продукта только для тех, кто был на событиях или оставил анкету.',how:['Приглашай только тёплых','Программа, кейсы, тарифы, особые условия','Ответы на вопросы вживую','Особые условия только для участников'],pro:'Ощущение избранности. Приходят самые готовые.',con:'Без предыдущих событий звать некого.',load:2,cost:0,f:[['aw','hot',2,'Тёплым нужна только презентация и условия.'],['aw','cold',-2,'Холодный не знает, почему ему туда идти.'],['dec','rat',1,'Подробности продукта и условий.']],combo:['razbor','preapp','deadline'],kw:'закрытая презентация продукта'},
+{id:'guestlive',g:'free',n:'Эфир с выпускником',s:'Живой кейс рассказывает сам и отвечает на вопросы зрителей.',how:['Выпускник, похожий на типичного клиента','Ведёшь интервью, он рассказывает путь','Вопросы зрителей ему, а не тебе','В конце приглашение'],pro:'Доверие к результату сильнее, чем от скринов.',con:'Нужен разговорчивый выпускник.',load:2,cost:0,f:[['skep','burnt',2,'Слышит правду не от продавца.'],['dec','rat',1,'Конкретика пути.'],['skep','new',1,'Видит человека, у которого получилось.']],combo:['casestory','opcall'],kw:'выпускник кейс интервью отзыв'},
+{id:'offline',g:'free',n:'Офлайн-встреча',s:'Завтрак, мастермайнд, встреча в городе. Живое общение, после которого покупают легче.',how:['Небольшой зал, 15-50 человек','Польза плюс нетворкинг','Предложение в конце или на следующий день','Фото и видео потом в прогрев'],pro:'Самый высокий уровень доверия.',con:'Мало людей, логистика, только один город.',load:3,cost:2,f:[['fmt','live',2,'Её любимый формат.'],['dig','lo',2,'Никаких ссылок и комнат.'],['dec','col',1,'Можно прийти с партнёром.'],['money','rich',1,'Состоятельным важно личное знакомство.'],['money','tight',-1,'Дорога и время для неё затратны.']],combo:['speaking','strat'],kw:'офлайн встреча завтрак мастермайнд'},
+{id:'summit',g:'free',n:'Онлайн-конференция',s:'Несколько спикеров за 1-3 дня, каждый зовёт свою аудиторию. Организатор продаёт свой продукт.',how:['5-15 спикеров со смежными темами','Каждый приглашает свою базу','Записи платно или до дедлайна','Твой продукт в финале'],pro:'Много новых людей и авторитет организатора.',con:'Сложная организация, внимание делится на всех спикеров.',load:3,cost:1,f:[['aw','cold',1,'Много новых людей через спикеров.'],['dec','rat',1,'Много мнений и экспертиз.'],['time','none',-1,'Несколько дней эфиров занятой не посмотрит.']],combo:['jv','collab'],kw:'саммит конференция онлайн спикеры'},
+{id:'talkshow',g:'free',n:'Эфир-болталка',s:'Эксперт что-то делает в прямом эфире и болтает с чатом. Продажи встроены блоками.',how:['Процесс, который интересно смотреть','Чат главный: отвечай, зови по именам','Продающие блоки по 2-3 минуты','Регулярно, по расписанию'],pro:'Близость и привычка, легко держать регулярно.',con:'Нужна харизма и регулярность.',load:2,cost:0,f:[['soc','group',2,'Любит болтать в чате.'],['dec','imp',1,'Покупает на волне симпатии.'],['dec','rat',-1,'Рациональный ждёт конкретики, а не болтовни.'],['time','none',-2,'Не будет тратить вечер на болтовню.']],combo:['live'],kw:'эфир болтовня регулярный эфир'},
+{id:'trial',g:'free',n:'Пробный доступ',s:'Неделя или урок внутри продукта бесплатно. Человек пробует, как устроено обучение.',how:['Откройте 1-3 урока или неделю чата','Задание с быстрым результатом','Куратор пишет лично','На последний день предложение'],pro:'Снимает страх «а вдруг формат не мой».',con:'Халявщики забирают бесплатное и уходят.',load:1,cost:0,f:[['skep','new',2,'Пробует формат впервые без риска.'],['skep','burnt',2,'Проверяет, что это не обман.'],['dec','rat',1,'Изучает продукт изнутри.']],combo:['guarantee','opcall'],kw:'пробный доступ триал демо урок'},
+/* ===== ПЛАТНЫЙ ВХОД ===== */
+{id:'practicum',g:'paid',n:'Платный практикум',s:'Один-три дня практики за 99-1 000 ₽ на узкую популярную боль. В конце продажа основного продукта.',how:['Узкая боль, решаемая за вечер','Цена символическая','Практика, а не лекция','В конце мост к основному продукту'],pro:'Отсеивает халявщиков, доходимость выше бесплатного.',con:'Купивших меньше, чем записавшихся бы на бесплатное.',load:2,cost:0,f:[['money','tight',1,'Символическая цена не пугает.'],['dec','imp',1,'Легко купить на эмоции.'],['skep','burnt',1,'Небольшой риск проверить эксперта.']],combo:['upsell','opcall'],kw:'практикум трипваер tripwire платный'},
+{id:'paidmk',g:'paid',n:'Платный мастер-класс',s:'Один вечер за 300-5 000 ₽: узкая задача решена, потом предложение основного продукта.',how:['Тема узкая и полезная','Цена по рынку ниши','Решаешь задачу полностью','Продаёшь следующий шаг'],pro:'Пришедшие уже платили, покупать дальше им проще.',con:'Нужно продать сам мастер-класс, это мини-запуск.',load:2,cost:0,f:[['money','rich',1,'Платное воспринимается ценнее.'],['dec','rat',1,'Конкретный результат за деньги.']],combo:['opcall','deadline'],kw:'мастер-класс платный мк'},
+{id:'paidchallenge',g:'paid',n:'Платный челлендж',s:'Челлендж за небольшие деньги: платные выполняют задания чаще и покупают дальше охотнее.',how:['Цена от 490 до 3 000 ₽','Вариант VIP с личной обратной связью','Ежедневные эфиры и задания','Оффер на последнем дне'],pro:'Деньги окупают рекламу, а вовлечённость выше бесплатного.',con:'Нужен сильный оффер на сам челлендж.',load:3,cost:1,f:[['soc','group',2,'Чат и движ.'],['time','free',1,'Время на задания.'],['time','none',-2,'Пять дней ей не выделить.']],combo:['challenge','upsell'],kw:'челлендж платный'},
+{id:'workbook',g:'paid',n:'Мини-курс или воркбук в записи',s:'Записанный продукт за 490-3 000 ₽: смотрят, когда удобно.',how:['3-5 уроков по 10-15 минут','Рабочая тетрадь','В конце кейсы и приглашение','Продаётся автоворонкой'],pro:'Сделал один раз, продаётся сам.',con:'Без живого контакта доверия меньше.',load:1,cost:0,f:[['time','none',2,'Смотрит, когда удобно.'],['soc','solo',1,'Без чатов и эфиров.'],['soc','group',-1,'Скучно без движа.']],combo:['chain','opcall'],kw:'мини курс запись воркбук рабочая тетрадь'},
+{id:'flash',g:'paid',n:'Слепой оффер на сутки',s:'Символическая цена только сегодня и только по кодовому слову, содержимое раскрывается частично.',how:['Цена 99-299 ₽','Окно 24-48 часов','Кодовое слово в сторис или канале','Потом цена растёт публично'],pro:'Срочность в чистом виде. Быстро собирает тёплых.',con:'Холодные вслепую не покупают. Частить нельзя.',load:1,cost:0,f:[['dec','imp',2,'Импульсная покупка.'],['aw','hot',2,'Тёплые купят, не раздумывая.'],['aw','cold',-2,'Не знает тебя, зачем покупать вслепую.'],['dec','rat',-1,'Рациональному нужно знать, за что платит.']],combo:['practicum'],kw:'слепой оффер flash sale акция'},
+{id:'paiddiag',g:'paid',n:'Платная диагностика',s:'Аудит или разбор за деньги с зачётом стоимости в основной продукт.',how:['Чёткий результат: план, отчёт, расчёт','Цена 2-15 тысяч','Зачёт при покупке продукта','Продажа в конце разбора'],pro:'Отсекает несерьёзных, зачёт снимает барьер.',con:'Платный разбор может закрыть потребность: получил ответ и ушёл.',load:3,cost:0,f:[['dec','rat',2,'Платит за конкретный результат.'],['dec','col',2,'Документ можно показать руководству.'],['money','rich',1,'Деньги не барьер.'],['money','tight',-2,'Платить за разговор не будет.']],combo:['strat','calc'],kw:'аудит диагностика платный разбор'},
+{id:'upsell',g:'paid',n:'Апсейл на входе',s:'При покупке трипваера предлагаешь VIP: разбор, запись, доп. материалы. Окупает рекламу.',how:['Предложение на странице оплаты','Цена в 2-5 раз выше трипваера','VIP: личная обратная связь','Считай долю взявших'],pro:'Окупает трафик. Выявляет самых горячих.',con:'Перегруз предложениями раздражает.',load:1,cost:0,f:[['money','rich',2,'Возьмёт VIP сразу.'],['money','tight',-1,'Будет раздражать.']],combo:['practicum','paidchallenge'],kw:'апсейл vip order bump допродажа'},
+/* ===== ЛИЧНАЯ ПРОДАЖА ===== */
+{id:'opcall',g:'sale',n:'Созвон с отделом продаж',s:'Менеджер созванивается с теми, кто оставил заявку: отвечает на вопросы, снимает сомнения, даёт условия.',how:['Перезвон в течение часа после заявки','Скрипт: ситуация, цель, препятствие, решение','Приглашение с ответом на «зачем мне созвон»','Фиксируй возражения для прогрева'],pro:'Главный инструмент закрытия дорогих продуктов.',con:'Нужен обученный менеджер, плохой звонок сжигает лида.',load:0,cost:1,f:[['dec','rat',1,'Получит ответы на все вопросы.'],['dec','col',1,'Менеджер поможет с аргументами для семьи или руководства.'],['money','rich',1,'Ценит личный подход.'],['soc','solo',-1,'Наблюдатель избегает звонков.'],['dig','lo',1,'Голосом проще, чем формами.']],combo:['preapp','recall'],kw:'отдел продаж менеджер звонок созвон оп'},
+{id:'strat',g:'sale',n:'Стратегическая сессия с экспертом',s:'Бесплатный разговор с экспертом: разбор ситуации и план, в конце предложение работать вместе.',how:['Отбор по анкете','45-60 минут, сначала ситуация, потом план','Предложение только если подходит','Не превращай в бесплатную консультацию'],pro:'Самая высокая конверсия на дорогих продуктах.',con:'Самое дорогое время эксперта.',load:3,cost:0,f:[['money','rich',2,'Ценит личное внимание эксперта.'],['dec','rat',1,'Получит план и аргументы.'],['dec','col',1,'Можно позвать партнёра на разговор.'],['money','tight',-1,'Время эксперта уйдёт на тех, кто не купит.']],combo:['calc','paiddiag'],kw:'стратегическая сессия диагностика консультация'},
+{id:'dmsale',g:'sale',n:'Продажа в переписке',s:'Человек пишет в директ или телеграм, эксперт или менеджер продаёт в переписке.',how:['Слово-триггер в сторис или посте','Скрипт: вопрос, ещё вопрос, предложение','Голосовые вместо простыней текста','Ссылка на оплату в переписке'],pro:'Просто, привычно, без созвонов.',con:'Не масштабируется без директ-менеджера.',load:2,cost:0,f:[['dig','hi',2,'Сама напишет.'],['soc','solo',1,'Без звонков.'],['dig','lo',-2,'Писать в директ не догадается.'],['dec','col',-1,'Компании так не покупают.']],combo:['kw','stories'],kw:'директ переписка личка'},
+{id:'appcall',g:'sale',n:'Анкета, потом звонок',s:'Заявка через анкету, менеджер звонит уже подготовленным.',how:['Анкета с вопросами о ситуации и бюджете','Сортировка по готовности','Звонок в течение часа','Сначала горячие'],pro:'Менеджер знает ситуацию до звонка.',con:'Лишний шаг, часть не заполнит анкету.',load:0,cost:1,f:[['dec','rat',1,'Серьёзный подход.'],['dig','lo',-1,'Анкета её затормозит.']],combo:['preapp','opcall'],kw:'анкета заявка'},
+{id:'onepager',g:'sale',n:'Одностраничник и «оставь контакт»',s:'Вся информация на одной странице, одна кнопка: оставь телефон, перезвоним.',how:['Проблема, решение, программа, цена, кейсы','Одна кнопка','Перезвон быстро','Подходит для рассылок и мессенджеров'],pro:'Минимум усилий от занятого человека.',con:'Без живого контакта до продажи нужен сильный звонок после.',load:0,cost:0,f:[['time','none',2,'Просим одно действие.'],['dig','lo',2,'Одна кнопка вместо регистраций.'],['dec','col',1,'Можно переслать руководителю.'],['soc','group',-1,'Ей будет скучно.']],combo:['opcall','speaking'],kw:'pdf одностраничник заявка'},
+{id:'salespage',g:'sale',n:'Продающая страница с видео',s:'Лендинг с видео-продажником и кнопкой оплаты, человек покупает сам.',how:['Видео 5-20 минут: проблема, решение, кейсы, оффер','Тарифы и рассрочка','Ответы на возражения','Чат или кнопка «задать вопрос»'],pro:'Масштабируется, работает круглосуточно.',con:'На дорогом чеке без разговора покупают мало.',load:1,cost:1,f:[['dec','imp',1,'Купит, когда загорится.'],['money','rich',-1,'Дорогой продукт со страницы покупают редко.'],['dec','col',-1,'Компании нужен договор и звонок.']],combo:['deadline','fastbonus'],kw:'лендинг продающая страница vsl видео-продажник'},
+{id:'webbutton',g:'sale',n:'Продажа прямо на эфире',s:'Кнопка оплаты появляется в вебинарной комнате во время оффера, со спецусловиями на час.',how:['Кнопка в комнате (Bizon, GetCourse)','Спецусловия на время эфира','Модераторы в чате','Счётчик оплат показываем'],pro:'Покупают на пике эмоций.',con:'Рациональный человек испугается давления.',load:0,cost:0,f:[['dec','imp',2,'На пике эмоций.'],['dec','rat',-1,'Не любит решать в моменте.'],['dec','col',-2,'Не может решить без согласования.']],combo:['webinar','fastbonus'],kw:'кнопка в вебинарной комнате'},
+/* ===== ДОЖИМ ===== */
+{id:'deadline',g:'close',n:'Дедлайн и закрытие продаж',s:'Продажи закрываются в конкретный час, следующий поток нескоро. Сообщаем по всем каналам.',how:['Реальный дедлайн, без переносов','Отсчёт: 72, 24, 3 часа','Все каналы: бот, почта, канал, сторис','После дедлайна правда закрываем'],pro:'Большая часть продаж приходит в последние сутки.',con:'Фальшивый дедлайн убивает доверие навсегда.',load:1,cost:0,f:[['dec','imp',2,'Срочность её подталкивает.'],['dec','rat',1,'Даёт повод перестать откладывать.'],['dec','col',-1,'Не успеет согласовать, дай больше времени.']],combo:['fastbonus','recall'],kw:'дедлайн закрытие корзины таймер'},
+{id:'fastbonus',g:'close',n:'Бонус быстрого решения',s:'Бонус первым N покупателям или до определённого часа.',how:['Бонус ценнее скидки: разбор, доп. модуль','Чёткий лимит','Публичный счётчик','Выполни обещание'],pro:'Ускоряет решение без снижения цены.',con:'Если бонус слабый, не работает.',load:1,cost:0,f:[['dec','imp',2,'Хочет успеть.'],['money','tight',1,'Ценит добавленную ценность.']],combo:['deadline','webbutton'],kw:'бонус первым скорость'},
+{id:'replay',g:'close',n:'Запись на 48 часов',s:'Запись эфира доступна ограниченное время.',how:['Ссылка сразу после эфира','Таймер на странице','Напоминания','Оффер под видео'],pro:'Даёт шанс тем, кто не пришёл, и добавляет срочность.',con:'Если запись вечная, зачем приходить вживую.',load:0,cost:0,f:[['time','none',2,'Посмотрит, когда сможет.'],['time','frag',1,'Посмотрит частями.']],combo:['webinar','deadline'],kw:'запись эфира повтор'},
+{id:'repeatlive',g:'close',n:'Бонусный эфир-повтор',s:'Та же суть другими словами за 1-2 дня до закрытия, для пропустивших и сомневающихся.',how:['Новый заголовок: «пошаговый план»','Короче основного','Больше кейсов и ответов','Дедлайн в конце'],pro:'Ещё одно касание, приходят те, кто пропустил.',con:'Не должен выглядеть как повтор.',load:2,cost:0,f:[['soc','group',1,'Ещё одна возможность поучаствовать.'],['dec','imp',1,'Поймает эмоцию.']],combo:['deadline'],kw:'повтор эфира бонусный'},
+{id:'qa',g:'close',n:'Эфир вопросов и ответов',s:'Только возражения: дорого, нет времени, а вдруг не получится. Всё вслух.',how:['Собери вопросы заранее','Ответы с кейсами','Не спорь, показывай примеры','Дедлайн в конце'],pro:'Закрывает последние сомнения.',con:'Если вопросов мало, неловко.',load:2,cost:0,f:[['dec','rat',2,'Ответы на её «но».'],['skep','burnt',2,'Прямые ответы на неудобные вопросы.'],['dec','col',1,'Аргументы для семьи или руководства.']],combo:['objections'],kw:'вопросы ответы возражения'},
+{id:'recall',g:'close',n:'Прозвон тёплых',s:'Менеджер звонит тем, кто был на событиях, но не купил: «что мешает?».',how:['Список: были на 2+ событиях','Звонок без давления','Помощь с решением, рассрочка','Фиксируй причины отказов'],pro:'Закрывает сомневающихся, которые сами не напишут.',con:'Навязчивость раздражает.',load:0,cost:1,f:[['soc','solo',1,'Сама не напишет, нужен звонок.'],['dig','lo',1,'Голосом проще.'],['dec','col',1,'Поможет с аргументами.']],combo:['opcall','installment'],kw:'прозвон звонок менеджер'},
+{id:'inside',g:'close',n:'Внутрянка потока',s:'Кто зашёл, скрины чата, первые задания. Тем, кто не купил, становится завидно.',how:['Первые дни потока в сторис и канале','Скрины с разрешения','Эмоции эксперта','Последний шанс зайти'],pro:'Сильный страх упустить.',con:'Без разрешения учеников нельзя.',load:1,cost:0,f:[['soc','group',2,'Хочет внутрь.'],['dec','imp',2,'Страх упустить.'],['dec','rat',-1,'На эмоции не ведётся.']],combo:['hype','deadline'],kw:'внутрянка поток'},
+{id:'guarantee',g:'close',n:'Гарантия возврата',s:'Возврат денег при условиях: снимает главный страх «а вдруг не получится».',how:['Понятные условия возврата','Срок: обычно 14 дней или первый модуль','Озвучивай на всех событиях','Отслеживай долю возвратов'],pro:'Снимает риск для скептиков.',con:'Нужен качественный продукт, иначе возвраты съедят кассу.',load:0,cost:0,f:[['skep','burnt',2,'Главный страх снят.'],['skep','new',1,'Снимает страх первой покупки.'],['dec','rat',1,'Риск просчитан.']],combo:['trial'],kw:'гарантия возврат'},
+{id:'installment',g:'close',n:'Рассрочка',s:'Оплата частями через банк или долями. Снимает барьер большой суммы.',how:['Банковская рассрочка и оплата долями','Показывай платёж в месяц','Отдельный тариф или кнопка','Менеджер помогает оформить'],pro:'Самый частый аргумент для дорогих продуктов.',con:'Наценка банка, отказы в одобрении.',load:0,cost:0,f:[['money','tight',2,'Без рассрочки не купит.'],['money','mid',1,'Удобно.'],['money','rich',-1,'Не нужна.']],combo:['recall'],kw:'рассрочка долями кредит'},
+{id:'retarget',g:'close',n:'Ретаргет на не купивших',s:'Реклама с кейсами и дедлайном тем, кто был на сайте или событии, но не купил.',how:['Собери аудитории: сайт, событие, бот','Креативы: кейсы, отзывы, дедлайн','Короткий срок, высокая частота','Отключи купивших'],pro:'Дешёвые касания с тёплыми.',con:'Нужна разметка и небольшой бюджет.',load:0,cost:1,f:[['time','none',1,'Догоняет там, где она есть.'],['dig','lo',1,'Видит рекламу без активных действий.']],combo:['target','deadline'],kw:'ретаргетинг реклама'},
+{id:'downsell',g:'close',n:'Даунсейл',s:'Тем, кто отказался, предлагаешь версию попроще: без кураторов, в записи, короче.',how:['Тариф без самой дорогой части','Только для отказавшихся','Честно объясни разницу','Зачёт при апгрейде'],pro:'Деньги с тех, кто не потянул основной тариф.',con:'Может обесценить основной продукт.',load:0,cost:0,f:[['money','tight',2,'Нашла вариант по карману.'],['money','rich',-1,'Не нужен.']],combo:['recall'],kw:'даунсейл тариф попроще'},
+{id:'priceup',g:'close',n:'Рост цены по этапам',s:'Ранняя цена для первых, потом выше. Заранее объявленный график.',how:['Три ступени цены','Даты публично','Напоминания перед каждым повышением','Без исключений'],pro:'Несколько пиков продаж вместо одного.',con:'Если повышение не случилось, доверие падает.',load:0,cost:0,f:[['dec','rat',1,'Выгода посчитана.'],['money','tight',1,'Ранняя цена мотивирует.']],combo:['preapp','deadline'],kw:'ранняя цена повышение цены ступени'}
+];
+
+/* дополнительные инструменты из ресёрча */
+TOOLS.push(
+{id:'warmout',g:'in',n:'Тёплый аутрич',s:'Личные сообщения своему окружению, подписчикам и бывшим клиентам: без продажи, с предложением помощи или разговора.',how:['Список: знакомые, активные подписчики, бывшие клиенты','Личное сообщение по имени, без шаблона','Предложи пользу или короткий созвон','Фиксируй ответы и договорённости'],pro:'Бесплатно, первые клиенты приходят за неделю. У Хормози это первый из четырёх способов привлечения.',con:'Не масштабируется, база знакомых кончается.',load:2,cost:0,f:[['aw','hot',2,'Тех, кто тебя знает, достаточно спросить.'],['money','rich',1,'Состоятельные ценят личное обращение.'],['soc','solo',1,'Наблюдатели сами не напишут, а на личное ответят.']],combo:['strat','dmsale'],kw:'личные сообщения окружение аутрич хормози'},
+{id:'coldout',g:'in',n:'Холодный аутрич',s:'Сообщения, письма или звонки незнакомым людям по портрету клиента.',how:['Список по портрету: должность, ниша, город','Персональная первая фраза про их ситуацию','2-3 повторных касания','Предложение: разбор или созвон'],pro:'Управляемый поток, не зависит от алгоритмов.',con:'Выгорание, риск блокировок, мало ответов.',load:2,cost:0,f:[['dec','col',2,'В B2B так и находят клиентов.'],['money','rich',1,'Окупается на высоком чеке.'],['money','tight',-2,'На массовом дешёвом продукте не окупится.'],['soc','group',-1,'Массовой аудитории холодные сообщения неприятны.']],combo:['calc','strat'],kw:'холодные письма звонки b2b'},
+{id:'affiliate',g:'in',n:'Партнёрская программа',s:'Внешние партнёры и блогеры продают твой продукт за процент с оплаты.',how:['Комиссия с оплаты, а не с заявки','Готовые промо-материалы','Партнёрские ссылки в GetCourse или CPA-сети','Выплаты вовремя, иначе партнёры уйдут'],pro:'Платишь только за результат.',con:'Нужна сильная упаковка, наставничество «на человеке» продаётся партнёрами плохо.',load:0,cost:1,f:[['skep','open',1,'Тем, кто доверяет формату, достаточно рекомендации.'],['dec','imp',1,'Понятный продукт с фиксированной ценой продаётся быстро.'],['money','rich',-1,'Дорогое наставничество покупают у автора, а не у партнёра.']],combo:['jv','referral'],kw:'партнёрка cpa аффилиаты'},
+{id:'jit',g:'free',n:'Эфир сразу после регистрации',s:'Запись вебинара стартует через 10 минут после регистрации, пока интерес горячий.',how:['На странице «начнётся через 10 минут»','Два сообщения до старта и два во время','Эфир не длиннее 1,5 часа','Оффер с дедлайном после эфира'],pro:'Ловит пик интереса, доходимость в разы выше, чем у вебинара «в четверг в 19:00».',con:'Это запись, нужен постоянный поток трафика.',load:1,cost:1,f:[['time','none',2,'Не надо помнить о времени эфира.'],['time','frag',1,'Смотрит, пока не отвлеклась.'],['dec','imp',2,'Ловит импульс.'],['money','rich',-1,'Высокий чек с одной записи покупают редко.']],combo:['target','autoweb','deadline'],kw:'вебинар сразу мгновенный эфир just in time доходимость'},
+{id:'game',g:'free',n:'Игровой запуск в чате',s:'Игра на 10-28 дней в Telegram-чате: задания, баллы, рейтинг, разборы. Продажа на финале.',how:['Механика: задания, баллы, призы','Чат на сотни участников с модератором','Эфиры-разборы раз в несколько дней','Финал: итоги, награды, оффер'],pro:'Даёт много часов внимания и азарт, продаёт даже с маленьким блогом.',con:'Тяжело организовать, нужна команда на чат.',load:3,cost:1,f:[['soc','group',2,'Азарт и общий чат.'],['dec','imp',1,'Покупает на эмоциях финала.'],['time','free',1,'Есть время играть.'],['time','none',-2,'Две-три недели игры ей не потянуть.'],['soc','solo',-2,'Наблюдатель играть не будет.']],combo:['closedch','deadline','inside'],kw:'игра игровой запуск чат баллы рейтинг'},
+{id:'openlesson',g:'free',n:'Открытый урок',s:'Фрагмент настоящего обучения или экскурсия по платформе: показываешь, как всё устроено внутри.',how:['Живой урок из программы','Покажи кабинет, задания, чат','Ответы на вопросы','Оффер в конце'],pro:'Снимает страх «кота в мешке».',con:'Мало драматургии продажи.',load:2,cost:0,f:[['skep','new',2,'Впервые видит, как устроено онлайн-обучение.'],['skep','burnt',1,'Видит продукт изнутри, без обещаний.'],['dig','lo',1,'Видит, что ничего сложного нет.'],['dec','imp',-1,'Импульсному скучно.']],combo:['trial','guarantee'],kw:'открытый урок день открытых дверей'},
+{id:'beta',g:'paid',n:'Предпродажа или бета-поток',s:'Продаёшь будущий продукт дешевле, с правом влиять на программу. Старт при наборе минимума.',how:['Анонс беты и условия','Цена ниже, условие: обратная связь','Старт только при наборе минимума','Кейсы беты на следующий запуск'],pro:'Проверка спроса до производства и первые кейсы.',con:'Продукт сырой, перфекционистам не зайдёт.',load:2,cost:0,f:[['aw','hot',2,'Фанаты автора купят заранее.'],['money','tight',1,'Ранняя цена ниже.'],['skep','burnt',-2,'Скептик не платит за то, чего ещё нет.'],['dec','rat',-1,'Рациональному нужна готовая программа.']],combo:['preapp','priceup'],kw:'предпродажа бета ранний доступ founding'},
+{id:'club',g:'paid',n:'Платный клуб как вход',s:'Подписка за 990-4 990 ₽ в месяц, внутри регулярные эфиры и чат, дальше апгрейд на курсы.',how:['Регулярные ритуалы: эфир, разбор, задание','Чат с модерацией','Апгрейд на продукт внутри клуба','Следи за удержанием на третьем и шестом месяце'],pro:'Предсказуемый доход и прогрев к дорогим продуктам.',con:'Без ритуалов люди уходят к третьему месяцу.',load:2,cost:0,f:[['soc','group',2,'Сообщество это и есть продукт.'],['money','tight',1,'Небольшой платёж в месяц.'],['aw','cold',-1,'Холодный в клуб не пойдёт.'],['time','none',-1,'Нет времени на регулярные эфиры.']],combo:['casestory','opcall'],kw:'клуб подписка сообщество'},
+{id:'setter',g:'sale',n:'Сеттер и клоузер',s:'Сеттер квалифицирует в переписке и записывает на созвон, клоузер закрывает сделку.',how:['Сеттер пишет по скрипту и задаёт вопросы','Передаёт только тёплых','Клоузер проводит созвон','Общая таблица и разбор отказов'],pro:'Масштабирует продажу дорогого продукта без эксперта.',con:'Найм и контроль, на малом потоке не окупается.',load:0,cost:2,f:[['money','rich',2,'Высокий чек оплачивает двух людей.'],['dig','hi',1,'Сама переписывается в директе.'],['money','tight',-1,'На маленьком чеке не окупится.']],combo:['dmsale','strat'],kw:'сеттер клоузер директ'},
+{id:'personal',g:'sale',n:'Личное видео или голосовое от эксперта',s:'Эксперт записывает горячему лиду короткое обращение по имени и про его ситуацию.',how:['Отбери самых горячих','Обращение по имени и с деталями из анкеты','Один шаг: созвон или оплата','Не больше минуты'],pro:'Сильнейший эффект внимания.',con:'Не масштабируется.',load:2,cost:0,f:[['money','rich',2,'Ценит личное внимание.'],['skep','burnt',1,'Видит живого человека.'],['soc','solo',1,'Не нужно участвовать в общем движе.']],combo:['recall','strat'],kw:'видео кружок голосовое лично'},
+{id:'postchain',g:'close',n:'Дожимная цепочка после эфира',s:'3-5 писем или сообщений не купившим и отдельная цепочка тем, кто не пришёл.',how:['Две ветки: были и не купили, не пришли','3-5 касаний за 3-7 дней','Объясняй продукт, а не дави на боль','Дедлайн в последнем сообщении'],pro:'Половина продаж вебинара приходит из писем и звонков после эфира.',con:'Давление выжигает базу.',load:0,cost:0,f:[['dec','rat',2,'Нужно время подумать, цепочка его даёт.'],['time','none',1,'Дочитает, когда сможет.'],['dec','col',1,'Письмо можно переслать.']],combo:['deadline','replay'],kw:'дожимная цепочка письма после вебинара'},
+{id:'cart',g:'close',n:'Напоминание о брошенной оплате',s:'Человек создал заказ и не оплатил: бот или почта напоминают через час, сутки и двое.',how:['Три сообщения, а не одно','Через 1 час, 24 часа, 48 часов','Помощь с оплатой и рассрочкой','Ссылка сразу на оплату'],pro:'Полностью автоматично, возвращает часть заказов.',con:'Эффект небольшой, но почти бесплатный.',load:0,cost:0,f:[['dig','lo',2,'Часто не платят из-за техники, помощь возвращает.'],['money','tight',1,'Подсказка про рассрочку.']],combo:['installment','recall'],kw:'брошенная корзина неоплаченный заказ'},
+{id:'reactivate',g:'close',n:'Реактивация базы',s:'Работа с теми, кто уже в базе: не купили в прошлый раз, бывшие ученики, лист следующего потока.',how:['Сегменты: купил, не купил, был на эфире','Персональное предложение или апгрейд','Лист ожидания следующего потока','Не частить, иначе выжжешь'],pro:'Самый дешёвый источник денег: повторные продажи дают больше половины выручки школ.',con:'При частых запусках база выгорает.',load:1,cost:0,f:[['aw','hot',2,'Уже знает и доверяет.'],['skep','open',1,'Уже покупала, повторить проще.'],['aw','cold',-1,'Свежей базе нечего реактивировать.']],combo:['downsell','priceup'],kw:'реактивация повторные продажи база'}
+);
+
+/* ориентиры по цифрам */
+const MET={
+ kw:[{t:'Автоответ по слову: 15-30% комментаторов доходят до лид-магнита (данные вендора).',u:'https://instantdm.com/blog/instagram-lead-generation-2026-guide'},{t:'Комментарии дают алгоритму сигнал вовлечения, внешняя ссылка не даёт.',u:'https://blog.chatplace.io/avtootvetchik-instagram-direct-v-2026-godu-avtomaticheskie-otvety-po-kodovomu-slovu/'}],
+ guide:[{t:'Короткий чек-лист конвертирует страницу в 5-15%, длинный гайд в 2-10% (вендор).',u:'https://prospeo.io/s/lead-magnet-examples'},{t:'Медиана конверсии лендинга в образовании 8,4%, страницы онлайн-курсов 18,3% (Unbounce).',u:'https://unbounce.com/conversion-benchmark-report/education-conversion-rate/'}],
+ quiz:[{t:'Квиз-лендинг: 11,28% визитов становятся заявкой (ConvertFlow, 1063 кампании).',u:'https://www.convertflow.com/benchmark-reports/lead-generation-quiz-funnel-benchmark-september-2026'},{t:'Квиз на 3-7 вопросов проходят до конца 65-85%, на 16+ вопросов 25-45% (Outgrow).',u:'https://outgrow.co/blog/?p=62795'},{t:'Тест квиз против лендинга: заявка дешевле почти вдвое, но качество заявок ниже на 17%.',u:'https://habr.com/en/articles/510984'}],
+ seeding:[{t:'Подписчик из посевов стоит от 40 до 800 ₽ в зависимости от темы.',u:'https://ppc.world/articles/skolko-stoit-podpischik-v-telegram-obzor-50-tematik/'},{t:'Онлайн-школа психологии: 11 закупов, 4 733 подписчика по 243 ₽.',u:'https://vc.ru/id1514689/2702717-telegram-posevy-dlya-onlayn-shkoly-psikhologii'}],
+ tgads:[{t:'Цена подписчика в Telegram Ads: образование около 180 ₽, психология 150, маркетинг 250, финансы 350.',u:'https://vc.ru/1464577-kak-prodvigat-onlain-shkolu-cherez-telegram-ads'}],
+ target:[{t:'Цена регистрации на вебинар: психология 150-300 ₽, профессии 300-800 ₽, бизнес и инвестиции 500-1 500 ₽.',u:'https://checkroi.ru/blog/voronka-prodazh-v-infobiznese/'}],
+ giveaway:[{t:'Канал набрал 300 тысяч за день розыгрыша и потерял больше 100 тысяч за три дня после.',u:'https://callibri.ru/blog/kak-provesti-rozygrysh-v-telegrame-2024'}],
+ chain:[{t:'Telegram API не передаёт просмотры, поэтому бота и почту сравнивают по кликам и оплатам, а не по открытиям.',u:'https://bothelp.io/ru/blog/analitika-voronki'}],
+ email:[{t:'Письма в образовании открывают 35,64%, кликают 3,02% (Mailchimp, открытия завышены из-за Apple).',u:'https://mailchimp.com/resources/email-marketing-benchmarks/'}],
+ preapp:[{t:'Тёплый лист ожидания покупает на предпродаже в 5-15% против 0,5-2% у холодного трафика (вендор).',u:'https://getlaunchlist.com/waitlist-for-online-courses'}],
+ webinar:[{t:'Доходимость в инфобизе: около 10% (МТС Линк), 15-20% по рынку, 30-40% как цель. Зритель в заявку 5-10%, заявка в оплату 50-65%.',u:'https://checkroi.ru/blog/voronka-prodazh-v-infobiznese/'},{t:'Явка по размеру организатора: до $1 млн выручки 22%, $10-50 млн 48%; «образовательные услуги» 20% (Banzai, 800 тыс. вебинаров).',u:'https://cdn.prod.website-files.com/61967dbb50eec57a4e7fde97/65c2814c4945d76010d824fe_Webinar_Statistics_2024_FINAL.pdf'},{t:'Лучший день вторник, худший месяц август; половина регистраций за последнюю неделю (Livestorm, 4,35 млн регистраций).',u:'https://livestorm.co/blog/best-time-to-host-a-webinar'}],
+ autoweb:[{t:'Живые эфиры собирают 38% зарегистрированных, вебинары по запросу 72% (Banzai).',u:'https://diginomica.com/finding-roi-webinars-learnings-banzai-vp-marketing-ashley-levesque'},{t:'На автовебинаре зритель холоднее и быстрее уходит, чем на живом.',u:'https://getcourse.ru/magazine/uderzghaniye-auditorii-na-vebinare'}],
+ jit:[{t:'Эфир через 10 минут после регистрации: доходимость 68% и 77% против примерно 40% раньше.',u:'https://getcourse.ru/magazine/vebinar-posle-registracii-povyshayet-dohodimost'}],
+ challenge:[{t:'Переход от вебинара к трёхдневному мини-курсу в Telegram поднял доходимость до финала с 12% до 45%, конверсию в покупку в 2,5 раза.',u:'https://checkroi.ru/blog/voronka-prodazh-v-infobiznese/'},{t:'Длинные марафоны на 5-7 дней аудиторию утомили, работают 1-3 дня.',u:'https://vc.ru/marketing/2173247-pochemu-onlajn-shkoly-terayut-auditoriyu'},{t:'Когорта доходит до конца в 53% случаев против 42% у самостоятельного прохождения, в коучинге 77% против 38% (Ruzuku, 27 тыс. курсов).',u:'https://www.ruzuku.com/learn/articles/cohort-vs-self-paced-completion-study'}],
+ practicum:[{t:'Из трипваера во флагман переходит 5-15% покупателей.',u:'https://checkroi.ru/blog/voronka-prodazh-v-infobiznese/'},{t:'Трипваер решает одну боль за 60-90 минут, цена 1 490-1 900 ₽ (GetCourse).',u:'https://getcourse.ru/magazine/tripvayery_trend2025'}],
+ paidmk:[{t:'Один организатор за 6 лет: явка около 30% на бесплатные события и около 85% на платные.',u:'https://ainora.lt/md/blog/does-charging-for-a-webinar-increase-attendance.md'}],
+ upsell:[{t:'Дополнительный товар в корзине берут 30-40%, апсейл после оплаты около 20% (SamCart, вендор).',u:'https://www.samcart.com/blog/increase-average-order-value'}],
+ opcall:[{t:'Звонить в первые 10-15 минут после заявки. У сильных отделов продаж заказ в оплату 70-92% (оценка автора).',u:'https://getcourse.ru/magazine/konversiya_otdela_prodazh_70_92_procentov_iz_zakaza_v_oplatu_kak_etogo_dostich'},{t:'Неявка на созвоны в сегменте образования 18,1% против 6,5% в среднем по рынку.',u:'https://revenuehero.io/reports/no-show-benchmark-december-02-2024'}],
+ strat:[{t:'Анкета в диагностику 30-50%, доходимость до созвона 50-70%, созвон в оплату 20-40% при чеке 100-300 тысяч.',u:'https://checkroi.ru/blog/voronka-prodazh-v-infobiznese/'},{t:'Часовые созвоны отменяют в 2,5 раза чаще получасовых (данные одной компании).',u:'https://cotera.co/articles/meeting-no-show-tracking-ai'}],
+ dmsale:[{t:'Коучинг за $2-10 тысяч из директа: 5-12% норма, 12-20% сильно (вендор).',u:'https://dmchamp.com/tools/high-ticket-close-rate/'}],
+ webbutton:[{t:'Опросы в эфире собирают 40-60% участия против 10-20% в чате; после профилирования конверсия выросла с 10% до 18%.',u:'https://workspace.ru/cases/8-k-konversii-vebinara-chto-daet-profilirovanie-uchastnikov/'}],
+ deadline:[{t:'Smart Passive Income: 44% продаж запуска пришли в последний день.',u:'https://www.smartpassiveincome.com/?p=3308'},{t:'У партнёров запусков 40-60% продаж в последние 24 часа, у лидеров рейтинга больше 70%.',u:'https://www.mattmcwilliams.com/how-close-sales-final-day-launch/'}],
+ postchain:[{t:'Половина продаж вебинара приходит из писем и звонков после эфира, заявки превращаются в оплаты за 1-14 дней.',u:'https://checkroi.ru/blog/voronka-prodazh-v-infobiznese/'}],
+ cart:[{t:'Серия из трёх напоминаний работает лучше одного (Klaviyo, e-commerce).',u:'https://www.klaviyo.com/blog/abandoned-cart-benchmarks'}],
+ installment:[{t:'Доля покупок через Яндекс Сплит у школ на GetCourse от 6 до 22,8%.',u:'https://getcourse.ru/magazine/yandex_split_uvelichil_prodazhi_online_shkoly'},{t:'Заранее рассрочку планируют только 6% покупателей: её выбирают в момент оплаты.',u:'https://rg.ru/2025/05/14/rossiiane-rasskazali-skolko-gotovy-potratit-na-onlajn-obuchenie.html'}],
+ reactivate:[{t:'Повторные продажи дают 55-58% выручки школ за квартал (GetCourse).',u:'https://checkroi.ru/blog/voronka-prodazh-v-infobiznese/'}],
+ guarantee:[{t:'К инфобизу лояльны 26%, отрицательно относятся 30%; 28% хотят иметь дело только с юрлицами (опрос Inc).',u:'https://incrussia.ru/news/43-rossiyan-protiv-onlajn-marafonov/'}],
+ hype:[{t:'Фальшивое «осталось N мест» вскрывается и рушит репутацию: только при реальном лимите.',u:'https://learnybox.com/en/blog/email-sequence-for-a-course-launch/'}],
+ onepager:[{t:'Аудитория 55-75 лет предпочитает текст, фото и классические ролики, короткие вертикальные видео ей не заходят.',u:'https://ppc.world/news/auditoriya-55-schitaet-reklamu-navigatorom-po-rynku-i-cenit-v-ney-yumor-i-syuzhet-issledovanie/amp/'}]
+};
+
+/* публичные кейсы, все проверены по источнику */
+const CAS={
+ webinar:[{who:'Академия Аутсорсинга, бухгалтеры',d:'База устала от полезных эфиров и перестала покупать. Вебинар построили на разрушении трёх убеждений, о продаже сказали в самом начале, оставили только рассрочку.',nums:['конверсия 14,9% вместо 1-2%','удержание 47%','2,9 млн ₽ с первого эфира'],u:'https://teletype.in/@lando_ulk/buh',src:'Teletype'},{who:'Курс для нейропсихологов',d:'Анонсы в 8 небольших партнёрских каналах, два бесплатных эфира, бот для прогрева, записи открыты 5 дней.',nums:['бюджет 50 000 ₽','1000+ регистраций по 75 ₽','доходимость 57%','112 продаж, 2,5 млн ₽'],u:'https://tenchat.ru/0308067',src:'TenChat'}],
+ jit:[{who:'Онлайн-школа Татьяны Филюковой',d:'Вебинар стали запускать сразу после регистрации вместо эфира по расписанию.',nums:['было около 40%','стало 68%, затем 77%'],u:'https://getcourse.ru/magazine/vebinar-posle-registracii-povyshayet-dohodimost',src:'GetCourse'}],
+ razbor:[{who:'Онлайн-школа, кейс Екатерины Кот',d:'Прогрев: интервью на YouTube и 7-8 писем. Вебинар в формате разбора ситуаций участников, через три дня отдельный эфир вопросов и ответов, окна продаж с дедлайном.',nums:['48 продаж флагмана','больше 12,6 млн ₽','в 3 раза больше прежнего'],u:'https://getcourse.ru/blog/1166177',src:'GetCourse'}],
+ autoweb:[{who:'Психология, тренинг за 55 000 ₽',d:'Яндекс Директ на автовебинар на 2,5 часа, который стартует каждые 10 минут. Кейс честный: показывает, что быстрый результат в Директе обманчив.',nums:['4 767 лидов','1 652 участника','33 продажи, 951 892 ₽','ДРР 55%'],u:'https://getcourse.ru/magazine/pochemu_bystryi_rezultat_v_yandex_direct_opasnoe_zabluzhdenie',src:'GetCourse'}],
+ paidmk:[{who:'Налоговая школа для риелторов',d:'Два бесплатных автовебинара объединили в один платный с тарифами «онлайн» и «запись». Сначала провели вживую, потом сделали еженедельный автовебинар.',nums:['780 тыс. ₽ с живого эфира','1,3 млн ₽ за 8 месяцев автовебинара по 290-500 ₽'],u:'https://getcourse.ru/magazine/avtovebinar_kak_istochnik_stabilnogo_dohoda',src:'GetCourse'},{who:'Юридическая школа «право для обычных людей»',d:'Вебинар сделали платным, добавили трипваер и разовое предложение после оплаты. Трафик из партнёрского канала на 40 тысяч.',nums:['доходимость 84%','586 000 ₽ с одного эфира','2,5 млн ₽ за месяц'],u:'https://getcourse.ru/blog/1075416',src:'GetCourse'}],
+ upsell:[{who:'Юридическая школа «право для обычных людей»',d:'Трипваер и разовое предложение на странице благодарности после покупки платного вебинара.',nums:['76 заказов','конверсия 26%'],u:'https://getcourse.ru/blog/1075416',src:'GetCourse'}],
+ workbook:[{who:'Елена Сягло, перинатальная психология',d:'Мини-курс из 5 уроков как трипваер, пятый урок это вебинар-продажа флагмана. Трафик органический из рилзов, протестировали 5 версий лендинга.',nums:['7,2% купили флагман за 3 недели','прибыль +67%'],u:'https://getcourse.ru/blog/1179428',src:'GetCourse'}],
+ game:[{who:'Четыре игровых запуска в Telegram',d:'Посуточная аренда, маркетинг, психология и бьюти-мастера: игры на 10-28 дней в чатах, с эфирами-разборами.',nums:['аренда: блог 2 000, 2,95 млн ₽','психология: 976 в чате, 2,6 млн ₽','бьюти: блог 150, 400 тыс. ₽'],u:'https://tenchat.ru/0765464',src:'TenChat'}],
+ summit:[{who:'24-часовой вебинар-марафон, 26 спикеров',d:'Бесплатный живой доступ, платный доступ к записям, секретная фраза в эфире и призы.',nums:['1000+ участников','продажи в 2,5 раза выше','база +30%'],u:'https://getcourse.ru/marketing-blog/1144491/kak-24-chasovoy-marafon-vebinar-na-getcourse-uvelichil-prodagi-v-dva-s-polovinoy-raza-i-razshiril-klientskuu-bazu-na-30-procentov',src:'GetCourse'}],
+ challenge:[{who:'Фитнес-тренер, марафон похудения',d:'Таргет на сообщения, бот с лид-магнитом, эфир в Instagram, менеджер дозванивается до неоплативших.',nums:['54 оплаты','263 000 ₽','в 3,3 раза больше прежнего'],u:'https://teletype.in/@elena_intarget/0wQdyTRg1sa',src:'Teletype'},{who:'Amy Porterfield, челлендж',d:'Бесплатный челлендж перед открытием продаж курса.',nums:['1 292 регистрации','104 продажи, около 8%'],u:'https://amyporterfield.com/?p=32925',src:'Amy Porterfield'}],
+ intensive:[{who:'Курс «Специалист по трафику»',d:'Реклама ведёт в бота, бот в закрытый канал с интенсивом на 5-7 дней.',nums:['вход в бота 98 ₽','в марте 1,62 млн ₽','ROMI 508%'],u:'https://teletype.in/@ilyatg/nbAh1lnIw35',src:'Teletype'}],
+ closedch:[{who:'Курс «Специалист по трафику»',d:'Интенсив проходит в отдельном закрытом канале, куда переходят из бота.',nums:['32% из бота в канал','ROMI 473-508%'],u:'https://teletype.in/@ilyatg/nbAh1lnIw35',src:'Teletype'}],
+ closedpres:[{who:'Школа Таро',d:'Вход в закрытый канал по анкете, прогрев внутри, эфир-презентация с условиями только для участников. 20 мест с куратором и 7 с автором.',nums:['половина мест в день эфира','всё за 3 дня','475 000 ₽'],u:'https://teletype.in/@allavolobueva/2jQRIcj0e7E',src:'Teletype'}],
+ live:[{who:'Наставничество за 180 000 ₽',d:'Продажа через Zoom-эфир по своей узкой базе, без рекламы.',nums:['218 регистраций','пик 79 зрителей','1,2 млн ₽, реклама 0'],u:'https://teletype.in/@yuliahat/8Gm1jqgTdpz',src:'Teletype'}],
+ strat:[{who:'Онлайн-школа с бесплатной диагностикой',d:'Настроили задачи в CRM и напоминания за 24 часа и за 1 час до диагностики.',nums:['пришедших с 9% до 22%','с серией до 51%','1,37 млн ₽ за второй месяц'],u:'https://getcourse.ru/magazine/crm-getcourse-kak-istochnik-prodazh',src:'GetCourse'}],
+ opcall:[{who:'Академия Современной Психологии',d:'Чек 60-130 тысяч, сделка 1-3 месяца. Рекламу оптимизировали по оплатам вместе с руководителем отдела продаж.',nums:['ДРР с 30% до 13,75%','3,13 млн ₽ в месяц'],u:'https://ppc.world/articles/onlayn-shkola-perestala-zaviset-ot-zapuskov-i-poluchila-predskazuemuyu-vyruchku-v-3-mln-rubley-v-mesyac-keys/',src:'ppc.world'}],
+ deadline:[{who:'Распродажа на 4 дня',d:'Каждая группа продуктов доступна только 24 часа, таймер и бонусы, без продлений.',nums:['продажи удвоились к обычному месяцу'],u:'https://getcourse.ru/blog/1153074',src:'GetCourse'}],
+ chain:[{who:'Курсы по нейросетям',d:'Чек-лист «ТОП 20 нейросетей» выдаётся в боте, потом серия прогревающих сообщений.',nums:['23% из регистрации в покупку','бюджет 30 000'],u:'https://workspace.ru/cases/povyshenie-konversii-do-23-s-pomoschyu-avtovoronki-v-chat-bote-dlya-kursov-po-neyrosetyam/',src:'Workspace'},{who:'Английский для детей, аудитория родители',d:'Мини-лендинг, бот, цепочка из 5+ сообщений. Тестировали лид-магниты: вебинар и мини-курс в канале.',nums:['14 391 подписчик ботов','774 продажи'],u:'https://workspace.ru/cases/bolee-700-prodazh-onlayn-kursa-po-angliyskomu-yazyka-dlya-detey-cherez-chat-bota/',src:'Workspace'}],
+ minicourse:[{who:'Школа врача-невролога, аудитория 45+',d:'Мини-курс «Избавься от вздутия» и серия писем, плюс два бота с 14-дневной цепочкой.',nums:['база 48 000','автоворонки дают около 35% продаж'],u:'https://www.unisender.com/ru/blog/kejs-onlajn-shkola-karmackih/',src:'Unisender'},{who:'Antoine van der Lee, курсы для iOS-разработчиков',d:'Блог с 2016 года, рассылка и бесплатный email-курс на 5 дней.',nums:['$40 000+ первый курс','27 000+ подписчиков'],u:'https://www.teachable.com/blog/antoine-van-der-lee-case-study',src:'Teachable'}],
+ seeding:[{who:'Курс веб-дизайна',d:'Посевы в Telegram на бесплатный мини-курс с проверкой домашних заданий.',nums:['394 заявки по 250 ₽','89% прошли мини-курс','890 000 ₽ за месяц'],u:'https://workspace.ru/cases/prodvizhenie-kursa-po-veb-dizaynu-394-zayavki-i-890-000-vyruchki-za-mesyac/',src:'Workspace'}],
+ email:[{who:'Justin Welsh, The Creator MBA',d:'Опрос на странице благодарности делил подписчиков на три сегмента, письма писали под каждый.',nums:['$1,5 млн за 6 дней'],u:'https://kit.com/resources/blog/justin-welsh-case-study',src:'Kit'}],
+ preapp:[{who:'Code with Andrea, курс по Flutter',d:'Лист ожидания с января, предпродажа две недели за $89, потом цена $149.',nums:['2 630 в листе','до 30% листа купили','$127K всего'],u:'https://codewithandrea.com/meta/my-2022-in-review/',src:'Code with Andrea'},{who:'Clarity Up Consulting, навыки коммуникации',d:'Лист ожидания на бесплатный мастер-класс на 20 мест.',nums:['100 записей','места ушли за 27 минут','9 продаж по $800'],u:'https://www.casestudies.com/company/scoreapp/case-study/clarity-up-consulting-customer-case-study',src:'ScoreApp'}],
+ beta:[{who:'Code with Andrea, курс по Flutter',d:'Предпродажа за $89 с объявленным ростом цены до $149.',nums:['$21K за первые сутки','$53K за предпродажу'],u:'https://codewithandrea.com/meta/my-2022-in-review/',src:'Code with Andrea'}],
+ priceup:[{who:'Code with Andrea, курс по Flutter',d:'Ступенчатая цена: $89 на предпродаже, потом $149.',nums:['1 400 продаж','$127K+'],u:'https://codewithandrea.com/meta/my-2022-in-review/',src:'Code with Andrea'}],
+ quiz:[{who:'Convertico, B2B-агентство',d:'Вместо PDF-лид-магнита сделали диагностический квиз.',nums:['100 прохождений','8 клиентов','£60 000'],u:'https://www.casestudies.com/company/scoreapp/case-study/how-convertico-turned-100-quiz-completions-into-60k-in-revenue',src:'ScoreApp'},{who:'Melissa Groves Azzaro, нутрициология',d:'Квиз как лид-магнит, потом три живых вебинара за 10-дневный запуск.',nums:['список с 200 до 2 500','70 студентов, $26 000+'],u:'https://www.amyporterfield.com/transcript/334transcript/',src:'Amy Porterfield'}],
+ longvideo:[{who:'Ali Abdaal, Part-Time YouTuber Academy',d:'Набор в когорту объявлял роликом на YouTube, цена от $1 495.',nums:['$200 000 за 10 минут','$400K за первый день'],u:'https://news.thepublishpress.com/p/ali-abdaals-400k-day',src:'The Publish Press'}],
+ podcast:[{who:'Estelle Ballot, маркетинг для соло-предпринимателей',d:'Весь поток покупателей курсов идёт из её подкаста, рекламы нет.',nums:['первый запуск €25K','€60K за 9 месяцев'],u:'https://www.amyporterfield.com/reviews/estelle-ballot/',src:'Amy Porterfield'}],
+ jv:[{who:'Tiago Forte и Jeff Sauer',d:'Совместный вебинар, связка двух курсов, выручка пополам.',nums:['около 450 регистраций','13 покупок','почти $20 000'],u:'https://fortelabs.com/blog/anatomy-of-a-20k-webinar/',src:'Forte Labs'}],
+ target:[{who:'Повышение квалификации для колористов',d:'Таргет VK на регистрации, холодных лидов обрабатывали отдельные менеджеры.',nums:['1 119 регистраций по 475 ₽','ROMI 316-396%'],u:'https://www.sostav.ru/blogs/281472/58835',src:'Sostav'},{who:'Онлайн-школа рисования',d:'Таргет VK на аудиторию, которая ищет хобби или перемены, особенно перед Новым годом.',nums:['10 343 регистрации','3,65 млн ₽ продаж'],u:'https://workspace.ru/cases/keys-privlekli-10-343-registracii-sdelav-prodazh-na-summu-3-654-780-r-dlya-shkoly/',src:'Workspace'}],
+ offline:[{who:'Обучение финансам и инвестициям',d:'40+ офлайн-мероприятий за 3 месяца по 30-60 человек, оттуда люди шли в лид-магнит в Telegram. Окно продаж 10 дней.',nums:['267 продаж','средний чек 24 700 ₽','около 6,5 млн ₽'],u:'https://tenchat.ru/media/584889-keys-po-finobrazovaniyu-na-65-millionov',src:'TenChat'}],
+ speaking:[{who:'Обучение финансам и инвестициям',d:'Эксперт выступал на 12 из 40 мероприятий, с каждого вёл в Telegram.',nums:['закрытая группа около 1 100','бюджет на рекламу 120 000 ₽'],u:'https://tenchat.ru/media/584889-keys-po-finobrazovaniyu-na-65-millionov',src:'TenChat'}],
+ giveaway:[{who:'ClickMinded, запуск курса',d:'Розыгрыш: за каждого приглашённого +3 входа, гарантированный приз за 10 рефералов.',nums:['565 email за 2 недели','47% пришли по рефералам','продаж в кейсе нет'],u:'https://www.clickminded.com/guide-to-a-successful-product-launch/',src:'ClickMinded'}],
+ referral:[{who:'CBD College, Австралия',d:'Рекомендателю подарочная карта, другу скидка 10%.',nums:['3 700+ зачислений','конверсия 56% против 11% у платного поиска'],u:'https://referral-factory.com/learn/cbd-college-referral-program-case-study',src:'Referral Factory'}]
+};
+TOOLS.forEach(t=>{t.m=MET[t.id]||[];t.cases=CAS[t.id]||[]});
+
+const QUIZ=[
+ {c:'<b>Стоматологи-ортопеды.</b> Работают по 10-12 часов, решения принимают по цифрам, технику не любят, на инфобиз обжигались.',q:'Какое бесплатное событие продаст им лучше всего?',o:['Пятидневный челлендж с заданиями в чате','Открытые разборы реальных клинических случаев','Эфир-болталка по четвергам в 10 утра','Игровой запуск в Telegram на 3 недели'],a:1,e:'Разборы показывают метод в деле на живых примерах: рациональный скептик видит работу, а не обещания. Челлендж и игра требуют времени, которого нет.',t:'razbor'},
+ {c:'<b>Мамы в декрете,</b> хотят запустить блог. Сидят в телефоне урывками, любят чаты, покупают на эмоциях.',q:'Какой вход в базу выбрать?',o:['Холодный аутрич по почте','Кодовое слово под рилзом с видео-уроком в боте','Выступление на отраслевой конференции','Платная диагностика за 10 000 ₽'],a:1,e:'Десять секунд из ленты, бот, видео: всё в её формате и ритме. Остальное либо не про неё, либо слишком тяжело.',t:'kw'},
+ {c:'<b>Курс за 3 490 ₽,</b> раньше продавали по 2-3 штуки с бесплатного эфира. Трафик из партнёрского канала на 40 тысяч.',q:'Что сделала юридическая школа, чтобы получить 586 000 ₽ с одного эфира?',o:['Отменила эфир и продавала со страницы','Сделала вебинар платным и добавила разовое предложение после оплаты','Устроила розыгрыш айфона','Подняла цену курса в 10 раз'],a:1,e:'Платный вход отсеял халявщиков (доходимость 84%), а разовое предложение после оплаты взяли 26%.',t:'paidmk'},
+ {c:'<b>Владельцы бизнеса,</b> решение о покупке согласуют с партнёром или финдиректором.',q:'Какой дожим здесь скорее навредит?',o:['Эфир вопросов и ответов','Цепочка писем, которые можно переслать','Кнопка оплаты прямо на эфире со спецценой на час','Прозвон тех, кто был на событиях'],a:2,e:'Человек, который не решает один, не может купить за час. Давление его отпугнёт. Нужны материалы для согласования и время.',t:'webbutton'},
+ {c:'<b>Регистрации на вебинар идут хорошо,</b> но доходит меньше 20%. Аудитория занятая, смотрит с телефона.',q:'Что поднимет доходимость сильнее всего?',o:['Перенести эфир на субботу','Запускать эфир сразу после регистрации','Удлинить вебинар до трёх часов','Убрать напоминания, чтобы не раздражать'],a:1,e:'В кейсе GetCourse доходимость выросла примерно с 40% до 68-77%: человек смотрит, пока интерес горячий.',t:'jit'},
+ {c:'<b>Подписчики годами молча читают канал,</b> в чатах не пишут, на эфирах камеру не включают.',q:'Какое событие им подойдёт хуже всего?',o:['Автовебинар с выбором времени','Игровой запуск в чате с баллами и рейтингом','Мини-курс в боте','Воркшоп, где делаешь задание сама'],a:1,e:'Игра держится на активности в чате. Наблюдатель туда не напишет и выпадет в первый же день.',t:'game'},
+ {c:'<b>Тёплая база,</b> продукт уже видели на прошлом запуске, у автора много фанатов.',q:'Что даст быстрые деньги с минимальной работой?',o:['Месяц прогрева заново','Предпродажа с ранней ценой и объявленным повышением','Пятидневный челлендж для новичков','Холодный аутрич'],a:1,e:'Тем, кто уже знает продукт, длинный прогрев не нужен. Code with Andrea собрал $53K за две недели предпродажи по ранней цене.',t:'beta'},
+ {c:'<b>Аудитория впервые покупает онлайн-обучение</b> и боится, что «это не для неё» и «вдруг развод».',q:'Какой инструмент закрывает этот страх лучше всего?',o:['Ажиотаж «осталось 3 места»','Открытый урок или пробный доступ внутрь продукта','Слепой оффер за 99 ₽','Дедлайн через 2 часа'],a:1,e:'Новичку надо увидеть, как устроено обучение. Срочность и слепые предложения только усилят страх.',t:'openlesson'},
+ {c:'<b>Запуск закончился,</b> касса меньше плана, многие были на эфирах, но не купили.',q:'Что делать в первую очередь?',o:['Сразу новый запуск другого продукта','Дожимная цепочка не купившим и прозвон тех, кто был на событиях','Удалить неактивных из базы','Ничего, кто хотел, тот купил'],a:1,e:'Половина продаж вебинара приходит после эфира из писем и звонков. Пропустить этот этап значит отдать деньги.',t:'postchain'},
+ {c:'<b>Женщины 45+, тема здоровья.</b> Со смартфоном на «вы», любят живое общение, на инфобиз обжигались.',q:'Какая связка подходит лучше?',o:['Квиз, бот с ветвлениями, автовебинар','Офлайн-встреча или простой эфир одной ссылкой, звонок менеджера, гарантия','Пятидневный челлендж в Telegram с отчётами','Холодные письма с PDF'],a:1,e:'Минимум техники, максимум живого контакта и снятие риска. Многошаговые цифровые воронки на этой аудитории теряют людей на каждом шаге.',t:'offline'}
+];
+
+const RECIPES={
+ auto:{n:'Автовебинар на рекламе',price:55000,d:'Психология: Директ, автовебинар каждые 10 минут, отдел продаж',picks:{in:['target'],warm:['chain'],free:['autoweb'],sale:['opcall'],close:['postchain','deadline']}},
+ paidweb:{n:'Платный вебинар',price:3000,d:'Юридическая школа: партнёрский канал, платный эфир, разовое предложение',picks:{in:['seeding'],warm:['chain'],paid:['paidmk'],sale:['webbutton'],close:['replay']}},
+ closed:{n:'Закрытый канал и презентация',price:30000,d:'Школа Таро: анкета, закрытый канал, эфир-презентация',picks:{in:['kw'],warm:['preapp','closedch','hype'],free:['closedpres'],sale:['dmsale'],close:['deadline']}},
+ game:{n:'Игровой запуск',price:30000,d:'Игры в Telegram-чатах на 10-28 дней',picks:{in:['reels','kw'],warm:['hype'],free:['game'],sale:['dmsale'],close:['deadline','inside']}},
+ waitlist:{n:'Лист ожидания и предпродажа',price:15000,d:'Code with Andrea: лист ожидания, письма, ранняя цена',picks:{in:['longvideo'],warm:['preapp','email'],paid:['beta'],close:['priceup','deadline']}},
+ offline:{n:'Офлайн-встречи и окно продаж',price:30000,d:'Финансовое образование: 40 встреч, Telegram, 10 дней продаж',picks:{in:['speaking'],warm:['closedch'],free:['offline'],sale:['opcall'],close:['deadline']}},
+ diag:{n:'Диагностики на высокий чек',price:100000,d:'Школа с CRM: напоминания, диагностика, звонки',picks:{in:['target'],warm:['casestory'],free:['webinar'],sale:['strat'],close:['recall','postchain']}}
+};
+
+const POL_REF_PLAN=[
+ '<b>Разводим смыслы.</b> «Душа компании» собирает базу, «профессия» продаёт флагман.',
+ '<b>Вход:</b> охватные рилзы с фокусами и кодовое слово на видео «фокус с монеткой». Для тех, кто про деньги, второе видео «как я в 20 лет начала зарабатывать».',
+ '<b>Прогрев 3-4 недели:</b> реалити с корпоративов и сцен, кейс-истории, цепочка в боте. Аудитория холодная и онлайн-обучение не покупала, поэтому прогрев длиннее.',
+ '<b>Платный вход:</b> практикум «5 фокусов без реквизита за вечер» за 300 ₽, в конце мостик к профессии.',
+ '<b>Бесплатное событие:</b> тематический эфир «Как в 20 лет зарабатывать фокусами: первые выступления за 30-50 тысяч» или открытый урок. Игровой запуск тоже подходит: аудитория любит движ.',
+ '<b>Личная продажа:</b> переписка в директе. Аудитория молодая и пишет сама.',
+ '<b>Дожим:</b> внутрянка потока и дедлайн, рассрочка для тех, кто считает каждую тысячу.',
+ '<b>Флагман:</b> наставничество «Фокусник на заказ», около 90 000 ₽. Итого запуск 8-9 недель.'
+];
+
+TOOLS.push({id:'reminders',g:'warm',n:'Система напоминаний о событии',s:'Цепочка напоминаний до и во время эфира по всем каналам: бот, канал, почта, звонок. Доходимость решается здесь.',how:['За 2 дня: что будет и отзывы с прошлого раза','За день: что будет и ссылка на канал события','За 2-3 часа, за 10 минут и «мы начали» со ссылкой','После события удали лишние напоминания из основного канала'],pro:'Самый дешёвый способ поднять доходимость в разы.',con:'Перебор превращает канал в доску объявлений, охваты падают.',load:0,cost:0,f:[['time','none',2,'Иначе забудет.'],['time','frag',1,'Напоминание ловит её между делами.'],['dig','lo',1,'Ссылка «мы начали» избавляет от поиска входа.']],combo:['closedch','webinar','razbor'],kw:'напоминания доходимость дожим до эфира'});
+CAS.reminders=[CAS.strat[0]];
+TOOLS.forEach(t=>{if(t.id==='reminders'){t.m=[];t.cases=CAS.reminders}; t.combo=(t.combo||[]).map(x=>x==='diag'?'strat':x)});
+
+</script>
+<script>
+/* ===== утилиты ===== */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const fmt=n=>Math.round(n).toLocaleString('ru-RU');
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const BYID=Object.fromEntries(TOOLS.map(t=>[t.id,t]));
+const AX=Object.fromEntries(AXES.map(a=>[a.k,a]));
+const axVal=(k,v)=>{const a=AX[k];const x=a&&a.v.find(z=>z[0]===v);return x?x[1]:v};
+const KEY='zapusk_tools_stasya_v2';
+const DEF={lv:{},prof:{},opened:[],quiz:{i:0,ans:[]},cons:{price:100000,picks:{},why:{}},pol:{step:0,pick:{},prof:{},whys:{}}};
+let S;try{S=Object.assign(JSON.parse(JSON.stringify(DEF)),JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){S=JSON.parse(JSON.stringify(DEF))}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+/* тост и конфетти */
+let tT;function toast(t){const el=$('#toast');el.innerHTML=t;el.classList.add('show');clearTimeout(tT);tT=setTimeout(()=>el.classList.remove('show'),2600)}
+const cv=$('#cf'),cx=cv.getContext('2d');let parts=[],raf=null;
+function rs(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio}addEventListener('resize',rs);rs();
+function confetti(x,y,n=110){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;const cols=['#C8FF00','#7C3AED','#E8E8F2','#B2E600','#5B21B6'],d=devicePixelRatio;x=(x??innerWidth/2)*d;y=(y??innerHeight/2)*d;for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,v=(4+Math.random()*9)*d;parts.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-6*d,r:(3+Math.random()*5)*d,c:cols[i%5],rot:Math.random()*6,vr:(Math.random()-.5)*.4,l:1})}if(!raf)loop()}
+function loop(){cx.clearRect(0,0,cv.width,cv.height);parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.35*devicePixelRatio;p.vx*=.985;p.rot+=p.vr;p.l-=.011;cx.save();cx.globalAlpha=Math.max(p.l,0);cx.translate(p.x,p.y);cx.rotate(p.rot);cx.fillStyle=p.c;cx.fillRect(-p.r,-p.r/2,p.r*2,p.r);cx.restore()});parts=parts.filter(p=>p.l>0&&p.y<cv.height+50);if(parts.length)raf=requestAnimationFrame(loop);else{raf=null;cx.clearRect(0,0,cv.width,cv.height)}}
+
+/* уровни */
+const LV={base:'База изучена',quiz:'Проверка сдана',build:'Запуск собран',pol:'Практика сдана'};
+function level(k){if(S.lv[k])return;S.lv[k]=1;save();renderXP();toast('★ Уровень: '+LV[k]);confetti(innerWidth/2,innerHeight*.35,150)}
+function renderXP(){const n=Object.keys(S.lv).length;$('#xpn').textContent=n;$('#xpc').style.strokeDashoffset=94.25*(1-n/4);$$('#tabs a').forEach(a=>a.classList.toggle('done',!!S.lv[a.dataset.lv]))}
+
+/* ===== подходящесть ===== */
+function fitOf(t,prof){prof=prof||S.prof;let s=0,hits=[];(t.f||[]).forEach(r=>{if(prof[r[0]]===r[1]){s+=r[2];hits.push(r)}});return{s,hits}}
+const hasProf=p=>Object.keys(p||S.prof).filter(k=>(p||S.prof)[k]).length>0;
+function fitLabel(s){return s>=3?['f2','отлично']:s>=1?['f1','подходит']:s===0?['f0','нейтрально']:s>=-2?['fm','осторожно']:['fn','мимо']}
+
+/* ===== hero ===== */
+(function(){
+  $('#stT').textContent=TOOLS.length;$('#stC').textContent=TOOLS.reduce((n,t)=>n+(t.cases||[]).length,0);
+  const mq=$('#marq'),rows=[[],[],[]];TOOLS.forEach((t,i)=>rows[i%3].push(t));
+  mq.innerHTML=rows.map((r,ri)=>{const h=r.map((t,i)=>`<button class="${(i+ri)%5===0?'g':(i+ri)%3===0?'v':''}" data-id="${t.id}">${t.n}</button>`).join('');return `<div class="mrow ${ri===1?'r':''}" style="--d:${70+ri*15}s">${h}${h}</div>`}).join('');
+  mq.querySelectorAll('button').forEach(b=>b.onclick=()=>openTool(b.dataset.id));
+  const h=$('.hero');h.addEventListener('mousemove',e=>{const b=h.getBoundingClientRect();h.style.setProperty('--mx',(e.clientX-b.left)+'px');h.style.setProperty('--my',(e.clientY-b.top)+'px')});
+})();
+
+/* ===== портрет ===== */
+function renderSide(){
+  $('#presets').innerHTML=Object.entries(PRESETS).map(([k,p])=>`<button class="chip v ${S.presetOn===k?'on':''}" data-p="${k}">${p.n}</button>`).join('');
+  $('#axes').innerHTML=AXES.map(a=>`<div class="axis" data-k="${a.k}"><div class="an">${a.n}<button title="Как определить">i</button></div><div class="ah">${a.h}</div><div class="vals">${a.v.map(([v,n])=>`<button class="chip ${S.prof[a.k]===v?'on':''}" data-v="${v}">${n}</button>`).join('')}</div></div>`).join('');
+  $$('#presets .chip').forEach(b=>b.onclick=()=>{const k=b.dataset.p;if(S.presetOn===k){S.presetOn=null;S.prof={}}else{S.presetOn=k;S.prof=Object.assign({},PRESETS[k].p)}save();renderAll();toast(S.presetOn?'Портрет: '+PRESETS[k].n:'Портрет сброшен')});
+  $$('.axis').forEach(ax=>{const k=ax.dataset.k;ax.querySelector('.an button').onclick=()=>ax.classList.toggle('open');ax.querySelectorAll('.vals .chip').forEach(b=>b.onclick=()=>{S.prof[k]=S.prof[k]===b.dataset.v?undefined:b.dataset.v;if(!S.prof[k])delete S.prof[k];S.presetOn=null;save();renderAll()})});
+  const n=Object.keys(S.prof).length;$('#profCnt').textContent=n?'· '+n+' из 9':'';
+}
+$('#clrProf').onclick=()=>{S.prof={};S.presetOn=null;save();renderAll()};
+$('#openSide').onclick=()=>{$('#side').classList.add('open');$('#closeSide').style.display='inline-flex';document.body.style.overflow='hidden'};
+$('#closeSide').onclick=()=>{$('#side').classList.remove('open');$('#closeSide').style.display='none';document.body.style.overflow=''};
+
+/* ===== база ===== */
+let G='all',Q='';
+function renderTabs(){
+  $('#gtabs').innerHTML=[['all','Все','#E8E8F2'],...Object.entries(GROUPS).map(([k,g])=>[k,g.n,g.c])].map(([k,n,c])=>`<button class="chip ${G===k?'on':''}" data-g="${k}"><i style="background:${c}"></i>${n} <span style="opacity:.6">${k==='all'?TOOLS.length:TOOLS.filter(t=>t.g===k).length}</span></button>`).join('');
+  $$('#gtabs .chip').forEach(b=>b.onclick=()=>{G=b.dataset.g;renderTabs();renderGrid()});
+}
+function norm(s){return s.toLowerCase().replace(/ё/g,'е')}
+function renderGrid(){
+  const prof=hasProf();let list=TOOLS.filter(t=>(G==='all'||t.g===G)&&(!Q||norm(t.n+' '+t.s+' '+(t.kw||'')).includes(norm(Q))));
+  list=list.map(t=>({t,fit:fitOf(t)}));
+  if(prof)list.sort((a,b)=>b.fit.s-a.fit.s);
+  const good=list.filter(x=>x.fit.s>=1).length,bad=list.filter(x=>x.fit.s<0).length;
+  $('#sumLine').innerHTML=prof?`<span>Показано <b>${list.length}</b> · подходят <b>${good}</b> · осторожно и мимо <b style="color:#FF8A8A">${bad}</b></span><span>сортировка по подходящести</span>`:`<span>Показано <b>${list.length}</b> инструментов</span><span>задай портрет ЦА, чтобы увидеть подходящесть</span>`;
+  $('#grid').innerHTML=list.length?list.map(({t,fit},i)=>{const g=GROUPS[t.g],[c,l]=fitLabel(fit.s);return `<button class="tc ${prof&&fit.s<=-3?'neg':''}" data-id="${t.id}" style="animation-delay:${Math.min(i*.02,.4)}s">${prof?`<span class="fit ${c}">${l}</span>`:''}<h4>${t.n}</h4><p>${t.s}</p><div class="row">${(t.cases||[]).length?`<span class="tag hc">кейс</span>`:''}${t.m&&t.m.length?'<span class="tag">цифры</span>':''}<span class="tag">нагрузка ${'●'.repeat(t.load)}${'○'.repeat(3-t.load)}</span></div><div class="gb"><i style="background:${g.c}"></i>${g.n}</div></button>`}).join(''):`<div class="empty">Ничего не нашлось. Попробуй другое слово.</div>`;
+  $$('#grid .tc').forEach(c=>c.onclick=()=>openTool(c.dataset.id));
+}
+$('#q').oninput=e=>{Q=e.target.value.trim();renderGrid()};
+
+function openTool(id){
+  const t=BYID[id];if(!t)return;
+  if(!S.opened.includes(id)){S.opened.push(id);save()}
+  if(S.opened.length>=8&&hasProf())level('base');
+  const g=GROUPS[t.g],fit=fitOf(t),prof=hasProf();
+  const me=new Set(fit.hits.map(r=>r[0]+r[1]));
+  const rules=(t.f||[]).slice().sort((a,b)=>b[2]-a[2]);
+  const rl=r=>`<div class="fl ${r[2]>0?'pos':'neg'} ${me.has(r[0]+r[1])?'me':''}"><span class="k">${r[2]>0?'+':'−'}${Math.abs(r[2])}</span><span><b style="color:var(--white)">${AX[r[0]].n}: ${axVal(r[0],r[1]).toLowerCase()}</b><small>${r[3]}</small></span></div>`;
+  const [fc,flb]=fitLabel(fit.s);
+  $('#mbox').innerHTML=`<button class="mx" onclick="closeM()">×</button><h3>${t.n}</h3>
+  <div class="mmeta"><span style="border-color:${g.c};color:${g.c}">${g.n}</span><span>нагрузка на эксперта <b>${['нет','лёгкая','средняя','тяжёлая'][t.load]}</b></span><span>деньги на запуск <b>${['почти ноль','немного','заметно'][t.cost||0]}</b></span>${prof?`<span class="fit ${fc}" style="position:static">${flb} для твоей ЦА</span>`:''}</div>
+  <p class="msum">${t.s}</p>
+  ${t.how&&t.how.length?`<div class="mh">Как сделать</div><ol class="steps">${t.how.map(h=>`<li><span>${h}</span></li>`).join('')}</ol>`:''}
+  ${t.m&&t.m.length?`<div class="mh">Ориентиры по цифрам</div>${t.m.map(m=>`<div class="metric" style="margin-bottom:6px">${m.t}${m.u?` <a href="${m.u}" target="_blank" rel="noopener">источник ↗</a>`:''}</div>`).join('')}`:''}
+  <div class="mh">Сильное и слабое</div><div class="pc"><div class="p"><b>ПЛЮСЫ</b>${t.pro}</div><div class="c"><b>МИНУСЫ</b>${t.con}</div></div>
+  ${rules.length?`<div class="mh">Кому лучше и кому хуже${prof?' · твоя ЦА подсвечена':''}</div><div class="fitlist">${rules.map(rl).join('')}</div>`:''}
+  ${(t.cases||[]).length?`<div class="mh">Публичные кейсы</div>${t.cases.map(c=>`<div class="case"><h5>${c.who}</h5><p>${c.d}</p>${c.nums&&c.nums.length?`<div class="nums">${c.nums.map(n=>`<span>${n}</span>`).join('')}</div>`:''}${c.u?`<a href="${c.u}" target="_blank" rel="noopener">${c.src||'источник'} ↗</a>`:''}</div>`).join('')}`:''}
+  ${(t.combo||[]).length?`<div class="mh">Хорошо сочетается с</div><div class="combo">${t.combo.filter(x=>BYID[x]).map(x=>`<button class="chip" onclick="openTool('${x}')">${BYID[x].n}</button>`).join('')}</div>`:''}
+  <div class="mfoot"><button class="btn btn-l btn-s" id="toB">Добавить в запуск →</button><button class="btn btn-g btn-s" onclick="closeM()">Закрыть</button></div>`;
+  $('#modal').classList.add('open');$('#mbox').scrollTop=0;
+  $('#toB').onclick=()=>{addPick(t.id);closeM()};
+}
+function closeM(){$('#modal').classList.remove('open')}
+$('#modal').onclick=e=>{if(e.target.id==='modal')closeM()};
+addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+
+/* ===== квиз ===== */
+function renderQuiz(){
+  const Qz=S.quiz,box=$('#quizBox');
+  if(Qz.i>=QUIZ.length){const ok=Qz.ans.filter((a,i)=>a===QUIZ[i].a).length;
+    box.innerHTML=`<div class="qcard qres"><div class="big">${ok}/${QUIZ.length}</div><p>${ok>=9?'Идеально. Можно вести запуски самой.':ok>=7?'Уровень засчитан. Дальше собирай запуск.':'Почти. Открой карточки из разборов и пройди ещё раз.'}</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn btn-g" id="qAgain">Пройти ещё раз</button><a class="btn btn-l" href="#build">К сборке запуска →</a></div></div>`;
+    $('#qAgain').onclick=()=>{S.quiz={i:0,ans:[]};save();renderQuiz()};if(ok>=7)level('quiz');return}
+  const q=QUIZ[Qz.i],ans=Qz.ans[Qz.i];
+  box.innerHTML=`<div class="qhead"><div class="qdots">${QUIZ.map((_,i)=>`<i class="${i===Qz.i?'cur':Qz.ans[i]===undefined?'':Qz.ans[i]===QUIZ[i].a?'ok':'no'}"></i>`).join('')}</div><span class="mono" style="font-size:12px;color:var(--muted)">${Qz.i+1} / ${QUIZ.length}</span></div>
+  <div class="qcard"><div class="qcase">${q.c}</div><h3>${q.q}</h3><div class="opts">${q.o.map((o,i)=>`<button class="opt ${ans!==undefined?(i===q.a?'ok':i===ans?'no':''):''}" data-i="${i}" ${ans!==undefined?'disabled':''}><span class="k">${'ABCD'[i]}</span><span>${o}</span></button>`).join('')}</div>
+  ${ans!==undefined?`<div class="expl">${ans===q.a?'<b style="color:var(--lime)">Верно.</b> ':'<b style="color:var(--red)">Не то.</b> '}${q.e}${q.t?` <button onclick="openTool('${q.t}')">Открыть карточку</button>`:''}</div><div class="qnav"><button class="btn btn-l btn-s" id="qNext">${Qz.i===QUIZ.length-1?'Итог':'Следующий'} →</button></div>`:''}</div>`;
+  $$('.opt:not([disabled])').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;Qz.ans[Qz.i]=i;save();if(i===q.a){const r=b.getBoundingClientRect();confetti(r.left+r.width*.3,r.top,40)}renderQuiz()});
+  const n=$('#qNext');if(n)n.onclick=()=>{Qz.i++;save();renderQuiz()};
+}
+
+/* ===== конструктор ===== */
+const SLOTS=[['in',2],['warm',3],['free',3],['paid',1],['sale',1],['close',2]];
+const PRICES=[[3000,'3 000 ₽'],[30000,'30 000 ₽'],[100000,'100 000 ₽'],[300000,'300 000 ₽']];
+function addPick(id){const t=BYID[id],c=S.cons,arr=c.picks[t.g]||(c.picks[t.g]=[]);const max=SLOTS.find(s=>s[0]===t.g)[1];if(arr.includes(id))return toast('Уже в запуске');if(arr.length>=max)arr.shift();arr.push(id);save();renderCons();toast('В запуск: '+t.n)}
+function profText(p){const k=Object.keys(p).filter(x=>p[x]);return k.length?k.map(x=>axVal(x,p[x]).toLowerCase()).join(' · '):''}
+function renderCons(){
+  const c=S.cons,prof=S.prof;
+  $('#pmode').classList.toggle('show',!!S.pol.consMode);
+  $('#profbox').innerHTML=hasProf()?`<b>Портрет ЦА:</b> ${profText(prof)}. <button onclick="document.getElementById('base').scrollIntoView({behavior:'smooth'})">Изменить</button>`:`<b>Портрет ЦА не задан.</b> Без него тренажёр не проверит, подходят ли инструменты. <button onclick="document.getElementById('base').scrollIntoView({behavior:'smooth'})">Задать в базе</button>`;
+  $('#cPrice').innerHTML=[...PRICES,...(PRICES.some(p=>p[0]===c.price)?[]:[[c.price,fmt(c.price)+' ₽']])].map(([v,n])=>`<button class="chip ${c.price===v?'on':''}" data-p="${v}">${n}</button>`).join('');
+  $('#recipes').innerHTML=Object.entries(RECIPES).map(([k,r])=>`<button class="chip v" data-r="${k}" title="${esc(r.d)}">${r.n}</button>`).join('');
+  $('#slots').innerHTML=SLOTS.map(([g,max])=>{const G=GROUPS[g],arr=c.picks[g]||[];return `<div class="slot ${arr.length?'filled':''}"><div class="sl" style="background:${G.c};color:${G.dark?'#fff':'#08080F'}">${G.n.slice(0,2).toUpperCase()}</div><div><div class="nm">${G.n}<small>до ${max}</small></div><div class="picked">${arr.map(id=>{const t=BYID[id],f=fitOf(t).s;return `<span class="pt"><span class="d" style="background:${!hasProf()?'var(--faint)':f>=1?'var(--lime)':f<0?'var(--red)':'var(--faint)'}"></span>${t.n}<button data-g="${g}" data-id="${id}">×</button></span>`}).join('')}<button class="addb" data-g="${g}">+ добавить</button></div><input class="why-in" data-g="${g}" placeholder="Нахуя человеку это? Одной фразой" value="${esc(c.why[g]||'')}"></div></div>`}).join('');
+  $$('#cPrice .chip').forEach(b=>b.onclick=()=>{c.price=+b.dataset.p;save();renderCons()});
+  $$('#recipes .chip').forEach(b=>b.onclick=()=>{const r=RECIPES[b.dataset.r];c.picks=JSON.parse(JSON.stringify(r.picks));c.price=r.price;save();renderCons();toast(r.n+': '+r.d)});
+  $$('.pt button').forEach(b=>b.onclick=()=>{const g=b.dataset.g;c.picks[g]=(c.picks[g]||[]).filter(x=>x!==b.dataset.id);save();renderCons()});
+  $$('.addb').forEach(b=>b.onclick=()=>openPicker(b.dataset.g));
+  $$('.why-in').forEach(i=>i.oninput=()=>{c.why[i.dataset.g]=i.value;save();evaluate()});
+  evaluate();
+}
+function openPicker(g){
+  const G=GROUPS[g],arr=S.cons.picks[g]||[],prof=hasProf();
+  const list=TOOLS.filter(t=>t.g===g).map(t=>({t,f:fitOf(t).s})).sort((a,b)=>prof?b.f-a.f:0);
+  $('#mbox').innerHTML=`<button class="mx" onclick="closeM()">×</button><h3>${G.n}</h3><p class="msum" style="font-size:15px;color:var(--muted)">${G.s}${prof?' Отсортировано по подходящести твоей ЦА.':''}</p><div class="picker">${list.map(({t,f})=>{const[c,l]=fitLabel(f);return `<button class="pick-it ${arr.includes(t.id)?'in':''}" data-id="${t.id}"><span><b>${t.n}</b><small>${t.s}</small></span>${prof?`<span class="fit ${c}" style="position:static">${l}</span>`:''}</button>`}).join('')}</div>`;
+  $('#modal').classList.add('open');$('#mbox').scrollTop=0;
+  $$('.pick-it').forEach(b=>b.onclick=()=>{addPick(b.dataset.id);closeM()});
+}
+function evaluate(){
+  const c=S.cons,P=c.picks,all=SLOTS.flatMap(([g])=>(P[g]||[]).map(id=>BYID[id])).filter(Boolean);
+  if(!all.length){$('#ringV').textContent='0';$('#ringFg').style.strokeDashoffset=314.16;$('#verdict').textContent='Пусто';$('#vsub').textContent='Добавь инструменты или возьми готовую схему';$('#checks').innerHTML='';$('#tl').innerHTML='';return}
+  const ck=[];let sc=0,mx=0;const add=(st,txt,w)=>{ck.push([st,txt]);mx+=w;sc+=st==='ok'?w:st==='warn'?w*.5:0};
+  const n=g=>(P[g]||[]).length,low=c.price<5000,high=c.price>=50000,prof=S.prof,hp=hasProf();
+  add(n('in')?'ok':'bad',n('in')?'<b>Вход есть:</b> людям есть за чем прийти в базу.':'<b>Нет входа.</b> Откуда возьмутся люди на событиях?',12);
+  const warmNeed=(prof.aw==='cold'||prof.skep==='burnt'||prof.skep==='new')?2:1;
+  add(n('warm')>=warmNeed?'ok':n('warm')?'warn':'bad',n('warm')>=warmNeed?'<b>Прогрев есть.</b>':n('warm')?`<b>Прогрева мало для этой ЦА.</b> ${prof.aw==='cold'?'Холодная аудитория':'Скептики и новички'} требуют хотя бы двух механик.`:'<b>Нет прогрева.</b> Человек придёт на событие, не зная, кто ты.',12);
+  const win=n('free')+n('paid');
+  if(low)add(win?'ok':'warn',win?'<b>Для мини-продукта событий хватает.</b> Можно и проще, автоворонкой.':'<b>Мини-продукт</b> продаётся и без события, но одно не помешает.',14);
+  else add(win>=(high?2:1)?'ok':win?'warn':'bad',win>=(high?2:1)?`<b>Окон продаж: ${win}.</b> ${high?'Для высокого чека нормально.':''}`:win?`<b>Окон продаж: ${win}.</b> Для чека ${fmt(c.price)} ₽ нужно хотя бы два.`:'<b>Нет продающих событий.</b> Без предложения не будет и «да».',14);
+  if(c.price>=25000)add(n('sale')?'ok':'bad',n('sale')?'<b>Личная продажа есть.</b>':`<b>Нет личной продажи.</b> На ${fmt(c.price)} ₽ без разговора покупают редко.`,12);
+  else if(n('sale'))add('warn','<b>Личная продажа на маленький чек</b> съест время команды. Смокинг в обычный ресторан.',5);
+  add(n('close')?'ok':'bad',n('close')?'<b>Дожим есть.</b>':'<b>Нет дожима.</b> Большая часть продаж обычно приходит в последние дни.',12);
+  if(hp){const bad=all.filter(t=>fitOf(t).s<=-2),good=all.filter(t=>fitOf(t).s>=1);
+    add(bad.length?'bad':good.length>=all.length/2?'ok':'warn',bad.length?'<b>Мимо твоей ЦА:</b> '+bad.map(t=>t.n+' ('+fitOf(t).hits.filter(r=>r[2]<0).map(r=>r[3].replace(/\.$/,'').toLowerCase()).slice(0,1).join('')+')').join('; '):good.length>=all.length/2?`<b>${good.length} из ${all.length} инструментов</b> хорошо ложатся на портрет ЦА.`:'<b>Много нейтральных инструментов.</b> Поищи в базе то, что подходит сильнее.',18)}
+  else add('warn','<b>Портрет ЦА не задан</b>, совместимость не проверена.',18);
+  const load=all.reduce((s,t)=>s+t.load,0);
+  add(load>12?'bad':load>9?'warn':'ok',`<b>Нагрузка на эксперта ${load}.</b> `+(load>12?'Эксперт пошлёт. Продюсер держит баланс его выгорания.':load>9?'На пределе, проверь, потянет ли.':'Посильно.'),8);
+  if(all.length>11)add('warn',`<b>Инструментов ${all.length}.</b> Закон убывающей эффективности: аудитория запутается.`,4);
+  const slotsN=SLOTS.filter(([g])=>n(g)).length,whyN=SLOTS.filter(([g])=>n(g)&&(c.why[g]||'').trim().length>=12).length;
+  add(whyN===slotsN?'ok':whyN?'warn':'bad',`<b>Ответ на «нахуя»</b> есть у ${whyN} из ${slotsN} этапов.`,10);
+  const pct=Math.round(sc/mx*100),v=$('#ringV'),from=+v.textContent||0,t0=performance.now();
+  (function f(t){const k=Math.min((t-t0)/700,1);v.textContent=Math.round(from+(pct-from)*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(t0);
+  $('#ringFg').style.strokeDashoffset=314.16*(1-pct/100);$('#ringFg').style.stroke=pct>=70?'#C8FF00':pct>=45?'#FFB547':'#FF4D4D';
+  $('#verdict').textContent=pct>=85?'Огонь':pct>=70?'Рабочий запуск':pct>=45?'Есть дыры':'Не взлетит';
+  $('#vsub').textContent=pct>=70?'Можно нести Мише':'Смотри красные пункты';
+  $('#checks').innerHTML=ck.sort((a,b)=>({bad:0,warn:1,ok:2}[a[0]]-{bad:0,warn:1,ok:2}[b[0]])).map(([s,t],i)=>`<div class="ck ${s}" style="animation-delay:${i*.04}s"><span class="ic">${s==='ok'?'✓':s==='warn'?'!':'✕'}</span><span>${t}</span></div>`).join('');
+  const wB=n('in')?(prof.aw==='hot'?1:2):0,wW=n('warm')?(1+(prof.aw==='cold'?2:prof.aw==='prob'?1:0)+(prof.skep==='burnt'?1:0)):0,wE=Math.max(win,low?0:1),wD=n('close')?1:0,tot=wB+wW+wE+wD;
+  const pr=[['База',wB,'#E8E8F2'],['Прогрев',wW,'#7C3AED'],['События',wE,'#C8FF00'],['Дожим',wD,'#FF4D4D']].filter(p=>p[1]>0);
+  $('#tl').innerHTML=`<span class="lbl">Длина запуска</span><div class="tl-bar">${pr.map(p=>`<div style="flex-grow:${p[1]};background:${p[2]};${p[2]==='#7C3AED'||p[2]==='#FF4D4D'?'color:#fff':''}">${p[0]}</div>`).join('')}</div><div class="tl-leg"><span>${pr.map(p=>p[0].toLowerCase()+' '+p[1]).join(' · ')}</span><b>≈ ${tot} нед.</b></div>`;
+  if(pct>=70&&whyN>=3&&hp)level('build');
+  if(S.pol.consMode){S.pol.consSnap={picks:JSON.parse(JSON.stringify(P)),why:Object.assign({},c.why),score:pct};save()}
+}
+$('#clearC').onclick=()=>{S.cons.picks={};S.cons.why={};save();renderCons()};
+
+/* ===== Полина ===== */
+const POL_REF={aw:['cold'],time:['free','frag'],dig:['hi'],dec:['imp'],money:['tight','mid'],soc:['group'],skep:['new'],fmt:['watch'],mot:['dream']};
+const POL_WHY={aw:'Подписались на фокусы ради развлечения. О том, что фокусы могут быть профессией, большинство не думало.',time:'Аудитория молодая, учёба или работа без 12-часовых смен. Вечера есть, но смотрят в основном с телефона.',dig:'Instagram-аудитория до 30 лет: боты, сторис, оплата по ссылке привычны.',dec:'Фокусы это эмоция и «вау». Покупают на волне впечатления, не по таблице.',money:'Студенты и молодые люди: каждая тысяча на счету, поэтому нужен дешёвый вход и рассрочка на флагман.',soc:'Фокусы показывают людям. Аудитория любит движ, чат, повторять и хвастаться.',skep:'Скорее всего, онлайн-обучение фокусам никогда не покупали. Им надо показать, как это вообще устроено.',fmt:'Фокусы смотрят, а не читают. Видео обязательно.',mot:'Мечта: стать душой компании или зарабатывать любимым делом. Болей тут мало.'};
+const STEPS=[
+ {t:'Кому продаём',q:'У Полины два смысла. Какой берём, чтобы заработать на запуске?',opts:[
+  {h:'Душа компании',pr:'хобби, массово',d:'Научись фокусам и удиви друзей.',m:'mid',f:'<b>Отлично для охватов и лид-магнитов.</b> Но это хобби: много не заплатят. Хорош для входа и трипваера.'},
+  {h:'Фокусы как профессия',pr:'доход, высокий чек',d:'В 20 лет зарабатываю 200 тысяч фокусами.',m:'ok',f:'<b>Здесь деньги.</b> Люди платят за доход, а не за развлечение. Таких среди 7 000 меньшинство, их надо найти и прогреть.'},
+  {h:'Оба сразу, одним продуктом',pr:'для всех',d:'Удиви друзей и зарабатывай 50 тысяч.',m:'no',f:'<b>Каша.</b> Сообщение для всех не цепляет никого. Первый смысл собирает базу, второй продаёт флагман.'}]},
+ {t:'Портрет ЦА',q:'Опиши подписчиков Полины по девяти характеристикам. После выбора сразу видно, как бы поставил Миша и почему.',axes:true},
+ {t:'Лид-магнит',q:'Что Полина отдаёт за кодовое слово под рилзом?',opts:[
+  {h:'Видео: фокус с монеткой за 5 минут',pr:'видео в боте',d:'Повторяешь и вечером показываешь друзьям.',m:'ok',f:'<b>Сильный вход.</b> Быстрый результат, человек видит Полину живьём. Ответ на «нахуя» очевиден.'},
+  {h:'PDF «История фокусов от Гудини»',pr:'PDF',d:'Интересные факты про великих фокусников.',m:'no',f:'<b>Не проходит тест «нахуя».</b> Аудитория смотрит, а не читает, и пользы прямо сейчас нет.'},
+  {h:'Квиз «Какой ты фокусник»',pr:'квиз',d:'Весёлый тест на две минуты.',m:'mid',f:'<b>Соберёт базу, но не прогреет.</b> Весело, но к продукту не ведёт. Можно как второй вход.'},
+  {h:'Видео: как я в 20 лет начала зарабатывать фокусами',pr:'видео в боте',d:'Три первых шага к платным выступлениям.',m:'ok',f:'<b>Сильный вход под смысл «профессия».</b> Отбирает тех, кто хочет зарабатывать.'}]},
+ {t:'Трипваер',q:'Платный вход до 1 000 ₽: узкая популярная боль, решаем за вечер.',opts:[
+  {h:'«5 фокусов без реквизита за вечер»',pr:'300 ₽',d:'Ручки, монетки, ложки: всё, что есть дома.',m:'ok',f:'<b>Вариант Миши.</b> Узко, популярно, результат за вечер. В конце есть время рассказать о флагмане.'},
+  {h:'Курс «Фокусник с нуля», 30 уроков',pr:'990 ₽',d:'Всё обо всём за символические деньги.',m:'no',f:'<b>Обесценивает флагман.</b> Трипваер решает маленькую боль, а не отдаёт всю систему.'},
+  {h:'Практикум «Первое платное выступление»',pr:'490 ₽',d:'Где взять заказ и сколько просить.',m:'ok',f:'<b>Сильно под «профессию».</b> Узкая боль ровно тех, кто потом купит наставничество.'},
+  {h:'Платная консультация с Полиной',pr:'3 000 ₽',d:'Час лично с Полиной.',m:'no',f:'<b>Мимо.</b> Дороже порога, и платная консультация закрывает потребность: человек получил ответ и ушёл.'}]},
+ {t:'Флагман',q:'Что Полина продаёт в конце запуска?',opts:[
+  {h:'Онлайн-курс «Фокусы для вечеринок»',pr:'15 000 ₽',d:'Записанные уроки и чат.',m:'mid',f:'<b>Нормально под «душу компании».</b> Денег меньше, но и запуск проще.',price:15000},
+  {h:'Наставничество «Фокусник на заказ»',pr:'90 000 ₽',d:'3 месяца, номер под ключ, первые выступления за 30-50 тысяч.',m:'ok',f:'<b>Флагман.</b> Продаёт доход. Нужен полный запуск: прогрев, окна продаж, личная продажа, дожим.',price:90000},
+  {h:'Клуб по подписке',pr:'990 ₽ в месяц',d:'Новый фокус каждую неделю.',m:'no',f:'<b>Рано.</b> Подписку без доверия и базы покупателей продать тяжело, удержать ещё тяжелее.',price:990},
+  {h:'Офлайн мастер-класс в Москве',pr:'5 000 ₽',d:'Живой вечер с Полиной.',m:'mid',f:'<b>Можно, но не флагман.</b> Хорош как платное событие, на нём продавать наставничество.',price:5000}]},
+ {t:'Запуск',q:'Собери запуск в конструкторе. Портрет из шага 2 и цена из шага 5 подставятся сами.'},
+ {t:'Цифры',q:'От денег назад к людям. Хватит ли Полине 7 000 подписчиков?'},
+ {t:'Нахуя',q:'Напиши человеку ответ на каждом шаге своего запуска.'},
+ {t:'Сверка',q:'Сравни с вариантом Миши и отправь ответы.'}];
+function renderWiz(){
+  const P=S.pol,st=P.step,s=STEPS[st];
+  $('#wizTop').innerHTML=STEPS.map((x,i)=>`<button class="wstep ${i===st?'cur':i<st?'done':''}" data-i="${i}"><i>${i<st?'✓':i+1}</i>${x.t}</button>`).join('');
+  $$('.wstep').forEach(b=>b.onclick=()=>{P.step=+b.dataset.i;save();renderWiz()});
+  let h=`<h3>${s.t}</h3><p class="q">${s.q}</p>`;
+  if(s.opts){const sel=P.pick[st];h+=`<div class="pick">${s.opts.map((o,i)=>`<button class="pk ${sel===i?'sel-'+o.m:''}" data-i="${i}"><span class="mk">${o.m==='ok'?'✓':o.m==='mid'?'~':'✕'}</span><h5>${o.h}</h5><span class="pr">${o.pr}</span><p>${o.d}</p></button>`).join('')}</div>`;if(sel!==undefined){const o=s.opts[sel];h+=`<div class="fb ${o.m}">${o.f}</div>`}}
+  else if(s.axes){const done=AXES.filter(a=>P.prof[a.k]).length;
+    h+=`<div class="axq">${AXES.map(a=>{const v=P.prof[a.k],ok=v&&POL_REF[a.k].includes(v);return `<div class="row"><b>${a.n}</b><div class="vals">${a.v.map(([x,n])=>`<button class="chip ${v===x?'on':''}" data-k="${a.k}" data-v="${x}">${n}</button>`).join('')}</div>${v?`<div class="res ${ok?'ok':'no'}">${ok?'✓ Совпало с Мишей. ':'Миша поставил бы «'+POL_REF[a.k].map(z=>axVal(a.k,z).toLowerCase()).join('» или «')+'». '}${POL_WHY[a.k]}</div>`:''}</div>`}).join('')}</div>
+    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="btn btn-l btn-s" id="applyProf" ${done<9?'disabled style="opacity:.5"':''}>Применить портрет к базе</button><span class="hint">${done} из 9. После применения база отсортируется под Полину.</span></div>`}
+  else if(st===5){const pr=P.pick[4]!==undefined?STEPS[4].opts[P.pick[4]]:null;
+    h+=`<div class="summ"><div><dt>Портрет</dt><dd>${profText(P.prof)||'не заполнен, вернись на шаг 2'}</dd></div><div><dt>Флагман</dt><dd>${pr?pr.h+' · '+pr.pr:'не выбран, вернись на шаг 5'}</dd></div></div>
+    <div style="margin-top:18px"><button class="btn btn-l" id="toCons">Открыть конструктор →</button></div>${P.consSnap?`<div class="fb ok"><b>Запуск сохранён (${P.consSnap.score} баллов):</b> ${snapText(P.consSnap)}</div>`:''}`}
+  else if(st===6){h+=`<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px"><button class="chip" data-pre="pol">Полина</button><button class="chip" data-pre="big">Если цель 2 млн</button></div><div class="calc"><div class="cin" id="cin"></div><div><div class="funnel" id="funnel"></div><div id="verd"></div></div></div>`}
+  else if(st===7){const W=[['lm','Нахуя забирать лид-магнит?','Что человек получит прямо сейчас, без подписки на годы рассылок'],['tw','Нахуя платить за трипваер?','Что получит за вечер, чего нет бесплатно'],['ev','Нахуя приходить на эфир?','Какую боль решим, подарок, запись'],['call','Нахуя созваниваться?','Что разберём, посчитаем, какие условия']];
+    h+=`<div class="whys">${W.map(([k,l,p])=>`<div><label>${l}</label><textarea data-k="${k}" placeholder="Напиши ответ человеку">${esc(P.whys[k]||'')}</textarea><div class="hint">${p}</div></div>`).join('')}</div>`}
+  else if(st===8){h+=`<div class="summ">${polRows().map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</div>
+    <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-g" id="showRef">Показать вариант Миши</button><button class="btn btn-l pulse" id="copyAns">Скопировать ответы для Миши</button></div>
+    <div class="ref ${P.refShown?'show':''}" id="ref"><h4>Вариант <em>Миши</em></h4><ol>${POL_REF_PLAN.map(x=>`<li><span>${x}</span></li>`).join('')}</ol><p class="note">Это один из рабочих вариантов. Если твой запуск набрал 70+ и у каждого шага есть твёрдый «нахуя», он тоже рабочий.</p></div>`}
+  $('#wizBody').innerHTML=h;
+  $$('.pk').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;P.pick[st]=i;if(st===4)P.price=s.opts[i].price;save();renderWiz();if(s.opts[i].m==='ok'){const r=b.getBoundingClientRect();confetti(r.left+r.width/2,r.top+20,40)}});
+  $$('.axq .chip').forEach(b=>b.onclick=()=>{P.prof[b.dataset.k]=b.dataset.v;save();renderWiz()});
+  const ap=$('#applyProf');if(ap)ap.onclick=()=>{if(AXES.some(a=>!P.prof[a.k]))return;S.prof=Object.assign({},P.prof);S.presetOn=null;save();renderAll();toast('Портрет Полины применён к базе')};
+  const tc=$('#toCons');if(tc)tc.onclick=()=>{S.pol.consMode=true;if(hasProf(P.prof))S.prof=Object.assign({},P.prof);S.cons.price=P.price||90000;S.cons.picks={};S.cons.why={};save();renderAll();document.getElementById('build').scrollIntoView({behavior:'smooth'});toast('Режим «Полина» включён')};
+  if(st===6)renderCalc(P.calcPre||'pol');
+  $$('.whys textarea').forEach(t=>t.oninput=()=>{P.whys[t.dataset.k]=t.value;save()});
+  const sr=$('#showRef');if(sr)sr.onclick=()=>{P.refShown=true;save();$('#ref').classList.add('show')};
+  const ca=$('#copyAns');if(ca)ca.onclick=copyAns;
+  $('#wPrev').style.visibility=st?'visible':'hidden';$('#wNext').style.visibility=st<STEPS.length-1?'visible':'hidden';
+}
+function snapText(sn){return SLOTS.flatMap(([g])=>(sn.picks[g]||[]).map(id=>BYID[id]&&BYID[id].n)).filter(Boolean).join(' → ')}
+function polRows(){const P=S.pol,r=[];[0,2,3,4].forEach(i=>{const s=STEPS[i],p=P.pick[i];r.push([s.t,p!==undefined?s.opts[p].h+' · '+s.opts[p].pr:'не выбрано'])});
+  const hit=AXES.filter(a=>P.prof[a.k]&&POL_REF[a.k].includes(P.prof[a.k])).length;r.splice(1,0,['Портрет ЦА',(profText(P.prof)||'не заполнен')+` (совпало с Мишей ${hit} из 9)`]);
+  r.push(['Запуск',P.consSnap?snapText(P.consSnap)+' ('+P.consSnap.score+' баллов)':'не собран']);return r}
+function copyAns(){const P=S.pol;let t='Практика: Полина-фокусница\n\n';polRows().forEach(([k,v])=>t+=k+': '+v+'\n');
+  const L={lm:'Нахуя лид-магнит',tw:'Нахуя трипваер',ev:'Нахуя эфир',call:'Нахуя созвон'};t+='\n';Object.keys(L).forEach(k=>t+=L[k]+': '+(P.whys[k]||'не заполнено')+'\n');
+  if(P.consSnap&&P.consSnap.why){t+='\nНахуя по этапам запуска:\n';SLOTS.forEach(([g])=>{if(P.consSnap.why[g])t+=GROUPS[g].n+': '+P.consSnap.why[g]+'\n'})}
+  if(P.calcRes)t+='\nЦифры: '+P.calcRes+'\n';t+='\nПроверь себя: '+S.quiz.ans.filter((a,i)=>a===QUIZ[i].a).length+'/'+QUIZ.length;
+  const done=()=>{toast('Скопировано. Отправь Мише в телегу');level('pol')};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done,()=>fb(t,done));else fb(t,done)}
+function fb(t,cb){const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();cb()}
+$('#wPrev').onclick=()=>{S.pol.step=Math.max(0,S.pol.step-1);save();renderWiz();$('#wiz').scrollIntoView({behavior:'smooth'})};
+$('#wNext').onclick=()=>{S.pol.step=Math.min(STEPS.length-1,S.pol.step+1);save();renderWiz();$('#wiz').scrollIntoView({behavior:'smooth'})};
+const PRE={pol:{goal:500000,check:90000,base:7000,b2b:20,b2r:40,show:40,buy:10,label:'Полина'},big:{goal:2000000,check:90000,base:7000,b2b:20,b2r:40,show:40,buy:10,label:'Цель 2 млн'}};
+function renderCalc(pre){const P=S.pol;P.calcPre=pre;if(!P.calc||P.calc.label!==PRE[pre].label){P.calc=Object.assign({},PRE[pre]);if(P.price)P.calc.check=P.price}
+  $$('[data-pre]').forEach(b=>{b.classList.toggle('on',b.dataset.pre===pre);b.onclick=()=>{P.calc=null;renderCalc(b.dataset.pre)}});
+  const F=[['goal','Цель по деньгам, ₽'],['check','Чек флагмана, ₽'],['base','Подписчиков в базе'],['b2b','Из базы в бота, %'],['b2r','Из бота на событие, %'],['show','Доходимость, %'],['buy','Из пришедших купили, %']];
+  $('#cin').innerHTML=F.map(([k,l])=>`<label>${l}<input type="number" step="any" data-k="${k}" value="${P.calc[k]}"></label>`).join('')+'<div class="hint">Проценты условные. Меняй и ищи узкое место.</div>';
+  $$('#cin input').forEach(i=>i.oninput=()=>{P.calc[i.dataset.k]=+i.value||0;save();calcOut()});calcOut()}
+function calcOut(){const c=S.pol.calc,buyers=Math.ceil(c.goal/Math.max(c.check,1)),att=buyers/(c.buy/100||1e-9),reg=att/(c.show/100||1e-9),bot=reg/(c.b2r/100||1e-9),need=bot/(c.b2b/100||1e-9);
+  const rows=[['Нужно базы',need],['Зайти в бота',bot],['Зарегистрироваться',reg],['Прийти на события',att],['Купить',buyers]],mx=Math.max(need,c.base);
+  $('#funnel').innerHTML=rows.map(([l,v],i)=>`<div class="fr ${i===4?'last':''}"><div class="bar" style="width:${Math.max(v/mx*100,4)}%"></div><span>${l}</span><b>${isFinite(v)?fmt(v):'∞'}</b></div>`).join('');
+  const ok=need<=c.base;$('#verd').innerHTML=`<div class="verd ${ok?'ok':'no'}">${ok?`<b>Базы хватает:</b> нужно ${fmt(need)} из ${fmt(c.base)}. Вопрос не в людях, а в доверии.`:`<b>Базы не хватает:</b> нужно ${fmt(need)}, есть ${fmt(c.base)}. Добрать ${fmt(need-c.base)} рилзами, посевами или рекламой, либо поднять конверсии.`}</div>`;
+  S.pol.calcRes=c.label+': '+fmt(c.goal)+' ₽ при чеке '+fmt(c.check)+' → '+buyers+' покупателей, базы нужно '+fmt(need)+' из '+fmt(c.base);save()}
+
+/* ===== общее ===== */
+function renderAll(){renderSide();renderTabs();renderGrid();renderCons();renderWiz()}
+renderAll();renderQuiz();renderXP();
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});$$('.reveal').forEach(el=>io.observe(el));
+const secs=['base','quiz','build','polina'].map(id=>document.getElementById(id));
+addEventListener('scroll',()=>{const h=document.documentElement;$('#prog').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';let cur=null;secs.forEach(s=>{if(s.getBoundingClientRect().top<innerHeight*.4)cur=s.id});$$('#tabs a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur))},{passive:true});
+$('#reset').onclick=()=>{if(confirm('Сбросить весь прогресс?')){try{localStorage.removeItem(KEY)}catch(e){}location.reload()}};
+
+</script>
+</body>
+</html>
