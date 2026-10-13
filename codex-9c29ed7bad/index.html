@@ -207,6 +207,45 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
 .care li span{color:var(--muted-l)}
 .care img{width:100%;display:block;filter:drop-shadow(0 24px 30px rgba(58,10,21,.35));transform:rotate(-3deg)}
 
+
+/* ---------- как просить ---------- */
+.formula{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:40px}
+.formula div{background:var(--powder);color:var(--ink);border-radius:14px;padding:20px 18px;position:relative}
+.formula .mk{position:absolute;top:-16px;right:14px;font-size:44px;color:var(--pink);transform:rotate(-8deg);-webkit-text-stroke:0}
+.formula b{font:900 20px/1 var(--grot);text-transform:uppercase;letter-spacing:-.02em}
+.formula p{margin:8px 0 0;color:var(--muted-l);font-size:15px}
+.builder{margin-top:20px;background:rgba(255,246,241,.06);border:1px solid rgba(255,246,241,.12);border-radius:18px;padding:22px}
+.presets{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.presets .mk{color:var(--pink);font-size:20px;margin-right:4px}
+.presets button{font:700 14px/1 var(--grot);padding:10px 16px;border-radius:999px;border:2px solid rgba(255,246,241,.3);background:none;color:var(--chalk);cursor:pointer}
+.presets button:hover{border-color:var(--pink)}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.fields label span{display:block;font:800 13px/1 var(--grot);text-transform:uppercase;letter-spacing:.04em;color:var(--pink);margin-bottom:8px}
+.fields textarea{width:100%;resize:vertical;background:var(--ink);color:var(--chalk);border:2px solid transparent;border-radius:12px;padding:12px 14px;font:500 16px/1.4 var(--grot);transition:border-color .2s}
+.fields textarea:focus{outline:none;border-color:var(--pink)}
+.fields textarea::placeholder{color:#9C7E83}
+.out{margin-top:14px;display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap}
+.out-text{flex:1 1 320px;background:var(--chalk);color:var(--ink);border-radius:12px;padding:16px 18px;font:500 16px/1.5 var(--grot);min-height:64px;white-space:pre-wrap}
+.out-text.empty{color:var(--muted-l)}
+.tips{margin-top:40px}
+.sub{font:900 clamp(26px,3.4vw,40px)/1 var(--grot);text-transform:uppercase;letter-spacing:-.035em;margin:64px 0 0}
+.models{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.models div{border:2px solid rgba(255,246,241,.18);border-radius:14px;padding:20px}
+.models div.main{border-color:var(--pink);background:rgba(255,157,183,.08)}
+.models b{font:900 20px/1 var(--grot);letter-spacing:-.02em;display:block}
+.models .mk{color:var(--pink);font-size:20px;display:block;margin-top:6px}
+.models p{margin:8px 0 0;color:var(--muted-d);font-size:15.5px}
+.starts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:44px}
+.st{position:relative;background:var(--chalk);border-radius:16px;padding:34px 24px 24px;box-shadow:0 18px 34px -24px rgba(58,10,21,.5)}
+.st>.mk{position:absolute;top:-14px;left:18px;font-size:46px;color:var(--bordo);transform:rotate(-8deg)}
+.st h3{font:900 23px/1.05 var(--grot);letter-spacing:-.025em;text-transform:uppercase;margin:10px 0 14px}
+.st button{width:100%;text-align:left;border:2px dashed var(--bordo);background:none;border-radius:12px;padding:14px 16px 34px;cursor:pointer;color:var(--ink);font:500 16px/1.4 var(--grot);position:relative;transition:background .2s}
+.st button:hover{background:var(--powder)}
+.st button small{position:absolute;left:16px;bottom:12px;font:700 13px/1 var(--grot);color:var(--bordo)}
+.st button.ok{background:var(--pink);border-color:var(--pink)}
+@media (max-width:860px){.formula{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:22px}.models{grid-template-columns:1fr}}
+@media (max-width:520px){.fields{grid-template-columns:1fr}.builder{padding:16px}}
+
 /* ---------- подвал ---------- */
 .foot{padding:56px 16px 64px;background:var(--ink);color:var(--muted-d);font-size:14.5px;position:relative}
 .foot .wrap{display:grid;gap:18px}
@@ -249,7 +288,7 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
 <body>
 
 <nav class="nav" id="nav"><div class="in" id="navIn">
-  <a href="#chto">Что это</a><a href="#podgotovka">Подготовка</a><a href="#papki">Папки</a><a href="#agents">Бриф</a><a href="#montazh">Монтаж</a><a href="#skilly">Скиллы</a><a href="#prezy">Презы и ссылки</a><a href="#urok">Урок</a><a href="#frazy">Фразы</a><a href="#ostorozhno">Осторожно</a>
+  <a href="#chto">Что это</a><a href="#podgotovka">Подготовка</a><a href="#papki">Папки</a><a href="#agents">Бриф</a><a href="#prosit">Как просить</a><a href="#start">Старт</a><a href="#montazh">Монтаж</a><a href="#skilly">Скиллы</a><a href="#prezy">Презы и ссылки</a><a href="#urok">Урок</a><a href="#ostorozhno">Осторожно</a>
 </div><div class="bar" id="bar"></div></nav>
 
 <!-- ============ ПЕРВЫЙ ЭКРАН ============ -->
@@ -300,18 +339,19 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
   <div class="wrap">
     <h2 class="reveal">Подготовка <span class="mk">делаем с Мишей</span></h2>
     <p class="lead reveal">Отмечай галочки, страница их запомнит. Всё это делается <b>до урока</b>, чтобы на уроке только творить.</p>
-    <div class="prog reveal"><div class="track"><div class="fill" id="fill"></div></div><div class="cnt mk" id="cnt">0 из 10</div><button id="reset" type="button">сбросить</button></div>
+    <div class="prog reveal"><div class="track"><div class="fill" id="fill"></div></div><div class="cnt mk" id="cnt">0 из 11</div><button id="reset" type="button">сбросить</button></div>
     <ul class="checks" id="checks">
       <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Тариф Plus, $20 в месяц</span><span class="d">На бесплатном нет публикации. Если на видео будут кончаться лимиты, переходим на Pro от $100.</span></span></label></li>
-      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Проверить, есть ли раздел Sites</span><span class="d">В Великобритании и ЕС он мог появиться позже. Если его нет, публикуем на GitHub, как твой сайт.</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Проверить, есть ли раздел Sites</span><span class="d">В Великобритании он открылся позже остальных стран. Если раздела нет, публикуем на GitHub, как твой сайт.</span></span></label></li>
       <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Mac на M1 или новее, свободно от 50 ГБ</span><span class="d">Расшифровка речи работает только на M-процессорах, а видео быстро съедает место.</span></span></label></li>
       <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Поставить приложение ChatGPT для Mac</span><span class="d">Скачать с сайта OpenAI и войти своим аккаунтом.</span></span></label></li>
-      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Подключить 4 плагина</span><span class="d">AI Producer by OpusClip, HyperFrames, Canva, Google Drive. Вкладка Plugins → поиск → плюс.</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Права: оставить «Default permissions»</span><span class="d">Так Codex работает только внутри твоей папки и спрашивает разрешение на всё остальное. «Full access» и управление всем компьютером не включаем.</span></span></label></li>
       <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Создать папку «Студия Оли»</span><span class="d">В своей домашней папке на компьютере. Не в iCloud и не на Яндекс.Диске.</span></span></label></li>
       <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Сделать её проектом в Codex</span><span class="d">Codex → Projects → новый проект → Add folder → выбрать «Студию Оли» → Make primary.</span></span></label></li>
-      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Положить AGENTS.md и папку «Бренд»</span><span class="d">Текст брифа ниже, его можно скопировать одной кнопкой.</span></span></label></li>
-      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Поставить 5 скиллов</span><span class="d">Миша упакует и поставит, ты прогоняешь каждый на своём файле.</span></span></label></li>
-      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Репетиция</span><span class="d">По одной задаче каждого типа. В первый раз Codex сам ставит программы для видео, это занимает время.</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Положить AGENTS.md и папку «Бренд»</span><span class="d">Текст брифа ниже, копируется одной кнопкой. В «Бренд» положить шрифты, фото и 3–5 любимых макетов в бордо.</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Подключить 3 плагина</span><span class="d">HyperFrames, Canva, Google Drive. Вкладка Plugins → поиск → плюс. Вход своим аккаунтом, никаких ключей.</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Поставить 5 скиллов</span><span class="d">Миша кладёт их в «Студию Оли», ты прогоняешь каждый на своём файле.</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Репетиция</span><span class="d">По одной задаче каждого типа. В первый раз Codex ставит программы для видео и на каждую спрашивает разрешение. Это нормально, разрешаем.</span></span></label></li>
     </ul>
     <div class="mk yay" id="yay">всё готово, ты космос)))</div>
   </div>
@@ -327,6 +367,7 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
       <div class="tree" id="tree">
         <button data-k="root" class="on"><span class="ic" data-ic="dir"></span>Студия Оли</button>
         <button data-k="agents" class="i1"><span class="ic" data-ic="file"></span>AGENTS.md<span class="tag">бриф</span></button>
+        <button data-k="skills" class="i1"><span class="ic" data-ic="dir"></span>.agents/skills<span class="tag">скиллы</span></button>
         <button data-k="brand" class="i1"><span class="ic" data-ic="dir"></span>Бренд</button>
         <button data-k="inbox" class="i1"><span class="ic" data-ic="dir"></span>Входящие</button>
         <button data-k="video" class="i1"><span class="ic" data-ic="dir"></span>Видео</button>
@@ -353,7 +394,7 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
   <svg class="dd deco" data-d="note" data-w="4" style="right:6%;top:70px;width:60px;height:66px;color:var(--bordo)"></svg>
   <div class="wrap">
     <h2 class="reveal">Бриф для Codex <span class="mk">AGENTS.md</span></h2>
-    <p class="lead reveal">Это постоянная память помощника: он читает файл <b>перед каждым твоим сообщением</b>. Копируешь, сохраняешь в корень «Студии Оли» под именем AGENTS.md. Всё, что объясняешь второй раз, дописывай сюда.</p>
+    <p class="lead reveal">Это постоянная память помощника: он читает файл <b>перед каждым твоим сообщением</b>. Копируешь, сохраняешь в корень «Студии Оли» под именем AGENTS.md. Совет OpenAI: <b>держи его коротким</b>, а когда Codex повторяет ошибку, проси его самого дописать сюда правило.</p>
 <div class="code reveal" id="agentsCode"><span class="fn">AGENTS.md</span><button class="copy" data-copy="agentsText" type="button">Скопировать</button><span class="h"># Кто я</span>
 Оля Лондон, наставник репетиторов английского. Продукт «Репетитор-Миллионер».
 Пишу по-русски, на «ты», в женском роде, живым языком.
@@ -370,7 +411,8 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
 - Исходники в папках «исходник» не трогай никогда. Результат клади в «готово».
 - Для серии сначала сделай один пробный, покажи, потом остальные.
 - Видео: вертикаль 1080×1920, субтитры крупно в нижней трети, громкость выровнять.
-- Ничего не публикуй и не удаляй без моего прямого «да».
+- В конце скажи, где лежит результат и как ты его проверил.
+- Ничего не публикуй, не удаляй и не загружай в чужие сервисы без моего прямого «да».
 
 <span class="h"># Куда что класть</span>
 Видео/ · Презентации/ · Таблицы/ · Сайты/
@@ -378,9 +420,74 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
   </div>
 </section>
 
+<!-- ============ КАК ПРОСИТЬ ============ -->
+<section class="sec dark" id="prosit">
+  <svg class="dd deco" data-d="bolt" data-fill="hachure" data-w="4" style="right:7%;top:70px;width:46px;height:70px;color:var(--pink)"></svg>
+  <div class="wrap">
+    <h2 class="reveal">Как просить <span class="mk">формула OpenAI</span></h2>
+    <p class="lead reveal">OpenAI советует собирать запрос из <b style="color:var(--chalk)">четырёх частей</b>. С ними Codex попадает с первого раза, без них угадывает. Собери свой запрос ниже, и он скопируется готовым.</p>
+    <div class="formula reveal">
+      <div><span class="mk">1</span><b>Цель</b><p>Что нужно получить.</p></div>
+      <div><span class="mk">2</span><b>Контекст</b><p>Какие файлы и папки. Файл можно упомянуть через @.</p></div>
+      <div><span class="mk">3</span><b>Ограничения</b><p>Стиль, длина, формат, чего нельзя.</p></div>
+      <div><span class="mk">4</span><b>Готово, когда</b><p>Как понять, что результат готов.</p></div>
+    </div>
+    <div class="builder reveal">
+      <div class="presets"><span class="mk">примеры:</span><button type="button" data-p="0">Рилз</button><button type="button" data-p="1">Презентация</button><button type="button" data-p="2">Таблица</button><button type="button" data-p="3">Расшифровка</button></div>
+      <div class="fields">
+        <label><span>Цель</span><textarea id="b0" rows="2" placeholder="Например: смонтируй рилз из записи"></textarea></label>
+        <label><span>Контекст</span><textarea id="b1" rows="2" placeholder="Например: запись в Видео/2026-10-20 Рилз/исходник"></textarea></label>
+        <label><span>Ограничения</span><textarea id="b2" rows="2" placeholder="Например: до 60 секунд, субтитры в моём стиле"></textarea></label>
+        <label><span>Готово, когда</span><textarea id="b3" rows="2" placeholder="Например: файл в папке готово, ты сказал, как проверил"></textarea></label>
+      </div>
+      <div class="out"><div id="bOut" class="out-text">Заполни поля, и здесь появится готовый запрос.</div><button class="copy" id="bCopy" type="button">Скопировать запрос</button></div>
+    </div>
+
+    <div class="grid g2 tips">
+      <div class="card reveal"><span class="n mk">план</span><h3>Режим плана</h3><p>Нажми <b style="color:var(--chalk)">Shift+Tab</b> или напиши /plan. Codex сначала задаст вопросы и покажет план, а делать начнёт после твоего «да». Для монтажа и презентаций включай всегда.</p></div>
+      <div class="card reveal"><span class="n mk">голос</span><h3>Говори, а не печатай</h3><p>В поле ввода есть диктовка. OpenAI сам советует надиктовывать: так ты быстрее даёшь контекст. Рассказывай, как рассказала бы монтажёру.</p></div>
+      <div class="card reveal"><span class="n mk">правки</span><h3>Правки по выделению</h3><p>Готовые презентации, документы и страницы открываются рядом с чатом. Выдели кусок и попроси исправить именно его.</p></div>
+      <div class="card reveal"><span class="n mk">проверка</span><h3>Смотри сама</h3><p>Codex скажет, где файл и как проверял. Но ролик он рендерит, а не смотрит, поэтому видео <b style="color:var(--chalk)">досматривай на телефоне</b> перед публикацией.</p></div>
+    </div>
+
+    <h3 class="sub reveal">Какую модель выбрать</h3>
+    <div class="models reveal">
+      <div><b>GPT-6 Luna</b><span class="mk">рутина</span><p>Расшифровка, нарезка по готовому плану, таблицы. Самая экономная, лимитов хватает надолго.</p></div>
+      <div class="main"><b>GPT-6.1 Sol</b><span class="mk">по умолчанию</span><p>Монтаж, презентации, всё творческое. Ставь её и не думай.</p></div>
+      <div><b>GPT-6 Astra</b><span class="mk">изредка</span><p>Сложная стратегия, большие запутанные задачи. Самая умная, но на Plus быстро съедает лимит.</p></div>
+    </div>
+
+    <h3 class="sub reveal">Волшебные фразы <span class="mk" style="font-size:.8em;color:var(--pink)">нажми, и скопируется</span></h3>
+    <div class="phrases" id="phrases">
+      <button class="ph reveal" type="button">Сначала покажи план, потом делай.<small>скопировать</small></button>
+      <button class="ph reveal" type="button">Сделай один на пробу.<small>скопировать</small></button>
+      <button class="ph reveal" type="button">Исходник не трогай, результат в готово.<small>скопировать</small></button>
+      <button class="ph reveal" type="button">Объясни простыми словами, что ты сделал.<small>скопировать</small></button>
+      <button class="ph reveal" type="button">Повторил ошибку? Допиши правило в AGENTS.md.<small>скопировать</small></button>
+    </div>
+    <p class="lead reveal" style="margin-top:28px">И главное правило: <b style="color:var(--chalk)">новая задача = новый чат.</b> Один чат на всё подряд путает Codex.</p>
+  </div>
+</section>
+
+<!-- ============ СТАРТ ============ -->
+<section class="sec light" id="start">
+  <svg class="dd deco" data-d="rock" data-w="4" style="right:6%;top:64px;width:58px;height:70px;color:var(--bordo)"></svg>
+  <div class="wrap">
+    <h2 class="reveal">Первые задачи <span class="mk">стартуем)))</span></h2>
+    <p class="lead reveal">Пять готовых запросов по формуле. Подставь свой файл или ссылку и отправляй. Сделаешь все пять, и Codex у тебя в руках.</p>
+    <div class="starts">
+      <div class="st reveal"><span class="mk">1</span><h3>Конспект видео</h3><button type="button" data-st="Цель: скачай субтитры с моего видео и сделай конспект на одну страницу. Контекст: [ссылка на YouTube]. Ограничения: простым языком, главные мысли списком. Готово, когда: текст и конспект лежат во Входящих.">«Скачай субтитры с моего видео [ссылка] и сделай конспект на одну страницу. Сохрани во Входящие.»<small>скопировать</small></button></div>
+      <div class="st reveal"><span class="mk">2</span><h3>Моменты для рилзов</h3><button type="button" data-st="Цель: найди в записи разбора 5 сильных моментов для рилзов. Контекст: запись во Входящих. Ограничения: каждый кусок 30–60 секунд, с готовым хуком в первой фразе. Готово, когда: список с таймкодами и хуками, ничего не монтируй.">«Расшифруй разбор из Входящих и найди 5 моментов для рилзов с таймкодами и хуками. Пока не монтируй.»<small>скопировать</small></button></div>
+      <div class="st reveal"><span class="mk">3</span><h3>Первый рилз</h3><button type="button" data-st="Цель: смонтируй рилз. Контекст: запись в папке Видео/[папка задачи]/исходник. Ограничения: вырежи паузы и оговорки, вертикаль 1080×1920, субтитры в моём стиле из папки Бренд. Сначала сделай первые 15 секунд на пробу. Готово, когда: файл в папке готово, ты сказал, как проверил.">«Смонтируй рилз из исходника: паузы, вертикаль, субтитры в моём стиле. Сначала 15 секунд на пробу.»<small>скопировать</small></button></div>
+      <div class="st reveal"><span class="mk">4</span><h3>Презентация к эфиру</h3><button type="button" data-st="/plan Цель: презентация к эфиру на 10 слайдов. Контекст: мой текст [файл]. Ограничения: стиль из папки Бренд, на слайде одна мысль, крупно. Готово, когда: презентация открывается в просмотре, слайды не наезжают друг на друга.">«/plan Презентация к эфиру на 10 слайдов по моему тексту, стиль из папки Бренд, одна мысль на слайд.»<small>скопировать</small></button></div>
+      <div class="st reveal"><span class="mk">5</span><h3>Таблица учеников</h3><button type="button" data-st="Цель: создай Google-таблицу «Трекер учеников». Контекст: мой Google Drive. Ограничения: колонки Имя, Старт, Тариф, Цель, Прогресс, Следующий созвон; заголовки закреплены. Готово, когда: дай ссылку на таблицу.">«Создай Google-таблицу „Трекер учеников“ с колонками Имя, Старт, Тариф, Цель, Прогресс и дай ссылку.»<small>скопировать</small></button></div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ МОНТАЖ ============ -->
 <section class="sec bordo" id="montazh">
-  <svg class="dd deco" data-d="bolt" data-fill="hachure" data-w="4" style="right:7%;top:70px;width:46px;height:70px;color:var(--pink)"></svg>
+  <svg class="dd deco" data-d="spiral" data-w="4" style="right:7%;top:70px;width:60px;height:60px;color:var(--pink)"></svg>
   <svg class="dd deco" data-d="rock" data-w="4" style="left:3%;bottom:40px;width:62px;height:74px;color:var(--chalk)"></svg>
   <div class="wrap">
     <h2 class="reveal">Монтаж <span class="mk">самое вкусное)))</span></h2>
@@ -392,35 +499,34 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
       <button class="chip" data-f="no" type="button">Не ставим</button>
     </div>
     <div class="tools" id="tools">
-      <article class="tool reveal" data-g="yes"><div class="top"><div><h3>AI Producer by OpusClip</h3><div class="price">входит в лимиты Codex</div></div><span class="verdict v-main">основной</span></div>
-        <p class="sum">Монтаж говорящей головы: паузы, слова-паразиты, субтитры, b-roll, музыка.</p>
-        <div class="more"><div><p>Вырезает паузы и «эээ», делает субтитры по словам, сам подбирает перебивки, добавляет графику, чистит голос, кладёт музыку. Отдаёт MP4 до 1080p в 9:16, 16:9 и 1:1. Платная только AI-стилизация сцен.</p><p><b style="color:var(--chalk)">Почему основной:</b> твои разборы и рилзы с лицом ровно его профиль.</p></div></div>
+      <article class="tool reveal" data-g="yes"><div class="top"><div><h3>Наши скиллы</h3><div class="price">бесплатно, прямо на твоём Mac</div></div><span class="verdict v-main">основа</span></div>
+        <p class="sum">Паузы, оговорки, дубли, рилзы из разбора, ролик на YouTube.</p>
+        <div class="more"><div><p>Три скилла из раздела ниже делают монтаж по расшифровке. Речь распознаёт Whisper, он хорошо понимает русский. Видео не уходит ни в какое облако.</p><p><b style="color:var(--chalk)">Почему основа:</b> бесплатно, по-русски и без лишних сервисов.</p></div></div>
         <button class="tog" type="button">подробнее ↓</button></article>
-      <article class="tool reveal" data-g="yes"><div class="top"><div><h3>HyperFrames</h3><div class="price">бесплатно, от HeyGen</div></div><span class="verdict v-two">второй</span></div>
+      <article class="tool reveal" data-g="yes"><div class="top"><div><h3>HyperFrames</h3><div class="price">бесплатно, официальный плагин</div></div><span class="verdict v-main">оформление</span></div>
         <p class="sum">Субтитры, плашки, выноски и переходы строго в твоём стиле.</p>
-        <div class="more"><div><p>Собирает видео из веб-вёрстки, поэтому графика выходит точно в бордо, с маркерными пометками и твоими шрифтами. Умеет субтитры поверх готового ролика, картинку в картинке, переходы, сведение звука.</p><p>В октябре вышел разбор, где из 16 сырых клипов собрали готовое видео целиком в Codex.</p></div></div>
+        <div class="more"><div><p>Плагин от HeyGen. Собирает графику из веб-вёрстки, поэтому она выходит точно в бордо, с маркерными пометками и твоими шрифтами. Умеет субтитры поверх готового ролика, картинку в картинке, переходы, сведение звука.</p><p>В октябре вышел разбор, где из 16 сырых клипов собрали готовое видео целиком в Codex.</p></div></div>
+        <button class="tog" type="button">подробнее ↓</button></article>
+      <article class="tool reveal" data-g="maybe"><div class="top"><div><h3>AI Producer by OpusClip</h3><div class="price">60 мин бесплатно, дальше от $15</div></div><span class="verdict v-two">тест</span></div>
+        <p class="sum">Монтаж говорящей головы под ключ: паузы, субтитры, перебивки, музыка.</p>
+        <div class="more"><div><p>Мощный, но с оговорками: видео загружается в облако OpusClip, работает за минуты (бесплатные 60 в месяц дают водяной знак), а русский язык у них помечен как ограниченная поддержка.</p><p><b style="color:var(--chalk)">План:</b> прогоняем один твой разбор на бесплатных минутах. Понравится, подключаем.</p></div></div>
         <button class="tog" type="button">подробнее ↓</button></article>
       <article class="tool reveal" data-g="maybe"><div class="top"><div><h3>DaVinci Resolve Studio</h3><div class="price">$295 один раз</div></div><span class="verdict v-opt">по желанию</span></div>
         <p class="sum">Codex собирает таймлайн, ты правишь руками в нормальном монтажном столе.</p>
         <div class="more"><div><p>С сентября 2026 у Resolve официальная связка с Codex. Агент нарезает хайлайты из длинной записи, переводит в вертикаль, выравнивает звук, ставит переходы и рендерит. Включается в меню File → Setup AI Assistants.</p><p>Бесплатная версия Resolve эту связку не получает. Берём, только если через месяц захочется править таймлайн самой.</p></div></div>
         <button class="tog" type="button">подробнее ↓</button></article>
-      <article class="tool reveal" data-g="maybe"><div class="top"><div><h3>Remotion</h3><div class="price">бесплатно для частного лица</div></div><span class="verdict v-opt">запасной</span></div>
-        <p class="sum">Анимированные заставки, графики и титры.</p>
-        <div class="more"><div><p>Плагин Codex для моушн-графики. Почти всё то же закрывает HyperFrames, поэтому держим в запасе.</p></div></div>
-        <button class="tog" type="button">подробнее ↓</button></article>
-      <article class="tool reveal" data-g="maybe"><div class="top"><div><h3>Descript</h3><div class="price">от $16 в месяц</div></div><span class="verdict v-opt">проверить</span></div>
-        <p class="sum">Правка видео через текст расшифровки.</p>
-        <div class="more"><div><p>Есть плагин для ChatGPT, но, по данным OpenAI, он для бизнес-тарифов. Проверим, виден ли он на твоём Plus. Если да, это хорошая замена OpusClip.</p></div></div>
+      <article class="tool reveal" data-g="maybe"><div class="top"><div><h3>Remotion и Descript</h3><div class="price">бесплатно и от $16</div></div><span class="verdict v-opt">запасные</span></div>
+        <p class="sum">Анимированные заставки и правка видео через текст.</p>
+        <div class="more"><div><p>Remotion делает моушн-графику, но почти всё то же закрывает HyperFrames. Плагин Descript, по данным OpenAI, для бизнес-тарифов: проверим, виден ли он на твоём Plus.</p></div></div>
         <button class="tog" type="button">подробнее ↓</button></article>
       <article class="tool reveal" data-g="no"><div class="top"><div><h3>CapCut и Premiere</h3><div class="price">бесплатно и подписка Adobe</div></div><span class="verdict v-no">не подключаем</span></div>
         <p class="sum">Официального подключения к Codex нет ни у того, ни у другого.</p>
-        <div class="more"><div><p>Существуют самодельные подключения, но они ломаются при каждом обновлении CapCut. Как ручной редактор CapCut остаётся с тобой, просто Codex к нему не цепляем. Premiere дорогой и сложный, а всё нужное закрывают варианты выше.</p></div></div>
+        <div class="more"><div><p>Самодельные подключения ломаются при каждом обновлении. Как ручной редактор CapCut остаётся с тобой, просто Codex к нему не цепляем.</p></div></div>
         <button class="tog" type="button">подробнее ↓</button></article>
-
     </div>
     <div class="combo reveal"><div class="tape"></div>
-      <span class="mk">Наш набор: OpusClip + HyperFrames, всё внутри Codex</span>
-      <p>До урока прогоним через OpusClip <b style="color:var(--ink)">один твой настоящий разбор</b> и сравним с работой монтажёра. Если выйдет хуже, длинные видео остаются у монтажёра, а Codex берёт рилзы.</p>
+      <span class="mk">Наш набор: свои скиллы + HyperFrames</span>
+      <p>Бесплатно, по-русски и <b style="color:var(--ink)">без загрузки видео в чужие облака</b>. OpusClip тестируем на одном твоём разборе. Если наш набор где-то не дотянет, длинные видео пока остаются у монтажёра.</p>
     </div>
   </div>
 </section>
@@ -430,7 +536,7 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
   <svg class="dd deco" data-d="sparkle" style="right:8%;top:76px;width:48px;height:48px;color:var(--bordo)"></svg>
   <div class="wrap">
     <h2 class="reveal">Скиллы <span class="mk">наши фишки</span></h2>
-    <p class="lead reveal">Скилл это готовый рецепт для Codex. Миша переносит к тебе пять: они качают субтитры с YouTube, расшифровывают записи и монтируют. Речь распознаётся <b>прямо на твоём Mac</b>: бесплатно, без интернета, час записи за несколько минут. Нажми на фразу, чтобы скопировать.</p>
+    <p class="lead reveal">Скилл это готовый рецепт для Codex. Миша переносит к тебе пять: они качают субтитры с YouTube, расшифровывают записи и монтируют. Речь распознаётся <b>прямо на твоём Mac</b>: бесплатно, без интернета, час записи за несколько минут. Нажми на фразу, чтобы скопировать. Свои скиллы потом сможешь делать сама: напиши <b>$skill-creator</b> и опиши, что повторяется.</p>
     <div class="skills">
       <div class="skill reveal"><code>youtube-transcript</code><h3>Субтитры с YouTube</h3><p>Ссылка → субтитры и чистый текст. Сначала берёт готовые субтитры (секунды), а если их нет, сам распознаёт речь.</p>
         <div class="under"><span>yt-dlp</span><span>whisper</span></div>
@@ -460,13 +566,13 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
       <div class="card reveal"><span class="n mk">презы</span><h3>Три пути</h3>
         <p><b style="color:var(--chalk)">1. Веб-презентация</b> в твоём стиле, публикуешь ссылкой. Самая красивая, открывается на любом телефоне.</p>
         <p style="margin-top:10px"><b style="color:var(--chalk)">2. Canva через плагин.</b> Codex делает дизайн в твоём аккаунте, правишь руками в Canva.</p>
-        <p style="margin-top:10px"><b style="color:var(--chalk)">3. Файл pptx.</b> Перед показом всегда открыть в Keynote.</p></div>
+        <p style="margin-top:10px"><b style="color:var(--chalk)">3. Файл pptx.</b> Codex покажет его прямо рядом с чатом. Перед показом открой в Keynote.</p></div>
       <div class="card reveal"><span class="n mk">таблицы</span><h3>Google Sheets</h3>
         <p>Через плагин Google Drive: ссылка появляется сразу, делиться можно тут же. Выгрузку из GetCourse Codex сам разложит в таблицу.</p>
         <p style="margin-top:10px"><b style="color:var(--chalk)">Формулы проверь на 2–3 строках.</b> ИИ ошибается в таблицах тихо.</p></div>
       <div class="card reveal"><span class="n mk">ссылки</span><h3>Публикация в Sites</h3>
         <p>Скажи «сделай сайт» или напиши @Sites. Дальше два шага: <b style="color:var(--chalk)">сохранить версию</b> (черновик), потом <b style="color:var(--chalk)">опубликовать</b> (боевая ссылка).</p>
-        <p style="margin-top:10px">Доступ: только ты → люди по почте → все по ссылке. Видео на сайт не кладём, встраиваем из Kinescope.</p></div>
+        <p style="margin-top:10px">Доступ: только ты → люди по почте → все по ссылке. <b style="color:var(--chalk)">Кроме «все по ссылке», зрителю нужен аккаунт ChatGPT</b>, поэтому ученикам даём публичную ссылку. Видео встраиваем из Kinescope.</p></div>
     </div>
   </div>
 </section>
@@ -482,22 +588,6 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
   </div>
 </section>
 
-<!-- ============ ФРАЗЫ ============ -->
-<section class="sec dark" id="frazy">
-  <svg class="dd deco" data-d="smile" data-w="4" style="right:7%;top:70px;width:60px;height:60px;color:var(--pink)"></svg>
-  <div class="wrap">
-    <h2 class="reveal">Волшебные <span class="mk">фразы</span></h2>
-    <p class="lead reveal">Пять фраз, которые решают половину проблем. Нажми на стикер, и фраза скопируется. И правило: <b style="color:var(--chalk)">новая задача = новый чат</b>, длинный чат обо всём подряд путает Codex.</p>
-    <div class="phrases" id="phrases">
-      <button class="ph reveal" type="button">Сначала покажи план, потом делай.<small>скопировать</small></button>
-      <button class="ph reveal" type="button">Сделай один на пробу.<small>скопировать</small></button>
-      <button class="ph reveal" type="button">Исходник не трогай, результат в готово.<small>скопировать</small></button>
-      <button class="ph reveal" type="button">Объясни простыми словами, что ты сделал.<small>скопировать</small></button>
-      <button class="ph reveal" type="button">Добавь это правило в AGENTS.md.<small>скопировать</small></button>
-    </div>
-  </div>
-</section>
-
 <!-- ============ ОСТОРОЖНО ============ -->
 <section class="sec light" id="ostorozhno">
   <div class="wrap">
@@ -506,7 +596,8 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
       <ol>
         <li class="reveal"><div><b>Публичная ссылка видна всему интернету.</b><span>Данные учеников, суммы и контакты не выкладываем.</span></div></li>
         <li class="reveal"><div><b>Цифры проверяем перед отправкой.</b><span>В таблицах и презентациях ИИ ошибается тихо.</span></div></li>
-        <li class="reveal"><div><b>Доступ ко всему компьютеру не даём.</b><span>Пусть Codex работает только в «Студии Оли».</span></div></li>
+        <li class="reveal"><div><b>Широкие права не включаем.</b><span>Только «Default permissions»: Codex работает в «Студии Оли». OpenAI сам называет «Full access» частой ошибкой.</span></div></li>
+        <li class="reveal"><div><b>Облачные плагины видят файлы.</b><span>OpusClip, Canva и Google Drive загружают файлы к себе. Личное учеников туда не грузим.</span></div></li>
         <li class="reveal"><div><b>Лимиты на видео.</b><span>Упираешься раз в неделю, значит, пора на Pro.</span></div></li>
         <li class="reveal"><div><b>Всё это новое.</b><span>Кнопки могут переехать. Если что-то не так, пиши Мише.</span></div></li>
       </ol>
@@ -521,21 +612,29 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
     <span class="mk">ну всё, ты готова)))</span>
     <h3>Источники</h3>
     <div class="src">
+      <a href="https://learn.chatgpt.com/guides/best-practices" target="_blank" rel="noopener">Codex Best Practices (OpenAI)</a>
       <a href="https://learn.chatgpt.com/docs/app" target="_blank" rel="noopener">Приложение ChatGPT</a>
+      <a href="https://learn.chatgpt.com/codex/permission-modes.md" target="_blank" rel="noopener">Права доступа</a>
+      <a href="https://learn.chatgpt.com/docs/skills-and-plugins" target="_blank" rel="noopener">Скиллы и плагины</a>
+      <a href="https://learn.chatgpt.com/docs/artifacts-viewer" target="_blank" rel="noopener">Просмотр файлов</a>
+      <a href="https://learn.chatgpt.com/docs/model-selection" target="_blank" rel="noopener">Модели</a>
       <a href="https://learn.chatgpt.com/docs/projects" target="_blank" rel="noopener">Проекты и папки</a>
       <a href="https://learn.chatgpt.com/docs/plugins" target="_blank" rel="noopener">Плагины</a>
       <a href="https://learn.chatgpt.com/docs/pricing" target="_blank" rel="noopener">Тарифы</a>
       <a href="https://learn.chatgpt.com/docs/sites" target="_blank" rel="noopener">Sites</a>
-      <a href="https://developers.openai.com/codex/skills" target="_blank" rel="noopener">Скиллы Codex</a>
+      <a href="https://producer.opus.pro/docs/plugins" target="_blank" rel="noopener">AI Producer: установка</a>
+      <a href="https://www.opus.pro/pricing" target="_blank" rel="noopener">OpusClip: тарифы</a>
+      <a href="https://help.opus.pro/docs/article/video-languages-supported" target="_blank" rel="noopener">OpusClip: языки</a>
+      <a href="https://stacktr.ee/blog/what-is-chatgpt-sites" target="_blank" rel="noopener">Sites: ограничения</a>
       <a href="https://www.opus.pro/blog/can-chatgpt-edit-videos" target="_blank" rel="noopener">OpusClip AI Producer</a>
       <a href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener">HyperFrames</a>
       <a href="https://kevinstratvert.com/2026/10/07/how-to-edit-videos-with-chatgpt-codex/" target="_blank" rel="noopener">Монтаж в Codex: разбор</a>
       <a href="https://ymcinema.com/2026/09/17/davinci-resolve-21-1-mcp-ai-assistants-control-edit/" target="_blank" rel="noopener">Resolve 21.1 и агенты</a>
       <a href="https://www.remotion.dev/docs/ai/codex-plugin" target="_blank" rel="noopener">Remotion для Codex</a>
-      <a href="https://www.canva.com/newsroom/news/deep-research-integration-mcp-server/" target="_blank" rel="noopener">Canva в Codex</a>
+      <a href="https://www.verdent.ai/guides/plugins/codex-canva" target="_blank" rel="noopener">Canva в Codex</a>
       <a href="https://www.usecarly.com/blog/claude-capcut-integration/" target="_blank" rel="noopener">CapCut и агенты</a>
     </div>
-    <div>Собрано 13 октября 2026. Сервисы новые и меняются быстро.</div>
+    <div>Собрано 13 октября 2026 и сверено с официальным гайдом OpenAI по Codex. Сервисы новые и меняются быстро.</div>
   </div>
 </footer>
 
@@ -601,7 +700,7 @@ document.querySelectorAll('[data-say]').forEach(b=>b.addEventListener('click',()
 document.querySelectorAll('.ph').forEach(b=>b.addEventListener('click',()=>{copyText(b.firstChild.textContent.trim(),b);b.querySelector('small').textContent='скопировано ✓';setTimeout(()=>b.querySelector('small').textContent='скопировать',1600)}));
 
 /* ---------- чеклист ---------- */
-const KEY='olya-codex-checks';
+const KEY='olya-codex-checks-v2';
 const items=[...document.querySelectorAll('#checks li')];
 let saved=[];try{saved=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
 items.forEach((li,i)=>{
@@ -622,7 +721,8 @@ document.getElementById('reset').addEventListener('click',()=>{items.forEach(li=
 const TREE={
  root:['Студия Оли','Главная папка проекта. Лежит на компьютере, не в облаке: iCloud и Яндекс.Диск начинают гонять гигабайты видео, и всё тормозит.','одна папка = один проект'],
  agents:['AGENTS.md','Твой постоянный бриф для помощника. Codex читает его перед каждым сообщением. Всё, что объясняешь второй раз, дописывай сюда.','скажи: «добавь это в AGENTS.md»'],
- brand:['Бренд','Шрифты, логотип, фото, удачные макеты в бордо. Codex заглядывает сюда перед любым дизайном, и стиль не надо объяснять заново.','чем больше примеров, тем точнее'],
+ skills:['.agents/skills','Здесь живут скиллы: готовые рецепты для Codex. Папка скрытая, её ставит Миша. Скиллы переезжают вместе со «Студией», если сменишь компьютер.','в Finder скрытые папки показывает Cmd+Shift+.'],
+ brand:['Бренд','Шрифты, фото и 3–5 любимых макетов в бордо. Codex заглядывает сюда перед любым дизайном, и стиль не надо объяснять заново.','чем больше примеров, тем точнее'],
  inbox:['Входящие','Скинула что-то сырое и не знаешь, куда. Записи, голосовые, выгрузки. Codex разберёт и разложит.','сюда же падают расшифровки'],
  video:['Видео','Каждый ролик своя подпапка с датой в начале. Внутри всегда две папки: исходник и готово.','рилзы, разборы, ролики'],
  task:['Папка задачи','Название: дата, тип, тема. Например «2026-10-20 Рилз — ученики». На каждую такую папку открываешь новый чат.','одна задача = один чат'],
@@ -634,7 +734,7 @@ const TREE={
  arch:['Архив','Закончила задачу, перетащила папку сюда. Рабочие папки остаются чистыми.','чисто = быстро']
 };
 const ex=document.getElementById('explain');
-function showTree(k){const t=TREE[k];ex.innerHTML=`<h3>${t[0]}</h3><p>${t[1]}</p><span class="mk">${t[2]}</span>`;document.querySelectorAll('#tree button').forEach(b=>b.classList.toggle('on',b.dataset.k===k))}
+function showTree(k){const t=TREE[k];ex.innerHTML=`<h3 style="overflow-wrap:anywhere">${t[0]}</h3><p>${t[1]}</p><span class="mk">${t[2]}</span>`;document.querySelectorAll('#tree button').forEach(b=>b.classList.toggle('on',b.dataset.k===k))}
 document.querySelectorAll('#tree button').forEach(b=>b.addEventListener('click',()=>showTree(b.dataset.k)));
 showTree('root');
 
@@ -646,17 +746,37 @@ document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
 
 /* ---------- урок ---------- */
 const LES=[
- ['Логика',15,'#FF9DB7','Как думать в Codex','Папка → проект → чат на задачу → просишь результат → проверяешь. Открываем AGENTS.md и читаем вместе: это твой бриф для помощника.','главное: говорить результат, а не шаги'],
- ['Видео',40,'#FFF6F1','Монтаж настоящей записи','Берём твою запись: паузы, вертикаль, субтитры в бордо. Сначала пробный кусок на 15 секунд, правки, потом целиком. Смотрим, где лежит готовое.','самый длинный блок, тут вся магия'],
- ['Преза',25,'#F4E5DE','Презентация в твоём стиле','Твой текст → веб-презентация в бордо с пометками от руки → смотрим во встроенном браузере → правим словами.','текст бери настоящий, к эфиру или вебинару'],
+ ['Логика',15,'#FF9DB7','Как думать в Codex','Папка → проект → чат на задачу. Читаем AGENTS.md. Разбираем формулу запроса, режим плана и диктовку голосом.','главное: говорить результат, а не шаги'],
+ ['Видео',40,'#FFF6F1','Монтаж настоящей записи','Берём твою запись и наши скиллы: паузы, вертикаль, субтитры в бордо. Сначала пробные 15 секунд, правки, потом целиком. Досматриваем на телефоне.','самый длинный блок, тут вся магия'],
+ ['Преза',25,'#F4E5DE','Презентация в твоём стиле','Твой текст → режим плана → веб-презентация в бордо с пометками от руки → смотрим рядом с чатом → правим по выделению.','текст бери настоящий, к эфиру или вебинару'],
  ['Таблица',15,'#EAD6CD','Google Sheets через Codex','Например, трекер учеников или план запуска. Codex создаёт таблицу у тебя в Google Drive и сразу даёт ссылку.','формулы проверяем на 2–3 строках'],
  ['Ссылка',15,'#FFC6D4','Публикация','Презентацию из третьего блока публикуем: сохранить версию → опубликовать для конкретных людей → открыть с телефона.','сначала всегда «по почте», не всем'],
- ['Сама',10,'#FFB3C6','Самостоятельно','Ставишь задачу без подсказок, Миша молчит. Это лучший тест.','ты справишься)))']
+ ['Сама',10,'#FFB3C6','Самостоятельно','Ставишь задачу голосом, по формуле, без подсказок. Миша молчит. Это лучший тест.','ты справишься)))']
 ];
 const tl=document.getElementById('tl'),tli=document.getElementById('tlInfo');
 LES.forEach((l,i)=>{const b=document.createElement('button');b.type='button';b.style.flex=l[1]+' 1 0';b.style.background=l[2];b.innerHTML=`<span>${l[1]} мин</span><div class="lbl">${l[0]}</div>`;b.addEventListener('click',()=>showL(i));tl.appendChild(b)});
 function showL(i){const l=LES[i];tli.innerHTML=`<h3>${l[3]}</h3><p>${l[4]}</p><span class="mk">${l[5]}</span>`;[...tl.children].forEach((b,j)=>b.classList.toggle('on',j===i))}
 showL(0);
+
+
+/* ---------- конструктор запроса ---------- */
+const PRE=[
+ ['Смонтируй рилз из записи','Запись в папке Видео/2026-10-20 Рилз — ученики/исходник','До 60 секунд, вертикаль, вырежи паузы и оговорки, субтитры в моём стиле из папки Бренд. Сначала 15 секунд на пробу','Файл лежит в папке готово, ты сказал, как проверил'],
+ ['Сделай презентацию к вебинару на 12 слайдов','Мой текст в файле Презентации/2026-10-22 Вебинар/текст.docx','Стиль из папки Бренд, на слайде одна мысль, крупные заголовки, без мелкого текста','Презентация открывается в просмотре, ничего не наезжает, в конце слайд с призывом'],
+ ['Собери таблицу продаж за октябрь','Выгрузка из GetCourse во Входящих','Google-таблица, колонки: дата, ученик, тариф, сумма. Итог внизу','Дай ссылку и проверь сумму итога на трёх строках'],
+ ['Расшифруй запись созвона','Файл во Входящих','С пунктуацией и таймкодами, отдельно короткое саммари на 5 пунктов','Текст и саммари лежат во Входящих рядом с записью']
+];
+const BF=[0,1,2,3].map(i=>document.getElementById('b'+i)),bOut=document.getElementById('bOut');
+const LBL=['Цель','Контекст','Ограничения','Готово, когда'];
+function build(){
+  const parts=BF.map((f,i)=>f.value.trim()?LBL[i]+': '+f.value.trim().replace(/\.?$/,'.'):'').filter(Boolean);
+  if(parts.length){bOut.textContent=parts.join('\n');bOut.classList.remove('empty')}else{bOut.textContent='Заполни поля, и здесь появится готовый запрос.';bOut.classList.add('empty')}
+}
+BF.forEach(f=>f.addEventListener('input',build));
+document.querySelectorAll('.presets button').forEach(b=>b.addEventListener('click',()=>{PRE[+b.dataset.p].forEach((v,i)=>BF[i].value=v);build()}));
+document.getElementById('bCopy').addEventListener('click',e=>{if(bOut.classList.contains('empty'))return;copyText(bOut.textContent,e.currentTarget)});
+bOut.classList.add('empty');
+document.querySelectorAll('.st button').forEach(b=>{const s=b.querySelector('small');b.addEventListener('click',()=>{copyText(b.dataset.st,b);s.textContent='скопировано ✓';setTimeout(()=>s.textContent='скопировать',1600)})});
 
 /* ---------- навигация и появление ---------- */
 const nav=document.getElementById('nav'),bar=document.getElementById('bar'),links=[...document.querySelectorAll('#navIn a')];
