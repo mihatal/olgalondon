@@ -346,11 +346,11 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
       <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Mac на M1 или новее, свободно от 50 ГБ</span><span class="d">Расшифровка речи работает только на M-процессорах, а видео быстро съедает место.</span></span></label></li>
       <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Поставить приложение ChatGPT для Mac</span><span class="d">Скачать с сайта OpenAI и войти своим аккаунтом.</span></span></label></li>
       <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Права: оставить «Default permissions»</span><span class="d">Так Codex работает только внутри твоей папки и спрашивает разрешение на всё остальное. «Full access» и управление всем компьютером не включаем.</span></span></label></li>
-      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Создать папку «Студия Оли»</span><span class="d">В своей домашней папке на компьютере. Не в iCloud и не на Яндекс.Диске.</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Распаковать готовую «Студию Оли»</span><span class="d">Миша присылает архив: внутри уже бриф, скиллы, шрифты и примеры макетов. Распаковать в домашнюю папку, не в iCloud и не на Яндекс.Диск.</span></span></label></li>
       <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Сделать её проектом в Codex</span><span class="d">Codex → Projects → новый проект → Add folder → выбрать «Студию Оли» → Make primary.</span></span></label></li>
-      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Положить AGENTS.md и папку «Бренд»</span><span class="d">Текст брифа ниже, копируется одной кнопкой. В «Бренд» положить шрифты, фото и 3–5 любимых макетов в бордо.</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Поставить Homebrew</span><span class="d">Один раз в программе «Терминал», с паролем от Mac. Миша покажет: это единственный шаг руками.</span></span></label></li>
       <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Подключить 3 плагина</span><span class="d">HyperFrames, Canva, Google Drive. Вкладка Plugins → поиск → плюс. Вход своим аккаунтом, никаких ключей.</span></span></label></li>
-      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Поставить 5 скиллов</span><span class="d">Миша кладёт их в «Студию Оли», ты прогоняешь каждый на своём файле.</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Сказать Codex «Установи студию»</span><span class="d">Он сам поставит программы для видео и модель распознавания речи (около 3 ГБ) и в конце покажет «0 требует внимания». На вопросы про интернет отвечаем «разрешить».</span></span></label></li>
       <li><label><input type="checkbox"><span class="box"></span><span><span class="t">Репетиция</span><span class="d">По одной задаче каждого типа. В первый раз Codex ставит программы для видео и на каждую спрашивает разрешение. Это нормально, разрешаем.</span></span></label></li>
     </ul>
     <div class="mk yay" id="yay">всё готово, ты космос)))</div>
@@ -367,7 +367,7 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
       <div class="tree" id="tree">
         <button data-k="root" class="on"><span class="ic" data-ic="dir"></span>Студия Оли</button>
         <button data-k="agents" class="i1"><span class="ic" data-ic="file"></span>AGENTS.md<span class="tag">бриф</span></button>
-        <button data-k="skills" class="i1"><span class="ic" data-ic="dir"></span>.agents/skills<span class="tag">скиллы</span></button>
+        <button data-k="skills" class="i1"><span class="ic" data-ic="dir"></span>.agents<span class="tag">начинка</span></button>
         <button data-k="brand" class="i1"><span class="ic" data-ic="dir"></span>Бренд</button>
         <button data-k="inbox" class="i1"><span class="ic" data-ic="dir"></span>Входящие</button>
         <button data-k="video" class="i1"><span class="ic" data-ic="dir"></span>Видео</button>
@@ -536,18 +536,18 @@ h2 .mk{display:inline-block;font-size:.46em;transform:rotate(-4deg) translateY(-
   <svg class="dd deco" data-d="sparkle" style="right:8%;top:76px;width:48px;height:48px;color:var(--bordo)"></svg>
   <div class="wrap">
     <h2 class="reveal">Скиллы <span class="mk">наши фишки</span></h2>
-    <p class="lead reveal">Скилл это готовый рецепт для Codex. Миша переносит к тебе пять: они качают субтитры с YouTube, расшифровывают записи и монтируют. Речь распознаётся <b>прямо на твоём Mac</b>: бесплатно, без интернета, час записи за несколько минут. Нажми на фразу, чтобы скопировать. Свои скиллы потом сможешь делать сама: напиши <b>$skill-creator</b> и опиши, что повторяется.</p>
+    <p class="lead reveal">Скилл это готовый рецепт для Codex. В твоей «Студии» их шесть, уже внутри: пять рабочих и один установщик. Они качают субтитры с YouTube, расшифровывают записи и монтируют в твоём бордо. Речь распознаётся <b>прямо на твоём Mac</b>: бесплатно, без интернета, час записи за несколько минут. Нажми на фразу, чтобы скопировать. Свои скиллы потом сможешь делать сама: напиши <b>$skill-creator</b> и опиши, что повторяется.</p>
     <div class="skills">
       <div class="skill reveal"><code>youtube-transcript</code><h3>Субтитры с YouTube</h3><p>Ссылка → субтитры и чистый текст. Сначала берёт готовые субтитры (секунды), а если их нет, сам распознаёт речь.</p>
         <div class="under"><span>yt-dlp</span><span>whisper</span></div>
         <div class="say"><button type="button" data-say="Скачай субтитры с этого видео и сохрани текст во Входящие: [ссылка]"><span class="mk">скажи Codex:</span>«Скачай субтитры с этого видео и сохрани текст во Входящие: [ссылка]»</button></div></div>
-      <div class="skill reveal"><code>transcribe</code><h3>Расшифровка файла</h3><p>Любая твоя запись: созвон, голосовое, видео → текст с пунктуацией и таймкодами.</p>
+      <div class="skill reveal"><code>transcribe</code><h3>Расшифровка файла</h3><p>Любая твоя запись: созвон, голосовое, видео → текст с пунктуацией и таймкодами. Три минуты записи за 13 секунд.</p>
         <div class="under"><span>whisper</span><span>локально</span></div>
         <div class="say"><button type="button" data-say="Расшифруй запись из папки Входящие, сделай текст и короткое саммари"><span class="mk">скажи Codex:</span>«Расшифруй запись из папки Входящие, сделай текст и короткое саммари»</button></div></div>
       <div class="skill reveal"><code>video-edit-pipeline</code><h3>Чистовой монтаж</h3><p>Вырезает оговорки, паузы и дубли по расшифровке и собирает чистовик. Бесплатная замена OpusClip прямо на компьютере.</p>
         <div class="under"><span>stable-ts</span><span>ffmpeg</span></div>
         <div class="say"><button type="button" data-say="Вырежи оговорки, паузы и дубли из записи в папке исходник, собери чистовик в готово"><span class="mk">скажи Codex:</span>«Вырежи оговорки, паузы и дубли из записи в папке исходник, собери чистовик в готово»</button></div></div>
-      <div class="skill reveal"><code>reels-workflow</code><h3>Рилзы из разбора</h3><p>Длинный разбор → варианты нарезки → хуки → субтитры → готовые вертикальные рилзы.</p>
+      <div class="skill reveal"><code>reels-workflow</code><h3>Рилзы из разбора</h3><p>Длинный разбор → лучшие моменты → хуки → готовые рилзы в бордо: хук с маркерной волной, слово подсвечивается розовым, призыв от руки. Сначала один образец, потом партия.</p>
         <div class="under"><span>whisper</span><span>ffmpeg</span></div>
         <div class="say"><button type="button" data-say="Нарежь из этого разбора рилзы: сначала предложи 5 кусков с хуками, потом сделаем"><span class="mk">скажи Codex:</span>«Нарежь из этого разбора рилзы: сначала предложи 5 кусков с хуками, потом сделаем»</button></div></div>
       <div class="skill reveal"><code>talking-head-cut</code><h3>Ролик на YouTube</h3><p>Длинный наговор на камеру → ролик: убирает дубли и оговорки, поджимает паузы, ставит слайды под запись.</p>
@@ -721,7 +721,7 @@ document.getElementById('reset').addEventListener('click',()=>{items.forEach(li=
 const TREE={
  root:['Студия Оли','Главная папка проекта. Лежит на компьютере, не в облаке: iCloud и Яндекс.Диск начинают гонять гигабайты видео, и всё тормозит.','одна папка = один проект'],
  agents:['AGENTS.md','Твой постоянный бриф для помощника. Codex читает его перед каждым сообщением. Всё, что объясняешь второй раз, дописывай сюда.','скажи: «добавь это в AGENTS.md»'],
- skills:['.agents/skills','Здесь живут скиллы: готовые рецепты для Codex. Папка скрытая, её ставит Миша. Скиллы переезжают вместе со «Студией», если сменишь компьютер.','в Finder скрытые папки показывает Cmd+Shift+.'],
+ skills:['.agents','Скрытая папка с начинкой: шесть скиллов, программы для видео и модель распознавания речи. Около 3 ГБ после установки. Руками сюда не заходим, всё работает само.','в Finder скрытые папки показывает Cmd+Shift+.'],
  brand:['Бренд','Шрифты, фото и 3–5 любимых макетов в бордо. Codex заглядывает сюда перед любым дизайном, и стиль не надо объяснять заново.','чем больше примеров, тем точнее'],
  inbox:['Входящие','Скинула что-то сырое и не знаешь, куда. Записи, голосовые, выгрузки. Codex разберёт и разложит.','сюда же падают расшифровки'],
  video:['Видео','Каждый ролик своя подпапка с датой в начале. Внутри всегда две папки: исходник и готово.','рилзы, разборы, ролики'],
