@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="yandex" content="noindex, nofollow, noarchive">
+<title>Студия Звёзд: Codex для твоей школы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--g:#4BA776;--g7:#2E7150;--g9:#193F2E;--g1:#EFF6F1;--g2:#D8ECDF;--g3:#AFD8C0;--mint:#84C2A1;--card:#FFFCFB;--band:#F7EEE9;--line:#E4D7CD;--n:#877C72;--ink:#13241B;--txt:#2C382F;--sec:#4C564D;--cream:#F4EFE9}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:#E9E0D9}
+body{background:linear-gradient(180deg,#FFFFFF 0,var(--band) 900px,var(--band) 100%);color:var(--txt);font:400 18px/1.6 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--g7)}
+b{color:var(--ink);font-weight:700}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+header{position:relative;padding:88px 0 76px;border-bottom:1px solid var(--line);overflow:hidden}
+header:after{content:"";position:absolute;right:-300px;top:-220px;width:620px;height:620px;border-radius:50%;border:2px solid var(--g3);opacity:.7}
+header:before{content:"";position:absolute;right:-170px;top:-90px;width:380px;height:380px;border-radius:50%;background:var(--g1)}
+header .wrap{position:relative;z-index:1}
+.tag{display:inline-block;font:500 13px/1 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--g7)}
+h1{font-family:Cormorant,serif;font-weight:600;font-size:clamp(46px,7vw,86px);line-height:1.02;letter-spacing:-.01em;color:var(--ink);margin:22px 0 24px;max-width:860px}
+h1 em,h2 em{font-style:italic;font-weight:500;color:var(--g7);background:linear-gradient(var(--g),var(--g)) no-repeat 0 92%/100% 3px}
+.lead{font-size:clamp(19px,2.1vw,22px);color:var(--sec);max-width:700px}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--g);color:#fff;font-weight:700;font-size:18px;text-decoration:none;padding:19px 30px;border-radius:999px;transition:transform .15s,background .15s;box-shadow:0 10px 30px rgba(75,167,118,.28)}
+.btn:hover{transform:translateY(-2px);background:var(--g7)}
+.btn svg{width:22px;height:22px}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--g3);box-shadow:none}
+.btn.ghost:hover{background:var(--g1)}
+.small{font-size:15px;color:var(--n)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
+.chip{border:1px solid var(--g3);border-radius:999px;padding:8px 16px;font-size:15px;color:var(--g9);background:var(--card)}
+section{padding:84px 0;border-bottom:1px solid var(--line)}
+h2{font-family:Cormorant,serif;font-weight:600;font-size:clamp(36px,4.8vw,58px);line-height:1.05;color:var(--ink);margin-bottom:16px}
+.sub{color:var(--sec);font-size:19px;max-width:680px;margin-bottom:44px}
+.step{display:grid;grid-template-columns:130px 1fr;gap:28px;padding:44px 0;border-top:1px solid var(--line)}
+.step:first-of-type{border-top:0;padding-top:8px}
+.num{width:104px;height:104px;border-radius:50%;border:2px solid var(--g3);background:var(--card);display:grid;place-items:center;font:600 54px/1 Cormorant,serif;color:var(--g)}
+.step:last-of-type .num{background:var(--g);border-color:var(--g);color:#fff}
+.step h3{font-weight:700;font-size:clamp(23px,2.8vw,29px);line-height:1.2;color:var(--ink);margin:6px 0 12px}
+.step p{color:var(--txt);margin-bottom:12px;max-width:720px}
+.step ol{margin:6px 0 14px 22px;max-width:720px}.step li{margin:6px 0}
+.step li::marker{color:var(--g);font-weight:700}
+.note{display:flex;gap:14px;align-items:flex-start;background:var(--g1);border:1px solid var(--g2);border-radius:16px;padding:16px 18px;margin:16px 0;max-width:760px;font-size:16px;color:var(--g9)}
+.note b{color:var(--g7)}
+.note .ico{flex:none;width:28px;height:28px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:18px}
+.os{border:1px solid var(--line);border-radius:20px;padding:24px;background:var(--card)}
+.os h4{font-weight:700;font-size:20px;margin-bottom:10px;display:flex;gap:10px;align-items:center;color:var(--ink)}
+.os h4 span{font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.06em;color:var(--g7);background:var(--g1);border:1px solid var(--g2);padding:6px 9px;border-radius:999px}
+.os p,.os li{font-size:16px}
+.shot{margin-top:16px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:0 18px 48px rgba(60,40,20,.12)}
+.shot .bar{height:30px;background:#F1ECE6;border-bottom:1px solid var(--line);display:flex;gap:7px;align-items:center;padding:0 12px}
+.shot .bar i{width:11px;height:11px;border-radius:50%}
+.shot .bar i:nth-child(1){background:#ff5f57}.shot .bar i:nth-child(2){background:#febc2e}.shot .bar i:nth-child(3){background:#28c840}
+.shot .bar b{font:500 12px/1 'JetBrains Mono',monospace;color:var(--n);margin-left:10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.shot img{display:block;width:100%;height:auto}
+code{font:500 15px/1.5 'JetBrains Mono',monospace;background:#fff;border:1px solid var(--line);border-radius:8px;padding:2px 7px;color:var(--ink);word-break:normal;overflow-wrap:anywhere}
+.cmd{display:flex;gap:10px;align-items:center;margin-top:10px}
+.cmd code{flex:1;padding:10px 12px}.nw{white-space:nowrap}
+.copy{flex:none;background:var(--g);color:#fff;border:0;border-radius:10px;font:700 14px Manrope;padding:11px 14px;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.card{border:1px solid var(--line);border-radius:22px;background:var(--card);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 30px rgba(60,40,20,.06)}
+.card .pic{background:var(--g1);aspect-ratio:16/10;overflow:hidden;display:grid;place-items:center;border-bottom:1px solid var(--line)}
+.card .pic img{width:100%;height:100%;object-fit:cover;object-position:top}
+.card .pic.contain img{object-fit:contain;padding:14px}
+.card .body{padding:22px 22px 24px}
+.card h4{font-weight:700;font-size:21px;margin-bottom:8px;color:var(--ink)}
+.card .say{font-family:Cormorant,serif;font-style:italic;font-weight:500;font-size:21px;line-height:1.3;color:var(--ink);border-left:3px solid var(--g);padding-left:14px;margin-top:12px}
+.list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.mini{border:1px solid var(--line);border-radius:16px;padding:18px;font-size:16px;background:var(--card)}
+.mini b{display:block;font-size:17px;margin-bottom:6px;color:var(--g7)}
+.formula{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:12px 0 30px}
+.formula div{width:170px;height:170px;border-radius:50%;border:2px solid var(--g3);background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:700;color:var(--ink);font-size:18px;line-height:1.2;padding:12px}
+.formula div span{font:600 44px/1 Cormorant,serif;color:var(--g);margin-bottom:4px}
+.formula div:last-child{background:var(--g);border-color:var(--g);color:#fff}.formula div:last-child span{color:#fff}
+.formula i{font-style:normal;color:var(--g);font:500 26px 'JetBrains Mono',monospace}
+.prompt{background:#fff;border:1px solid var(--line);border-left:4px solid var(--g);border-radius:14px;padding:20px 22px;margin:14px 0;font-size:18px;color:var(--ink)}
+.prompt:before{content:"Ты пишешь";display:block;font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--g7);margin-bottom:10px}
+.help{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+h3.q{font-family:Cormorant,serif;font-weight:600;font-size:34px;color:var(--ink);margin:48px 0 10px}
+footer{padding:48px 0 64px;color:var(--n);font:500 13px/1.6 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase}
+@media (max-width:760px){
+ body{font-size:17px}header{padding:56px 0 48px}section{padding:56px 0}
+ header:after,header:before{opacity:.35}
+ .step{grid-template-columns:1fr;gap:12px;padding:36px 0}.num{width:76px;height:76px;font-size:40px}
+ .two,.grid,.help,.list{grid-template-columns:1fr}
+ .formula{flex-wrap:wrap;justify-content:center}.formula i{display:none}.formula div{width:142px;height:142px;font-size:16px}
+ .btn{width:100%;justify-content:center}
+}
+</style></head>
+<body>
+<header>
+ 
+ <div class="wrap">
+  <span class="tag">Группа Звёзд · ноябрь 2026</span>
+  <h1>Codex для <em>твоей школы</em> за 5 шагов</h1>
+  <p class="lead">Ставим на компьютер помощника, который сам делает сайт школы, домашки, презентации, карусели и монтаж. И всё в стиле твоей школы.</p>
+  <div class="cta">
+   <a class="btn" href="studiya-zvezd.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16"/></svg>Скачать Студию</a>
+   <a class="btn ghost" href="#steps">Смотреть шаги</a>
+  </div>
+  <p class="small" style="margin-top:14px">Архив на 140 КБ, для Mac и Windows</p>
+  <div class="chips"><span class="chip">Сайт школы</span><span class="chip">Домашки и тренажёры</span><span class="chip">Презентации</span><span class="chip">Карусели</span><span class="chip">Рилзы из записи</span><span class="chip">Минусовки</span><span class="chip">Расшифровка уроков</span></div>
+ </div>
+</header>
+
+<section id="steps"><div class="wrap">
+ <h2>Пять шагов <em>до первой задачи</em></h2>
+ <p class="sub">Займёт около получаса. Большую часть времени Codex ставит всё сам, а ты отвечаешь на его вопросы.</p>
+
+ <div class="step"><div class="num">1</div><div>
+  <h3>Аккаунт ChatGPT</h3>
+  <p><b>Есть аккаунт:</b> отлично, переходи ко второму шагу.</p>
+  <p><b>Нет аккаунта:</b> напиши Стасе. Она создаст аккаунт и подключит тариф, с номерами и оплатой разбираться не нужно.</p>
+  <div class="note"><span class="ico">$</span><div>Попробовать Codex можно бесплатно. Для регулярной работы и монтажа нужен тариф <b>Plus за 20 $ в месяц</b>.</div></div>
+ </div></div>
+
+ <div class="step"><div class="num">2</div><div>
+  <h3>Установи приложение ChatGPT</h3>
+  <p>Codex живёт внутри приложения ChatGPT для компьютера. Выбери свою систему.</p>
+  <div class="two">
+   <div class="os"><h4>Mac <span>M1 и новее</span></h4>
+    <ol><li>Открой <a href="https://learn.chatgpt.com/docs/app" target="_blank" rel="noopener">learn.chatgpt.com/docs/app</a></li><li>Нажми «Download for macOS (Apple Silicon)»</li><li>Открой скачанный файл и перетащи ChatGPT в «Программы»</li></ol>
+    <div class="shot"><div class="bar"><i></i><i></i><i></i><b>learn.chatgpt.com/docs/app</b></div><img src="img/mac.jpg" alt="Страница загрузки ChatGPT для Mac"></div>
+    <p class="small" style="margin-top:12px">Какой у тебя Mac: меню Apple → «Об этом Mac». Нужна строка «Чип Apple M…».</p>
+   </div>
+   <div class="os"><h4>Windows <span>10 и 11</span></h4>
+    <ol><li>Открой Microsoft Store и найди <b>ChatGPT</b> от OpenAI</li><li>Нажми «Получить» и дождись установки</li></ol>
+    <div class="shot"><div class="bar"><i></i><i></i><i></i><b>apps.microsoft.com</b></div><img src="img/windows.jpg" alt="ChatGPT в Microsoft Store"></div>
+    <p class="small" style="margin-top:12px">Или одной командой в PowerShell:</p>
+    <div class="cmd"><code id="w">winget install <span class="nw">--id 9PLM9XGG6VKS</span> <span class="nw">-s msstore</span></code><button class="copy" data-copy="w">Копировать</button></div>
+   </div>
+  </div>
+ </div></div>
+
+ <div class="step"><div class="num">3</div><div>
+  <h3>Войди и выбери Codex</h3>
+  <p>Открой приложение и войди своим аккаунтом ChatGPT. Слева переключись в режим <b>Codex</b>: это режим, в котором ИИ работает с файлами на твоём компьютере.</p>
+  <div class="shot"><div class="bar"><i></i><i></i><i></i><b>ChatGPT · режим Codex</b></div><img src="img/app.jpg" alt="Приложение ChatGPT в режиме Codex"></div>
+ </div></div>
+
+ <div class="step"><div class="num">4</div><div>
+  <h3>Скачай Студию и открой её как проект</h3>
+  <ol><li><a href="studiya-zvezd.zip" download>Скачай архив Студии</a> и распакуй его в «Документы»</li><li>В Codex добавь новый проект и выбери папку <b>«Студия»</b></li><li>Когда Codex спросит разрешение работать в папке, разреши</li></ol>
+  <div class="note"><span class="ico">i</span><div>Внутри уже лежат все навыки: сайт, домашки, презентации, карусели, монтаж, минусовки. <b>Ничего настраивать не нужно.</b></div></div>
+ </div></div>
+
+ <div class="step"><div class="num">5</div><div>
+  <h3>Напиши «Привет» и познакомься</h3>
+  <p>Codex сам предложит знакомство минут на 15. Спросит про школу и учеников, покажет готовые стили, возьмёт твой логотип, цвета и шрифты. После этого всё, что он делает, выходит в стиле твоей школы.</p>
+  <div class="shot"><div class="bar"><i></i><i></i><i></i><b>Студия · готовые стили</b></div><img src="img/stili.jpg" alt="Готовые стили школы на выбор"></div>
+  <div class="note"><span class="ico">⏱</span><div>В первый раз Codex ещё поставит нужные программы. Это 5–10 минут, он скажет, что делает. Просто нажимай «Разрешить».</div></div>
+ </div></div>
+</div></section>
+
+<section><div class="wrap">
+ <h2>Что Студия <em>уже умеет</em></h2>
+ <p class="sub">Это сделано в Студии за несколько минут. Под каждой картинкой фраза, которой можно попросить то же самое.</p>
+ <div class="grid">
+  <div class="card"><div class="pic contain"><img src="img/domashka.jpg" alt="Домашка с карточками"></div><div class="body"><h4>Домашка по ссылке</h4><p>Карточки с картинками и озвучкой, ребёнок занимается с телефона.</p><div class="say">«Сделай домашку на 8 слов по теме еда для детей 7 лет, с картинками и озвучкой»</div></div></div>
+  <div class="card"><div class="pic"><img src="img/site.jpg" alt="Сайт школы"></div><div class="body"><h4>Сайт школы</h4><p>Направления, педагоги, цены и запись в Telegram. Публикуется по ссылке.</p><div class="say">«Сделай сайт школы: направления, педагоги, цены, запись в Telegram. Сначала покажи структуру»</div></div></div>
+  <div class="card"><div class="pic contain"><img src="img/karusel.jpg" alt="Карусель"></div><div class="body"><h4>Карусель для соцсетей</h4><p>Готовые картинки для Instagram и Telegram из поста или идеи.</p><div class="say">«Сделай карусель на 6 слайдов из этого поста для мам школьников. Сначала покажи текст»</div></div></div>
+  <div class="card"><div class="pic contain"><img src="img/preza.jpg" alt="Презентация"></div><div class="body"><h4>Презентация</h4><p>Файл для PowerPoint и Keynote, который можно править дальше.</p><div class="say">«Сделай презентацию к открытому уроку на 10 слайдов. Сначала план»</div></div></div>
+ </div>
+ <div class="list">
+  <div class="mini"><b>Рилзы из записи</b>«Найди в записи урока 5 моментов для рилзов, сделай субтитры»</div>
+  <div class="mini"><b>Минусовка</b>«Убери голос из этой песни и опусти на тон»</div>
+  <div class="mini"><b>Расшифровка</b>«Расшифруй запись урока и сделай конспект для ученика»</div>
+ </div>
+</div></section>
+
+<section><div class="wrap">
+ <h2>Как просить, <em>чтобы получилось</em></h2>
+ <p class="sub">Codex не читает мысли. Чем понятнее задача, тем меньше переделок.</p>
+ <div class="formula"><div><span>1</span>Что сделать</div><i>→</i><div><span>2</span>Из чего</div><i>→</i><div><span>3</span>Для кого</div><i>→</i><div><span>4</span>Как проверить</div></div>
+ <div class="prompt">Возьми запись урока из папки «Входящие». Найди 5 моментов для рилзов по 30–40 секунд, сделай субтитры. Сначала покажи список моментов.</div>
+ <p>Добавляй <b>«сначала покажи»</b>: так ты правишь план, а не готовую работу.</p>
+ <h3 class="q">Не знаешь, можно ли так? Спроси</h3>
+ <div class="prompt">Найди в интернете лучшие практики на ноябрь 2026, как делать домашки по английскому для детей 7 лет. Сравни варианты, выбери один для моей школы и объясни почему.</div>
+</div></section>
+
+<section><div class="wrap">
+ <h2>Если <em>застряла</em></h2>
+ <div class="help" style="margin-top:24px">
+  <div class="os"><h4>Напиши Codex</h4><p>«Что-то не работает, проверь установку». Он сам найдёт, чего не хватает, и поставит.</p></div>
+  <div class="os"><h4>Напиши Стасе</h4><p>Аккаунт, оплата, вход в приложение. Пришли скриншот экрана, так быстрее.</p></div>
+ </div>
+</div></section>
+
+<footer><div class="wrap">Студия Звёзд · гайд для участниц Группы Звёзд Ольги Лондон · ноябрь 2026</div></footer>
+<script>
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{const t=document.getElementById(b.dataset.copy).innerText;navigator.clipboard.writeText(t).then(()=>{b.textContent='Готово';setTimeout(()=>b.textContent='Копировать',1500)})});
+</script>
+</body></html>
